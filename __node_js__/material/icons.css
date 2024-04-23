@@ -1,0 +1,7 @@
+/* For a full list of icons, refer to https://fonts.google.com/icons?selected=Material+Symbols+Rounded:expand_content:FILL@0;wght@400;GRAD@0;opsz@24 */
+
+@import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0");
+
+:root{
+    --md-icon-font: 'Material Symbols Rounded';
+}

@@ -1,0 +1,74 @@
+/* Refer to https://github.com/material-components/material-web/blob/6f354ac85c52a490b32edfbc05a2a70eb5c9402b/docs/theming/shape.md */
+
+:root {
+    /*--md-sys-shape-corner-small: 4px;
+    --md-sys-shape-corner-medium: 6px;
+    --md-sys-shape-corner-large: 8px;*/
+}
+
+/* Refer to https://m3.material.io/styles/color/roles */
+
+:root {
+    background-color: var(--md-sys-color-surface-container);
+    color: var(--md-sys-color-on-background);
+    font-family: var(--md-ref-typeface-plain);
+}
+
+/* Usage in custom components */
+.primary {
+    background: var(--md-sys-color-primary);
+    color: var(--md-sys-color-on-primary);
+}
+
+
+
+/* Style scrollbars */
+*::-webkit-scrollbar {
+    width: 17px;
+}
+
+*::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+    background: var(--md-sys-color-surface-container-highest);
+    border-radius: 8px;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+    background: var(--md-sys-color-secondary-container);
+}
+
+
+/* Text selection */
+
+.dark ::-moz-selection,
+.dark-medium-contrast ::-moz-selection,
+.dark-high-contrast ::-moz-selection {
+    /* Code for Firefox */
+    color: var(--md-sys-color-secondary-fixed-dim);
+    background: var(--md-sys-color-on-secondary-fixed-variant);
+}
+
+.dark ::selection,
+.dark-medium-contrast ::selection,
+.dark-high-contrast ::selection {
+    color: var(--md-sys-color-secondary-fixed-dim);
+    background: var(--md-sys-color-on-secondary-fixed-variant);
+}
+
+.light ::-moz-selection,
+.light-medium-contrast ::-moz-selection,
+.light-high-contrast ::-moz-selection {
+    /* Code for Firefox */
+    color: var(--md-sys-color-on-secondary-container);
+    background: var(--md-sys-color-secondary-fixed-dim);
+}
+
+.light ::selection,
+.light-medium-contrast ::selection,
+.light-high-contrast ::selection {
+    color: var(--md-sys-color-on-secondary-container);
+    background: var(--md-sys-color-secondary-fixed-dim);
+}

@@ -1,0 +1,20 @@
+/* loading activity style */
+
+.load {
+    background: linear-gradient(to bottom, var(--md-sys-color-outline-variant), transparent);
+    z-index: 900;
+    opacity: 0.1;
+    /* add grain effect */
+}
+.global-loading-bar {
+    position: fixed;
+    z-index: 901;
+    top: 0px;
+    left: 0px;
+    width: 100vw;
+}
+
+.content.dim {
+    user-select: none;
+    opacity: 0.3;
+}

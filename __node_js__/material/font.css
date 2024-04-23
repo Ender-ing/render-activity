@@ -1,0 +1,27 @@
+/* Refer to https://github.com/material-components/material-web/blob/6f354ac85c52a490b32edfbc05a2a70eb5c9402b/docs/theming/typography.md */
+
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Noto+Sans+Hebrew:wght@100..900&family=Noto+Sans+Arabic:wght@100..900&display=swap');
+
+@font-face {
+    font-family: 'SansFallback';
+    src: local('Noto Sans'),
+         local('Arial'), 
+         local('Helvetica'),  
+         local('sans-serif');
+}
+
+:root {
+    /* Need to rethink the used fonts later (they are way too big in size) */
+    --md-ref-typeface-brand: 'Noto Sans', 'SansFallback';
+    --md-ref-typeface-plain: 'Noto Sans', 'SansFallback';
+}
+
+:root[lang=he] {
+    --md-ref-typeface-brand: 'Noto Sans Hebrew', 'SansFallback';
+    --md-ref-typeface-plain: 'Noto Sans Hebrew', 'SansFallback';
+}
+
+:root[lang=ar] {
+    --md-ref-typeface-brand: 'Noto Sans Arabic', 'SansFallback';
+    --md-ref-typeface-plain: 'Noto Sans Arabic', 'SansFallback';
+}

@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en" class="placeholder-scheme">
+
+<head>
+    <script>
+        // Manage the components list
+        // (This code needs to be placed here to ensure that no errors will occure when libraries are loaded)
+        window.componentsList = {};
+        window.componentsClassList = {};
+        window.addComponentToList = function(name, tag, ...args){
+            window.componentsList[name] = tag;
+            window.componentsClassList[name] = args;
+        };
+    </script>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- theme and icons -->
+    <meta name="theme-color" content="#3f5f90" />
+    <link rel="shortcut icon" type="image/ico" href="/brand/favicon.ico" />
+
+    <!-- Preconnect to font servers -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <!-- Preload resources (current page resources) -->
+    <link rel="preload" href="https://resources.ender.ing/web/client/@material/x-launch-activity.js" as="script" />
+    <link rel="preload" href="/brand/launch-logo.svg" as="image" />
+    <link rel="preload" href="https://resources.ender.ing/web/client/@material/quick.js" as="script" />
+    <link rel="preload" href="https://resources.ender.ing/web/client/material/colors.css" as="style" />
+    <link rel="preload" href="https://resources.ender.ing/web/client/material/theme.css" as="style" />
+    <link rel="preload" href="https://resources.ender.ing/web/client/material/load.css" as="style" />
+    <link rel="preload" href="https://resources.ender.ing/web/client/material/font.css" as="style" />
+    <link rel="preload" href="https://resources.ender.ing/web/client/material/icons.css" as="style" />
+    <link rel="preload" href="https://resources.ender.ing/web/client/material/layouts.css" as="style" />
+    <link rel="preload" href="https://resources.ender.ing/web/client/material/colors.js" as="script" />
+    <link rel="preload" href="https://resources.ender.ing/web/client/@material/x-load-activity.js" as="script" />
+
+    <!-- Prefetch resources (expected resources) -->
+    <!-- <link rel="prefetch" href="..." /> -->
+
+    <script src="https://resources.ender.ing/web/client/@material/x-launch-activity.js"></script>
+    <script>
+        // The number of expected resources to load on this page
+        document.documentElement.initialResourceCount = 9;
+
+        // Define tracking-related variables
+        var STYLESHEET = 0;
+        var JAVASCRIPT = 1;
+        var resourceLoaded = document.documentElement.resourceLoaded;
+    </script>
+
+    <!-- Imporant CSS for first-print -->
+    <style>
+        .placeholder-scheme {
+            --md-sys-color-primary: rgb(63 95 144);
+            --md-sys-color-surface-container: rgb(237 237 244);
+            --md-sys-color-on-background: rgb(25 28 32);
+            --md-sys-color-outline-variant: rgb(196 198 207);
+        }
+
+        .placeholder-scheme {
+            background-color: var(--md-sys-color-surface-container);
+            color: var(--md-sys-color-on-background);
+            font-family: var(--md-ref-typeface-plain);
+        }
+
+        .launch, .load {
+            position: fixed;
+            padding: 0px;
+            margin: 0px;
+            width: 100%;
+            height: 100%;
+            top: 0px;
+            left: 0px;
+        }
+
+        .launch {
+            z-index: 1000;
+            background-color: var(--md-sys-color-surface-container);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-flow: column;
+            --launch-logo-size: clamp(50px, calc(100vmin - 2 * var(--launch-logo-margin)), 220px);
+            --launch-logo-margin: 90px;
+        }
+
+        .content {
+            z-index: 500;
+        }
+
+        .logo {
+            width: var(--launch-logo-size);
+            height: var(--launch-logo-size);
+            aspect-ratio: 1 / 1;
+            border: solid none 0px;
+            margin: var(--launch-logo-margin);
+        }
+
+        .launch-loading-bar {
+            position: absolute;
+            margin-top: calc(var(--launch-logo-size) + var(--launch-logo-margin) * 3);
+        }
+
+        .hidden-text, .hidden-icon {
+            display: block;
+            position: absolute;
+            user-select: none;
+            top: 0px;
+            left: 0px;
+            color: var(--md-sys-color-surface-container);
+            font-size: 1px;
+            font-display: block;
+        }
+        .hidden-text {
+            font-family: 'Noto Sans';
+        }
+        .hidden-text.arabic {
+            font-family: 'Noto Sans Arabic';
+        }
+        .hidden-text.hebrew {
+            font-family: 'Noto Sans Hebrew';
+        }
+
+        .hidden-icon {
+            font-family: 'Material Symbols Rounded';
+            font-variation-settings:
+                'FILL' 0,
+                'wght' 400,
+                'GRAD' 0,
+                'opsz' 24
+        }
+
+        .dialogs-container{
+            position: absolute;
+            z-index: 600;
+        }
+    </style>
+
+    <script src="https://resources.ender.ing/web/client/@material/quick.js" async onload="resourceLoaded(JAVASCRIPT, this);"></script>
+
+    <!-- Load inital stylesheets -->
+    <link rel="stylesheet" href="https://resources.ender.ing/web/client/material/colors.css" media="print" onload="resourceLoaded(STYLESHEET, this); document.documentElement.colors = true;" />
+    <link rel="stylesheet" href="https://resources.ender.ing/web/client/material/theme.css" media="print" onload="resourceLoaded(STYLESHEET, this);" />
+    <link rel="stylesheet" href="https://resources.ender.ing/web/client/material/load.css" media="print" onload="resourceLoaded(STYLESHEET, this);" />
+    <link rel="stylesheet" href="https://resources.ender.ing/web/client/material/icons.css" media="print" onload="resourceLoaded(STYLESHEET, this);" />
+    <link rel="stylesheet" href="https://resources.ender.ing/web/client/material/font.css" media="print" onload="resourceLoaded(STYLESHEET, this);" />
+    <link rel="stylesheet" href="https://resources.ender.ing/web/client/material/layouts.css" media="print" onload="resourceLoaded(STYLESHEET, this);" />
+
+    <title>Ender.ing</title>
+</head>
+
+<body>
+
+    <div id="launch-activity" class="launch">
+
+        <!-- Show a message when JavaScript is disabled -->
+        <noscript style="position: fixed; margin-top: calc(var(--launch-logo-size) + var(--launch-logo-margin) * 3); color: var(--md-sys-color-primary); font-size: 20px; font-family: arial;">Oops, it seems you can't use our service on this device!</noscript>
+
+        <!-- The logo and loading bar! -->
+        <img class="logo" src="/brand/launch-logo.svg" />
+        <md-circular-progress class="launch-loading-bar" indeterminate></md-circular-progress>
+
+        <!-- Never remove these, they are used to detect the status of fonts before showing the page content! -->
+        <h1 class="hidden-text">Webpage Loading...</h1>
+        <h1 class="hidden-text hebrew">דף אינטרנט טוען...</h1>
+        <h1 class="hidden-text arabic">جارٍ تحميل صفحة الويب...</h1>
+        <h1 class="hidden-icon">javascript</h1>
+        
+    </div>
+
+    <!-- Page loading cover -->
+    <md-linear-progress id="load-activity-bar" class="global-loading-bar" indeterminate style="display: none;"></md-linear-progress>
+    <div id="load-activity" class="load" style="display: none;"></div>
+
+    <!-- All page content should be placed within this element -->
+    <div id="content-activity" class="content" style="display: none;">
+        <div id="root"></div>
+    </div>
+
+    <!-- All default page dialogs -->
+    <div id="dialogs-activity" class="dialogs-container">
+        <md-dialog id="network-connection-error" type="alert">
+            <div slot="headline" locale-content="{{$network.error.title}}"></div>
+            <form slot="content" id="network-connection-error-form" method="dialog" locale-content="{{$network.error.files}}"></form>
+            <div slot="actions">
+                <md-text-button form="network-connection-error-form" value="reload" locale-content="{{$redirect.reload}}" onclick="window.location.reload();"></md-text-button>
+            </div>
+        </md-dialog>
+        <md-dialog id="content-files-error" type="alert">
+            <div slot="headline" locale-content="{{$content.not_available.title}}"></div>
+            <form slot="content" id="content-files-error-form" method="dialog" locale-content="{{$content.not_available.message}}"></form>
+            <div slot="actions">
+                <md-text-button form="content-files-error-form" value="back" locale-content="{{$redirect.back}}" onclick="window.history.go(-1);"></md-text-button>
+                <md-text-button form="content-files-error-form" value="reload" locale-content="{{$redirect.reload}}" onclick="window.location.reload();"></md-text-button>
+            </div>
+        </md-dialog>
+    </div>
+
+    <!-- Start launch activity -->
+    <script>
+        document.documentElement.startLaunchActivity();
+    </script>
+
+    <script src="https://resources.ender.ing/web/client/material/colors.js" async onload="resourceLoaded(JAVASCRIPT, this);"></script>
+    <script src="https://resources.ender.ing/web/client/@material/x-load-activity.js"></script>
+    <script src="https://resources.ender.ing/web/client/@material/general.js"></script>
+    <script src="https://resources.ender.ing/web/client/@material/x-layouts.js"></script>
+    <script src="/src/index.jsx" type="module"></script>
+</body>
+
+</html>

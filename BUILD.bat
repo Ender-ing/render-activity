@@ -8,6 +8,6 @@ CMD "Running Backup" /C "build-global-index.bat"
 CMD "Running Backup" /C "build-material-imports.bat"
 
 :: Compress all custom material code (material)
-:: Make sure to install uglify-js command before using: npm install uglify-js -g
+:: Make sure to install terser command before using: npm install terser -g
 :: Make sure to install clean-css-cli command before using: npm install clean-css-cli -g
 CMD "Running Backup" /C "compress-custom-material.bat"

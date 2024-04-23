@@ -35,24 +35,22 @@ pushd %inputDir%
 for %%f in (*) do (
     echo Handling %%f
 
-    :: Check file extension
-    for %%i in ("%%f") do set "extension=%%~xi"
+    :: Extract the file extension
+    for %%i in (%%f) do set "extension=%%~xi"
 
+    :: Check if the file is JavaScript or CSS
     if /I "%extension%" == ".js" (
-        echo It's a text file!
         :: Compress JavaScript code
-        CMD "Running Backup" /C "uglifyjs %%f -o %outputDir%\%%f"
+        echo "HAHA %%f -o %outputDir%\%%f"
+        CMD "Running Backup" /C "terser %%f -o %outputDir%\%%f"
     ) else if /I "%extension%" == ".css" (
         :: Minify CSS code
         CMD "Running Backup" /C "cleancss -o %outputDir%\%%f %%f"
     ) else (
         :: Just copy the unknown file
+        :: echo "%extension%"
         copy %%f %outputDir%\%%f
     )
-    :: Additional commands to process each file go here.
-    :: a "CMD" command is used in order to prevent the module from messing with the "pushd" command
-    :: -g lit:https://google.com/
-    CMD "Running Backup" /C "npx rollup -p @rollup/plugin-node-resolve %%f -o %outputDir%\%%f"
 )
 
 :: Return to the original directory

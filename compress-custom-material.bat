@@ -5,8 +5,8 @@
 :: For more info about the bundling process, visit: https://github.com/material-components/material-web/blob/main/docs/quick-start.md#building
 
 :: Specify the directory to search
-set inputDir="F:\development\Ender-ing\resources\.BUILD\__node_js__\material"
-set outputDir="F:\development\Ender-ing\resources\web\client\material"
+set inputDir=F:\development\Ender-ing\resources\.BUILD\__node_js__\material
+set outputDir=F:\development\Ender-ing\resources\web\client\material
 
 :: Attempt to delete the folder (with error handling)
 rmdir /s /q %outputDir%
@@ -35,22 +35,18 @@ pushd %inputDir%
 for %%f in (*) do (
     echo Handling %%f
 
-    :: Extract the file extension
-    for %%i in (%%f) do set "extension=%%~xi"
-
     :: Check if the file is JavaScript or CSS
-    if /I "%extension%" == ".js" (
+    if /I "%%~xf" == ".js" (
         :: Compress JavaScript code
-        echo "HAHA %%f -o %outputDir%\%%f"
-        CMD "Running Backup" /C "terser %%f -o %outputDir%\%%f"
-    ) else if /I "%extension%" == ".css" (
+        CMD "Running Backup" /C "terser --compress --keep-classnames --keep-fnames -p bare_returns -o %outputDir%\%%f %%f"
+    ) else if /I "%%~xf" == ".css" (
         :: Minify CSS code
         CMD "Running Backup" /C "cleancss -o %outputDir%\%%f %%f"
     ) else (
         :: Just copy the unknown file
-        :: echo "%extension%"
         copy %%f %outputDir%\%%f
     )
+    set "extension="
 )
 
 :: Return to the original directory

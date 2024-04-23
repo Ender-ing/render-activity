@@ -5,8 +5,8 @@
 :: For more info about the bundling process, visit: https://github.com/material-components/material-web/blob/main/docs/quick-start.md#building
 
 :: Specify the directory to search
-set inputDir="F:\development\Ender-ing\resources\.BUILD\__node_js__\material-imports"
-set outputDir="F:\development\Ender-ing\resources\web\client\@material"
+set inputDir=F:\development\Ender-ing\resources\.BUILD\__node_js__\material-imports
+set outputDir=F:\development\Ender-ing\resources\web\client\@material
 
 :: Attempt to delete the folder (with error handling)
 rmdir /s /q %outputDir%

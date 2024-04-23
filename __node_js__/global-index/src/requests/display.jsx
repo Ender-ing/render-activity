@@ -45,7 +45,7 @@ function fetchDisplay(url, pathname){
             method: 'GET',
             headers: {
                 // This header must be present to prevent a global HTML page from being served!
-                'X-Display-Request': 1
+                'x-display-request': 1
             }
         }).then(response => {
             if (!response.ok) {

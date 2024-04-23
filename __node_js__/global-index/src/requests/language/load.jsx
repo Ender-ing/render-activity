@@ -25,7 +25,7 @@ export function fetchLocale(url){
         fetch(url, {
             method: 'GET',
             headers: {
-                'X-Locale-Request': 1
+                'x-locale-request': 1
             }
         }).then(response => {
             if (!response.ok) {

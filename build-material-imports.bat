@@ -51,7 +51,8 @@ for %%f in (*) do (
     del %outputDir%\%%f.tmp
 
     :: Remove comments from the code
-    CMD "Running Backup" /C "terser --compress --comments false --keep-classnames --keep-fnames -o %outputDir%\%%f %outputDir%\%%f"
+    :: npm install -g strip-comments
+    CMD "Running Backup" /C "node ../__clean_code__/run.js %outputDir%\%%f"
 )
 
 :: Return to the original directory

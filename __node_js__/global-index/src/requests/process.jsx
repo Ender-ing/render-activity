@@ -26,6 +26,38 @@ function fixJSSource(str) {
     return fixedStr;
 }
 
+// Augment elements
+export function augmentInject(element, originalTag, augmentQueue = null){
+    if(!element.isAugmented){
+        // Process component augments (classes, onMount-like functions)
+        if((window.componentsAugments[originalTag] || []).length > 0){
+            for(let i = 0; i < window.componentsAugments[originalTag].length; i++){
+                if(typeof window.componentsAugments[originalTag][i] == "string"){
+                    // Add class
+                    element.classList.add(window.componentsAugments[originalTag][i]);
+                }else if(typeof window.componentsAugments[originalTag][i] == "function"){
+                    // Define augment function wrapper
+                    let augFunc = function(){
+                        const elm = element;
+                        try{
+                            (window.componentsAugments[originalTag][i])(elm);
+                        }catch(e){
+                            console.error("Component Augment Error", e);
+                        }
+                    };
+                    // Run function
+                    if(augmentQueue != null){
+                        augmentQueue.push();                    
+                    }else{
+                        augFunc();
+                    }
+                }
+            }
+            element.isAugmented = true;
+        }
+    }
+}
+
 // Convert XML Document into HTML string
 function xmlToHTML(xmlDoc){
 
@@ -63,24 +95,7 @@ function xmlToHTML(xmlDoc){
             }
 
             // Process component augments (classes, onMount-like functions)
-            if((window.componentsAugments[origNode] || []).length > 0){
-                for(let i = 0; i < window.componentsAugments[origNode].length; i++){
-                    if(typeof window.componentsAugments[origNode][i] == "string"){
-                        // Add class
-                        element.classList.add(window.componentsAugments[origNode][i]);
-                    }else if(typeof window.componentsAugments[origNode][i] == "function"){
-                        // Run function
-                        augmentFunctionsQueue.push(function(){
-                            const elm = element;
-                            try{
-                                (window.componentsAugments[origNode][i])(elm);
-                            }catch(e){
-                                console.error("Component Augment Error", e);
-                            }
-                        });
-                    }
-                }
-            }
+            augmentInject(element, origNode, augmentFunctionsQueue);
     
             // Children:
             const children = Array.from(node.childNodes).map(processNode);

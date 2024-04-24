@@ -116,3 +116,13 @@ export function setupDisplayUpdates(){
     // Update display content
     updateDisplay();
 } 
+
+// Wait for content to become visible
+// (wait for launch activity and loading activity to disappear)
+export async function awaitVisibility(){
+    if (window.document.documentElement.contentVisible) {
+        return null; // ShadowRoot is ready
+    }
+    await new Promise((resolve) => setTimeout(resolve, window.CHECK_DOM_LOOP_DELAY)); // Check again on next cycle
+    return awaitVisibility();
+}

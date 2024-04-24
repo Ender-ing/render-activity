@@ -20,6 +20,7 @@ let loadActivity = document.getElementById("load-activity"),
 let currentID = null,
     currentGoal = null,
     currentLoaded = 0;
+window.document.documentElement.contentVisible = false;
 
 // Identify new loading sessions
 function setContentResourceGoal(id, needed){
@@ -33,6 +34,7 @@ function setContentResourceGoal(id, needed){
     contentActivityContainer.classList.add("dim");
     contentActivityContainer.setAttribute("tabindex", "-1");
     contentActivityContainer.setAttribute("inert", "-1");
+    window.document.documentElement.contentVisible = false;
 }
 window.document.documentElement.setContentResourceGoal = setContentResourceGoal;
 
@@ -58,6 +60,7 @@ function setContentResourceLoaded(id, loaded){
                 contentActivityContainer.removeAttribute("inert");
                 loadActivity.style.display = "none";
                 loadActivityBar.style.display = "none";
+                window.document.documentElement.contentVisible = true;
             }, 0);
         }
     }

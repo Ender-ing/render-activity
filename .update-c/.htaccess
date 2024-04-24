@@ -1,0 +1,338 @@
+RewriteEngine On
+
+# Set error documents
+ErrorDocument 401 /index.html
+ErrorDocument 402 /index.html
+ErrorDocument 403 /index.html
+ErrorDocument 404 /index.html
+ErrorDocument 500 /index.html
+
+# Force HTTPS/SSL
+RewriteCond %{HTTPS} off 
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# Block requests without "CF-RAY" header (not from cloudflare)
+RewriteCond %{HTTP:CF-RAY} ^$
+RewriteRule ^ - [F,L]
+
+# Redirect www.* requests (remove www. from URL)
+RewriteBase /
+RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
+RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
+
+# Remove "index.html" and "index.php" from URL
+RewriteCond %{HTTP:X-Display-Request} ^$ [OR]
+RewriteCond %{HTTP:X-Display-Request} !^.+$
+RewriteCond %{THE_REQUEST} /index\.display [NC]
+RewriteRule ^(.*)index\.display$ /$1 [R=301,L]
+RewriteCond %{THE_REQUEST} /index\.html [NC]
+RewriteRule ^(.*)index\.html$ /$1 [R=301,L]
+RewriteCond %{THE_REQUEST} /index\.php [NC]
+RewriteRule ^(.*)index\.php$ /$1 [R=301,L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . index.php [L] 
+
+DirectoryIndex index.display index.html index.php
+
+# Prevent directory listings
+Options All -Indexes
+
+# Block access to secret files
+<FilesMatch ".*(@secret|secret@).*">
+    AuthType Basic
+    AuthName "restricted area"
+    AuthUserFile /home/endering/.htpasswd
+    Require valid-user
+</FilesMatch>
+
+# Block access to all files that start with a dot (.) - except for ".error.php" and ".public"
+<FilesMatch "^\.(?!public$|error\.php$).*">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# Serve the content of one html file for all pages!
+RewriteCond %{HTTP:x-display-request} ^$ [OR]
+RewriteCond %{HTTP:x-display-request} !^.+$
+RewriteCond %{REQUEST_URI} \.html$ [OR]
+RewriteCond %{REQUEST_URI} /$
+RewriteRule ^(.*)$ index.html [L] 
+
+# Prevent hotlinking
+RewriteCond %{HTTP_REFERER} !^$ 
+RewriteCond %{HTTP_REFERER} !^https?://(www\.)?ender\.ing/.*$ [NC]
+RewriteCond %{REQUEST_URI} \.(mp4|mov|webm|avi|flv|wmv|mp3|wav|ogg|jpg|jpeg|png|gif|pdf|doc|docx|zip|rar)$ [NC]
+# Allow hotlinking from subdirectories ".well-known" and "@public"
+# (Make sure to place resources meant to be accessed by other websites in a '@public' directory)
+RewriteCond %{REQUEST_URI} !^/\.well-known/ [NC]
+RewriteCond %{REQUEST_URI} !^@public/ [NC]
+# Block hotlinking for heavy files from other domains 
+RewriteRule \.(mp4|mov|webm|avi|flv|wmv|mp3|wav|ogg|jpg|jpeg|png|gif|pdf|doc|docx|zip|rar)$ - [F,NC]
+
+# Set security headers
+<IfModule mod_headers.c>
+    # Remove Powered-By header!
+    Header unset X-Powered-By
+    Header always unset X-Powered-By
+
+    # Allow cross-subdomain custom headers
+    Header add Access-Control-Allow-Headers "x-display-request, x-locale-request"
+
+    # Block iframes
+    Header set X-Frame-Options SAMEORIGIN
+
+    # Set referrer policy
+    Header set Referrer-Policy no-referrer-when-downgrade
+
+    # Set Embedder Policy (experimental)
+    Header set Cross-Origin-Embedder-Policy require-corp
+
+    # Set resource policy
+    Header set Cross-Origin-Resource-Policy same-site
+
+    # Set opener policy
+    # Might need to change this to same-site later (if you needed to communicate between tabs)
+    Header set Cross-Origin-Opener-Policy same-origin
+
+    # Prevent automatic content type detection
+    Header set X-Content-Type-Options "nosniff"
+
+    # Set permissions policy
+    # Do more in-depth research on this policy!
+    # Refer to https://developer.mozilla.org/en-US/docs/Web/HTTP/Permissions_Policy
+    # Remember to update this list as needed!
+    Header set Permissions-Policy " \
+    local-fonts=(self \"https://*.ender.ing\"), \
+    fullscreen=(), \
+    autoplay=(), \
+    fullscreen=(), \
+    identity-credentials-get=(), \
+    publickey-credentials-create=(), \
+    publickey-credentials-get=(), \
+    idle-detection=(), \
+    screen-wake-lock=(), \
+    window-management=(), \
+    web-share=(), \
+    storage-access=(), \
+    xr-spatial-tracking=(), \
+    serial=(), \
+    otp-credentials=(), \
+    payment=(), \
+    microphone=(), \
+    picture-in-picture=(), \
+    midi=(), \
+    bluetooth=(), \
+    display-capture=(), \
+    encrypted-media=(), \
+    gamepad=(), \
+    hid=(), \
+    usb=(), \
+    geolocation=(), \
+    gyroscope=(), \
+    magnetometer=(), \
+    camera=(), \
+    browsing-topics=(), \
+    accelerometer=(), \
+    attribution-reporting=(), \
+    speaker-selection=(), \
+    battery=(), \
+    document-domain=(), \
+    execution-while-not-rendered=(), \
+    execution-while-out-of-viewport=(), \
+    ambient-light-sensor=() \
+    "
+
+    # Set the content-security-policy header
+    # For more info, refer to https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP#browser_compatibility
+    Header set Content-Security-Policy " \
+    default-src 'none'; \
+    base-uri 'none'; \
+    connect-src 'self' https://*.ender.ing https://stats.g.doubleclick.net; \
+    script-src 'self' https://*.ender.ing 'unsafe-inline' 'unsafe-eval' https://*.ender.ing https://stats.g.doubleclick.net; \
+    style-src 'self' https://*.ender.ing 'unsafe-inline' https://fonts.googleapis.com; \
+    object-src 'none'; \
+    font-src https://fonts.googleapis.com https://fonts.gstatic.com; \
+    form-action 'self' https://*.ender.ing; \
+    img-src 'self' https://*.ender.ing data:; \
+    frame-ancestors 'none'; \
+    upgrade-insecure-requests; \
+    "
+
+    # Only allow subdomains and the main domain to acccess files!
+    #SetEnvIf Origin ^(https?://.+\.ender\.ing(?::\d{1,5})?)$   CORS_ALLOW_ORIGIN=$1
+    SetEnvIf Origin ^(https?://.+\.ender\.ing(?::\d{1,5})?|https?://ender\.ing(?::\d{1,5})?)$ CORS_ALLOW_ORIGIN=$1
+    Header append Access-Control-Allow-Origin  %{CORS_ALLOW_ORIGIN}e   env=CORS_ALLOW_ORIGIN
+    Header merge  Vary "Origin"
+</IfModule>
+
+# Security REMINDER
+# Set up authenticated origin pulls for cloudflare:
+# https://developers.cloudflare.com/ssl/origin-configuration/authenticated-origin-pull/
+
+# Enabling Browser Caching
+<IfModule mod_expires.c>
+
+    ExpiresActive on
+    ExpiresDefault                                    "access plus 3 days"
+
+    # DATA
+    ExpiresByType text/html                           "access plus 12 hours"
+    ExpiresByType text/xml                            "access plus 0 seconds"
+    ExpiresByType text/plain                          "access plus 0 seconds"
+    ExpiresByType application/xml                     "access plus 0 seconds"
+    ExpiresByType application/json                    "access plus 0 seconds"
+    ExpiresByType application/ld+json                 "access plus 0 seconds"
+    ExpiresByType application/vnd.geo+json            "access plus 0 seconds"
+    ExpiresByType application/rss+xml                 "access plus 1 hour"
+    ExpiresByType application/atom+xml                "access plus 1 hour"
+    ExpiresByType text/x-component                    "access plus 1 hour"
+
+    # SCRIPTS
+    ExpiresByType text/css                            "access plus 3 days"
+    ExpiresByType text/javascript                     "access plus 3 days"
+    ExpiresByType application/javascript              "access plus 3 days"
+    ExpiresByType application/x-javascript            "access plus 3 days"
+
+    # IMAGES
+    ExpiresByType image/gif                           "access plus 1 week"
+    ExpiresByType image/png                           "access plus 1 week"
+    ExpiresByType image/jpe                           "access plus 1 week"
+    ExpiresByType image/jpg                           "access plus 1 week"
+    ExpiresByType image/jpeg                          "access plus 1 week"
+    ExpiresByType image/jp2                           "access plus 1 week"
+    ExpiresByType image/pipeg                         "access plus 1 week"
+    ExpiresByType image/bmp                           "access plus 1 week"
+    ExpiresByType image/tiff                          "access plus 1 week"
+    ExpiresByType image/svg+xml                       "access plus 1 week"
+    ExpiresByType image/vnd.microsoft.icon            "access plus 1 week"
+
+    # ICONS
+    ExpiresByType image/ico                           "access plus 1 week"
+    ExpiresByType image/icon                          "access plus 1 week"
+    ExpiresByType text/ico                            "access plus 1 week"
+    ExpiresByType image/x-ico                         "access plus 1 week"
+    ExpiresByType image/x-icon                        "access plus 1 week"
+    ExpiresByType application/ico                     "access plus 1 week"
+
+    # AUDIO
+    ExpiresByType audio/ogg                           "access plus 1 month"
+    ExpiresByType audio/basic                         "access plus 1 month"
+    ExpiresByType audio/mid                           "access plus 1 month"
+    ExpiresByType audio/midi                          "access plus 1 month"
+    ExpiresByType audio/mpeg                          "access plus 1 month"
+    ExpiresByType audio/x-aiff                        "access plus 1 month"
+    ExpiresByType audio/x-mpegurl                     "access plus 1 month"
+    ExpiresByType audio/x-pn-realaudio                "access plus 1 month"
+    ExpiresByType audio/x-wav                         "access plus 1 month"
+
+    # VIDEO
+    ExpiresByType video/ogg                           "access plus 1 month"
+    ExpiresByType video/mp4                           "access plus 1 month"
+    ExpiresByType video/webm                          "access plus 1 month"
+    ExpiresByType video/x-msvideo                     "access plus 1 month"
+    ExpiresByType video/mpeg                          "access plus 1 month"
+    ExpiresByType video/quicktime                     "access plus 1 month"
+    ExpiresByType video/x-la-asf                      "access plus 1 month"
+    ExpiresByType video/x-ms-asf                      "access plus 1 month"
+    ExpiresByType x-world/x-vrml                      "access plus 1 month"
+
+    # FONTS
+    ExpiresByType font/truetype                       "access plus 1 month"
+    ExpiresByType font/opentype                       "access plus 1 month"
+    ExpiresByType application/x-font-ttf              "access plus 1 month"
+    ExpiresByType application/x-font-woff             "access plus 1 month"
+    ExpiresByType application/font-woff               "access plus 1 month"
+    ExpiresByType application/font-woff2              "access plus 1 month"
+    ExpiresByType application/vnd.ms-fontobject       "access plus 1 month"
+  
+    # MANIFEST
+    ExpiresByType application/x-web-app-manifest+json "access plus 0 seconds"
+    ExpiresByType text/cache-manifest                 "access plus 0 seconds"
+
+    # OTHERS
+    ExpiresByType application/pdf                     "access plus 1 month"
+    ExpiresByType image/vnd.wap.wbmp                  "access plus 1 month"
+    ExpiresByType application/vnd.wap.wbxml           "access plus 1 month"
+    ExpiresByType application/smil                    "access plus 1 month"
+  
+    # Manage cache headers
+    <IfModule mod_headers.c>
+        # Three days
+        Header append Cache-Control "private, max-age=259200"
+        <FilesMatch "\.(html|htm|display|locale)$">
+            # Half a day
+            Header set Cache-Control "private, max-age=43200, must-revalidate"
+        </FilesMatch>
+        <FilesMatch "\.(pdf)$">
+            # One day
+            Header set Cache-Control "private, max-age=86400"
+        </FilesMatch>
+        <FilesMatch "\.(css)$">
+            # Three days
+            Header set Cache-Control "public, max-age=259200"
+        </FilesMatch>
+        <FilesMatch "\.(js)$">
+            # Three days
+            Header set Cache-Control "private, max-age=259200"
+        </FilesMatch>
+        <FilesMatch "\.(ico|flv|jpg|jpeg|png|gif|swf)$">`
+            # One week
+            Header set Cache-Control "public, max-age=604800"
+        </FilesMatch>
+
+        # Prevent caching of files with "@no-cache" or "no-cache@" in their name/path
+       <FilesMatch ".*(@no-cache|no-cache@).*">
+            # Set headers to disable caching
+            Header set Cache-Control "no-cache, no-store, must-revalidate"
+            Header set Pragma "no-cache"
+            Header set Expires "0"
+        </FilesMatch>
+    </IfModule>
+
+</IfModule>
+
+# Request compression
+# NOT WORKING! MAKE SURE TO FIX THIS!
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html
+    AddOutputFilterByType DEFLATE text/css
+    AddOutputFilterByType DEFLATE text/javascript
+    AddOutputFilterByType DEFLATE text/xml
+    AddOutputFilterByType DEFLATE text/plain
+    AddOutputFilterByType DEFLATE image/x-icon
+    AddOutputFilterByType DEFLATE image/svg+xml
+    AddOutputFilterByType DEFLATE application/rss+xml
+    AddOutputFilterByType DEFLATE application/javascript
+    AddOutputFilterByType DEFLATE application/x-javascript
+    AddOutputFilterByType DEFLATE application/xml
+    AddOutputFilterByType DEFLATE application/xhtml+xml
+    AddOutputFilterByType DEFLATE application/x-font
+    AddOutputFilterByType DEFLATE application/x-font-truetype
+    AddOutputFilterByType DEFLATE application/x-font-ttf
+    AddOutputFilterByType DEFLATE application/x-font-otf
+    AddOutputFilterByType DEFLATE application/x-font-opentype
+    AddOutputFilterByType DEFLATE application/vnd.ms-fontobject
+    AddOutputFilterByType DEFLATE font/ttf
+    AddOutputFilterByType DEFLATE font/otf
+    AddOutputFilterByType DEFLATE font/opentype
+    # For Olders Browsers Which Can't Handle Compression
+    BrowserMatch ^Mozilla/4 gzip-only-text/html
+    BrowserMatch ^Mozilla/4\.0[678] no-gzip
+    BrowserMatch \bMSIE !no-gzip !gzip-only-text/html
+</IfModule>
+<IfModule mod_gzip.c>
+    mod_gzip_on Yes
+    mod_gzip_dechunk Yes
+    mod_gzip_item_include file \.(html?|txt|css|js|display|locale|php|ico|xml|pl)$
+    mod_gzip_item_include mime ^application/x-javascript.*
+    mod_gzip_item_include mime ^text/.*
+    mod_gzip_item_exclude rspheader ^Content-Encoding:.*gzip.*
+    mod_gzip_item_exclude mime ^image/.*
+    mod_gzip_item_include handler ^cgi-script$
+</IfModule>
+<IfModule mod_headers.c>
+    <FilesMatch ".(html|txt|css|js|display|locale|php|ico|xml|pl)$">
+        Header append Vary: Accept-Encoding
+    </FilesMatch>
+</IfModule>

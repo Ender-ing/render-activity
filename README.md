@@ -8,14 +8,24 @@ This directory contains all files and scripts needed to build the raw resources 
 
 Contains all NodeJS modules used to generate raw web resources and relevant files.
 
-### global-index
+### /__node_js__/global-index
 
 Contains all files used to generate the global `index.html` file.
 
 > You may run the `build-global-index.bat` file to build all relevant resources.
 
-### /material-imports
+### /__node_js__/material-imports
 
 Contains all files related to material design web components and imports.
 
 > You may run the `build-material-imports.bat` file to build all relevant resources. (makes use of [Rollup](https://rollupjs.org/))
+
+### /__node_js__/material
+
+Contains all custom files related to material design
+
+> You may run the `compress-custom-material.bat` file to build all relevant resources.
+
+## /.update-c
+
+Contains code and files used on the server (using `update-c` command) to update shared files between subdomains.

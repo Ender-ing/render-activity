@@ -30,7 +30,8 @@ function fixJSSource(str) {
 function xmlToHTML(xmlDoc){
 
     let scriptsQueue = [],
-        scriptElements = [];
+        scriptElements = [],
+        augmentFunctionsQueue = [];
 
     // Check the type of the node!
     function processNode(node) {
@@ -60,9 +61,24 @@ function xmlToHTML(xmlDoc){
             for (let i = 0; i < node.attributes.length; i++) {
                 element.setAttribute(node.attributes[i].name, node.attributes[i].value);
             }
-            if((window.componentsClassList[origNode] || []).length > 0){
-                for(let i = 0; i < window.componentsClassList[origNode].length; i++){
-                    element.classList.add(window.componentsClassList[origNode][i]);
+
+            // Process component augments (classes, onMount-like functions)
+            if((window.componentsAugments[origNode] || []).length > 0){
+                for(let i = 0; i < window.componentsAugments[origNode].length; i++){
+                    if(typeof window.componentsAugments[origNode][i] == "string"){
+                        // Add class
+                        element.classList.add(window.componentsAugments[origNode][i]);
+                    }else if(typeof window.componentsAugments[origNode][i] == "function"){
+                        // Run function
+                        augmentFunctionsQueue.push(function(){
+                            const elm = element;
+                            try{
+                                (window.componentsAugments[origNode][i])(elm);
+                            }catch(e){
+                                console.error("Component Augment Error", e);
+                            }
+                        });
+                    }
                 }
             }
     
@@ -81,12 +97,13 @@ function xmlToHTML(xmlDoc){
         }else{
             return null;
         }
-
     }
 
     // Inject scripts
     function ContentCon(props){
+        let container;
         onMount(() => {
+            container.append(props.rootContent);
             setTimeout(() => {
                 while(scriptsQueue.length > 0){
                     let script = document.createElement("script");
@@ -94,19 +111,25 @@ function xmlToHTML(xmlDoc){
                     document.body.append(script);
                     scriptElements.push(script);
                 }
-            }, 1);
+                while(augmentFunctionsQueue.length > 0){
+                    (augmentFunctionsQueue.pop())();
+                }
+            }, window.CHECK_DOM_DELAY);
         });
         onCleanup(() => {
+            // Cleanup scripts
             while(scriptElements.length > 0){
                 scriptElements.pop().remove();
             }
+            // Remove root element properly
+            props.rootContent.remove();
         });
-        return (<div {...props}></div>);
+        return (<div ref={container}></div>);
     }
 
     let root = processNode(xmlDoc.documentElement); // Start with the root element
 
-    return (<ContentCon innerHTML={root.outerHTML}></ContentCon>);
+    return (<ContentCon rootContent={root}></ContentCon>);
 }
 
 // Convert XML Document into SolidJS components

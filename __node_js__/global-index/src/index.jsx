@@ -1,5 +1,5 @@
 import { render } from "solid-js/web";
-import { Router } from "solid-app-router";
+//import { Router } from "solid-app-router";
 
 import { setupDisplayUpdates, getDisplayXML } from "./requests/content";
 import { processDisplay } from "./requests/process";
@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", function(){
 
     // Render content
     // <TodoList />
-    render(() => <Router><h4>{processDisplay(getDisplayXML())}</h4></Router>, root);
+    render(() => <>{processDisplay(getDisplayXML())}</>, root);
 });
 
 // Finish loading the page!

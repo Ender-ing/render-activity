@@ -3,13 +3,16 @@
 
 <head>
     <script>
+        // Manage global delay
+        window.CHECK_DOM_DELAY = 1;
+        window.CHECK_DOM_LOOP_DELAY = 50;
         // Manage the components list
         // (This code needs to be placed here to ensure that no errors will occure when libraries are loaded)
         window.componentsList = {};
-        window.componentsClassList = {};
+        window.componentsAugments = {};
         window.addComponentToList = function(name, tag, ...args){
             window.componentsList[name] = tag;
-            window.componentsClassList[name] = args;
+            window.componentsAugments[name] = args;
         };
     </script>
     <meta charset="utf-8" />
@@ -142,7 +145,7 @@
 
     <!-- Load inital stylesheets -->
     <link rel="stylesheet" href="https://resources.ender.ing/web/client/material/colors.css" media="print" onload="resourceLoaded(STYLESHEET, this); document.documentElement.colors = true;" />
-    <link rel="stylesheet" href="https://resources.ender.ing/web/client/material/theme.css" media="print" onload="resourceLoaded(STYLESHEET, this);" />
+    <link id="material-theme-style" rel="stylesheet" href="https://resources.ender.ing/web/client/material/theme.css" media="print" onload="resourceLoaded(STYLESHEET, this);" />
     <link rel="stylesheet" href="https://resources.ender.ing/web/client/material/load.css" media="print" onload="resourceLoaded(STYLESHEET, this);" />
     <link rel="stylesheet" href="https://resources.ender.ing/web/client/material/icons.css" media="print" onload="resourceLoaded(STYLESHEET, this);" />
     <link rel="stylesheet" href="https://resources.ender.ing/web/client/material/font.css" media="print" onload="resourceLoaded(STYLESHEET, this);" />

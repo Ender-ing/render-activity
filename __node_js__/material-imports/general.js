@@ -4,6 +4,15 @@
  * 
 **/
 
+// Utility functions
+async function awaitShadowRoot(elm) {
+    if (elm.shadowRoot != null) {
+        return null; // ShadowRoot is ready
+    }
+    await new Promise((resolve) => setTimeout(resolve, window.CHECK_DOM_LOOP_DELAY)); // Check again on next cycle
+    return awaitShadowRoot(elm);
+}
+
 // Buttons
 import '@material/web/button/elevated-button.js';
 window.addComponentToList("elevated-button", "md-elevated-button");
@@ -34,7 +43,40 @@ window.addComponentToList("suggestion-chip", "md-suggestion-chip");
 
 // Dialog
 import '@material/web/dialog/dialog.js';
-window.addComponentToList("dialog", "md-dialog");
+// Fix scrollbar bug
+window.addComponentToList("dialog", "md-dialog", async function(dialog) {
+    await awaitShadowRoot(dialog);
+    dialog.shadowRoot.adoptedStyleSheets.push(getScrollbarCSS());
+});
+let scrollbarStyleSheet = null;
+function getScrollbarCSS(){
+    // Check if the CSSStyleSheet is not defined
+    if(scrollbarStyleSheet == null){
+        try {
+            // Get theme.css rules
+            let themeRules = document.getElementById("material-theme-style").sheet.cssRules;
+
+            // Get all scrollbar CSS rules
+            let scrollbarRules = [];
+            for (let i = 0; i < themeRules.length; i++) {
+                // Check if the selector includes the word "scrollbar"
+                if(themeRules[i].selectorText.indexOf("scrollbar") != -1){
+                    scrollbarRules.push(themeRules[i].cssText);
+                }
+            }
+            themeRules = null;
+
+            // Make a CSSStyleSheet from the text
+            scrollbarStyleSheet = new CSSStyleSheet();
+            scrollbarStyleSheet.replace(scrollbarRules.join(" "));
+        }catch{
+            return new CSSStyleSheet();
+        }
+    }
+
+    // Return the CSSStyleSheet object
+    return scrollbarStyleSheet;
+}
 
 // Divider
 import '@material/web/divider/divider.js';

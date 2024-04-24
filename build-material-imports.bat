@@ -49,6 +49,9 @@ for %%f in (*) do (
     >> %outputDir%\%%f echo ^}^)^(^)^;
     :: Remove temporary file
     del %outputDir%\%%f.tmp
+
+    :: Remove comments from the code
+    CMD "Running Backup" /C "terser --compress --comments false --keep-classnames --keep-fnames -o %outputDir%\%%f %outputDir%\%%f"
 )
 
 :: Return to the original directory

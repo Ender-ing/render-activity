@@ -38,7 +38,7 @@ for %%f in (*) do (
     :: Check if the file is JavaScript or CSS
     if /I "%%~xf" == ".js" (
         :: Compress JavaScript code
-        CMD "Running Backup" /C "terser --compress --keep-classnames --keep-fnames -p bare_returns -o %outputDir%\%%f %%f"
+        CMD "Running Backup" /C "terser --compress --comments false --keep-classnames --keep-fnames -p bare_returns -o %outputDir%\%%f %%f"
     ) else if /I "%%~xf" == ".css" (
         :: Minify CSS code
         CMD "Running Backup" /C "cleancss -o %outputDir%\%%f %%f"

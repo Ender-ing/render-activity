@@ -33,6 +33,14 @@ function processLocaleStrInput(varString, localeObj, globalObj){
             if(id.indexOf("$") == 0){
                 id = id.substring(1);
                 return getJSONValueByPath(globalObj, id);
+            }else if(id.indexOf("?") == 0){
+                id = id.substring(1);
+                let value = getJSONValueByPath(localeObj, id);
+                if(value != undefined){
+                    return value;
+                }else{
+                    return getJSONValueByPath(globalObj, id);
+                }
             }else{
                 return getJSONValueByPath(localeObj, id);
             }
@@ -56,20 +64,20 @@ function replaceLocaleStrVars(value, vars, localeObj, globalObj){
 }
 
 // Replace placeholder strings with their values
-export function replaceStrings(xmlDocString, localeObj, globalObj, prefix = null){
+export function replaceStrings(xmlDocString, localeObj, globalObj){
     return xmlDocString.replaceAll(/\{\{(.*?)\}\[?(.*?)\]?\}/g, (match, idString, varString) => {
         let id = idString.replaceAll(/\s/g, "");
-        if(prefix === null){
-            return replaceLocaleStrVars(getJSONValueByPath((localeObj || globalObj), id), varString, localeObj, globalObj);
+        if(id[0] === "$"){
+            return replaceLocaleStrVars(getJSONValueByPath(globalObj, id.substring(1)), varString, localeObj, globalObj);
         }else{
-            if(id.indexOf(prefix) == 0){
-                return replaceLocaleStrVars(getJSONValueByPath((localeObj || globalObj), id.substring(prefix.length)), varString, localeObj, globalObj);
+            let fallback = id[0] == "?";
+            let value = getJSONValueByPath(localeObj, id.substring(fallback));
+            if(fallback && value != undefined){
+                return replaceLocaleStrVars(value, varString, localeObj, globalObj);
+            }else if(fallback && value == undefined){
+                return replaceLocaleStrVars(getJSONValueByPath(globalObj, id.substring(fallback)), varString, localeObj, globalObj);
             }else{
-                if(varString != null && varString.replaceAll(/\s/g, "") != ''){
-                    return `{{${idString}}[${varString}]}`
-                }else{
-                    return `{{${idString}}}`;
-                }
+                return replaceLocaleStrVars(value, varString, localeObj, globalObj);
             }
         }
     });
@@ -91,8 +99,6 @@ export async function localiseContent(xmlDocString, pathname){
 
         // Change global strings
         let globalObj = await getGlobalLocale(lang);
-        localisedContent = replaceStrings(localisedContent, null, globalObj, "$");
-
         // Get locale string
         let localeObj = await getLocale(lang, pathname);
 

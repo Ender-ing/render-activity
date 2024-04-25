@@ -4,6 +4,8 @@
  * 
 **/
 
+import { localiseText } from "./inject";
+
 // Create alternate link
 function createAlternate(lang){
     let link = document.createElement('link');
@@ -19,9 +21,24 @@ function createAlternate(lang){
     document.head.appendChild(link);
 }
 
+// Add page description
+async function addDescription(){
+    let meta = document.createElement('meta');
+    meta.setAttribute("name", "description");
+
+    // Set description
+    meta.setAttribute("content", await localiseText("{{?_meta.description}}"));
+
+    // Append element
+    document.head.appendChild(meta);
+}
+
 // Add needed meta data for search engine language recognition 
 export function languageMeta(){
+    // Add alternate versions of the page
     createAlternate("en");
     createAlternate("he");
     createAlternate("ar");
+    // Add page description
+    addDescription(0);
 }

@@ -7,30 +7,45 @@
 import { localiseText } from "./inject";
 
 // Create alternate link
+let alternates = {
+    en: null,
+    he: null,
+    ar: null
+};
 function createAlternate(lang){
-    let link = document.createElement('link');
-    link.setAttribute("rel", "alternate");
-    link.setAttribute("hreflang", lang);
+    // Set alternate element
+    if(alternates[lang] == null){
+        let link = document.createElement('link');
+        link.setAttribute("rel", "alternate");
+        link.setAttribute("hreflang", lang);
+        alternates[lang] = link;
+
+        // Append element
+        document.head.appendChild(alternates[lang]);
+    }
+    // Remove hashes from URL (in case the were used)
     let href = window.location.href;
     if(href.indexOf("#") != -1){
         href = href.substring(0, href.indexOf("#"));
     }
-    link.setAttribute("href", `${href}#${lang}`);
 
-    // Append element
-    document.head.appendChild(link);
+    // Set link
+    alternates[lang].setAttribute("href", `${href}#${lang}`);
 }
 
 // Add page description
+let description = null;
 async function addDescription(){
-    let meta = document.createElement('meta');
-    meta.setAttribute("name", "description");
+    // Set meta element
+    if(description == null){
+        description = document.createElement('meta');
+        description.setAttribute("name", "description");
+        // Append element
+        document.head.appendChild(description);
+    }
 
     // Set description
-    meta.setAttribute("content", await localiseText("{{?_meta.description}}"));
-
-    // Append element
-    document.head.appendChild(meta);
+    description.setAttribute("content", await localiseText("{{?_meta.description}}"));
 }
 
 // Add needed meta data for search engine language recognition 
@@ -39,6 +54,7 @@ export function languageMeta(){
     createAlternate("en");
     createAlternate("he");
     createAlternate("ar");
+
     // Add page description
-    addDescription(0);
+    addDescription();
 }

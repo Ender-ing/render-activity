@@ -70,6 +70,16 @@ RewriteCond %{REQUEST_URI} !^@public/ [NC]
 # Block hotlinking for heavy files from other domains 
 RewriteRule \.(mp4|mov|webm|avi|flv|wmv|mp3|wav|ogg|jpg|jpeg|png|gif|pdf|doc|docx|zip|rar)$ - [F,NC]
 
+# Content Delivery Optomisation headers
+<IfModule mod_headers.c>
+   # Match HTML files
+   <FilesMatch "\.(html|htm|js|css)$">
+        Header add Link "<https://resources.ender.ing>; rel=preconnect"
+        Header add Link "<https://fonts.googleapis.com>; rel=preconnect"
+        Header add Link "<https://fonts.gstatic.com>; rel=preconnect; crossorigin"
+    </FilesMatch>
+</IfModule>
+
 # Set security headers
 <IfModule mod_headers.c>
     # Remove Powered-By header!

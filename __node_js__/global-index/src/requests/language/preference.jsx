@@ -60,6 +60,13 @@ function getCookie(name){
 // Check saved preferences
 let locale = null;
 export function checkLocale(){
+    // Check hash
+    let hash = window.location.hash.substring(1);
+    if(allowedLocales.includes(hash)){
+        locale = hash;
+    }
+
+    // Check locale variable
     if(locale !== null){
         return locale;
     }else{

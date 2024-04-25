@@ -5,6 +5,7 @@
 **/
 
 import { checkLocale } from "./preference"
+import { languageMeta } from "./seo";
 
 const rtlLocales = ["ar", "he"]
 
@@ -24,6 +25,9 @@ function updateMeta(){
     let metaTag = document.createElement("meta");
     metaTag.setAttribute("http-equiv", "content-language");
     metaTag.setAttribute("content", checkLocale());
+
+    // SEO meta
+    languageMeta();
 
     // Append it to the page
     document.head.appendChild(metaTag);

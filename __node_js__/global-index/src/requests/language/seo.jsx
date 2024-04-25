@@ -33,19 +33,33 @@ function createAlternate(lang){
     alternates[lang].setAttribute("href", `${href}#${lang}`);
 }
 
+// Create a meta element
+function createMetaElement(name){
+    let meta = document.createElement('meta');
+    meta.setAttribute("name", name);
+    // Append element
+    document.head.appendChild(meta);
+    return meta;
+}
+
 // Add page description
-let description = null;
-async function addDescription(){
-    // Set meta element
-    if(description == null){
-        description = document.createElement('meta');
-        description.setAttribute("name", "description");
-        // Append element
-        document.head.appendChild(description);
+let meta = {
+    title: null,
+    description: null
+};
+async function addMeta(){
+    // Set meta elements
+    if(meta.description == null){
+        meta.description = createMetaElement("description");
+    }
+    if(meta.title == null){
+        meta.title = createMetaElement("title");
     }
 
+    // Set title
+    meta.title.setAttribute("content", await localiseText("{{?_meta.title}}"));
     // Set description
-    description.setAttribute("content", await localiseText("{{?_meta.description}}"));
+    meta.description.setAttribute("content", await localiseText("{{?_meta.description}}"));
 }
 
 // Add needed meta data for search engine language recognition 
@@ -55,6 +69,6 @@ export function languageMeta(){
     createAlternate("he");
     createAlternate("ar");
 
-    // Add page description
-    addDescription();
+    // Add meta elements
+    addMeta();
 }

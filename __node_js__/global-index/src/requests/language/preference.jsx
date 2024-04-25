@@ -63,7 +63,7 @@ export function checkLocale(){
     // Check hash
     let hash = window.location.hash.substring(1);
     if(allowedLocales.includes(hash)){
-        locale = hash;
+        setLocale(hash);
     }
 
     // Check locale variable

@@ -64,21 +64,35 @@ function replaceLocaleStrVars(value, vars, localeObj, globalObj){
     return newVal;
 }
 
+// Replace language expressions inside the retuned value
+function localiseOutput(value, localeObj, globalObj){
+    if(precheckLocale(value)){
+        return replaceStrings(value, localeObj, globalObj);
+    }else{
+        return value;
+    }
+}
+
 // Replace placeholder strings with their values
 export function replaceStrings(xmlDocString, localeObj, globalObj){
+    let result;
     return xmlDocString.replaceAll(/\{\{(.*?)\}\[?(.*?)\]?\}/g, (match, idString, varString) => {
         let id = idString.replaceAll(/\s/g, "");
         if(id[0] === "$"){
-            return replaceLocaleStrVars(getJSONValueByPath(globalObj, id.substring(1)), varString, localeObj, globalObj);
+            result = replaceLocaleStrVars(getJSONValueByPath(globalObj, id.substring(1)), varString, localeObj, globalObj);
+            return localiseOutput(result, localeObj, globalObj);
         }else{
             let fallback = id[0] == "?";
             let value = getJSONValueByPath(localeObj, id.substring(fallback));
             if(fallback && value != undefined){
-                return replaceLocaleStrVars(value, varString, localeObj, globalObj);
+                result = replaceLocaleStrVars(value, varString, localeObj, globalObj);
+                return localiseOutput(result, localeObj, globalObj);
             }else if(fallback && value == undefined){
-                return replaceLocaleStrVars(getJSONValueByPath(globalObj, id.substring(fallback)), varString, localeObj, globalObj);
+                result = replaceLocaleStrVars(getJSONValueByPath(globalObj, id.substring(fallback)), varString, localeObj, globalObj);
+                return localiseOutput(result, localeObj, globalObj);
             }else{
-                return replaceLocaleStrVars(value, varString, localeObj, globalObj);
+                result = replaceLocaleStrVars(value, varString, localeObj, globalObj);
+                return localiseOutput(result, localeObj, globalObj);
             }
         }
     });

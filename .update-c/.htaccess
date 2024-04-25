@@ -292,6 +292,10 @@ RewriteRule \.(mp4|mov|webm|avi|flv|wmv|mp3|wav|ogg|jpg|jpeg|png|gif|pdf|doc|doc
 
 </IfModule>
 
+# Add types for custom extensions
+AddType text/xml .display
+AddType application/json .locale
+
 # Request compression
 # NOT WORKING! MAKE SURE TO FIX THIS!
 <IfModule mod_deflate.c>
@@ -316,6 +320,8 @@ RewriteRule \.(mp4|mov|webm|avi|flv|wmv|mp3|wav|ogg|jpg|jpeg|png|gif|pdf|doc|doc
     AddOutputFilterByType DEFLATE font/ttf
     AddOutputFilterByType DEFLATE font/otf
     AddOutputFilterByType DEFLATE font/opentype
+    AddOutputFilter DEFLATE display
+    AddOutputFilter DEFLATE locale
     # For Olders Browsers Which Can't Handle Compression
     BrowserMatch ^Mozilla/4 gzip-only-text/html
     BrowserMatch ^Mozilla/4\.0[678] no-gzip
@@ -325,11 +331,12 @@ RewriteRule \.(mp4|mov|webm|avi|flv|wmv|mp3|wav|ogg|jpg|jpeg|png|gif|pdf|doc|doc
     mod_gzip_on Yes
     mod_gzip_dechunk Yes
     mod_gzip_item_include file \.(html?|txt|css|js|display|locale|php|ico|xml|pl)$
-    mod_gzip_item_include mime ^application/x-javascript.*
+    mod_gzip_item_include mime ^application/.*
     mod_gzip_item_include mime ^text/.*
     mod_gzip_item_exclude rspheader ^Content-Encoding:.*gzip.*
     mod_gzip_item_exclude mime ^image/.*
     mod_gzip_item_include handler ^cgi-script$
+    mod_gzip_item_include file \.(display|locale)$
 </IfModule>
 <IfModule mod_headers.c>
     <FilesMatch ".(html|txt|css|js|display|locale|php|ico|xml|pl)$">

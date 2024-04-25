@@ -47,7 +47,7 @@ export function augmentInject(element, originalTag, augmentQueue = null){
                     };
                     // Run function
                     if(augmentQueue != null){
-                        augmentQueue.push();                    
+                        augmentQueue.push(augFunc);
                     }else{
                         augFunc();
                     }

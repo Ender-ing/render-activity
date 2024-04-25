@@ -57,7 +57,9 @@ async function addMeta(){
     }
 
     // Set title
+    let title = await localiseText("{{?_meta.title}}");
     meta.title.setAttribute("content", await localiseText("{{?_meta.title}}"));
+    document.title = title;
     // Set description
     meta.description.setAttribute("content", await localiseText("{{?_meta.description}}"));
 }

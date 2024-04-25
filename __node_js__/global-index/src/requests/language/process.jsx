@@ -4,6 +4,7 @@
  * 
 **/
 
+import { getContentURL } from "../display";
 import { getGlobalLocale } from "./global";
 import { getLocale } from "./load";
 import { checkLocale } from "./preference";
@@ -89,7 +90,7 @@ function precheckLocale(xmlDocString){
 }
 
 // Replace language strings in XML document
-export async function localiseContent(xmlDocString, pathname){
+export async function localiseContent(xmlDocString){
     let localisedContent = xmlDocString;
 
     // Do a pre-check
@@ -100,7 +101,7 @@ export async function localiseContent(xmlDocString, pathname){
         // Change global strings
         let globalObj = await getGlobalLocale(lang);
         // Get locale string
-        let localeObj = await getLocale(lang, pathname);
+        let localeObj = await getLocale(lang, getContentURL());
 
         // Change dir locale strings
         localisedContent = replaceStrings(localisedContent, localeObj, globalObj);

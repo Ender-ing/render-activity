@@ -4,7 +4,7 @@
  * 
 **/
 
-import { getPathname } from "../content";
+import { getContentURL } from "../display";
 import { getGlobalLocale } from "./global";
 import { checkLocale } from "./preference";
 import { replaceStrings } from "./process";
@@ -16,7 +16,7 @@ export async function localiseText(text){
 
     // Get locale objects
     let globalObj = await getGlobalLocale(lang);
-    let localeObj = await getLocale(lang, getPathname());
+    let localeObj = await getLocale(lang, getContentURL());
 
     localisedText = replaceStrings(localisedText, localeObj, globalObj);
 
@@ -30,7 +30,7 @@ export async function localiseInject(element){
 
     // Get locale objects
     let globalObj = await getGlobalLocale(lang);
-    let localeObj = await getLocale(lang, getPathname());
+    let localeObj = await getLocale(lang, getContentURL());
 
     // Loop through all children inside element
     function injectText(elm){

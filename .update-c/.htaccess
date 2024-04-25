@@ -189,23 +189,23 @@ RewriteRule \.(mp4|mov|webm|avi|flv|wmv|mp3|wav|ogg|jpg|jpeg|png|gif|pdf|doc|doc
     ExpiresByType text/x-component                    "access plus 1 hour"
 
     # SCRIPTS
-    ExpiresByType text/css                            "access plus 3 days"
-    ExpiresByType text/javascript                     "access plus 3 days"
-    ExpiresByType application/javascript              "access plus 3 days"
-    ExpiresByType application/x-javascript            "access plus 3 days"
+    ExpiresByType text/css                            "access plus 1 week"
+    ExpiresByType text/javascript                     "access plus 1 week"
+    ExpiresByType application/javascript              "access plus 1 week"
+    ExpiresByType application/x-javascript            "access plus 1 week"
 
     # IMAGES
-    ExpiresByType image/gif                           "access plus 1 week"
-    ExpiresByType image/png                           "access plus 1 week"
-    ExpiresByType image/jpe                           "access plus 1 week"
-    ExpiresByType image/jpg                           "access plus 1 week"
-    ExpiresByType image/jpeg                          "access plus 1 week"
-    ExpiresByType image/jp2                           "access plus 1 week"
-    ExpiresByType image/pipeg                         "access plus 1 week"
-    ExpiresByType image/bmp                           "access plus 1 week"
-    ExpiresByType image/tiff                          "access plus 1 week"
-    ExpiresByType image/svg+xml                       "access plus 1 week"
-    ExpiresByType image/vnd.microsoft.icon            "access plus 1 week"
+    ExpiresByType image/gif                           "access plus 2 weeks"
+    ExpiresByType image/png                           "access plus 2 weeks"
+    ExpiresByType image/jpe                           "access plus 2 weeks"
+    ExpiresByType image/jpg                           "access plus 2 weeks"
+    ExpiresByType image/jpeg                          "access plus 2 weeks"
+    ExpiresByType image/jp2                           "access plus 2 weeks"
+    ExpiresByType image/pipeg                         "access plus 2 weeks"
+    ExpiresByType image/bmp                           "access plus 2 weeks"
+    ExpiresByType image/tiff                          "access plus 2 weeks"
+    ExpiresByType image/svg+xml                       "access plus 2 weeks"
+    ExpiresByType image/vnd.microsoft.icon            "access plus 2 weeks"
 
     # ICONS
     ExpiresByType image/ico                           "access plus 1 week"
@@ -251,10 +251,10 @@ RewriteRule \.(mp4|mov|webm|avi|flv|wmv|mp3|wav|ogg|jpg|jpeg|png|gif|pdf|doc|doc
     ExpiresByType text/cache-manifest                 "access plus 0 seconds"
 
     # OTHERS
-    ExpiresByType application/pdf                     "access plus 1 month"
-    ExpiresByType image/vnd.wap.wbmp                  "access plus 1 month"
-    ExpiresByType application/vnd.wap.wbxml           "access plus 1 month"
-    ExpiresByType application/smil                    "access plus 1 month"
+    ExpiresByType application/pdf                     "access plus 2 weeks"
+    ExpiresByType image/vnd.wap.wbmp                  "access plus 2 weeks"
+    ExpiresByType application/vnd.wap.wbxml           "access plus 2 weeks"
+    ExpiresByType application/smil                    "access plus 2 weeks"
   
     # Manage cache headers
     <IfModule mod_headers.c>
@@ -266,19 +266,15 @@ RewriteRule \.(mp4|mov|webm|avi|flv|wmv|mp3|wav|ogg|jpg|jpeg|png|gif|pdf|doc|doc
         </FilesMatch>
         <FilesMatch "\.(pdf)$">
             # One day
-            Header set Cache-Control "private, max-age=86400"
+            Header set Cache-Control "private, max-age=1209600"
         </FilesMatch>
-        <FilesMatch "\.(css)$">
-            # Three days
-            Header set Cache-Control "public, max-age=259200"
-        </FilesMatch>
-        <FilesMatch "\.(js)$">
-            # Three days
-            Header set Cache-Control "private, max-age=259200"
-        </FilesMatch>
-        <FilesMatch "\.(ico|flv|jpg|jpeg|png|gif|swf)$">`
+        <FilesMatch "\.(css|js)$">
             # One week
             Header set Cache-Control "public, max-age=604800"
+        </FilesMatch>
+        <FilesMatch "\.(ico|flv|jpg|jpeg|png|gif|swf)$">`
+            # Two weeks
+            Header set Cache-Control "public, max-age=1209600"
         </FilesMatch>
 
         # Prevent caching of files with "@no-cache" or "no-cache@" in their name/path

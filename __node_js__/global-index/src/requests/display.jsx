@@ -33,11 +33,6 @@ function fixBase(base){
     }else{
         b = base;
     }
-    // Remove host from pathname
-    // let index = b.indexOf(window.webDomain);
-    //if(index != -1){
-    //    b = b.substring(index + window.webDomain.length);
-    //}
     return b;
 }
 

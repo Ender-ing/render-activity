@@ -45,9 +45,15 @@ function createMetaElement(name){
 // Add page description
 let meta = {
     title: null,
-    description: null
+    description: null,
+    globalTitle: null
 };
 async function addMeta(){
+    // Check global title value
+    if(meta.globalTitle == null){
+        meta.globalTitle = await localiseText("{{$_meta.title}}");
+    }
+
     // Set meta elements
     if(meta.description == null){
         meta.description = createMetaElement("description");
@@ -58,6 +64,9 @@ async function addMeta(){
 
     // Set title
     let title = await localiseText("{{?_meta.title}}");
+    if(title !== meta.globalTitle){
+        title += ` | ${meta.globalTitle}`;
+    }
     meta.title.setAttribute("content", await localiseText("{{?_meta.title}}"));
     document.title = title;
     // Set description

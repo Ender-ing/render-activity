@@ -26,9 +26,6 @@ function updateMeta(){
     metaTag.setAttribute("http-equiv", "content-language");
     metaTag.setAttribute("content", checkLocale());
 
-    // SEO meta
-    languageMeta();
-
     // Append it to the page
     document.head.appendChild(metaTag);
 }

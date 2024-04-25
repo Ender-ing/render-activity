@@ -28,11 +28,14 @@ export function fetchLocale(url){
                 'x-locale-request': 1
             }
         }).then(response => {
-            if (!response.ok) {
+            if(response.status === 404){
+                return "{}";
+            }else if (!response.ok) {
                 showDialog(DIALOG.network.error);
                 throw new Error('Network response was not ok');
+            }else{
+                return response.text();
             }
-            return response.text();
         }).then(jsonString => {
             // Parse the JSON string
             let json;

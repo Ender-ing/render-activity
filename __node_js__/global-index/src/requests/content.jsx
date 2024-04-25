@@ -6,6 +6,7 @@
 
 import { createSignal, createEffect } from "solid-js";
 import { getDisplay } from "./display";
+import { languageMeta } from "./language/seo";
 
 export const [getDisplayXML, setDisplayXML] = createSignal();
 export const [getPathname, setPathname] = createSignal(null);
@@ -21,6 +22,10 @@ function updateDisplay() {
         // Add error handling!
         getDisplay(getPathname()).then(xml => {
             setDisplayXML(xml);
+
+            // Update SEO meta data
+            languageMeta();
+
             window.document.documentElement.setContentResourceLoaded(getPathname(), 1);
         });
 

@@ -74,8 +74,17 @@ RewriteRule \.(mp4|mov|webm|avi|flv|wmv|mp3|wav|ogg|jpg|jpeg|png|gif|pdf|doc|doc
 <IfModule mod_headers.c>
    # Match HTML files
    <FilesMatch "\.(html|htm|js|css)$">
+        # Set dns-prefetch headers as a fallback
+        # (for browsers that don't support preconnect)
+        Header add Link "<https://resources.ender.ing>; rel=dns-prefetch"
+        Header add Link "<https://fonts.googleapis.com>; rel=dns-prefetch"
+        Header add Link "<https://fonts.gstatic.com>; rel=dns-prefetch"
+
+        # Set preconnect headers
         Header add Link "<https://resources.ender.ing>; rel=preconnect"
+        Header add Link "<https://resources.ender.ing>; rel=preconnect; crossorigin"
         Header add Link "<https://fonts.googleapis.com>; rel=preconnect"
+        Header add Link "<https://fonts.googleapis.com>; rel=preconnect; crossorigin"
         Header add Link "<https://fonts.gstatic.com>; rel=preconnect; crossorigin"
     </FilesMatch>
 </IfModule>
@@ -87,7 +96,14 @@ RewriteRule \.(mp4|mov|webm|avi|flv|wmv|mp3|wav|ogg|jpg|jpeg|png|gif|pdf|doc|doc
     Header always unset X-Powered-By
 
     # Allow cross-subdomain custom headers
-    Header add Access-Control-Allow-Headers "x-display-request, x-locale-request"
+    Header add Access-Control-Allow-Headers "Content-Type, Authorization, x-display-request, x-locale-request"
+
+    # Allow cross-subdomain credentials
+    Header set Access-Control-Allow-Credentials true
+
+    # Allow cross-subdomain request methods
+    # List of methods: GET, PUT, POST, DELETE
+    Header set Access-Control-Allow-Methods "GET,POST"
 
     # Block iframes
     Header set X-Frame-Options SAMEORIGIN
@@ -174,6 +190,7 @@ RewriteRule \.(mp4|mov|webm|avi|flv|wmv|mp3|wav|ogg|jpg|jpeg|png|gif|pdf|doc|doc
     SetEnvIf Origin ^(https?://.+\.ender\.ing(?::\d{1,5})?|https?://ender\.ing(?::\d{1,5})?)$ CORS_ALLOW_ORIGIN=$1
     Header append Access-Control-Allow-Origin  %{CORS_ALLOW_ORIGIN}e   env=CORS_ALLOW_ORIGIN
     Header merge  Vary "Origin"
+    
 </IfModule>
 
 # Security REMINDER

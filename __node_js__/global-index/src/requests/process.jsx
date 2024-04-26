@@ -147,47 +147,6 @@ function xmlToHTML(xmlDoc){
     return (<ContentCon rootContent={root}></ContentCon>);
 }
 
-// Convert XML Document into SolidJS components
-// This breaks some elements! (e.g. form attribute causes render hault)
-function xmlToSolid(xmlDoc){
-
-    // Check the type of the node!
-    function processNode(node) {
-        switch (node.nodeType) {
-            case Node.ELEMENT_NODE:
-                return createElement(node);
-            case Node.TEXT_NODE:
-                return node.textContent;
-            default:
-                return null; 
-        }
-    }
-
-    // Create SolidJS components
-    function createElement(node) {
-        // Get component name
-        let Component = window.componentsList[node.nodeName.toLowerCase()];
-        if(typeof Component !== "string"){
-            Component = node.nodeName.toLowerCase();
-        }
-
-        // Properties:
-        const props = {};
-        for (let i = 0; i < node.attributes.length; i++) {
-          props[node.attributes[i].name] = node.attributes[i].value;
-        }
-    
-        // Children:
-        const children = Array.from(node.childNodes).map(processNode);
-
-        return <Dynamic component={Component} {...props}>
-            <For each={children}>{child => child}</For>
-        </Dynamic>
-    }
-
-    return processNode(xmlDoc.documentElement); // Start with the root element
-}
-
 // Convert XML Document to HTML elements
 export function processDisplay(xml = null) {
     const [generatedContent, setGeneratedContent] = createSignal(null);

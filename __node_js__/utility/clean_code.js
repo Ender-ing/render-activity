@@ -7,7 +7,7 @@
 // node clean_code.js <path>
 
 // Get file-system functions
-import { path, getContent, writeContent } from './_files';
+const { path, getContent, writeContent } = require('./_files');
 
 // Clean comments
 function cleanComments(code) {

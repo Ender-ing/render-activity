@@ -6,15 +6,27 @@
 
 const fs = require('fs');
 
-// Get input (same as output) path
-export const path = process.argv[2];
+var p = require('path');
+// p.join <Function>
+
+// Get input/output paths
+const path = process.argv[2];
+const path2 = process.argv[3];
 
 // Get file content
-export async function getContent(path){
+async function getContent(path){
     return await fs.readFileSync(path, 'utf-8');
 }
 
 // Overwrite file content
-export async function writeContent(path, content){
+async function writeContent(path, content){
     await fs.writeFileSync(path, content);
 }
+
+module.exports = {
+    path,
+    path2,
+    getContent,
+    writeContent,
+    _path: p
+};

@@ -45,7 +45,7 @@
     <link rel="preload" href="https://resources.ender.ing/web/client/material/layouts.css" as="style" />
     <link rel="preload" href="https://resources.ender.ing/web/client/material/colors.js" as="script" />
     <link rel="preload" href="https://resources.ender.ing/web/client/@material/x-load-activity.js" as="script" />
-    <link rel="preload" href="https://resources.ender.ing/web/client/@vite/index.js" as="module" />
+    <link rel="modulepreload" href="https://resources.ender.ing/web/client/@vite/index.js" />
 
     <!-- Prefetch resources (expected resources) -->
     <!-- <link rel="prefetch" href="..." /> -->
@@ -162,7 +162,7 @@
     <title>Ender.ing</title>
 
     <!-- manifest -->
-    <link rel="manifest" href="/brand/manifest.json" />
+    <link rel="manifest" href="/brand/manifest.webmanifest" crossorigin="use-credentials" />
 
     <!-- theme and icons -->
     <link rel="shortcut icon" type="image/ico" href="/brand/icons/favicon.ico" />

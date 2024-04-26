@@ -1,8 +1,11 @@
 {
     "name": "[[name.long]]",
     "short_name": "[[name.short]]",
-    "start_url": "index.html",
-    "display_override": ["window-controls-overlay", "minimal-ui"],
+    "start_url": "/",
+    "display_override": [
+        "window-controls-overlay",
+        "minimal-ui"
+    ],
     "display": "standalone",
     "background_color": "#3f5f90",
     "theme_color": "#3f5f90",
@@ -47,6 +50,11 @@
             "src": "/brand/icons/logo-512.png",
             "type": "image/png",
             "sizes": "512x512"
+        },
+        {
+            "src": "/brand/icons/logo.svg",
+            "purpose": "maskable any",
+            "sizes": "any"
         }
     ]
 }

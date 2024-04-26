@@ -24,7 +24,7 @@
     };
 
     // Manage the colour scheme!
-    const schemeList = ["light", "light-high-contrast", "light-medium-contrast", "dark", "dark-high-contrast", "dark-medium-contrast", "placeholder-scheme"],
+    let schemeList = document.documentElement.schemeList,
         updateColourScheme = (force = null) => {
             // Remove colour scheme class
             PAGE.remove(...schemeList);
@@ -50,9 +50,15 @@
             }
         };
 
-    // TEMP - add code to check user preferences
+    // Check user preferences
     awaitColorsLoad(() => {
-        // Add code to check local storage for previously saved preferences!
-        updateColourScheme();
+        // Check scheme cookie value
+        let colorScheme = document.documentElement.getCookie("scheme");
+        if(colorScheme != null && Number(colorScheme) < schemeList.length - 1){
+            updateColourScheme(Number(colorScheme));
+        }else{
+            // Always auto-detect
+            updateColourScheme();
+        }
     });
 })();

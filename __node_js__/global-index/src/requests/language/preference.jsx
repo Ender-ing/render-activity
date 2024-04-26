@@ -27,13 +27,16 @@ function setLocale(lang = null){
     }else{
         language = lang;
     }
-    document.cookie = `locale=${language};path=/;domain=ender.ing`;
+    document.documentElement.setCookie("locale", language);
+    //document.cookie = `locale=${language};path=/;domain=ender.ing`;
     return language;
 }
 window.setLocale = setLocale;
 
 // Get a cookie value
 function getCookie(name){    
+    return document.documentElement.getCookie(name);
+    /*
     // Split the cookie string, which is in the format of "name1=value1; name2=value2"
     let nameEQ = name + "=";
     let cookieParts = document.cookie.split(';');
@@ -55,6 +58,7 @@ function getCookie(name){
 
     // If the cookie is not found, return null
     return null;
+    */
 }
 
 // Check saved preferences

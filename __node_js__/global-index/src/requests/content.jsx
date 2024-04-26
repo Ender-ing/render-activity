@@ -71,9 +71,16 @@ function getAbsURL(href = null){
 document.addEventListener('click', (event) => {
     // Check if element (or up to the 3rd parent) is a link element
     let clickedElement = event.target;
+    let getAttr = (elm, attr) => {
+        try{
+            return elm?.getAttribute(attr);
+        }catch{
+            return null;
+        }
+    };
     const maxParentsToCheck = 4;
     for (let i = 0; i < maxParentsToCheck; i++) {
-        if ((clickedElement?.tagName || "").toLowerCase() === 'a' || clickedElement?.getAttribute("href")) {
+        if ((clickedElement?.tagName || "").toLowerCase() === 'a' || getAttr(clickedElement, "href")) {
             // We found a link within 3 parents!
             // clickedElement;
             break; 
@@ -89,7 +96,7 @@ document.addEventListener('click', (event) => {
         }
     }
     // Manage custom MD elements
-    let targetHref = getAbsURL(event.target.getAttribute("href") || (clickedElement?.getAttribute | function(){})("href") || null);
+    let targetHref = getAbsURL(event.target.getAttribute("href") || getAttr(clickedElement, "href") || null);
     if((clickedElement == null || clickedElement.tagName.toLowerCase() !== 'a') && targetHref != null){
         let url;
         try{

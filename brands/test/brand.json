@@ -1,3 +1,6 @@
 {
-    "name": "SERVICE_NAME"
+    "name": {
+        "long": "LONG",
+        "short": "SHORT"
+    }
 }

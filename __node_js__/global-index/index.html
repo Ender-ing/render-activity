@@ -6,6 +6,7 @@
         // Manage global delay
         window.CHECK_DOM_DELAY = 1;
         window.CHECK_DOM_LOOP_DELAY = 50;
+        window.RESOURCES = "https://resources.ender.ing/web/client/";
         // Manage the components list
         // (This code needs to be placed here to ensure that no errors will occure when libraries are loaded)
         window.componentsList = {};
@@ -15,16 +16,26 @@
             window.componentsAugments[name] = args;
         };
     </script>
+    <script>
+        /*(async function(){
+            // Register service worker
+            if ("serviceWorker" in navigator) {
+                try {
+                    await navigator.serviceWorker.register(window.RESOURCES + "@vite/sw.js", {
+                        scope: "/",
+                    });
+                } catch (error) {
+                    console.error(`Registration failed with ${error}`);
+                }
+            }
+        })();*/
+    </script>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <!-- theme and icons -->
-    <meta name="theme-color" content="#3f5f90" />
-    <link rel="shortcut icon" type="image/ico" href="/brand/favicon.ico" />
-
     <!-- Preload resources (current page resources) -->
     <link rel="preload" href="https://resources.ender.ing/web/client/@material/x-launch-activity.js" as="script" />
-    <link rel="preload" href="/brand/launch-logo.svg" as="image" />
+    <link rel="preload" href="/brand/icons/logo.svg" as="image" />
     <link rel="preload" href="https://resources.ender.ing/web/client/@material/quick.js" as="script" />
     <link rel="preload" href="https://resources.ender.ing/web/client/material/colors.css" as="style" />
     <link rel="preload" href="https://resources.ender.ing/web/client/material/theme.css" as="style" />
@@ -34,6 +45,7 @@
     <link rel="preload" href="https://resources.ender.ing/web/client/material/layouts.css" as="style" />
     <link rel="preload" href="https://resources.ender.ing/web/client/material/colors.js" as="script" />
     <link rel="preload" href="https://resources.ender.ing/web/client/@material/x-load-activity.js" as="script" />
+    <link rel="preload" href="https://resources.ender.ing/web/client/@vite/index.js" as="module" />
 
     <!-- Prefetch resources (expected resources) -->
     <!-- <link rel="prefetch" href="..." /> -->
@@ -148,6 +160,23 @@
     <link rel="stylesheet" href="https://resources.ender.ing/web/client/material/layouts.css" media="print" onload="resourceLoaded(STYLESHEET, this);" />
 
     <title>Ender.ing</title>
+
+    <!-- manifest -->
+    <link rel="manifest" href="/brand/manifest.json" />
+
+    <!-- theme and icons -->
+    <link rel="shortcut icon" type="image/ico" href="/brand/icons/favicon.ico" />
+    <meta name="theme-color" content="#3f5f90" />
+    <link rel="apple-touch-icon" href="/brand/icons/logo-72.png" />
+    <link rel="apple-touch-icon" href="/brand/icons/logo-96.png" />
+    <link rel="apple-touch-icon" href="/brand/icons/logo-128.png" />
+    <link rel="apple-touch-icon" href="/brand/icons/logo-144.png" />
+    <link rel="apple-touch-icon" href="/brand/icons/logo-152.png" />
+    <link rel="apple-touch-icon" href="/brand/icons/logo-192.png" />
+    <link rel="apple-touch-icon" href="/brand/icons/logo-384.png" />
+    <link rel="apple-touch-icon" href="/brand/icons/logo-512.png" />
+    <meta name="apple-mobile-web-app-status-bar" content="#3f5f90" />
+    <meta name="theme-color" content="#3f5f90" />
 </head>
 
 <body>
@@ -158,7 +187,7 @@
         <noscript style="position: fixed; margin-top: calc(var(--launch-logo-size) + var(--launch-logo-margin) * 3); color: var(--md-sys-color-primary); font-size: 20px; font-family: arial;">Oops, it seems you can't use our service on this device!</noscript>
 
         <!-- The logo and loading bar! -->
-        <img class="logo" src="/brand/launch-logo.svg" />
+        <img class="logo" src="/brand/icons/logo.svg" />
         <md-circular-progress class="launch-loading-bar" indeterminate></md-circular-progress>
 
         <!-- Never remove these, they are used to detect the status of fonts before showing the page content! -->
@@ -207,6 +236,8 @@
     <script src="https://resources.ender.ing/web/client/@material/general.js"></script>
     <script src="https://resources.ender.ing/web/client/@material/x-layouts.js"></script>
     <script src="/src/index.jsx" type="module"></script>
+
+    <!-- All extra files go here! -->
 </body>
 
 </html>

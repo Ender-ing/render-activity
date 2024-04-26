@@ -73,12 +73,12 @@ document.addEventListener('click', (event) => {
     let clickedElement = event.target;
     const maxParentsToCheck = 4;
     for (let i = 0; i < maxParentsToCheck; i++) {
-        if (((clickedElement || {}).tagName || "").toLowerCase() === 'a' || clickedElement.getAttribute("href")) {
+        if ((clickedElement?.tagName || "").toLowerCase() === 'a' || clickedElement?.getAttribute("href")) {
             // We found a link within 3 parents!
             // clickedElement;
             break; 
         }
-        clickedElement = (clickedElement || {}).parentNode;
+        clickedElement = clickedElement?.parentNode;
 
         // Check if we have reached the top
         if (i == maxParentsToCheck - 1) {

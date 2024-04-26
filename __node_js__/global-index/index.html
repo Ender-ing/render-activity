@@ -150,12 +150,16 @@
         .hidden-text, .hidden-icon {
             display: block;
             position: absolute;
-            user-select: none;
             top: 0px;
             left: 0px;
             color: var(--md-sys-color-surface-container);
             font-size: 1px;
             font-display: block;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+    	    -o-user-select: none;
+            user-select: none;
         }
         .hidden-text {
             font-family: 'Noto Sans';
@@ -232,7 +236,7 @@
 
 <body>
 
-    <div id="launch-activity" class="launch">
+    <div id="launch-activity" class="launch" no-select>
 
         <!-- Show a message when JavaScript is disabled -->
         <noscript style="position: fixed; margin-top: calc(var(--launch-logo-size) + var(--launch-logo-margin) * 3); color: var(--md-sys-color-primary); font-size: 20px; font-family: arial;">Oops, it seems you can't use our service on this device!</noscript>
@@ -251,7 +255,7 @@
 
     <!-- Page loading cover -->
     <md-linear-progress id="load-activity-bar" class="global-loading-bar" indeterminate style="display: none;"></md-linear-progress>
-    <div id="load-activity" class="load" style="display: none;"></div>
+    <div id="load-activity" class="load" style="display: none;" no-select></div>
 
     <!-- All page content should be placed within this element -->
     <div id="content-activity" class="content" style="display: none;">

@@ -61,7 +61,7 @@ RewriteRule ^(.*)$ index.html [L]
 
 # Prevent hotlinking
 RewriteCond %{HTTP_REFERER} !^$ 
-RewriteCond %{HTTP_REFERER} !^https?://(www\.)?ender\.ing/.*$ [NC]
+RewriteCond %{HTTP_REFERER} !^https?://((.*?)\.|)?ender\.ing/.*$ [NC]
 RewriteCond %{REQUEST_URI} \.(mp4|mov|webm|avi|flv|wmv|mp3|wav|ogg|jpg|jpeg|png|gif|pdf|doc|docx|zip|rar)$ [NC]
 # Allow hotlinking from subdirectories ".well-known" and "@public"
 # (Make sure to place resources meant to be accessed by other websites in a '@public' directory)

@@ -35,5 +35,8 @@ pushd %inputDir%
 echo Building Global Index..
 CMD "Running Backup" /C "npm run build %outputDir%"
 
+:: Copy the file to the `.update-c` directory
+copy /Y "%outputDir%\index.html" "%inputDir%\..\..\.update-c\index.html"
+
 :: Return to the original directory
 popd

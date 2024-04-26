@@ -89,7 +89,7 @@ document.addEventListener('click', (event) => {
         }
     }
     // Manage custom MD elements
-    let targetHref = getAbsURL(event.target.getAttribute("href") || clickedElement?.getAttribute("href") || null);
+    let targetHref = getAbsURL(event.target.getAttribute("href") || (clickedElement?.getAttribute | function(){})("href") || null);
     if((clickedElement == null || clickedElement.tagName.toLowerCase() !== 'a') && targetHref != null){
         let url;
         try{

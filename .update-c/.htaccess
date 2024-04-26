@@ -89,6 +89,15 @@ RewriteRule \.(mp4|mov|webm|avi|flv|wmv|mp3|wav|ogg|jpg|jpeg|png|gif|pdf|doc|doc
     </FilesMatch>
 </IfModule>
 
+# Manage service worker
+<Files "sw.js">
+    Header Set Service-Worker-allowed "/"
+</Files>
+<IfModule mod_headers.c>
+    Header add Service-Worker-Navigation-Preload true
+    Header merge  Vary "Service-Worker-Navigation-Preload"
+</IfModule>
+
 # Set security headers
 <IfModule mod_headers.c>
     # Remove Powered-By header!
@@ -96,7 +105,7 @@ RewriteRule \.(mp4|mov|webm|avi|flv|wmv|mp3|wav|ogg|jpg|jpeg|png|gif|pdf|doc|doc
     Header always unset X-Powered-By
 
     # Allow cross-subdomain custom headers
-    Header add Access-Control-Allow-Headers "Content-Type, Authorization, x-display-request, x-locale-request"
+    Header add Access-Control-Allow-Headers "Content-Type, Authorization, x-display-request, x-locale-request, x-service-worker"
 
     # Allow cross-subdomain credentials
     Header set Access-Control-Allow-Credentials true
@@ -174,7 +183,8 @@ RewriteRule \.(mp4|mov|webm|avi|flv|wmv|mp3|wav|ogg|jpg|jpeg|png|gif|pdf|doc|doc
     Header set Content-Security-Policy " \
     default-src 'none'; \
     base-uri 'none'; \
-    connect-src 'self' https://*.ender.ing https://stats.g.doubleclick.net; \
+    connect-src 'self' https://*.ender.ing https://stats.g.doubleclick.net https://fonts.googleapis.com https://fonts.gstatic.com; \
+    manifest-src 'self' ; \
     script-src 'self' https://*.ender.ing 'unsafe-inline' 'unsafe-eval' https://*.ender.ing https://stats.g.doubleclick.net; \
     style-src 'self' https://*.ender.ing 'unsafe-inline' https://fonts.googleapis.com; \
     object-src 'none'; \

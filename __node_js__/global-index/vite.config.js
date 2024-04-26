@@ -5,6 +5,8 @@ import { defineConfig } from 'vite';
 import solidPlugin from 'vite-plugin-solid';
 // import devtools from 'solid-devtools/vite';
 
+import { ViteMinifyPlugin } from 'vite-plugin-minify'
+
 export default defineConfig({
     base: 'https://resources.ender.ing/web/client/@vite/', // Assets will be referenced from this path
     plugins: [
@@ -14,7 +16,8 @@ export default defineConfig({
         */
         // devtools(),
         solidPlugin(),
-    ],
+        ViteMinifyPlugin({})
+      ],
     server: {
         port: 3000,
     },

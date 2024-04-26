@@ -1,8 +1,6 @@
 @echo off
 
-:: This file is meant to bundle all the material imports into web-usable resources.
-:: This is done as to always get the raws for the imports as fast as possible and ship them for the web!
-:: For more info about the bundling process, visit: https://github.com/material-components/material-web/blob/main/docs/quick-start.md#building
+:: This file is meant to bundle the global index!
 
 :: Specify the directory to search
 set inputDir=F:\development\Ender-ing\resources\.BUILD\__node_js__\global-index

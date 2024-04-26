@@ -21,7 +21,7 @@ function getJSONValue(source, path){
 
 // Replace variables inside text from JSON source
 function replaceVars(source, content){
-    return content.replaceAll(/\[(.*?)\]/g, function(match, path){
+    return content.replaceAll(/\[\[(.*?)\]\]/g, function(match, path){
         return getJSONValue(source, path);
     });
 }

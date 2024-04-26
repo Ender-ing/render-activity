@@ -11,3 +11,6 @@ CMD "Running Backup" /C "build-material-imports.bat"
 :: Make sure to install terser command before using: npm install -g terser@latest
 :: Make sure to install clean-css-cli command before using: npm install clean-css-cli -g
 CMD "Running Backup" /C "compress-custom-material.bat"
+
+:: Generate all brand assets
+CMD "Running Backup" /C "generate-brand-assets.bat"

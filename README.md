@@ -29,3 +29,7 @@ Contains all custom files related to material design
 ## /.update-c
 
 Contains code and files used on the server (using `update-c` command) to update shared files between subdomains.
+
+## /brands
+
+Contains all files used to generate brand assets.

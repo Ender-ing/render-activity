@@ -1,6 +1,6 @@
 # .htaccess file setup
 
-array_name=(public_html account authority crew docs email links mta-sts resources sites tweaker) 
+array_name=(public_html account authority crew docs email links mta-sts resources sites tweaker test) 
 
 # Go to __SHARED__ directory
 P_DIR=$PWD

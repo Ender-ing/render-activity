@@ -38,5 +38,8 @@ CMD "Running Backup" /C "npm run build %outputDir%"
 :: Copy the file to the `.update-c` directory
 copy /Y "%outputDir%\index.html" "%inputDir%\..\..\.update-c\index.html"
 
+:: Compress service worker
+CMD "Running Backup" /C "terser --compress --comments false --keep-classnames --keep-fnames -p bare_returns -o %outputDir%\sw.js %outputDir%\sw.js"
+
 :: Return to the original directory
 popd

@@ -52,7 +52,7 @@ for %%f in (*) do (
 
     :: Remove comments from the code
     :: npm install -g strip-comments
-    CMD "Running Backup" /C "node ../__clean_code__/run.js %outputDir%\%%f"
+    CMD "Running Backup" /C "node ..\utility\clean_code.js %outputDir%\%%f"
 )
 
 :: Return to the original directory

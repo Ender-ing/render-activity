@@ -4,8 +4,7 @@
  *
  **/
 
-import { createSignal, For, onCleanup, onMount } from 'solid-js';
-import { Dynamic } from 'solid-js/web';
+import { createSignal, onCleanup, onMount } from 'solid-js';
 
 // Fix HTML and XML characters in JS source code
 function fixJSSource(str) {
@@ -27,7 +26,7 @@ function fixJSSource(str) {
 }
 
 // Augment elements
-export function augmentInject(element, originalTag, augmentQueue = null){
+export function augmentInject(element, originalTag, augmentQueuePush = null){
     if(!element.isAugmented){
         // Process component augments (classes, onMount-like functions)
         if((window.componentsAugments[originalTag] || []).length > 0){
@@ -46,8 +45,8 @@ export function augmentInject(element, originalTag, augmentQueue = null){
                         }
                     };
                     // Run function
-                    if(augmentQueue != null){
-                        augmentQueue.push(augFunc);
+                    if(augmentQueuePush != null){
+                        augmentQueuePush(augFunc);
                     }else{
                         augFunc();
                     }
@@ -95,7 +94,9 @@ function xmlToHTML(xmlDoc){
             }
 
             // Process component augments (classes, onMount-like functions)
-            augmentInject(element, origNode, augmentFunctionsQueue);
+            augmentInject(element, origNode, (val) => {
+                augmentFunctionsQueue.push(val);
+            });
     
             // Children:
             const children = Array.from(node.childNodes).map(processNode);

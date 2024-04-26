@@ -1,6 +1,7 @@
 @echo off
 
 :: This file is meant to bundle the global index!
+echo [44;45m Generating global index assets... [0m
 
 :: Specify the directory to search
 set inputDir=F:\development\Ender-ing\resources\.BUILD\__node_js__\global-index

@@ -1,5 +1,8 @@
 @echo off
 
+cls
+echo [101;93m STARTING BUILDING PROCESS [0m
+
 :: Buuil all global index resources (@vite)
 CMD "Running Backup" /C "build-global-index.bat"
 
@@ -14,3 +17,5 @@ CMD "Running Backup" /C "compress-custom-material.bat"
 
 :: Generate all brand assets
 CMD "Running Backup" /C "generate-brand-assets.bat"
+
+echo [101;93m BUILDING PROCESS DONE! [0m

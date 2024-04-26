@@ -14,7 +14,7 @@ const icongen = require('icon-gen');
 
 function generateIcons() {
     icongen(path, path2, {
-        report: true,
+        report: false,
         ico: {},
         icns: {},
         favicon: {

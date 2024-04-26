@@ -13,18 +13,20 @@ if (import.meta.env.DEV && !(root instanceof HTMLElement)) {
     );
 }
 
-// Wait for DOM content to load
-document.addEventListener("DOMContentLoaded", function(){
+function startSolidJS(){
+    document.documentElement.startSolidJS = null;
+
     // Check content language
     updateDocLocaleInfo();
 
     // Start waiting for URL updated!
     setupDisplayUpdates();
-
+    
     // Render content
     // <TodoList />
     render(() => <>{processDisplay(getDisplayXML())}</>, root);
-});
+}
+document.documentElement.startSolidJS = startSolidJS;
 
 // Finish loading the page!
 document.documentElement.resourceLoaded(JAVASCRIPT);

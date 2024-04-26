@@ -47,6 +47,8 @@ document.documentElement.startLaunchActivity = startLaunchActivity;
 function checkResourceCount(){
     //console.log(document.documentElement.initialResourceCount, document.documentElement.initialResourceLoaded);
     if(document.documentElement.initialResourceLoaded >= document.documentElement.initialResourceCount) {
+        // Start SolidJS
+        document.documentElement.startSolidJS();
         // Make sure the fonts have been loaded!
         awaitFontsLoad(() => {
             // Add a big of loading delay to get rid of layout shits

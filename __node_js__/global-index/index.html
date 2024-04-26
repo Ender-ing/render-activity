@@ -17,18 +17,20 @@
         };
     </script>
     <script>
-        /*(async function(){
+        (async function(){
             // Register service worker
             if ("serviceWorker" in navigator) {
                 try {
-                    await navigator.serviceWorker.register(window.RESOURCES + "@vite/sw.js", {
+                    // Service work is not working for now...
+                    // FIX THE SERVICE WORKER!
+                    true || await navigator.serviceWorker.register(window.RESOURCES + "@vite/sw.js", {
                         scope: "/",
                     });
                 } catch (error) {
                     console.error(`Registration failed with ${error}`);
                 }
             }
-        })();*/
+        })();
     </script>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -53,7 +55,7 @@
     <script src="https://resources.ender.ing/web/client/@material/x-launch-activity.js"></script>
     <script>
         // The number of expected resources to load on this page
-        document.documentElement.initialResourceCount = 9;
+        document.documentElement.initialResourceCount = 12;
 
         // Define tracking-related variables
         var STYLESHEET = 0;
@@ -232,9 +234,9 @@
     </script>
 
     <script src="https://resources.ender.ing/web/client/material/colors.js" async onload="resourceLoaded(JAVASCRIPT, this);"></script>
-    <script src="https://resources.ender.ing/web/client/@material/x-load-activity.js"></script>
-    <script src="https://resources.ender.ing/web/client/@material/general.js"></script>
-    <script src="https://resources.ender.ing/web/client/@material/x-layouts.js"></script>
+    <script src="https://resources.ender.ing/web/client/@material/x-load-activity.js" async onload="resourceLoaded(JAVASCRIPT, this);"></script>
+    <script src="https://resources.ender.ing/web/client/@material/general.js"  async onload="resourceLoaded(JAVASCRIPT, this);"></script>
+    <script src="https://resources.ender.ing/web/client/@material/x-layouts.js" async onload="resourceLoaded(JAVASCRIPT, this);"></script>
     <script src="/src/index.jsx" type="module"></script>
 
     <!-- All extra files go here! -->

@@ -67,12 +67,14 @@ function getAbsURL(href = null){
 }
 
 // Prevent links from redirecting the page
+// YOU NEED TO RE-WORK THIS CODE!
 document.addEventListener('click', (event) => {
     // Check if element (or up to the 3rd parent) is a link element
     let clickedElement = event.target;
-    const maxParentsToCheck = 3;
+    console.log(window.aaa = clickedElement);
+    const maxParentsToCheck = 4;
     for (let i = 0; i < maxParentsToCheck; i++) {
-        if (((clickedElement || {}).tagName || "").toLowerCase() === 'a') {
+        if (((clickedElement || {}).tagName || "").toLowerCase() === 'a' || clickedElement.getAttribute("href")) {
             // We found a link within 3 parents!
             // clickedElement;
             break; 
@@ -88,8 +90,8 @@ document.addEventListener('click', (event) => {
         }
     }
     // Manage custom MD elements
-    let targetHref = getAbsURL(event.target.getAttribute("href") || null);
-    if(clickedElement == null && targetHref != null){
+    let targetHref = getAbsURL(event.target.getAttribute("href") || clickedElement.getAttribute("href") || null);
+    if((clickedElement == null || clickedElement.tagName.toLowerCase() !== 'a') && targetHref != null){
         let url;
         try{
             url = new URL(targetHref);

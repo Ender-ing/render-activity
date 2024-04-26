@@ -29,6 +29,13 @@ export default defineConfig({
     build: {
         target: 'esnext',
         sourcemap: true, // Enables source maps in production
+        rollupOptions: {
+            output: {
+                entryFileNames: `[name].js`,
+                chunkFileNames: `[name].js`,
+                assetFileNames: `[name].[ext]`
+            }
+        }
     },
     resolve: {
         conditions: ['development', 'browser'],

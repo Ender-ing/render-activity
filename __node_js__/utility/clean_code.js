@@ -4,22 +4,10 @@
  * 
 **/
 
-// node __clean_comments__.js <path>
+// node clean_code.js <path>
 
-const fs = require('fs');
-
-// Get input (same as output) path
-const path = process.argv[2];
-
-// Get file content
-async function getContent(path){
-    return await fs.readFileSync(path, 'utf-8');
-}
-
-// Overwrite file content
-async function writeContent(path, content){
-    await fs.writeFileSync(path, content);
-}
+// Get file-system functions
+import { path, getContent, writeContent } from './_files';
 
 // Clean comments
 function cleanComments(code) {

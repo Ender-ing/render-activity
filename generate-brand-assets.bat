@@ -39,6 +39,7 @@ for /D %%f in (*) do (
     mkdir %outputDir%\%%f\brand\icons\
     CMD "Running Backup" /C "node ..\__node_js__\utility\icons.js %inputDir%\%%f\logo.svg %outputDir%\%%f\brand\icons\"
     copy %inputDir%\%%f\logo.svg %outputDir%\%%f\brand\icons\logo.svg
+    copy %inputDir%\%%f\maskable.svg %outputDir%\%%f\brand\icons\logo-maskable.svg
     del %outputDir%\%%f\brand\icons\**.icns
     del %outputDir%\%%f\brand\icons\app.ico
 

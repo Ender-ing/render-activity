@@ -53,7 +53,13 @@
         },
         {
             "src": "/brand/icons/logo.svg",
-            "purpose": "maskable any",
+            "type": "image/svg",
+            "sizes": "any"
+        },
+        {
+            "src": "/brand/icons/logo-maskable.svg",
+            "type": "image/svg",
+            "purpose": "maskable",
             "sizes": "any"
         }
     ]

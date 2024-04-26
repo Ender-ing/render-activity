@@ -297,7 +297,7 @@ RewriteRule \.(mp4|mov|webm|avi|flv|wmv|mp3|wav|ogg|jpg|jpeg|png|gif|pdf|doc|doc
     <IfModule mod_headers.c>
         # Three days
         Header append Cache-Control "private, max-age=259200"
-        <FilesMatch "\.(html|htm|display|locale)$">
+        <FilesMatch "\.(html|htm|display|locale|webmanifest)$">
             # Half a day
             Header set Cache-Control "private, max-age=43200, must-revalidate"
         </FilesMatch>

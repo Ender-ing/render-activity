@@ -1,0 +1,51 @@
+{
+    "name": "[name.long]",
+    "short_name": "[name.short]",
+    "start_url": "index.html",
+    "display": "standalone",
+    "background_color": "#3f5f90",
+    "theme_color": "#3f5f90",
+    "orientation": "portrait-primary",
+    "icons": [
+        {
+            "src": "/brand/icons/logo-72x72.png",
+            "type": "image/png",
+            "sizes": "72x72"
+        },
+        {
+            "src": "/brand/icons/logo-96x96.png",
+            "type": "image/png",
+            "sizes": "96x96"
+        },
+        {
+            "src": "/brand/icons/logo-128x128.png",
+            "type": "image/png",
+            "sizes": "128x128"
+        },
+        {
+            "src": "/brand/icons/logo-144x144.png",
+            "type": "image/png",
+            "sizes": "144x144"
+        },
+        {
+            "src": "/brand/icons/logo-152x152.png",
+            "type": "image/png",
+            "sizes": "152x152"
+        },
+        {
+            "src": "/brand/icons/logo-192x192.png",
+            "type": "image/png",
+            "sizes": "192x192"
+        },
+        {
+            "src": "/brand/icons/logo-384x384.png",
+            "type": "image/png",
+            "sizes": "384x384"
+        },
+        {
+            "src": "/brand/icons/logo-512x512.png",
+            "type": "image/png",
+            "sizes": "512x512"
+        }
+    ]
+}

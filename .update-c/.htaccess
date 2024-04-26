@@ -124,7 +124,8 @@ RewriteRule \.(mp4|mov|webm|avi|flv|wmv|mp3|wav|ogg|jpg|jpeg|png|gif|pdf|doc|doc
     Header set Cross-Origin-Embedder-Policy require-corp
 
     # Set resource policy
-    Header set Cross-Origin-Resource-Policy same-site
+    # IF YOU SET THIS TO SAME-SITE/SAME-ORIGIN, MANIFEST IMAGES STOP LOADING
+    Header set Cross-Origin-Resource-Policy cross-origin
 
     # Set opener policy
     # Might need to change this to same-site later (if you needed to communicate between tabs)
@@ -200,7 +201,6 @@ RewriteRule \.(mp4|mov|webm|avi|flv|wmv|mp3|wav|ogg|jpg|jpeg|png|gif|pdf|doc|doc
     SetEnvIf Origin ^(https?://.+\.ender\.ing(?::\d{1,5})?|https?://ender\.ing(?::\d{1,5})?)$ CORS_ALLOW_ORIGIN=$1
     Header append Access-Control-Allow-Origin  %{CORS_ALLOW_ORIGIN}e   env=CORS_ALLOW_ORIGIN
     Header merge  Vary "Origin"
-    
 </IfModule>
 
 # Security REMINDER

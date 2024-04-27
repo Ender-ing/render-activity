@@ -1,15 +1,25 @@
+/**
+ *
+ * Used to generate manifest.webmanifest
+ *
+**/
 {
+    // Name
     "name": "[[name.long]]",
     "short_name": "[[name.short]]",
+    // Start page
     "start_url": "/",
+    // View
     "display_override": [
         "window-controls-overlay",
         "minimal-ui"
     ],
     "display": "standalone",
+    "orientation": "portrait-primary",
+    // Theme
     "background_color": "#3f5f90",
     "theme_color": "#3f5f90",
-    "orientation": "portrait-primary",
+    // Icons
     "icons": [
         {
             "src": "/brand/icons/logo-72.png",

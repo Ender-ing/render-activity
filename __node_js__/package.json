@@ -4,6 +4,7 @@
     "@rollup/plugin-node-resolve": "^15.2.3",
     "fs": "^0.0.1-security",
     "icon-gen": "^4.0.0",
+    "node-json-minify": "^3.0.0",
     "rollup": "^4.13.0"
   }
 }

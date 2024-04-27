@@ -58,14 +58,15 @@ function fetchDisplay(displayURL, pathname, text = false, updateContentPathname 
                 'x-display-request': 1
             }
         }).then(async response => {
-            console.warn("Locale file could not be loaded!");
+            let responseText = (await response.text() || null);
             // Fetch Preload breaks error codes!
             // Check if this is an HTML file
             if((response.status === 404 ||
-                    (response.indexOf('<!DOCTYPE') != -1 && response.indexOf('<!DOCTYPE') < 10))
+                    (responseText?.indexOf('<!DOCTYPE') != -1 && responseText?.indexOf('<!DOCTYPE') < 10))
                 && pathname !== fixBase(PAGES.ERROR_404)){
                 pathname = PAGES.ERROR_404;
                 updateContentPathname = false;
+                console.warn("Display file could not be loaded!");
                 return await fetchDisplay(PAGES.ERROR_404, fixBase(PAGES.ERROR_404), true);
             }else if (!response.ok) {
                 showDialog(DIALOG.network.error);
@@ -75,7 +76,7 @@ function fetchDisplay(displayURL, pathname, text = false, updateContentPathname 
             if(updateContentPathname){
                 setContentURL(pathname);
             }
-            return response.text();
+            return responseText;
         }).then(async xmlString => {
             if(!text){
                 let localisedXML = await localiseContent(xmlString);

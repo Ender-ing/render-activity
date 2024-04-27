@@ -39,6 +39,8 @@ header('Content-Security-Policy:'.
             window.componentsAugments[name] = args;
         };
     </script>
+    <link rel="preconnect" href="https://resources.ender.ing" />
+    <link rel="preconnect" href="https://resources.ender.ing" crossorigin />
     <script>
         (async function(){
             // Register service worker
@@ -64,7 +66,11 @@ header('Content-Security-Policy:'.
     <link rel="preload" href="https://resources.ender.ing/web/client/material/colors.js" as="script" />
     <link rel="preload" href="https://resources.ender.ing/web/client/@material/quick.js" as="script" />
 
-    <!-- Prefetch resources (expected resources) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <!-- Prefetch resources (expected resources) -->    
     <!-- <link rel="prefetch" href="..." /> -->
 
     <script>

@@ -71,7 +71,7 @@ RewriteRule \.(mp4|mov|webm|avi|flv|wmv|mp3|wav|ogg|jpg|jpeg|png|gif|pdf|doc|doc
 # Content Delivery Optomisation headers
 <IfModule mod_headers.c>
    # Match HTML files
-   <FilesMatch "\.(html|htm|js|css)$">
+   <FilesMatch "\.(html|php|htm|js|css)$">
         # Set dns-prefetch headers as a fallback
         # (for browsers that don't support preconnect)
         Header add Link "<https://resources.ender.ing>; rel=dns-prefetch"

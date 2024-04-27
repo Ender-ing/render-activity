@@ -54,7 +54,7 @@ function getScrollbarCSS(){
     if(scrollbarStyleSheet == null){
         try {
             // Get theme.css rules
-            let themeRules = document.getElementById("material-theme-style").sheet.cssRules;
+            let themeRules = document.getElementById("css-theme").sheet.cssRules;
 
             // Get all scrollbar CSS rules
             let scrollbarRules = [];
@@ -168,3 +168,5 @@ import '@material/web/textfield/filled-text-field.js';
 window.addComponentToList("filled-text-field", "md-filled-text-field");
 import '@material/web/textfield/outlined-text-field.js';
 window.addComponentToList("outlined-text-field", "md-outlined-text-field");
+
+document.documentElement.resourceLoaded(JAVASCRIPT);

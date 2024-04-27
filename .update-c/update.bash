@@ -21,8 +21,8 @@ for item in "${array_name[@]}"; do
     cp -f -l -v .well-known.htaccess ~/$item/.well-known/.htaccess  > /dev/null 
 
     # update index.html file
-    rm -f ~/$item/index.html > /dev/null 2>&1 
-    cp -f -l -v index.html ~/$item/index.html  > /dev/null 
+    rm -f ~/$item/index.php > /dev/null 2>&1 
+    cp -f -l -v index.php ~/$item/index.php  > /dev/null 
 
     # update robots.txt file
     rm -f ~/$item/robots.txt > /dev/null 2>&1 

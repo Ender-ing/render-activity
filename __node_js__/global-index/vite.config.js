@@ -6,6 +6,7 @@ import solidPlugin from 'vite-plugin-solid';
 // import devtools from 'solid-devtools/vite';
 
 import { ViteMinifyPlugin } from 'vite-plugin-minify'
+import { appendNonce } from './vite.nonce'; 
 
 export default defineConfig({
     base: 'https://resources.ender.ing/web/client/@vite/', // Assets will be referenced from this path
@@ -16,7 +17,8 @@ export default defineConfig({
         */
         // devtools(),
         solidPlugin(),
-        ViteMinifyPlugin({})
+        ViteMinifyPlugin({}),
+        appendNonce()
       ],
     server: {
         port: 3000,
@@ -33,6 +35,9 @@ export default defineConfig({
         target: 'esnext',
         sourcemap: true, // Enables source maps in production
         rollupOptions: {
+            input: {
+                index: './index.php.html'
+            },
             output: {
                 entryFileNames: `[name].js`,
                 chunkFileNames: `[name].js`,

@@ -66,3 +66,6 @@ function setContentResourceLoaded(id, loaded){
     }
 }
 window.document.documentElement.setContentResourceLoaded = setContentResourceLoaded;
+
+
+document.documentElement.resourceLoaded(JAVASCRIPT);

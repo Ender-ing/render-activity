@@ -8,3 +8,5 @@
 
 // Temp
 window.addComponentToList("x-root", "div", "x-root-class");
+
+document.documentElement.resourceLoaded(JAVASCRIPT);

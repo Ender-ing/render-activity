@@ -1,5 +1,25 @@
 <!DOCTYPE html>
-<html lang="en" class="placeholder-scheme">
+<html lang="en" class="placeholder-scheme" nonce-enabled="<?php
+// PHP CODE
+
+// Generate nonce
+$NONCE = md5(random_bytes(16));
+
+// Set CSP header
+header('Content-Security-Policy:'.
+    'default-src \'none\';'.
+    'base-uri \'none\';'.
+    'connect-src \'self\' https://*.ender.ing https://www.google-analytics.com https://fonts.googleapis.com https://fonts.gstatic.com;'.
+    'manifest-src \'self\' ;'.
+    'script-src \'self\' https://*.ender.ing \'nonce-'.$NONCE.'\' \'strict-dynamic\' https://*.ender.ing https://www.googletagmanager.com;'.
+    'style-src \'self\' https://*.ender.ing \'unsafe-inline\' https://fonts.googleapis.com;'.
+    'object-src \'none\';'.
+    'font-src https://fonts.googleapis.com https://fonts.gstatic.com;'.
+    'form-action \'self\' https://*.ender.ing;'.
+    'img-src \'self\' https://*.ender.ing data:;'.
+    'frame-ancestors \'none\';'.
+    'upgrade-insecure-requests;');
+?>">
 
 <head>
     <meta charset="utf-8" />
@@ -65,7 +85,21 @@
         var STYLESHEET = 0;
         var STYLESHEET_NO_MEDIA = 1;
         var JAVASCRIPT = 2;
-        var resourceLoaded = document.documentElement.resourceLoaded;
+
+        // Watch CSS resources load time
+        function awaitCSSLoad(...ids){
+            for(let id of ids){
+                let elm = document.getElementById(id);
+                let state = elm.readyState;
+                if (state === 'loaded' || state === 'complete') {
+                    document.documentElement.resourceLoaded(STYLESHEET, elm);
+                }else{
+                    (elm || {}).onload = function(){
+                        document.documentElement.resourceLoaded(STYLESHEET, elm);
+                    };
+                }
+            }
+        }
 
         // Check content language
         document.documentElement.checkLocale();
@@ -99,7 +133,7 @@
             display: none;
         }
     </style>
-    <style media="print" onload="resourceLoaded(STYLESHEET, this);">
+    <style id="css-first-print" media="print">
         .placeholder-scheme {
             --md-sys-color-primary: rgb(63 95 144);
             --md-sys-color-on-background: rgb(25 28 32);
@@ -235,6 +269,9 @@
             }
         }
     </style>
+    <script async>
+        awaitCSSLoad("css-first-print");
+    </script>
 
     <!-- Coninute preload -->
     <link rel="preload" href="https://resources.ender.ing/web/client/material/theme.css" as="style" crossorigin="use-credentials" />
@@ -246,14 +283,20 @@
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Noto+Sans+Hebrew:wght@100..900&family=Noto+Sans+Arabic:wght@100..900&display=swap" as="style" />
 
     <!-- Load inital stylesheets -->
-    <link rel="stylesheet" href="https://resources.ender.ing/web/client/material/colors.css" crossorigin="use-credentials" media="print" onload="resourceLoaded(STYLESHEET, this); document.documentElement.colors = true; document.documentElement.classList.remove('placeholder-scheme');" />
-    <script src="https://resources.ender.ing/web/client/material/colors.js" async onload="resourceLoaded(JAVASCRIPT, this);"></script>
-    <script src="https://resources.ender.ing/web/client/@material/quick.js" async onload="resourceLoaded(JAVASCRIPT, this);"></script>
-    <link id="material-theme-style" rel="stylesheet" href="https://resources.ender.ing/web/client/material/theme.css" crossorigin="use-credentials" media="print" onload="resourceLoaded(STYLESHEET, this);" />
-    <link rel="stylesheet" href="https://resources.ender.ing/web/client/material/load.css" crossorigin="use-credentials" media="print" onload="resourceLoaded(STYLESHEET, this);" />
-    <link rel="stylesheet" href="https://resources.ender.ing/web/client/material/icons.css" crossorigin="use-credentials" media="print" onload="resourceLoaded(STYLESHEET, this);" />
-    <link rel="stylesheet" href="https://resources.ender.ing/web/client/material/font.css" crossorigin="use-credentials" media="print" onload="resourceLoaded(STYLESHEET, this);" />
-    <link rel="stylesheet" href="https://resources.ender.ing/web/client/material/layouts.css" crossorigin="use-credentials" media="print" onload="resourceLoaded(STYLESHEET, this);" />
+    <link id="css-colors" rel="stylesheet" href="https://resources.ender.ing/web/client/material/colors.css" crossorigin="use-credentials" media="print" />
+    <script src="https://resources.ender.ing/web/client/material/colors.js" async></script>
+    <script src="https://resources.ender.ing/web/client/@material/quick.js" async></script>
+    <link id="css-theme" rel="stylesheet" href="https://resources.ender.ing/web/client/material/theme.css" crossorigin="use-credentials" media="print" />
+    <link id="css-load" rel="stylesheet" href="https://resources.ender.ing/web/client/material/load.css" crossorigin="use-credentials" media="print" />
+    <link id="css-icons" rel="stylesheet" href="https://resources.ender.ing/web/client/material/icons.css" crossorigin="use-credentials" media="print" />
+    <link id="css-font" rel="stylesheet" href="https://resources.ender.ing/web/client/material/font.css" crossorigin="use-credentials" media="print" />
+    <link id="css-layouts" rel="stylesheet" href="https://resources.ender.ing/web/client/material/layouts.css" crossorigin="use-credentials" media="print" />
+    <script async>
+        document.getElementById("css-colors").addEventListener("load", function(){
+            document.documentElement.colors = true; document.documentElement.classList.remove('placeholder-scheme');
+        });
+        awaitCSSLoad("css-colors", "css-theme", "css-load", "css-icons", "css-font", "css-layouts");
+    </script>
 
     <title>Ender.ing</title>
 
@@ -315,17 +358,24 @@
             <div slot="headline" locale-content="{{$network.error.title}}"></div>
             <form slot="content" id="network-connection-error-form" method="dialog" locale-content="{{$network.error.files}}"></form>
             <div slot="actions">
-                <md-text-button form="network-connection-error-form" value="reload" locale-content="{{$redirect.reload}}" onclick="window.location.reload();"></md-text-button>
+                <md-text-button id="network-connection-error-reload" form="network-connection-error-form" value="reload" locale-content="{{$redirect.reload}}"></md-text-button>
             </div>
         </md-dialog>
         <md-dialog id="content-files-error" type="alert">
             <div slot="headline" locale-content="{{$content.not_available.title}}"></div>
             <form slot="content" id="content-files-error-form" method="dialog" locale-content="{{$content.not_available.message}}"></form>
             <div slot="actions">
-                <md-text-button form="content-files-error-form" value="back" locale-content="{{$redirect.back}}" onclick="window.history.go(-1);"></md-text-button>
-                <md-text-button form="content-files-error-form" value="reload" locale-content="{{$redirect.reload}}" onclick="window.location.reload();"></md-text-button>
+                <md-text-button id="content-files-error-back" form="content-files-error-form" value="back" locale-content="{{$redirect.back}}"></md-text-button>
+                <md-text-button id="content-files-error-reload" form="content-files-error-form" value="reload" locale-content="{{$redirect.reload}}"></md-text-button>
             </div>
         </md-dialog>
+        <script async>
+            let networkErrorReload = document.getElementById('network-connection-error-reload');
+            let contentErrorBack = document.getElementById('content-files-error-back');
+            let contentErrorReload = document.getElementById('content-files-error-reload');
+            networkErrorReload.onclick = contentErrorReload.onclick = () => window.location.reload();
+            contentErrorBack.onclick = () => window.history.go(-1);
+        </script>
     </div>
 
     <!-- Start launch activity -->
@@ -333,9 +383,9 @@
         document.documentElement.startLaunchActivity();
     </script>
 
-    <script src="https://resources.ender.ing/web/client/@material/x-load-activity.js" async onload="resourceLoaded(JAVASCRIPT, this);"></script>
-    <script src="https://resources.ender.ing/web/client/@material/general.js" async onload="resourceLoaded(JAVASCRIPT, this);"></script>
-    <script src="https://resources.ender.ing/web/client/@material/x-layouts.js" async onload="resourceLoaded(JAVASCRIPT, this);"></script>
+    <script src="https://resources.ender.ing/web/client/@material/x-load-activity.js" async></script>
+    <script src="https://resources.ender.ing/web/client/@material/general.js" async></script>
+    <script src="https://resources.ender.ing/web/client/@material/x-layouts.js" async></script>
     <script src="/src/index.jsx" type="module" async></script>
 
     <!-- All extra files go here! -->

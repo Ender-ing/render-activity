@@ -8,9 +8,6 @@ document.documentElement.initialResourceCount = 1;
 document.documentElement.initialResourceLoaded = 0;
 
 // Mark loaded resources
-var STYLESHEET = 0;
-var STYLESHEET_NO_MEDIA = 1;
-var JAVASCRIPT = 2;
 function resourceLoaded(type, elm = null){
     // Check if the element is included
     if(elm != null){

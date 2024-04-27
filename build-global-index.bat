@@ -35,8 +35,8 @@ echo Building Global Index..
 CMD "Running Backup" /C "npm run build %outputDir%"
 
 :: Copy the file to the `.update-c` directory
-copy /Y "%outputDir%\index.html" "%inputDir%\..\..\.update-c\index.html"
-del "%outputDir%\index.html"
+copy /Y "%outputDir%\index.php.html" "%inputDir%\..\..\.update-c\index.php"
+del "%outputDir%\index.php.html"
 
 :: Compress files
 CMD "Running Backup" /C "terser --compress --comments false --keep-classnames --keep-fnames -p bare_returns -o %outputDir%\sw.js %outputDir%\sw.js"

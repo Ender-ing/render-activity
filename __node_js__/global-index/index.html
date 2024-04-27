@@ -65,7 +65,7 @@
     <script src="https://resources.ender.ing/web/client/@material/x-launch-activity.js"></script>
     <script>
         // The number of expected resources to load on this page
-        document.documentElement.initialResourceCount = 12;
+        document.documentElement.initialResourceCount = 13;
 
         // Define tracking-related variables
         var STYLESHEET = 0;
@@ -127,8 +127,18 @@
     <!-- Imporant CSS for first-print -->
     <style>
         .placeholder-scheme {
-            --md-sys-color-primary: rgb(63 95 144);
             --md-sys-color-surface-container: rgb(237 237 244);
+        }
+        :root {
+            background-color: var(--md-sys-color-surface-container);
+        }
+        .launch {
+            display: none;
+        }
+    </style>
+    <style media="print" onload="resourceLoaded(STYLESHEET, this);">
+        .placeholder-scheme {
+            --md-sys-color-primary: rgb(63 95 144);
             --md-sys-color-on-background: rgb(25 28 32);
             --md-sys-color-outline-variant: rgb(196 198 207);
         }
@@ -312,7 +322,7 @@
     </div>
 
     <!-- Start launch activity -->
-    <script>
+    <script async>
         document.documentElement.startLaunchActivity();
     </script>
 

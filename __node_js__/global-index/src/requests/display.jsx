@@ -58,7 +58,12 @@ function fetchDisplay(displayURL, pathname, text = false, updateContentPathname 
                 'x-display-request': 1
             }
         }).then(async response => {
-            if(response.status === 404 && pathname !== fixBase(PAGES.ERROR_404)){
+            console.warn("Locale file could not be loaded!");
+            // Fetch Preload breaks error codes!
+            // Check if this is an HTML file
+            if((response.status === 404 ||
+                    (response.indexOf('<!DOCTYPE') != -1 && response.indexOf('<!DOCTYPE') < 10))
+                && pathname !== fixBase(PAGES.ERROR_404)){
                 pathname = PAGES.ERROR_404;
                 updateContentPathname = false;
                 return await fetchDisplay(PAGES.ERROR_404, fixBase(PAGES.ERROR_404), true);

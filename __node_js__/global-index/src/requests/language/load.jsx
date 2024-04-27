@@ -33,7 +33,7 @@ export function fetchLocale(url){
                 return "{}";
             }else if (!response.ok) {
                 showDialog(DIALOG.network.error);
-                throw new Error('Network response was not ok');
+                throw new Error('Network response was not ok', response);
             }else{
                 return response.text();
             }
@@ -43,8 +43,13 @@ export function fetchLocale(url){
             try{
                 json = JSON.parse(jsonString);
             }catch{
-                showDialog(DIALOG.content.error);
-                throw new Error('JSON parse failed');
+                console.warn("Locale file could not be loaded!");
+                // Fetch Preload breaks error codes!
+                // Check if this is an xml file
+                if(!(jsonString.indexOf('<?xml') != -1 && jsonString.indexOf('<?xml') < 10)){
+                    showDialog(DIALOG.content.error);
+                }
+                return {}
             }
     
             // Extract the values you need

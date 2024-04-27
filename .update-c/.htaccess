@@ -23,8 +23,6 @@ RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
 # Remove "index.html" and "index.php" from URL
 RewriteCond %{HTTP:x-display-request} ^$ [OR]
 RewriteCond %{HTTP:x-display-request} !^.+$
-RewriteCond %{THE_REQUEST} /index\.display [NC]
-RewriteRule ^(.*)index\.display$ /$1 [R=301,L]
 RewriteCond %{THE_REQUEST} /index\.html [NC]
 RewriteRule ^(.*)index\.html$ /$1 [R=301,L]
 RewriteCond %{THE_REQUEST} /index\.php [NC]

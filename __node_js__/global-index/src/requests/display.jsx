@@ -52,6 +52,7 @@ function fetchDisplay(displayURL, pathname, text = false, updateContentPathname 
     return new Promise((resolve, reject) => {
         fetch(displayURL, {
             method: 'GET',
+            credentials: 'include',
             headers: {
                 // This header must be present to prevent a global HTML page from being served!
                 'x-display-request': 1

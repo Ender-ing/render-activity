@@ -24,6 +24,7 @@ export function fetchLocale(url){
     return new Promise((resolve, reject) => {
         fetch(url, {
             method: 'GET',
+            credentials: 'include',
             headers: {
                 'x-locale-request': 1
             }

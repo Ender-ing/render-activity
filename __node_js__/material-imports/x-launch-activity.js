@@ -68,3 +68,71 @@ function awaitFontsLoad(callback){
         callback();
     });
 }
+
+// Locale allowlist
+const allowedLocales = ["en", "ar", "he"];
+document.documentElement.allowedLocales = allowedLocales;
+
+// Check browser language preference
+function getBrowserPreferred(){
+    let languages = navigator.languages.map(val => val.substring(0, 2));
+    for (let i = 0; i < languages.length; i++) {
+        if(allowedLocales.includes(languages[i])){
+            return languages[i];
+        }
+    }
+    return allowedLocales[0];
+}
+
+// Check saved preferences
+function checkLocale(){
+    // Check hash
+    let hash = window.location.hash.substring(1);
+    if(allowedLocales.includes(hash)){
+        document.documentElement.setCookie("locale", hash);
+    } else {
+        // Check locale cookie
+        locale = (document.documentElement.getCookie("locale") || null);
+        if(locale == null){
+            document.documentElement.setCookie("locale", getBrowserPreferred());
+        }else if(!allowedLocales.includes(locale)){
+            document.documentElement.setCookie("locale", allowedLocales[0]);
+        }
+    }
+}
+document.documentElement.checkLocale = checkLocale;
+
+// Fix pathname base
+function fixBase(base){
+    // Add slash to the end of the pathname
+    if(base[base.length - 1] != "/"){
+        base += "/";
+    }
+    return base;
+}
+
+// Create a fetch preload
+function preloadFetch(url){
+    let link = document.createElement("link");
+    link.setAttribute("rel", "preload");
+    link.setAttribute("as", "fetch");
+    link.setAttribute("crossorigin", "use-credentials");
+    // Set URL
+    link.setAttribute("href", url);
+    // Append element
+    document.head.appendChild(link);
+}
+
+// Preload .display and .locale files
+function preloadContent(){
+    // Preload .display file
+    preloadFetch(fixBase(window.location.pathname) + "index.display");
+    // Preload .locale file
+    let locale = document.documentElement.getCookie("locale");
+    if(locale != null){
+        // This means that locale files are not loaded on the user's first visit to the website!
+        preloadFetch(`${window.RESOURCES}global-locale/${locale}.locale`);
+        preloadFetch(fixBase(window.location.pathname) + `${locale}.locale`);
+    }
+}
+document.documentElement.preloadContent = preloadContent;

@@ -39,20 +39,29 @@
     <!-- Preload resources (current page resources) -->
     <link rel="preload" href="https://resources.ender.ing/web/client/@material/x-launch-activity.js" as="script" />
     <link rel="preload" href="/brand/icons/logo.svg" as="image" />
-    <link rel="preload" href="https://resources.ender.ing/web/client/material/colors.css" as="style" />
+    <link rel="preload" href="https://resources.ender.ing/web/client/material/colors.css" as="style" crossorigin="use-credentials" />
     <link rel="preload" href="https://resources.ender.ing/web/client/material/colors.js" as="script" />
     <link rel="preload" href="https://resources.ender.ing/web/client/@material/quick.js" as="script" />
-    <link rel="preload" href="https://resources.ender.ing/web/client/material/theme.css" as="style" />
-    <link rel="preload" href="https://resources.ender.ing/web/client/material/load.css" as="style" />
-    <link rel="preload" href="https://resources.ender.ing/web/client/material/font.css" as="style" />
-    <link rel="preload" href="https://resources.ender.ing/web/client/material/icons.css" as="style" />
-    <link rel="preload" href="https://resources.ender.ing/web/client/material/layouts.css" as="style" />
+    <link rel="preload" href="https://resources.ender.ing/web/client/material/theme.css" as="style" crossorigin="use-credentials" />
+    <link rel="preload" href="https://resources.ender.ing/web/client/material/load.css" as="style" crossorigin="use-credentials" />
+    <link rel="preload" href="https://resources.ender.ing/web/client/material/font.css" as="style" crossorigin="use-credentials" />
+    <link rel="preload" href="https://resources.ender.ing/web/client/material/icons.css" as="style" crossorigin="use-credentials" />
+    <link rel="preload" href="https://resources.ender.ing/web/client/material/layouts.css" as="style" crossorigin="use-credentials" />
     <link rel="preload" href="https://resources.ender.ing/web/client/@material/x-load-activity.js" as="script" />
     <link rel="modulepreload" href="https://resources.ender.ing/web/client/@vite/index.js" />
 
     <!-- Prefetch resources (expected resources) -->
     <!-- <link rel="prefetch" href="..." /> -->
 
+    <script>
+        // Manage cookies
+        document.documentElement.getCookie = function(name){
+            return (document.cookie.match(new RegExp(`^(?:.*;)?\\s*${name}\\s*=\\s*([^;]+)(?:.*)?$`))||[,null])[1];
+        };
+        document.documentElement.setCookie = function(name, value){
+            document.cookie = `${name}=${value};path=/;domain=ender.ing`;
+        }
+    </script>
     <script src="https://resources.ender.ing/web/client/@material/x-launch-activity.js"></script>
     <script>
         // The number of expected resources to load on this page
@@ -63,15 +72,13 @@
         var STYLESHEET_NO_MEDIA = 1;
         var JAVASCRIPT = 2;
         var resourceLoaded = document.documentElement.resourceLoaded;
+
+        // Check content language
+        document.documentElement.checkLocale();
+        // Preload content (.display && .locale)
+        document.documentElement.preloadContent();
     </script>
-    <script>
-        // Manage cookies
-        document.documentElement.getCookie = function(name){
-            return (document.cookie.match(new RegExp(`^(?:.*;)?\\s*${name}\\s*=\\s*([^;]+)(?:.*)?$`))||[,null])[1];
-        };
-        document.documentElement.setCookie = function(name, value){
-            document.cookie = `${name}=${value};path=/;domain=ender.ing`;
-        }
+    <script async>
         // Set colour scheme
         // (no extra checks, do those in the colors.js file)
         document.documentElement.schemeList = [
@@ -87,16 +94,16 @@
     </script>
 
     <!-- Load colours and loading element -->
-    <link rel="stylesheet" href="https://resources.ender.ing/web/client/material/colors.css" crossorigin="anonymous" media="print" onload="resourceLoaded(STYLESHEET, this); document.documentElement.colors = true; document.documentElement.classList.remove('placeholder-scheme');" />
+    <link rel="stylesheet" href="https://resources.ender.ing/web/client/material/colors.css" crossorigin="use-credentials" media="print" onload="resourceLoaded(STYLESHEET, this); document.documentElement.colors = true; document.documentElement.classList.remove('placeholder-scheme');" />
     <script src="https://resources.ender.ing/web/client/material/colors.js" async onload="resourceLoaded(JAVASCRIPT, this);"></script>
     <script src="https://resources.ender.ing/web/client/@material/quick.js" async onload="resourceLoaded(JAVASCRIPT, this);"></script>
 
     <!-- Load inital stylesheets -->
-    <link id="material-theme-style" rel="stylesheet" href="https://resources.ender.ing/web/client/material/theme.css" crossorigin="anonymous" media="print" onload="resourceLoaded(STYLESHEET, this);" />
-    <link rel="stylesheet" href="https://resources.ender.ing/web/client/material/load.css" crossorigin="anonymous" media="print" onload="resourceLoaded(STYLESHEET, this);" />
-    <link rel="stylesheet" href="https://resources.ender.ing/web/client/material/icons.css" crossorigin="anonymous" media="print" onload="resourceLoaded(STYLESHEET, this);" />
-    <link rel="stylesheet" href="https://resources.ender.ing/web/client/material/font.css" crossorigin="anonymous" media="print" onload="resourceLoaded(STYLESHEET, this);" />
-    <link rel="stylesheet" href="https://resources.ender.ing/web/client/material/layouts.css" crossorigin="anonymous" media="print" onload="resourceLoaded(STYLESHEET, this);" />
+    <link id="material-theme-style" rel="stylesheet" href="https://resources.ender.ing/web/client/material/theme.css" crossorigin="use-credentials" media="print" onload="resourceLoaded(STYLESHEET, this);" />
+    <link rel="stylesheet" href="https://resources.ender.ing/web/client/material/load.css" crossorigin="use-credentials" media="print" onload="resourceLoaded(STYLESHEET, this);" />
+    <link rel="stylesheet" href="https://resources.ender.ing/web/client/material/icons.css" crossorigin="use-credentials" media="print" onload="resourceLoaded(STYLESHEET, this);" />
+    <link rel="stylesheet" href="https://resources.ender.ing/web/client/material/font.css" crossorigin="use-credentials" media="print" onload="resourceLoaded(STYLESHEET, this);" />
+    <link rel="stylesheet" href="https://resources.ender.ing/web/client/material/layouts.css" crossorigin="use-credentials" media="print" onload="resourceLoaded(STYLESHEET, this);" />
 
     <title>Ender.ing</title>
 

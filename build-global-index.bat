@@ -37,15 +37,15 @@ pushd %inputDir%
 echo Building Global Index..
 CMD "Running Backup" /C "npm run build %outputDir%"
 
+:: Compress files
+CMD "Running Backup" /C "terser --compress --comments false --keep-classnames --keep-fnames -p bare_returns -o %outputDir%\sw.js %outputDir%\sw.js"
+CMD "Running Backup" /C "terser --compress --comments false --keep-classnames --keep-fnames -p bare_returns -o %outputDir%\tracking.js %outputDir%\tracking.js"
+
 :: Copy global files to the `.update-c` directory
 copy /Y "%outputDir%\index.php.html" "%inputDir%\..\..\.update-c\index.php"
 del "%outputDir%\index.php.html"
 copy /Y "%outputDir%\sw.js" "%inputDir%\..\..\.update-c\sw.js"
 del "%outputDir%\sw.js"
-
-:: Compress files
-CMD "Running Backup" /C "terser --compress --comments false --keep-classnames --keep-fnames -p bare_returns -o %outputDir%\sw.js %outputDir%\sw.js"
-CMD "Running Backup" /C "terser --compress --comments false --keep-classnames --keep-fnames -p bare_returns -o %outputDir%\tracking.js %outputDir%\tracking.js"
 
 :: Return to the original directory
 popd

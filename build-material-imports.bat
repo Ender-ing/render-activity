@@ -5,9 +5,12 @@
 :: For more info about the bundling process, visit: https://github.com/material-components/material-web/blob/main/docs/quick-start.md#building
 echo [44;45m Generating Material Design components assets... [0m
 
+:: Get environment variables
+FOR /F "tokens=*" %%i in (BUILD.env) do SET %%i
+
 :: Specify the directory to search
-set inputDir=F:\development\Ender-ing\resources\.BUILD\__node_js__\material-imports
-set outputDir=F:\development\Ender-ing\resources\web\client\@material
+set inputDir=%BUILD_PATH%\__node_js__\material-imports
+set outputDir=%RESOURCES_PATH%\web\client\@material
 
 :: Attempt to delete the folder (with error handling)
 rmdir /s /q %outputDir%

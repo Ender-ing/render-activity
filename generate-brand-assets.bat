@@ -3,9 +3,12 @@
 :: This file is meant to handle all brand-related assets generation
 echo [44;45m Generating branding assets... [0m
 
+:: Get environment variables
+FOR /F "tokens=*" %%i in (BUILD.env) do SET %%i
+
 :: Specify the directory to search
-set inputDir=F:\development\Ender-ing\resources\.BUILD\brands
-set outputDir=F:\development\Ender-ing\resources\.BUILD\brands_out
+set inputDir=%BUILD_PATH%\brands
+set outputDir=%BUILD_PATH%\brands_out
 
 :: Attempt to delete the folder (with error handling)
 rmdir /s /q %outputDir%

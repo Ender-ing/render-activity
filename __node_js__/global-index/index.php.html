@@ -46,13 +46,11 @@ header('Content-Security-Policy:'.
             // Register service worker
             if ("serviceWorker" in navigator) {
                 try {
-                    // Service work is not working for now...
-                    // FIX THE SERVICE WORKER!
-                    true || await navigator.serviceWorker.register(window.RESOURCES + "@vite/sw.js", {
+                    1 || await navigator.serviceWorker.register("/sw.js", {
                         scope: "/",
                     });
                 } catch (error) {
-                    console.error(`Registration failed with ${error}`);
+                    console.warn('SW Registration failed', error);
                 }
             }
         })();

@@ -1,5 +1,8 @@
 @echo off
 
+:: Use this code to get environment variables
+:: FOR /F "tokens=*" %%i in (BUILD.env) do SET %%i
+
 cls
 echo [101;93m STARTING BUILDING PROCESS [0m
 

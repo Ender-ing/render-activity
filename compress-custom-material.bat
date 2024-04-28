@@ -3,9 +3,12 @@
 :: This file is meant to comrpess and minify the raw files used in the material folder
 echo [44;45m Compressing raw Material Design assets... [0m
 
+:: Get environment variables
+FOR /F "tokens=*" %%i in (BUILD.env) do SET %%i
+
 :: Specify the directory to search
-set inputDir=F:\development\Ender-ing\resources\.BUILD\__node_js__\material
-set outputDir=F:\development\Ender-ing\resources\web\client\material
+set inputDir=%BUILD_PATH%\__node_js__\material
+set outputDir=%RESOURCES_PATH%\web\client\material
 
 :: Attempt to delete the folder (with error handling)
 rmdir /s /q %outputDir%

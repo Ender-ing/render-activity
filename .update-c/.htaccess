@@ -88,9 +88,6 @@ RewriteRule \.(mp4|mov|webm|avi|flv|wmv|mp3|wav|ogg|jpg|jpeg|png|gif|pdf|doc|doc
 </IfModule>
 
 # Manage service worker
-<Files "sw.js">
-    Header Set Service-Worker-allowed "/"
-</Files>
 <IfModule mod_headers.c>
     Header add Service-Worker-Navigation-Preload true
     Header merge  Vary "Service-Worker-Navigation-Preload"

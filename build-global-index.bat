@@ -3,9 +3,12 @@
 :: This file is meant to bundle the global index!
 echo [44;45m Generating global index assets... [0m
 
+:: Get environment variables
+FOR /F "tokens=*" %%i in (BUILD.env) do SET %%i
+
 :: Specify the directory to search
-set inputDir=F:\development\Ender-ing\resources\.BUILD\__node_js__\global-index
-set outputDir=F:\development\Ender-ing\resources\web\client\@vite
+set inputDir=%BUILD_PATH%\__node_js__\global-index
+set outputDir=%RESOURCES_PATH%\web\client\@vite
 
 :: Attempt to delete the folder (with error handling)
 rmdir /s /q %outputDir%
@@ -34,9 +37,11 @@ pushd %inputDir%
 echo Building Global Index..
 CMD "Running Backup" /C "npm run build %outputDir%"
 
-:: Copy the file to the `.update-c` directory
+:: Copy global files to the `.update-c` directory
 copy /Y "%outputDir%\index.php.html" "%inputDir%\..\..\.update-c\index.php"
 del "%outputDir%\index.php.html"
+copy /Y "%outputDir%\sw.js" "%inputDir%\..\..\.update-c\sw.js"
+del "%outputDir%\sw.js"
 
 :: Compress files
 CMD "Running Backup" /C "terser --compress --comments false --keep-classnames --keep-fnames -p bare_returns -o %outputDir%\sw.js %outputDir%\sw.js"

@@ -47,9 +47,9 @@ for /D %%f in (*) do (
     del %outputDir%\%%f\brand\icons\app.ico
 
     :: Generate manifest
-    CMD "Running Backup" /C "node ..\__node_js__\utility\manifest.js %inputDir%\..\..\web\client\@vite\manifest.jsonc %inputDir%\%%f\brand.json %outputDir%\%%f\brand\manifest.webmanifest"
+    CMD "Running Backup" /C "node ..\__node_js__\utility\manifest.js %RESOURCES_PATH%\web\client\@vite\manifest.jsonc %inputDir%\%%f\brand.json %outputDir%\%%f\brand\manifest.webmanifest"
 )
-del "%inputDir%\..\..\web\client\@vite\manifest.jsonc"
+del "%RESOURCES_PATH%\web\client\@vite\manifest.jsonc"
 
 :: Return to the original directory
 popd

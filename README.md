@@ -4,6 +4,10 @@ This directory contains all files and scripts needed to build the raw resources 
 
 > You may run the `BUILD.bat` file to build all the resources.
 
+## BUILD.env
+
+Contains the absolute paths to the `.BUILD` directory and the *resources* directory.
+
 ## /__node_js__
 
 Contains all NodeJS modules used to generate raw web resources and relevant files.

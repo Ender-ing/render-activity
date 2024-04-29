@@ -22,6 +22,8 @@ for /D %%f in (*) do (
 
         :: Compress folder contents in NodeJS
         :: Replace content variables in NodeJS
+
+        :: Generate SiteMap based on index.display files
     )
 )
 

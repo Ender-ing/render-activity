@@ -33,6 +33,30 @@ function createAlternate(lang){
     alternates[lang].setAttribute("href", `${href}#${lang}`);
 }
 
+// Create canonical link
+function createCanonical(lang){
+    // Set alternate element
+    let link;
+    if(alternates[lang] == null){
+        link = document.createElement('link');
+        link.setAttribute("rel", "canonical");
+
+        // Append element
+        document.head.appendChild(link);
+    }
+    // Remove hashes from URL (in case the were used)
+    let href = window.location.href;
+    if(href.indexOf("?") != -1){
+        href = href.substring(0, href.indexOf("?"));
+    }
+    if(href.indexOf("#") != -1){
+        href = href.substring(0, href.indexOf("#"));
+    }
+
+    // Set link
+    link.setAttribute("href", href);
+}
+
 // Create a meta element
 function createMetaElement(name){
     let meta = document.createElement('meta');
@@ -74,11 +98,17 @@ async function addMeta(){
 }
 
 // Add needed meta data for search engine language recognition 
+export const [getIsErrorResult, setIsErrorResult] = createSignal(false);
 export function languageMeta(){
     // Add alternate versions of the page
     createAlternate("en");
     createAlternate("he");
     createAlternate("ar");
+
+    // Set page as canonical
+    if(!getIsErrorResult()){
+        createCanonical();
+    }
 
     // Add meta elements
     addMeta();

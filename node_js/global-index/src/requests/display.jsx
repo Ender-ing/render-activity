@@ -7,6 +7,7 @@
 import { createSignal } from "solid-js";
 import { DIALOG, showDialog } from "../content/dialogs";
 import { localiseContent } from "./language/process";
+import { setIsErrorResult } from "./language/seo";
 
 //  Get display content!
 export const PAGES = {
@@ -17,9 +18,11 @@ export async function getDisplay(base){
     let displayURL = getURL(base);
     let XML;
     try {
+        setIsErrorResult(false);
         XML = await fetchDisplay(displayURL, fixBase(base));
     }catch(e) {
         XML = await fetchDisplay(PAGES.ERROR_CODE, fixBase(PAGES.ERROR_CODE));
+        setIsErrorResult(true);
     }
     return XML;
 }
@@ -67,6 +70,7 @@ function fetchDisplay(displayURL, pathname, text = false, updateContentPathname 
                 pathname = PAGES.ERROR_404;
                 updateContentPathname = false;
                 console.warn("Display file could not be loaded!");
+                setIsErrorResult(true);
                 return await fetchDisplay(PAGES.ERROR_404, fixBase(PAGES.ERROR_404), true);
             }else if (!response.ok) {
                 showDialog(DIALOG.network.error);

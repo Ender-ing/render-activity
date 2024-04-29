@@ -46,7 +46,7 @@ header('Content-Security-Policy:'.
             // Register service worker
             if ("serviceWorker" in navigator) {
                 try {
-                    1 || await navigator.serviceWorker.register("/sw.js", {
+                    await navigator.serviceWorker.register("/sw.js", {
                         scope: "/",
                     });
                 } catch (error) {
@@ -312,7 +312,7 @@ header('Content-Security-Policy:'.
     <link rel="modulepreload" href="https://resources.ender.ing/web/client/@vite/index.js" />
 
     <!-- manifest -->
-    <link rel="manifest" href="/brand/manifest.webmanifest" crossorigin="use-credentials" />
+    <link rel="manifest" href="/manifest.webmanifest" crossorigin="use-credentials" />
 
     <!-- theme and icons -->
     <link rel="shortcut icon" type="image/ico" href="/brand/icons/favicon.ico" />

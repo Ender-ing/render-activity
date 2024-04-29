@@ -69,11 +69,11 @@ function fetchDisplay(displayURL, pathname, text = false, updateContentPathname 
             if((response.status === 404 ||
                     (responseText?.indexOf('<!DOCTYPE') != -1 && responseText?.indexOf('<!DOCTYPE') < 10))
                 && pathname !== fixBase(PAGES.ERROR_404)){
-                pathname = PAGES.ERROR_404;
+                pathname = fixBase(PAGES.ERROR_404);
                 updateContentPathname = false;
                 console.warn("Display file could not be loaded!");
                 setIsErrorResult(true);
-                return await fetchDisplay(PAGES.ERROR_404, fixBase(PAGES.ERROR_404), true);
+                return await fetchDisplay(getURL(PAGES.ERROR_404), fixBase(PAGES.ERROR_404), true);
             }else if (!response.ok) {
                 // Catch all other server errors!
                 throw PAGES.ERROR_SERVER;
@@ -122,7 +122,7 @@ function fetchDisplay(displayURL, pathname, text = false, updateContentPathname 
                 reject(errorURL);
             }
 
-            console.error('Error fetching or parsing XML: code ', error);
+            console.error("FETCH ERROR OBJECT:", errorURL);
         });
     });
 }

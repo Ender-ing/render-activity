@@ -1,7 +1,7 @@
 @echo off
 setlocal enabledelayedexpansion
 
-:: This file is meant to handle all brand-related assets generation
+:: This file is meant to copy all static server files into the .OUTPUT directory
 echo [44;45m Copying root base files... [0m
 
 :: Get environment variables
@@ -22,12 +22,6 @@ for /D %%f in (*) do (
 
         :: Compress folder contents in NodeJS
         :: Replace content variables in NodeJS
-
-        :: Delete generative files
-        del /Q %OUTPUT_PATH%\%%f\gen.* > nul 2>&1
-
-        :: Delete GitHub files
-        del /Q %OUTPUT_PATH%\%%f\.gitignore > nul 2>&1
     )
 )
 

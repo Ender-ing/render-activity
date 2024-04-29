@@ -1,6 +1,6 @@
 @echo off
 
-:: This file is meant to bundle the global index!
+:: This file is meant to empty the .OUTPUT directory!
 echo [44;45m Cleaning up .OUTPUT directory... [0m
 
 :: Get environment variables

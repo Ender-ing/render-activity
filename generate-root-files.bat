@@ -1,6 +1,6 @@
 @echo off
 
-:: This file is meant to handle all brand-related assets generation
+:: This file is meant to handle all brand-related assets generation and server configuration files
 echo [44;45m Generating branding assets... [0m
 
 :: Get environment variables

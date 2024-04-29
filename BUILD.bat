@@ -30,4 +30,7 @@ CMD "Running Backup" /C "compress-custom-material.bat"
 :: Generate all root directories files
 CMD "Running Backup" /C "generate-root-files.bat"
 
+:: Cleanup .OUTPUT directory
+CMD "Running Backup" /C "AFTER-CLEANUP.bat"
+
 echo [101;93m BUILDING PROCESS DONE! [0m

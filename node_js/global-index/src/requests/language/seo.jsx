@@ -4,6 +4,7 @@
  * 
 **/
 
+import { createSignal } from "solid-js";
 import { localiseText } from "./inject";
 
 // Create alternate link

@@ -109,7 +109,7 @@ export function languageMeta(){
     // Set page as canonical
     if(!getIsErrorResult()){
         createCanonical();
-    }else{
+    }else if(canonicalLink != null){
         canonicalLink.remove();
         canonicalLink = null;
     }

@@ -7,63 +7,43 @@ echo [44;45m Generating branding assets... [0m
 FOR /F "tokens=*" %%i in (BUILD.env) do SET %%i
 
 :: Specify the directory to search
-set inputDir=%BUILD_PATH%\roots
-set outputDir=%BUILD_PATH%\roots_out
-
-:: Attempt to delete the folder (with error handling)
-rmdir /s /q %outputDir%
-
-:: Check if deletion was successful
-if exist %outputDir% (
-    echo Folder deletion failed. Please check permissions or if the folder is in use.
-    exit 1
-) else (
-    :: Create the folder (handle potential errors)
-    mkdir %outputDir% 2>nul
-
-    :: Check if the folder was created successfully
-    if exist %outputDir% (
-        echo The output folder %outputDir% has been cleaned up successfully!
-    ) else (
-        echo Error creating folder. Check permissions or path.
-        exit 1
-    )
-)
+set inputDir=%OUTPUT_PATH%
+set outputDir=%OUTPUT_PATH%
 
 :: Change to the target directory 
-pushd %inputDir% 
+pushd %OUTPUT_PATH%
 
 :: Iterate through each folder in the directory
 for /D %%f in (*) do (
     echo Handling %%f
 
     :: Generate icons (\brands)
-    mkdir %outputDir%\%%f\brand\
-    mkdir %outputDir%\%%f\brand\icons\
-    CMD "Running Backup" /C "node ..\__node_js__\utility\icons.js %inputDir%\%%f\logo.gen.svg %outputDir%\%%f\brand\icons\"
-    copy %inputDir%\%%f\logo.svg %outputDir%\%%f\brand\icons\logo.svg
-    copy %inputDir%\%%f\maskable.gen.svg %outputDir%\%%f\brand\icons\logo-maskable.svg
-    del %outputDir%\%%f\brand\icons\**.icns
-    del %outputDir%\%%f\brand\icons\app.ico
+    mkdir %OUTPUT_PATH%\%%f\brand\
+    mkdir %OUTPUT_PATH%\%%f\brand\icons\
+    CMD "Running Backup" /C "node ..\__node_js__\utility\icons.js %OUTPUT_PATH%\%%f\gen.logo.svg %OUTPUT_PATH%\%%f\brand\icons\"
+    copy %OUTPUT_PATH%\%%f\gen.logo.svg %OUTPUT_PATH%\%%f\brand\icons\logo.svg
+    copy %OUTPUT_PATH%\%%f\gen.maskable.svg %OUTPUT_PATH%\%%f\brand\icons\logo-maskable.svg
+    del %OUTPUT_PATH%\%%f\brand\icons\**.icns
+    del %OUTPUT_PATH%\%%f\brand\icons\app.ico
 
     :: Generate manifest
-    CMD "Running Backup" /C "node ..\__node_js__\utility\manifest.js %RESOURCES_PATH%\web\client\@vite\manifest.jsonc %inputDir%\%%f\info.gen.json %outputDir%\%%f\manifest.webmanifest"
+    CMD "Running Backup" /C "node ..\__node_js__\utility\manifest.js %RESOURCES_PATH%\web\client\@vite\manifest.jsonc %OUTPUT_PATH%\%%f\gen.info.json %OUTPUT_PATH%\%%f\manifest.webmanifest"
 
     :: Generate index file
-    CMD "Running Backup" /C "node ..\__node_js__\utility\variables.js %RESOURCES_PATH%\web\client\@vite\index.php.html %inputDir%\%%f\info.gen.json %outputDir%\%%f\index.php"
+    CMD "Running Backup" /C "node ..\__node_js__\utility\variables.js %RESOURCES_PATH%\web\client\@vite\index.php.html %OUTPUT_PATH%\%%f\gen.info.json %OUTPUT_PATH%\%%f\index.php"
 
     :: Generate service worker
-    CMD "Running Backup" /C "node ..\__node_js__\utility\variables.js %RESOURCES_PATH%\web\client\@vite\sw.js %inputDir%\%%f\info.gen.json %outputDir%\%%f\sw.js"
+    CMD "Running Backup" /C "node ..\__node_js__\utility\variables.js %RESOURCES_PATH%\web\client\@vite\sw.js %OUTPUT_PATH%\%%f\gen.info.json %OUTPUT_PATH%\%%f\sw.js"
 
     :: Copy .htaccess
-    copy %BUILD_PATH%\global\secure.htaccess %outputDir%\%%f\.htaccess
+    copy %BUILD_PATH%\global\secure.htaccess %OUTPUT_PATH%\%%f\.htaccess
 
     :: Copy /.well-known/.htaccess
-    mkdir %outputDir%\%%f\.well-known 2>nul
-    copy %BUILD_PATH%\global\open.htaccess %outputDir%\%%f\.well-known\.htaccess
+    mkdir %OUTPUT_PATH%\%%f\.well-known 2>nul
+    copy %BUILD_PATH%\global\open.htaccess %OUTPUT_PATH%\%%f\.well-known\.htaccess
 
     :: Copy robots.txt
-    copy %BUILD_PATH%\global\robots.txt %outputDir%\%%f\robots.txt
+    copy %BUILD_PATH%\global\robots.txt %OUTPUT_PATH%\%%f\robots.txt
 )
 
 :: Delete used files

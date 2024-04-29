@@ -38,6 +38,7 @@ echo Building Global Index..
 CMD "Running Backup" /C "npm run build %outputDir%"
 
 :: Compress files
+:: (these files are needed later)
 CMD "Running Backup" /C "terser --compress --comments false --keep-classnames --keep-fnames -p bare_returns -o %outputDir%\sw.js %outputDir%\sw.js"
 CMD "Running Backup" /C "terser --compress --comments false --keep-classnames --keep-fnames -p bare_returns -o %outputDir%\tracking.js %outputDir%\tracking.js"
 

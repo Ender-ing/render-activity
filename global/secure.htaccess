@@ -1,11 +1,11 @@
 RewriteEngine On
 
 # Set error documents
-ErrorDocument 401 /index.html
-ErrorDocument 402 /index.html
-ErrorDocument 403 /index.html
-ErrorDocument 404 /index.html
-ErrorDocument 500 /index.html
+ErrorDocument 401 /index.php
+ErrorDocument 402 /index.php
+ErrorDocument 403 /index.php
+ErrorDocument 404 /index.php
+ErrorDocument 500 /index.php
 
 # Force HTTPS/SSL
 RewriteCond %{HTTPS} off 
@@ -55,7 +55,7 @@ RewriteCond %{HTTP:x-display-request} ^$ [OR]
 RewriteCond %{HTTP:x-display-request} !^.+$
 RewriteCond %{REQUEST_URI} \.html$ [OR]
 RewriteCond %{REQUEST_URI} /$
-RewriteRule ^(.*)$ index.html [L] 
+RewriteRule ^(.*)$ index.php [L] 
 
 # Prevent hotlinking
 RewriteCond %{HTTP_REFERER} !^$ 

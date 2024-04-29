@@ -7,8 +7,8 @@ echo [44;45m Generating branding assets... [0m
 FOR /F "tokens=*" %%i in (BUILD.env) do SET %%i
 
 :: Specify the directory to search
-set inputDir=%BUILD_PATH%\brands
-set outputDir=%BUILD_PATH%\brands_out
+set inputDir=%BUILD_PATH%\roots
+set outputDir=%BUILD_PATH%\roots_out
 
 :: Attempt to delete the folder (with error handling)
 rmdir /s /q %outputDir%
@@ -47,7 +47,7 @@ for /D %%f in (*) do (
     del %outputDir%\%%f\brand\icons\app.ico
 
     :: Generate manifest
-    CMD "Running Backup" /C "node ..\__node_js__\utility\manifest.js %RESOURCES_PATH%\web\client\@vite\manifest.jsonc %inputDir%\%%f\brand.json %outputDir%\%%f\brand\manifest.webmanifest"
+    CMD "Running Backup" /C "node ..\__node_js__\utility\manifest.js %RESOURCES_PATH%\web\client\@vite\manifest.jsonc %inputDir%\%%f\info.json %outputDir%\%%f\brand\manifest.webmanifest"
 )
 del "%RESOURCES_PATH%\web\client\@vite\manifest.jsonc"
 

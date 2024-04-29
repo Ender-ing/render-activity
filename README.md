@@ -34,6 +34,6 @@ Contains all custom files related to material design
 
 Contains code and files used on the server (using `update-c` command) to update shared files between subdomains.
 
-## /brands
+## /roots
 
-Contains all files used to generate brand assets.
+Contains all files used to generate subdomain root assets.

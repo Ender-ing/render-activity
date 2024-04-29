@@ -1,4 +1,4 @@
 node_modules
 .update-c/**.php
 .update-c/**.js
-brands_out
+roots_out

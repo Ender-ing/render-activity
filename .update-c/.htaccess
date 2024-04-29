@@ -289,7 +289,7 @@ RewriteRule \.(mp4|mov|webm|avi|flv|wmv|mp3|wav|ogg|jpg|jpeg|png|gif|pdf|doc|doc
         </FilesMatch>
         <FilesMatch "\.(css|js)$">
             # One week
-            Header set Cache-Control "public, max-age=604800"
+            Header set Cache-Control "public, max-age=604800, must-revalidate"
         </FilesMatch>
         <FilesMatch "\.(ico|flv|jpg|jpeg|png|gif|swf)$">`
             # Two weeks

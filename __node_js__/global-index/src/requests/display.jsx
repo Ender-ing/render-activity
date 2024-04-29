@@ -19,7 +19,7 @@ export async function getDisplay(base){
     try {
         XML = await fetchDisplay(displayURL, fixBase(base));
     }catch(e) {
-        XML = await fetchDisplay(PAGE.ERROR_CODE, fixBase(PAGE.ERROR_CODE));
+        XML = await fetchDisplay(PAGES.ERROR_CODE, fixBase(PAGES.ERROR_CODE));
     }
     return XML;
 }

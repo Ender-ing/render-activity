@@ -12,7 +12,7 @@ You may use the `INSTALL-DEP.bat` file to install all the needed dependencies.
 
 > Warning: The `INSTALL-DEP.bat` file will install local and ***global*** NodeJS dependencies
 
-## BUILD.env
+## `BUILD.env`
 
 Contains the absolute paths to the `.BUILD` directory and the *resources* directory.
 

@@ -6,7 +6,7 @@
 
 // Service worker info
 const SERVICE_VERSION = '[[version]]'; // Don't touch this, it's updated automatically!
-const WORKER_VERSION = "A1"; // Update this whenever you make changes to the service worker that may break cache!
+const WORKER_VERSION = "A2"; // Update this whenever you make changes to the service worker that may break cache!
 const DEPLOY_VERSION = SERVICE_VERSION.substring(0, SERVICE_VERSION.lastIndexOf(".")) + "-" + WORKER_VERSION;
 const RESOURCE_CACHE = 'resource-cache-v' + DEPLOY_VERSION; // Used to cache static files
 const CALL_CACHE = 'call-cache-v' + DEPLOY_VERSION; // Used to call API calls (request must include an "x-allow-call-cache" header)
@@ -90,8 +90,14 @@ ENABLE_INSTALL_CAHCE = true;
 
 // Install Event: Cache essential files
 self.addEventListener('install', event => {
-    event.waitUntil(caches.open(RESOURCE_CACHE)
-            .then(cache => cache.addAll(((ENABLE_INSTALL_CAHCE) ? INSTALL_CACHE_LIST : []))));
+    event.waitUntil(
+        // Combine skipWaiting() with the cache opening process:
+        Promise.all([
+            caches.open(RESOURCE_CACHE)
+                    .then(cache => cache.addAll(((ENABLE_INSTALL_CAHCE) ? INSTALL_CACHE_LIST : []))),
+                self.skipWaiting() // Activate the new service worker immediately
+            ])
+    );
 });
 
 // Wait for initial activation

@@ -6,7 +6,7 @@
 
 // Service worker info
 const SERVICE_VERSION = '[[version]]'; // Don't touch this, it's updated automatically!
-const WORKER_VERSION = "A2"; // Update this whenever you make changes to the service worker that may break cache!
+const WORKER_VERSION = "A4"; // Update this whenever you make changes to the service worker that may break cache!
 const DEPLOY_VERSION = SERVICE_VERSION.substring(0, SERVICE_VERSION.lastIndexOf(".")) + "-" + WORKER_VERSION;
 const RESOURCE_CACHE = 'resource-cache-v' + DEPLOY_VERSION; // Used to cache static files
 const CALL_CACHE = 'call-cache-v' + DEPLOY_VERSION; // Used to call API calls (request must include an "x-allow-call-cache" header)
@@ -47,20 +47,29 @@ const INSTALL_CACHE_LIST = [
     "/en.locale",
     "/he.locale",
     // Code Error Global Page (display, and locale)
-    "https://resources.ender.ing/web/client/global-pages/code-error/index.display",
-    "https://resources.ender.ing/web/client/global-pages/code-error/ar.locale",
-    "https://resources.ender.ing/web/client/global-pages/code-error/en.locale",
-    "https://resources.ender.ing/web/client/global-pages/code-error/he.locale",
+    "https://resources.ender.ing/web/client/global-pages/error-code/",
+    "https://resources.ender.ing/web/client/global-pages/error-code/index.display",
+    "https://resources.ender.ing/web/client/global-pages/error-code/ar.locale",
+    "https://resources.ender.ing/web/client/global-pages/error-code/en.locale",
+    "https://resources.ender.ing/web/client/global-pages/error-code/he.locale",
     // 404 Error Global Page (display, and locale)
+    "https://resources.ender.ing/web/client/global-pages/error-404/",
     "https://resources.ender.ing/web/client/global-pages/error-404/index.display",
     "https://resources.ender.ing/web/client/global-pages/error-404/ar.locale",
     "https://resources.ender.ing/web/client/global-pages/error-404/en.locale",
     "https://resources.ender.ing/web/client/global-pages/error-404/he.locale",
-    // Offline Global Page (display, and locale)
-    "https://resources.ender.ing/web/client/global-pages/error-offline/index.display",
-    "https://resources.ender.ing/web/client/global-pages/error-offline/ar.locale",
-    "https://resources.ender.ing/web/client/global-pages/error-offline/en.locale",
-    "https://resources.ender.ing/web/client/global-pages/error-offline/he.locale",
+    // Connection Error Global Page (display, and locale)
+    "https://resources.ender.ing/web/client/global-pages/error-connection/",
+    "https://resources.ender.ing/web/client/global-pages/error-connection/index.display",
+    "https://resources.ender.ing/web/client/global-pages/error-connection/ar.locale",
+    "https://resources.ender.ing/web/client/global-pages/error-connection/en.locale",
+    "https://resources.ender.ing/web/client/global-pages/error-connection/he.locale",
+    // Server Error Global Page (display, and locale)
+    "https://resources.ender.ing/web/client/global-pages/error-server/",
+    "https://resources.ender.ing/web/client/global-pages/error-server/index.display",
+    "https://resources.ender.ing/web/client/global-pages/error-server/ar.locale",
+    "https://resources.ender.ing/web/client/global-pages/error-server/en.locale",
+    "https://resources.ender.ing/web/client/global-pages/error-server/he.locale",
     // Fonts and external
     // Icons
     "https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0",

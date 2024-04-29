@@ -5,14 +5,16 @@
 **/
 
 import { createSignal } from "solid-js";
-import { DIALOG, showDialog } from "../content/dialogs";
+//import { DIALOG, showDialog } from "../content/dialogs";
 import { localiseContent } from "./language/process";
 import { setIsErrorResult } from "./language/seo";
 
 //  Get display content!
 export const PAGES = {
-    ERROR_404: "https://resources.ender.ing/web/client/global-pages/404-error/",
-    ERROR_CODE: "https://resources.ender.ing/web/client/global-pages/code-error/"
+    ERROR_404: "https://resources.ender.ing/web/client/global-pages/error-404/",
+    ERROR_CODE: "https://resources.ender.ing/web/client/global-pages/error-code/",
+    ERROR_CONNECTION: "https://resources.ender.ing/web/client/global-pages/error-connection/",
+    ERROR_SERVER: "https://resources.ender.ing/web/client/global-pages/error-server/"
 };
 export async function getDisplay(base){
     let displayURL = getURL(base);
@@ -20,8 +22,8 @@ export async function getDisplay(base){
     try {
         setIsErrorResult(false);
         XML = await fetchDisplay(displayURL, fixBase(base));
-    }catch(e) {
-        XML = await fetchDisplay(PAGES.ERROR_CODE, fixBase(PAGES.ERROR_CODE));
+    }catch(errorServe) {
+        XML = await fetchDisplay(getURL(errorServe), fixBase(errorServe));
         setIsErrorResult(true);
     }
     return XML;
@@ -51,7 +53,7 @@ export const [getContentURL, setContentURL] = createSignal();
 
 // Get the XML content from .display file
 function fetchDisplay(displayURL, pathname, text = false, updateContentPathname = true){
-    console.log(`Fetching ${displayURL}`);
+    console.log(`Fetching ${displayURL} (locale from ${pathname})`);
     return new Promise((resolve, reject) => {
         fetch(displayURL, {
             method: 'GET',
@@ -73,8 +75,10 @@ function fetchDisplay(displayURL, pathname, text = false, updateContentPathname 
                 setIsErrorResult(true);
                 return await fetchDisplay(PAGES.ERROR_404, fixBase(PAGES.ERROR_404), true);
             }else if (!response.ok) {
-                showDialog(DIALOG.network.error);
-                throw new Error('Network response was not ok');
+                // Catch all other server errors!
+                throw PAGES.ERROR_SERVER;
+                // showDialog(DIALOG.network.error);
+                //throw new Error('Network response was not ok');
             }
             // Update content pathname
             if(updateContentPathname){
@@ -91,8 +95,13 @@ function fetchDisplay(displayURL, pathname, text = false, updateContentPathname 
         }).then(xmlString => {
             if(!text){
                 // Parse the XML string
-                const parser = new DOMParser();
-                const xmlDoc = parser.parseFromString(xmlString, "text/xml");
+                let xmlDoc;
+                try {
+                    const parser = new DOMParser();
+                    xmlDoc = parser.parseFromString(xmlString, "text/xml");
+                }catch{
+                    throw PAGES.ERROR_CODE;
+                }
     
                 // Extract the values you need
                 return xmlDoc;
@@ -104,10 +113,16 @@ function fetchDisplay(displayURL, pathname, text = false, updateContentPathname 
             try {
                 resolve(xml);
             }catch {}
-        }).catch(error => {
-            reject(error);
-            // Show error page!
-            console.error('Error fetching or parsing XML:', error);
+        }).catch(errorURL => {
+            // Check error type
+            // Fetch offline errors trigger an error throw!
+            if(typeof errorURL != "string"){
+                reject(PAGES.ERROR_CONNECTION);
+            }else{
+                reject(errorURL);
+            }
+
+            console.error('Error fetching or parsing XML: code ', error);
         });
     });
 }

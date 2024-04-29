@@ -56,7 +56,11 @@ const INSTALL_CACHE_LIST = [
     "https://resources.ender.ing/web/client/global-pages/error-404/ar.locale",
     "https://resources.ender.ing/web/client/global-pages/error-404/en.locale",
     "https://resources.ender.ing/web/client/global-pages/error-404/he.locale",
-    // NOTE: ADD A GLOBAL OFFLINE ERROR PAGE!
+    // Offline Global Page (display, and locale)
+    "https://resources.ender.ing/web/client/global-pages/error-offline/index.display",
+    "https://resources.ender.ing/web/client/global-pages/error-offline/ar.locale",
+    "https://resources.ender.ing/web/client/global-pages/error-offline/en.locale",
+    "https://resources.ender.ing/web/client/global-pages/error-offline/he.locale",
     // Fonts and external
     // Icons
     "https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0",
@@ -144,6 +148,8 @@ self.addEventListener('fetch', event => {
             }else{
                 let fetchResponse = await fetch(event.request);
                 // Prevent failed responses from being cached
+                // TO-DO:
+                // Responde with offline page if the fetch failed due to a network error
                 if (!fetchResponse || fetchResponse.status !== 200 || fetchResponse.type !== 'basic') {
                     return fetchResponse;
                 }

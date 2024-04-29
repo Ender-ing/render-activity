@@ -5,10 +5,11 @@
 **/
 
 // Service worker info
-const VERSION = '[[version]]-A0';
-const VERSION_MAJOR = VERSION.substring(0, VERSION.lastIndexOf("."));
-const RESOURCE_CACHE = 'resource-cache-v' + VERSION_MAJOR; // Used to cache static files
-const CALL_CACHE = 'call-cache-v' + VERSION_MAJOR; // Used to call API calls (request must include an "x-allow-call-cache" header)
+const SERVICE_VERSION = '[[version]]'; // Don't touch this, it's updated automatically!
+const WORKER_VERSION = "A0"; // Update this whenever you make changes to the service worker that may break cache!
+const DEPLOY_VERSION = SERVICE_VERSION.substring(0, SERVICE_VERSION.lastIndexOf(".")) + "-" + WORKER_VERSION;
+const RESOURCE_CACHE = 'resource-cache-v' + DEPLOY_VERSION; // Used to cache static files
+const CALL_CACHE = 'call-cache-v' + DEPLOY_VERSION; // Used to call API calls (request must include an "x-allow-call-cache" header)
 const CACHE_ALLOWLIST = [RESOURCE_CACHE, CALL_CACHE];
 //const HOST = 'ender.ing';
 const INSTALL_CACHE_LIST = [
@@ -162,6 +163,6 @@ self.addEventListener('fetch', event => {
 // Service worker communication
 self.addEventListener('message', (event) => {
     if (event.data.type === 'GET_VERSION') {
-        event.ports[0].postMessage(VERSION);
+        event.ports[0].postMessage(DEPLOY_VERSION);
     }
 });

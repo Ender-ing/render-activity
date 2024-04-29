@@ -35,15 +35,15 @@ function createAlternate(lang){
 }
 
 // Create canonical link
-function createCanonical(lang){
+let canonicalLink = null;
+function createCanonical(){
     // Set alternate element
-    let link;
-    if(alternates[lang] == null){
-        link = document.createElement('link');
-        link.setAttribute("rel", "canonical");
+    if(canonicalLink == null){
+        canonicalLink = document.createElement('link');
+        canonicalLink.setAttribute("rel", "canonical");
 
         // Append element
-        document.head.appendChild(link);
+        document.head.appendChild(canonicalLink);
     }
     // Remove hashes from URL (in case the were used)
     let href = window.location.href;
@@ -55,7 +55,7 @@ function createCanonical(lang){
     }
 
     // Set link
-    link.setAttribute("href", href);
+    canonicalLink.setAttribute("href", href);
 }
 
 // Create a meta element
@@ -109,6 +109,9 @@ export function languageMeta(){
     // Set page as canonical
     if(!getIsErrorResult()){
         createCanonical();
+    }else{
+        canonicalLink.remove();
+        canonicalLink = null;
     }
 
     // Add meta elements

@@ -97,6 +97,8 @@ const INSTALL_CACHE_LIST = [
     "https://fonts.gstatic.com/s/notosanshebrew/v43/or30Q7v33eiDljA1IufXTtVf7V6RvEEdhQlk0LlGxCyaePiaTNzENg.woff2",
     "https://fonts.gstatic.com/s/notosanshebrew/v43/or30Q7v33eiDljA1IufXTtVf7V6RvEEdhQlk0LlGxCyaePiUTNw.woff2",
 ];
+// TO-DO!!
+// ADD A CACHE QUERY TO ALL RESOURCES AND FETCH REQUESTS!!
 const CACHE_EXTENSIONS = ['.js','.css','.html','.ico','.png','.svg','.display','.locale'];
 ENABLE_DYNAMIC_CACHING = true;
 ENABLE_INSTALL_CAHCE = true;

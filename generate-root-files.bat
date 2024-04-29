@@ -37,19 +37,29 @@ pushd %inputDir%
 for /D %%f in (*) do (
     echo Handling %%f
 
-    :: Generate icons
+    :: Generate icons (\brands)
     mkdir %outputDir%\%%f\brand\
     mkdir %outputDir%\%%f\brand\icons\
-    CMD "Running Backup" /C "node ..\__node_js__\utility\icons.js %inputDir%\%%f\logo.svg %outputDir%\%%f\brand\icons\"
+    CMD "Running Backup" /C "node ..\__node_js__\utility\icons.js %inputDir%\%%f\logo.gen.svg %outputDir%\%%f\brand\icons\"
     copy %inputDir%\%%f\logo.svg %outputDir%\%%f\brand\icons\logo.svg
-    copy %inputDir%\%%f\maskable.svg %outputDir%\%%f\brand\icons\logo-maskable.svg
+    copy %inputDir%\%%f\maskable.gen.svg %outputDir%\%%f\brand\icons\logo-maskable.svg
     del %outputDir%\%%f\brand\icons\**.icns
     del %outputDir%\%%f\brand\icons\app.ico
 
     :: Generate manifest
-    CMD "Running Backup" /C "node ..\__node_js__\utility\manifest.js %RESOURCES_PATH%\web\client\@vite\manifest.jsonc %inputDir%\%%f\info.json %outputDir%\%%f\brand\manifest.webmanifest"
+    CMD "Running Backup" /C "node ..\__node_js__\utility\manifest.js %RESOURCES_PATH%\web\client\@vite\manifest.jsonc %inputDir%\%%f\info.gen.json %outputDir%\%%f\manifest.webmanifest"
+
+    :: Generate index file
+    CMD "Running Backup" /C "node ..\__node_js__\utility\manifest.js %RESOURCES_PATH%\web\client\@vite\index.php.html %inputDir%\%%f\info.gen.json %outputDir%\%%f\index.php"
+
+    :: Generate service worker
+    CMD "Running Backup" /C "node ..\__node_js__\utility\manifest.js %RESOURCES_PATH%\web\client\@vite\sw.js %inputDir%\%%f\info.gen.json %outputDir%\%%f\sw.js"
 )
+
+:: Delete used files
 del "%RESOURCES_PATH%\web\client\@vite\manifest.jsonc"
+del "%RESOURCES_PATH%\web\client\@vite\index.php.html"
+del "%RESOURCES_PATH%\web\client\@vite\sw.js"
 
 :: Return to the original directory
 popd

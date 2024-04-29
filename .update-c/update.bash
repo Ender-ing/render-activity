@@ -20,14 +20,6 @@ for item in "${array_name[@]}"; do
     rm -f ~/$item/.well-known/.htaccess > /dev/null 2>&1 
     cp -f -l -v .well-known.htaccess ~/$item/.well-known/.htaccess  > /dev/null 
 
-    # update index.php file
-    rm -f ~/$item/index.php > /dev/null 2>&1 
-    cp -f -l -v index.php ~/$item/index.php  > /dev/null 
-
-    # update sw.js file
-    rm -f ~/$item/sw.js > /dev/null 2>&1 
-    cp -f -l -v sw.js ~/$item/sw.js  > /dev/null 
-
     # update robots.txt file
     rm -f ~/$item/robots.txt > /dev/null 2>&1 
     cp -f -l -v robots.txt ~/$item/robots.txt  > /dev/null 

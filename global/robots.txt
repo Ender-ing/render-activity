@@ -1,0 +1,6 @@
+User-Agent: *
+Allow: /
+Disallow: /.well-known
+Disallow: /cgi-bin
+Disallow: /*@secret* 
+Disallow: /*secret@*

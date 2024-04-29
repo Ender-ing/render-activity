@@ -2,5 +2,6 @@
     "name": {
         "long": "LONG",
         "short": "SHORT"
-    }
+    },
+    "version": "0.0.0"
 }

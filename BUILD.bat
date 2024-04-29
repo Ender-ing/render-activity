@@ -19,7 +19,7 @@ CMD "Running Backup" /C "build-material-imports.bat"
 :: Compress all custom material code (material)
 CMD "Running Backup" /C "compress-custom-material.bat"
 
-:: Generate all brand assets
-CMD "Running Backup" /C "generate-brand-assets.bat"
+:: Generate all root directories files
+CMD "Running Backup" /C "generate-root-files.bat"
 
 echo [101;93m BUILDING PROCESS DONE! [0m

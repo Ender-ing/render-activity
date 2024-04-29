@@ -65,7 +65,7 @@ async function addMeta(){
     // Set title
     let title = await localiseText("{{?_meta.title}}");
     if(title !== meta.globalTitle){
-        title += ` | ${meta.globalTitle}`;
+        title += ` | ${window.SERVICE_TITLE}`;
     }
     meta.title.setAttribute("content", await localiseText("{{?_meta.title}}"));
     document.title = title;

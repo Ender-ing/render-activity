@@ -26,6 +26,8 @@ header('Content-Security-Policy:'.
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <script>
+        // Global service name
+        window.SERVICE_TITLE = "[[name.long]]";
         // Manage global delay
         window.CHECK_DOM_DELAY = 1;
         window.CHECK_DOM_LOOP_DELAY = 50;
@@ -303,7 +305,7 @@ header('Content-Security-Policy:'.
         awaitCSSLoad("css-colors", "css-theme", "css-load", "css-icons", "css-font", "css-layouts");
     </script>
 
-    <title>Ender.ing</title>
+    <title>[[name.long]] - Ender.ing</title>
 
     <!-- Preload late resources! -->
     <link rel="preload" href="https://resources.ender.ing/web/client/@material/x-load-activity.js" as="script" />

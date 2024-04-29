@@ -50,10 +50,20 @@ for /D %%f in (*) do (
     CMD "Running Backup" /C "node ..\__node_js__\utility\manifest.js %RESOURCES_PATH%\web\client\@vite\manifest.jsonc %inputDir%\%%f\info.gen.json %outputDir%\%%f\manifest.webmanifest"
 
     :: Generate index file
-    CMD "Running Backup" /C "node ..\__node_js__\utility\manifest.js %RESOURCES_PATH%\web\client\@vite\index.php.html %inputDir%\%%f\info.gen.json %outputDir%\%%f\index.php"
+    CMD "Running Backup" /C "node ..\__node_js__\utility\variables.js %RESOURCES_PATH%\web\client\@vite\index.php.html %inputDir%\%%f\info.gen.json %outputDir%\%%f\index.php"
 
     :: Generate service worker
-    CMD "Running Backup" /C "node ..\__node_js__\utility\manifest.js %RESOURCES_PATH%\web\client\@vite\sw.js %inputDir%\%%f\info.gen.json %outputDir%\%%f\sw.js"
+    CMD "Running Backup" /C "node ..\__node_js__\utility\variables.js %RESOURCES_PATH%\web\client\@vite\sw.js %inputDir%\%%f\info.gen.json %outputDir%\%%f\sw.js"
+
+    :: Copy .htaccess
+    copy %BUILD_PATH%\global\secure.htaccess %outputDir%\%%f\.htaccess
+
+    :: Copy /.well-known/.htaccess
+    mkdir %outputDir%\%%f\.well-known 2>nul
+    copy %BUILD_PATH%\global\open.htaccess %outputDir%\%%f\.well-known\.htaccess
+
+    :: Copy robots.txt
+    copy %BUILD_PATH%\global\robots.txt %outputDir%\%%f\robots.txt
 )
 
 :: Delete used files

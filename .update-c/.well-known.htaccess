@@ -1,9 +1,0 @@
-RewriteEngine On
-
-# Allow access from all domains
-Allow from all
-
-# Set headers
-<IfModule mod_headers.c>
-    Header set Access-Control-Allow-Origin "*"
-</IfModule>

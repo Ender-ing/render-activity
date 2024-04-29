@@ -30,9 +30,9 @@ Contains all custom files related to material design
 
 > You may run the `compress-custom-material.bat` file to build all relevant resources.
 
-## /.update-c
+## /global
 
-Contains code and files used on the server (using `update-c` command) to update shared files between subdomains.
+Contains global configuration files used on the server on all subdomains.
 
 ## /roots
 

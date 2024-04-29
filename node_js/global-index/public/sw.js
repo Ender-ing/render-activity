@@ -6,7 +6,7 @@
 
 // Service worker info
 const SERVICE_VERSION = '[[version]]'; // Don't touch this, it's updated automatically!
-const WORKER_VERSION = "A0"; // Update this whenever you make changes to the service worker that may break cache!
+const WORKER_VERSION = "A1"; // Update this whenever you make changes to the service worker that may break cache!
 const DEPLOY_VERSION = SERVICE_VERSION.substring(0, SERVICE_VERSION.lastIndexOf(".")) + "-" + WORKER_VERSION;
 const RESOURCE_CACHE = 'resource-cache-v' + DEPLOY_VERSION; // Used to cache static files
 const CALL_CACHE = 'call-cache-v' + DEPLOY_VERSION; // Used to call API calls (request must include an "x-allow-call-cache" header)
@@ -132,7 +132,7 @@ self.addEventListener('fetch', event => {
     // Check if the requested file ends with one of the desired extensions
     if (shouldCache(requestUrl)) {
         event.respondWith((async () => {
-            let cacheResponse = await caches.match(event.request, {ignoreVary: true}); // Check for the file in the cache
+            let cacheResponse = await caches.match(event.request, { ignoreVary: true }); // Check for the file in the cache
             if(cacheResponse){
                 return cacheResponse;
             }else{

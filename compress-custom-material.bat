@@ -7,7 +7,7 @@ echo [44;45m Compressing raw Material Design assets... [0m
 FOR /F "tokens=*" %%i in (BUILD.env) do SET %%i
 
 :: Specify the directory to search
-set inputDir=%BUILD_PATH%\__node_js__\material
+set inputDir=%BUILD_PATH%\node_js\material
 set outputDir=%RESOURCES_PATH%\web\client\material
 
 :: Attempt to delete the folder (with error handling)

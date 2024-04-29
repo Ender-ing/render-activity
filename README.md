@@ -14,7 +14,7 @@ You may use the `INSTALL-DEP.bat` file to install all the needed dependencies.
 
 ## `BUILD.env`
 
-Contains the absolute paths to the `.BUILD` directory and the *resources* directory.
+Contains needed absolute paths for the `BUILD.bat` file to work correctly.
 
 > Warning: Make sure all paths are correct before running the `BUILD.bat` command!
 
@@ -22,23 +22,23 @@ Contains the absolute paths to the `.BUILD` directory and the *resources* direct
 
 Contains a template of correct `gen.` configuration files.
 
-## /__node_js__
+## /node_js
 
 Contains all NodeJS modules used to generate raw web resources and relevant files.
 
-### /__node_js__/global-index
+### /node_js/global-index
 
 Contains all files used to generate the global `index.html` file.
 
 > You may run the `build-global-index.bat` file to build all relevant resources.
 
-### /__node_js__/material-imports
+### /node_js/material-imports
 
 Contains all files related to material design web components and imports.
 
 > You may run the `build-material-imports.bat` file to build all relevant resources. (makes use of [Rollup](https://rollupjs.org/))
 
-### /__node_js__/material
+### /node_js/material
 
 Contains all custom files related to material design
 

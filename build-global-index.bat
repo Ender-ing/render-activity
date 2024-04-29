@@ -7,7 +7,7 @@ echo [44;45m Generating global index assets... [0m
 FOR /F "tokens=*" %%i in (BUILD.env) do SET %%i
 
 :: Specify the directory to search
-set inputDir=%BUILD_PATH%\__node_js__\global-index
+set inputDir=%BUILD_PATH%\node_js\global-index
 set outputDir=%RESOURCES_PATH%\web\client\@vite
 
 :: Attempt to delete the folder (with error handling)

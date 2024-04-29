@@ -8,10 +8,10 @@ echo [101;93m INSTALLING NODEJS DEPENDENCIES! [0m
 
 echo [44;45m INSTALLING GLOBAL NODEJS DEPENDENCIES... [0m
 
-pushd %BUILD_PATH%\__node_js__\material-imports
+pushd %BUILD_PATH%\node_js\material-imports
 CMD "Running Backup" /C "npm i"
 popd
-pushd %BUILD_PATH%\__node_js__\global-index
+pushd %BUILD_PATH%\node_js\global-index
 CMD "Running Backup" /C "npm i"
 popd
 

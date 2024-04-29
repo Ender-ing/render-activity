@@ -3,10 +3,20 @@
 This directory contains all files and scripts needed to build the raw resources hosted on **resources.ender.ing**, and the shared files betweem all subdomains!
 
 > You may run the `BUILD.bat` file to build all the resources.
+>
+> By default, the `BUILD.bat` file copies all files from the `ROOTS_PATH` directory into the `OUTPUT_PATH` directory.
+>
+> If you use the argument `--no-static`, the `BUILD.bat` file will include only the generated resources in the `OUTPUT_PATH` directory.
+
+You may use the `INSTALL-DEP.bat` file to install all the needed dependencies.
+
+> Warning: The `INSTALL-DEP.bat` file will install local and ***global*** NodeJS dependencies
 
 ## BUILD.env
 
 Contains the absolute paths to the `.BUILD` directory and the *resources* directory.
+
+> Warning: Make sure all paths are correct before running the `BUILD.bat` command!
 
 ## /__node_js__
 
@@ -33,7 +43,3 @@ Contains all custom files related to material design
 ## /global
 
 Contains global configuration files used on the server on all subdomains.
-
-## /roots
-
-Contains all files used to generate subdomain root assets.

@@ -3,6 +3,16 @@
 :: Use this code to get environment variables
 :: FOR /F "tokens=*" %%i in (BUILD.env) do SET %%i
 
+:: Check command arguments
+set noStatic=false
+
+for /f "tokens=*" %%a in ("%*") do (
+  if /i "%%a" == "--no-static" (
+    set noStatic=true
+    break
+  )
+)
+
 cls
 echo [101;93m STARTING BUILDING PROCESS [0m
 
@@ -13,7 +23,11 @@ echo [101;93m STARTING BUILDING PROCESS [0m
 CMD "Running Backup" /C "CLEANUP.bat"
 
 :: Copy base static files
-CMD "Running Backup" /C "copy-static-files.bat"
+if "%noStatic%" == "true" (
+    CMD "Running Backup" /C "copy-gen-files.bat"
+) else (
+    CMD "Running Backup" /C "copy-static-files.bat"
+)
 
 :: Build all global index resources (@vite)
 CMD "Running Backup" /C "build-global-index.bat"

@@ -1,4 +1,4 @@
-# The .BUILD directory
+# The `.BUILD` directory
 
 This directory contains all files and scripts needed to build the raw resources hosted on **resources.ender.ing**, and the shared files betweem all subdomains!
 
@@ -17,6 +17,10 @@ You may use the `INSTALL-DEP.bat` file to install all the needed dependencies.
 Contains the absolute paths to the `.BUILD` directory and the *resources* directory.
 
 > Warning: Make sure all paths are correct before running the `BUILD.bat` command!
+
+## /TEMPLATE
+
+Contains a template of correct `gen.` configuration files.
 
 ## /__node_js__
 

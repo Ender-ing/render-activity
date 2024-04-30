@@ -60,7 +60,7 @@ x-layout > [slot=nav-rail] {
     display: none;
     left: 0px;
     top: 0px;
-    background: red;
+    background: var(--md-sys-color-on-background);
 }
 
 @media screen and (max-width: 600px) {

@@ -46,7 +46,8 @@ export function fetchLocale(url){
                 console.warn("Locale file could not be loaded!");
                 // Fetch Preload breaks error codes!
                 // Check if this is an HTML file
-                if(!(jsonString.indexOf('<!DOCTYPE') != -1 && jsonString.indexOf('<!DOCTYPE') < 10)){
+                let jsonChunk = jsonString.substring(0, 20);
+                if(!(jsonChunk.indexOf('<!DOCTYPE') != -1)){
                     showDialog(DIALOG.content.error);
                 }
                 return {}

@@ -64,10 +64,11 @@ function fetchDisplay(displayURL, pathname, text = false, updateContentPathname 
             }
         }).then(async response => {
             let responseText = (await response.text() || null);
+            let responseChunk = responseText?.substring(0, 20);
             // Fetch Preload breaks error codes!
             // Check if this is an HTML file
             if((response.status === 404 ||
-                    (responseText?.indexOf('<!DOCTYPE') != -1 && responseText?.indexOf('<!DOCTYPE') < 10))
+                    (responseChunk?.indexOf('<!DOCTYPE') != -1))
                 && pathname !== fixBase(PAGES.ERROR_404)){
                 pathname = fixBase(PAGES.ERROR_404);
                 updateContentPathname = false;

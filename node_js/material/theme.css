@@ -9,7 +9,7 @@
 /* Refer to https://m3.material.io/styles/color/roles */
 
 :root {
-    background-color: var(--md-sys-color-surface);
+    background-color: var(--md-sys-color-surface-container);
     color: var(--md-sys-color-on-background);
     font-family: var(--md-ref-typeface-plain);
 }

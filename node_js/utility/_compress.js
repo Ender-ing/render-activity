@@ -6,8 +6,8 @@
 
 const { getContent, writeContent } = require('./_files');
 const jsonMinify = require('node-json-minify');
-const terser = require("terser");
 const CleanCSS = require('clean-css');
+const terser = require("terser");
 const { replaceVars } = require('./_replace_variables');
 
 // Compress XML file
@@ -37,8 +37,8 @@ async function compressXML(path, source){
 function _compressTags(content){
     let newContent = content;
     // Compress JS
-    newContent = newContent.replaceAll(/<script(.*?)>(.*?)<\/script>/gis, (match, attr, jsContent) => {
-        const newJS = terser.minify(jsContent).code;
+    newContent = newContent.replaceAll(/<script(.*?)>(.*?)<\/script>/gis, async (match, attr, jsContent) => {
+        const newJS = (await terser.minify(jsContent)).code;
         return `<script${attr}>${newJS}</script>`
     });
     // Compress CSS

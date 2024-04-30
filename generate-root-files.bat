@@ -38,11 +38,17 @@ for /D %%f in (*) do (
     :: Generate robots.txt
     CMD "Running Backup" /C "node %BUILD_PATH%\node_js\utility\variables.js %BUILD_PATH%\global\robots.txt %OUTPUT_PATH%\%%f\gen.info.json %OUTPUT_PATH%\%%f\robots.txt"
 
+    :: Make .well-known directory
+    mkdir %OUTPUT_PATH%\%%f\.well-known 2>nul
+
+    :: Generate security.txt
+    :: Check securitytxt.org for more info
+    CMD "Running Backup" /C "node %BUILD_PATH%\node_js\utility\variables.js %BUILD_PATH%\global\security.txt %OUTPUT_PATH%\%%f\gen.info.json %OUTPUT_PATH%\%%f\.well-known\security.txt"
+
     :: Copy .htaccess
     copy %BUILD_PATH%\global\secure.htaccess %OUTPUT_PATH%\%%f\.htaccess
 
     :: Copy /.well-known/.htaccess
-    mkdir %OUTPUT_PATH%\%%f\.well-known 2>nul
     copy %BUILD_PATH%\global\open.htaccess %OUTPUT_PATH%\%%f\.well-known\.htaccess
 )
 

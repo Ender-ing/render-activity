@@ -1,0 +1,7 @@
+Contact: mailto:security@ender.ing
+Expires: 2025-01-20T22:00:00.000Z
+#Encryption: https://links.ender.ing/security/pgp-key
+#Acknowledgments: https://links.ender.ing/security/acknowledgments
+Preferred-Languages: en, ar
+Canonical: https://[[web.host]]/.well-known/security.txt
+#Policy: https://links.ender.ing/security/policy

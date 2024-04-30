@@ -5,6 +5,9 @@
     },
     "version": "0.0.0",
     "web": {
-        "host": "sub.ender.ing"
+        "host": "sub.ender.ing",
+        "sitemap": {
+            "ignore": [".secret", "@secret", "secret@"]
+        }
     }
 }

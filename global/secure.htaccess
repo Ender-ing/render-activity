@@ -57,6 +57,14 @@ RewriteCond %{REQUEST_URI} \.html$ [OR]
 RewriteCond %{REQUEST_URI} /$
 RewriteRule ^(.*)$ index.php [L] 
 
+# Improve server response time
+# ETag - Used to tell the browser if the requested resource changed since last cache
+FileETag MTime Size
+# Keep connections alive
+<IfModule mod_headers.c>
+  Header set Connection keep-alive 
+</IfModule>
+
 # Prevent hotlinking
 RewriteCond %{HTTP_REFERER} !^$ 
 RewriteCond %{HTTP_REFERER} !^https?://((.*?)\.|)?ender\.ing/.*$ [NC]

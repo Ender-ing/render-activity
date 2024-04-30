@@ -26,7 +26,7 @@ x-layout {
     --rail-space: 100px;
     --bottom-space: 100px;
     /* default is rail */
-    padding-left: calc(var(--bottom-space) + var(--safe-area) + 100vw - 100%);
+    padding-right: calc(var(--bottom-space) + var(--safe-area) + 100vw - 100%);
     width: calc(100% - 2 * var(--safe-area) - var(--bottom-space) - 100vw + 100%);
 }
 
@@ -43,6 +43,14 @@ x-layout > [slot=group] {
 
 x-layout > :not([slot=group]) + [slot=group] {
     margin-left:0;
+}
+
+x-layout > [slot=group][style*=width],
+x-layout > [slot=group][view=static] {
+    flex-grow: 0;
+    flex-shrink: 0;
+    flex-basis: auto;
+    width: 360px;
 }
 
 x-layout > [slot=nav-bar],
@@ -66,6 +74,13 @@ x-layout > [slot=nav-rail] {
         width: calc(100% - 2 * var(--safe-area) - 100vw + 100%);
         padding-top: calc(var(--bottom-space) + var(--safe-area));
         padding-left: calc(var(--safe-area) + 100vw - 100%);
+        display: block;
+    }
+    x-layout > [slot=group][style*=width],
+    x-layout > [slot=group][view=static] {
+        min-width: 100%;
+        max-width: 100%;
+        display: block;;
     }
     /* Don't allow side-to-side groups */
     x-layout {
@@ -83,16 +98,6 @@ x-layout > [slot=nav-rail] {
     x-layout {
         --safe-area: 24px;
     }
-    /* Don't allow side-to-side groups (if view=collapse) */
-    x-layout[view=collapse] {
-        flex-direction: column;
-        height: fit-content;
-    }
-    x-layout[view=collapse] > [slot=group] {
-        width: 100%;
-        margin-left: 0px;
-        margin-bottom: var(--group-margin);
-    }
     /* Switch to rail if only one group is present */
     x-layout[group-count='1']:not([view=collapse]) > [slot=nav-rail] {
         display: block;
@@ -109,6 +114,19 @@ x-layout > [slot=nav-rail] {
     /* Switch to rail if view is set to collapse */
     x-layout[view=collapse] > [slot=nav-rail] {
         display: block;
+    }
+    x-layout[view=collapse]{
+        display: block;
+    }
+    x-layout[view=collapse] > [slot=group] {
+        width: 100%;
+        margin-left: 0px;
+        margin-bottom: var(--group-margin);
+    }
+    x-layout[view=collapse] > [slot=group][style*=width],
+    x-layout[view=collapse] > [slot=group][view=static] {
+        min-width: 100%;
+        max-width: 100%;
     }
     /* Limit content in the 25% top of the screen! */
 }  

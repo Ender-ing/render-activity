@@ -2,6 +2,12 @@
  * 
  * Service Worker!
  * 
+ * The service worker mainly handles caching.
+ * (Should the service worker version change, or should a major service update
+ * happen - marked by changes in the first two number fields in the service
+ * version ~ {1}.{2}.{3} - the used cache storage for all web client assets will
+ * be changed, and the old cache will be deleted!)
+ * 
 **/
 
 // Service worker info
@@ -198,12 +204,5 @@ self.addEventListener('fetch', event => {
         })());
     } else {
         // Handle other fetch requests differently if needed
-    }
-});
-
-// Service worker communication
-self.addEventListener('message', (event) => {
-    if (event.data.type === 'GET_VERSION') {
-        event.ports[0].postMessage(DEPLOY_VERSION);
     }
 });

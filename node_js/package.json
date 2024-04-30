@@ -2,9 +2,12 @@
   "dependencies": {
     "@material/web": "^1.4.0",
     "@rollup/plugin-node-resolve": "^15.2.3",
+    "clean-css": "^5.3.3",
     "fs": "^0.0.1-security",
     "icon-gen": "^4.0.0",
+    "minify-xml": "^4.4.1",
     "node-json-minify": "^3.0.0",
-    "rollup": "^4.13.0"
+    "rollup": "^4.13.0",
+    "terser": "^5.31.0"
   }
 }

@@ -20,9 +20,9 @@ for /D %%f in (*) do (
         :: Copy all files
         xcopy /E /I /Y "%ROOTS_PATH%\%%f" "%OUTPUT_PATH%\%%f" > nul 2>&1
 
-        :: Compress folder contents in NodeJS
-        :: Replace content variables in NodeJS
-        REM Generate SiteMap based on index.display files
+        :: Compress folder contents in NodeJS and Replace content variables in NodeJS
+        :: Generate SiteMap based on index.display files
+        CMD "Running Backup" /C "node %BUILD_PATH%\node_js\utility\static.js %OUTPUT_PATH%\%%f %ROOTS_PATH%\%%f %OUTPUT_PATH%\%%f\gen.info.json"
     )
 )
 

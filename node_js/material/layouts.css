@@ -21,8 +21,10 @@ x-layout {
     justify-content: space-between;
     background-color: var(--md-sys-color-surface-container);
     min-height: calc(100% - 2 * var(--safe-area));
+    height: calc(100% - 2 * var(--safe-area));
     padding: var(--safe-area);
     --group-margin: max(var(--safe-area), 2%);
+    --pane-border-radius: 26px;
     --rail-space: 100px;
     --top-space: 100px;
     /* default is rail */
@@ -38,17 +40,20 @@ x-layout:not([has-rail]) {
 x-layout > [slot=group] {
     --nav-width: 50px;
     width: var(--nav-width);
-}
-
-x-layout > [slot=group] {
+    height: 100%;
     flex: 1;
     margin-left: var(--group-margin);
-    min-width: 0;
+    min-width: 0px;
+    position: relative;
 }
 
 x-layout > :not([slot=group]) + [slot=group],
 x-layout > [slot=group]:first-child {
-    margin-left:0;
+    margin-left: 0px;
+}
+
+x-layout > [slot=group] > :first-child {
+    margin-top: 0px;
 }
 
 x-layout > [slot=group][style*=width],
@@ -203,12 +208,16 @@ x-layout > [slot=nav-rail] {
 
 /*** x-pane style ***/
 .x-layout-pane {
-    border-radius: 28px;
-    padding: var(--safe-area);
+    border-radius: var(--pane-border-radius);
+    padding: var(--pane-border-radius);
     margin: var(--safe-area) 0px;
     min-height: 40px;
     background: var(--md-sys-color-surface);
     color: var(--md-sys-color-on-surface);
+}
+.x-layout-pane[view=full]{
+    min-height: max(40px, calc(100% - 2 * var(--safe-area)));
+    height: max(40px, calc(100% - 2 * var(--safe-area)));
 }
 .x-layout-pane * {
     color: var(--md-sys-color-on-surface);

@@ -48,6 +48,34 @@ function getURL(base){
     return b + "index.display";
 }
 
+// Fix <style> and <script> tags content
+function fixXMLTags(xml){
+    let fixedXML = xml;
+    fixedXML = fixedXML.replaceAll(/<script(.*?)>(.*?)<\/script>/gis, (match, attr, content) => {
+        if(content != ""){
+            let fixedContent = content;
+            fixedContent = fixedContent.replaceAll("&", "&amp;");
+            fixedContent = fixedContent.replaceAll("<", "&lt;");
+            fixedContent = fixedContent.replaceAll(">", "&gt;");
+            return `<script${attr}>${fixedContent}</script>`;
+        }else{
+            return content;
+        }
+    });
+    fixedXML = fixedXML.replaceAll(/<style(.*?)>(.*?)<\/style>/gis, (match, attr, content) => {
+        if(content != ""){
+            let fixedContent = content;
+            fixedContent = fixedContent.replaceAll("&", "&amp;");
+            fixedContent = fixedContent.replaceAll("<", "&lt;");
+            fixedContent = fixedContent.replaceAll(">", "&gt;");
+            return `<style${attr}>${fixedContent}</style>`;
+        }else{
+            return content;
+        }
+    });
+    return fixedXML;
+}
+
 // Track content replacement
 export const [getContentURL, setContentURL] = createSignal();
 
@@ -86,11 +114,12 @@ function fetchDisplay(displayURL, pathname, text = false, updateContentPathname 
             }
             return responseText;
         }).then(async xmlString => {
+            let fixedXML = fixXMLTags(xmlString);
             if(!text){
-                let localisedXML = await localiseContent(xmlString);
+                let localisedXML = await localiseContent(fixedXML);
                 return localisedXML;
             }else{
-                return xmlString;
+                return fixedXML;
             }
         }).then(xmlString => {
             if(!text){

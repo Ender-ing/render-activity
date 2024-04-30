@@ -34,10 +34,19 @@ async function compressXML(path, source){
 
 // Compress .display file
 // (XML && JavaScript)
-function _compressTags(content){
+async function replaceAllAsync(str, regex, asyncFn) {
+    const promises = [];
+    str.replaceAll(regex, (full, ...args) => {
+        promises.push(asyncFn(full, ...args));
+        return full;
+    });
+    const data = await Promise.all(promises);
+    return str.replace(regex, () => data.shift());
+}
+async function _compressTags(content){
     let newContent = content;
     // Compress JS
-    newContent = newContent.replaceAll(/<script(.*?)>(.*?)<\/script>/gis, async (match, attr, jsContent) => {
+    newContent = await replaceAllAsync(newContent, /<script(.*?)>(.*?)<\/script>/gis, async (match, attr, jsContent) => {
         const newJS = (await terser.minify(jsContent)).code;
         return `<script${attr}>${newJS}</script>`
     });
@@ -55,7 +64,7 @@ async function compressDisplay(path, source){
 
     // Minify XML
     content = await _compressXML(content);
-    content = _compressTags(content);
+    content = await _compressTags(content);
 
     // Write new content
     writeContent(path, content);

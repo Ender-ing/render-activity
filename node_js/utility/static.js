@@ -65,6 +65,18 @@ async function compressFileContents(fullPath, fileName, source){
     }
 }
 
+// Check if a path is ignored by gen.info.json
+function pathIgnored(path, ignore){
+    let ignoreList = ignore || [];
+    let pathChunks = path.split(/\\|\//g);
+    for(let i = 0; i < pathChunks.length; i++){
+        if(ignoreList.includes(pathChunks[i])){
+            return true;
+        }
+    }
+    return false;
+}
+
 // Scan through a directory recursively
 async function scanDir(dir, source){
     const files = await readDirCon(dir);
@@ -80,7 +92,7 @@ async function scanDir(dir, source){
                 // Compress file
                 await compressFileContents(filePath, file.name, source);
                 // Add file to sitemap
-                if(file.name.indexOf("index.display") != -1){
+                if(file.name.indexOf("index.display") != -1 && !pathIgnored(filePath, source.web?.sitemap?.ignore)){
                     await addSitemapItem(filePath, source.web.host);
                 }
             }

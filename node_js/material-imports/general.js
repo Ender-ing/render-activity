@@ -169,4 +169,5 @@ window.addComponentToList("filled-text-field", "md-filled-text-field");
 import '@material/web/textfield/outlined-text-field.js';
 window.addComponentToList("outlined-text-field", "md-outlined-text-field");
 
+// Mark this resource as "loaded"
 document.documentElement.resourceLoaded(JAVASCRIPT);

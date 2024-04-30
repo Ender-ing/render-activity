@@ -9,4 +9,5 @@
 // Temp
 window.addComponentToList("x-root", "div", "x-root-class");
 
+// Mark this resource as "loaded"
 document.documentElement.resourceLoaded(JAVASCRIPT);

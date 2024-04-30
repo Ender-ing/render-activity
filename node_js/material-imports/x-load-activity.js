@@ -67,5 +67,5 @@ function setContentResourceLoaded(id, loaded){
 }
 window.document.documentElement.setContentResourceLoaded = setContentResourceLoaded;
 
-
+// Mark this resource as "loaded"
 document.documentElement.resourceLoaded(JAVASCRIPT);

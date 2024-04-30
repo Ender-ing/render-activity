@@ -1,13 +1,182 @@
 /* layouts style */
 
-
-.x-root-class {
+.x-root-class,
+x-layout {
     position: absolute;
-    top: 0px;
-    left: 0px;
-    display: block;
-    width: 100%;
     min-height: 100%;
     overflow-x: hidden;
+    top: 0px;
+    left: 0px;
+}
+
+.x-root-class {
+    width: 100%;
+    display: block;
     background-color: var(--md-sys-color-surface);
+}
+
+x-layout {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    background-color: var(--md-sys-color-surface-container);
+    min-height: calc(100% - 2 * var(--safe-area));
+    padding: var(--safe-area);
+    --group-margin: max(var(--safe-area), 2%);
+    --rail-space: 100px;
+    --bottom-space: 100px;
+    /* default is rail */
+    padding-left: calc(var(--bottom-space) + var(--safe-area) + 100vw - 100%);
+    width: calc(100% - 2 * var(--safe-area) - var(--bottom-space) - 100vw + 100%);
+}
+
+x-layout > [slot=group] {
+    --nav-width: 50px;
+    width: var(--nav-width);
+}
+
+x-layout > [slot=group] {
+    flex: 1;
+    margin-left: var(--group-margin);
+    min-width: 0;
+}
+
+x-layout > :not([slot=group]) + [slot=group] {
+    margin-left:0;
+}
+
+x-layout > [slot=nav-bar],
+x-layout > [slot=nav-rail] {
+    position: fixed;
+    display: none;
+    left: 0px;
+    top: 0px;
+    background: red;
+}
+
+@media screen and (max-width: 600px) {
+    x-layout {
+        --safe-area: 16px;
+    }
+    /* Move navigation to the bottom! */
+    x-layout > [slot=nav-bar] {
+        display: block;
+    }
+    x-layout {
+        width: calc(100% - 2 * var(--safe-area) - 100vw + 100%);
+        padding-top: calc(var(--bottom-space) + var(--safe-area));
+        padding-left: calc(var(--safe-area) + 100vw - 100%);
+    }
+    /* Don't allow side-to-side groups */
+    x-layout {
+        flex-direction: column;
+        height: fit-content;
+    }
+    x-layout > [slot=group] {
+        width: 100%;
+        margin-left: 0px;
+        margin-bottom: var(--group-margin);
+    }
+}
+
+@media screen and (min-width: 600px) and (max-width: 839px) {
+    x-layout {
+        --safe-area: 24px;
+    }
+    /* Don't allow side-to-side groups (if view=collapse) */
+    x-layout[view=collapse] {
+        flex-direction: column;
+        height: fit-content;
+    }
+    x-layout[view=collapse] > [slot=group] {
+        width: 100%;
+        margin-left: 0px;
+        margin-bottom: var(--group-margin);
+    }
+    /* Switch to rail if only one group is present */
+    x-layout[group-count='1']:not([view=collapse]) > [slot=nav-rail] {
+        display: block;
+    }
+    /* Switch to bottom bar if more than one group is present */
+    x-layout:not([group-count='1']):not([view=collapse]) > [slot=nav-bar] {
+        display: block;
+    }
+    x-layout:not([group-count='1']):not([view=collapse]) {
+        width: calc(100% - 2 * var(--safe-area) - 100vw + 100%);
+        padding-top: calc(var(--bottom-space) + var(--safe-area));
+        padding-left: calc(var(--safe-area) + 100vw - 100%);
+    }
+    /* Switch to rail if view is set to collapse */
+    x-layout[view=collapse] > [slot=nav-rail] {
+        display: block;
+    }
+    /* Limit content in the 25% top of the screen! */
+}  
+
+@media screen and (min-width: 840px) and (max-width: 1199px) {
+    x-layout {
+        --safe-area: 24px;
+    }
+    /* Switch to rail navigation */
+    x-layout > [slot=nav-rail] {
+        display: block;
+    }
+}
+
+@media screen and (min-width: 1200px) and (max-width: 1599px) {
+    x-layout {
+        --safe-area: 24px;
+    }
+    /* Switch to rail navigation */
+    x-layout > [slot=nav-rail] {
+        display: block;
+    }
+    /* Be careful about space and placement! */
+}
+
+@media screen and (min-width: 1600px) {
+    x-layout {
+        --safe-area: 24px;
+    }
+    /* Switch to rail navigation */
+    x-layout > [slot=nav-rail] {
+        display: block;
+    }
+    /* Switch to drawer navigation later! */
+}
+
+/*** Navigation Bar Style ***/
+
+x-layout > [slot=nav-bar] {
+    height: 100px;
+    width: 100%;
+}
+
+/*** Navigation Rail Style ***/
+
+x-layout > [slot=nav-rail] {
+    width: 100px;
+    height: 100%;
+}
+
+/*** x-float style ***/
+.x-layout-float {
+    color: var(--md-sys-color-on-background);
+    margin: var(--safe-area) 0px;
+}
+.x-layout-float * {
+    color: var(--md-sys-color-on-background);
+}
+
+/*** x-pane style ***/
+.x-layout-pane {
+    border-radius: 28px;
+    padding: var(--safe-area);
+    margin: var(--safe-area) 0px;
+    min-height: 40px;
+    background: var(--md-sys-color-surface);
+    color: var(--md-sys-color-on-surface);
+}
+.x-layout-pane * {
+    color: var(--md-sys-color-on-surface);
 }

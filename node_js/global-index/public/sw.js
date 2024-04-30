@@ -6,7 +6,7 @@
 
 // Service worker info
 const SERVICE_VERSION = '[[version]]'; // Don't touch this, it's updated automatically!
-const WORKER_VERSION = "A4"; // Update this whenever you make changes to the service worker that may break cache!
+const WORKER_VERSION = "A5"; // Update this whenever you make changes to the service worker that may break cache!
 const DEPLOY_VERSION = SERVICE_VERSION.substring(0, SERVICE_VERSION.lastIndexOf(".")) + "-" + WORKER_VERSION;
 const RESOURCE_CACHE = 'resource-cache-v' + DEPLOY_VERSION; // Used to cache static files
 const CALL_CACHE = 'call-cache-v' + DEPLOY_VERSION; // Used to call API calls (request must include an "x-allow-call-cache" header)
@@ -97,6 +97,11 @@ const INSTALL_CACHE_LIST = [
     "https://fonts.gstatic.com/s/notosanshebrew/v43/or30Q7v33eiDljA1IufXTtVf7V6RvEEdhQlk0LlGxCyaePiaTNzENg.woff2",
     "https://fonts.gstatic.com/s/notosanshebrew/v43/or30Q7v33eiDljA1IufXTtVf7V6RvEEdhQlk0LlGxCyaePiUTNw.woff2",
 ];
+// Add cache version query
+for(let i in INSTALL_CACHE_LIST){
+    INSTALL_CACHE_LIST[i] += (INSTALL_CACHE_LIST[i].indexOf("?") == -1) ? "?" : "&";
+    INSTALL_CACHE_LIST[i] += `cache=${DEPLOY_VERSION}`;
+}
 // TO-DO!!
 // ADD A CACHE QUERY TO ALL RESOURCES AND FETCH REQUESTS!!
 const CACHE_EXTENSIONS = ['.js','.css','.html','.ico','.png','.svg','.display','.locale'];
@@ -150,14 +155,27 @@ function shouldCache(url){
 self.addEventListener('fetch', event => {
     const requestUrl = new URL(event.request.url);
 
+    // Make a new request with the ?cache query
+    requestUrl.searchParams.append("cache", DEPLOY_VERSION);
+    const newRequest = new Request(requestUrl, {
+        method: event.request.method,
+        headers: event.request.headers,
+        body: event.request.body,
+        credentials: event.request.credentials,
+        cache: event.request.cache,
+        redirect: event.request.redirect,
+        referrer: event.request.referrer,
+        duplex: (event.request.duplex || 'half')
+    });
+
     // Check if the requested file ends with one of the desired extensions
     if (shouldCache(requestUrl)) {
         event.respondWith((async () => {
-            let cacheResponse = await caches.match(event.request, { ignoreVary: true }); // Check for the file in the cache
+            let cacheResponse = await caches.match(newRequest, { ignoreVary: true }); // Check for the file in the cache
             if(cacheResponse){
                 return cacheResponse;
             }else{
-                let fetchResponse = await fetch(event.request);
+                let fetchResponse = await fetch(newRequest);
                 // Prevent failed responses from being cached
                 // TO-DO:
                 // Responde with offline page if the fetch failed due to a network error
@@ -166,7 +184,7 @@ self.addEventListener('fetch', event => {
                 }
                 if (ENABLE_DYNAMIC_CACHING) {
                     const cache = await caches.open(RESOURCE_CACHE);
-                    await cache.put(event.request, fetchResponse.clone());
+                    await cache.put(newRequest, fetchResponse.clone());
                     // Cache index.html file for .display directories
                     if(requestUrl.pathname.endsWith("index.display")){
                         let htmlURL = requestUrl.href.replace("index.display", "");

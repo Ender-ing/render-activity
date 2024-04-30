@@ -72,14 +72,40 @@ class XLayout extends LitElement {
 
     connectedCallback() {
         super.connectedCallback();
-        this.shadowRoot.addEventListener('slotchange', (e) => ((e.target.name == "group") ? this.updateCounts(e) : null)); 
+        this.shadowRoot.addEventListener('slotchange', (e) => this.updateSlotsInfo(e)); 
     }
 
-    updateCounts(event) {
+    setHasBar(count){
+        if(count == 0){
+            this.removeAttribute("has-bar");
+        }else{
+            this.setAttribute("has-bar", "");
+        }
+    }
+    setHasRail(count){
+        if(count == 0){
+            this.removeAttribute("has-rail");
+        }else{
+            this.setAttribute("has-rail", "");
+        }
+    }
+
+    updateSlotsInfo(event) {
         const assignedElements = event.target.assignedNodes();
         const count = assignedElements.length;
-
-        this.setAttribute("group-count", count);
+        if(event.target.name == "group") {
+            this.setAttribute("group-count", count);
+        }else if(event.target.name == "nav-bar"){
+            this.setHasBar(count);
+        }else if(event.target.name == "nav-rail"){
+            this.setHasRail(count);
+        }
+    }
+    firstUpdated() {
+        const barSlot = this.shadowRoot.querySelector('slot[name="nav-bar"]')?.assignedNodes()?.length || 0;
+        const railSlot = this.shadowRoot.querySelector('slot[name="nav-rail"]')?.assignedNodes()?.length || 0;
+        this.setHasBar(barSlot);
+        this.setHasRail(railSlot);
     }
 
     render() {

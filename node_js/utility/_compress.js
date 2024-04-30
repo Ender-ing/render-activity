@@ -44,7 +44,7 @@ function _compressTags(content){
     // Compress CSS
     newContent = newContent.replaceAll(/<style(.*?)>(.*?)<\/style>/gis, (match, attr, cssContent) => {
         const newCSS = (new CleanCSS()).minify(cssContent).styles;
-        return `<script${attr}>${newCSS}</script>`
+        return `<style${attr}>${newCSS}</style>`
     });
     return newContent;
 } 

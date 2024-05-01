@@ -6,6 +6,10 @@
     --md-sys-shape-corner-large: 8px;*/
 }
 
+:root, body {
+    margin: 0px;
+}
+
 /* Refer to https://m3.material.io/styles/color/roles */
 
 :root {

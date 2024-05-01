@@ -14,19 +14,26 @@
 // [] - Make a *fold slot* for foldable devices sold line
 // https://m3.material.io/foundations/layout/understanding-layout/hardware-considerations#22276e2c-47fa-43c2-8443-bf525fbbf80f
 
-// [] - Make a *pane slot*
-// [] - Make a *nav slot*
-// [] - Make a *float slot*
+// [x] - Make a *nav slot*
+// [x] - Make a *float slot*
 
-// [] - Make a *top-bar slot*
-// [] - Make a *bottom-bar slot*
+// [x] - Make a *bar slot*
 // https://m3.material.io/foundations/layout/understanding-layout/parts-of-layout#12ef4a8f-7aa2-441c-b045-ded31bcdb45d
 
 // ??? - Detect fold state on foldable devices
 // https://m3.material.io/foundations/layout/understanding-layout/hardware-considerations#6bbf6976-041a-4a10-adf8-8cbb33f36a1e
 
-// [] - Make a *<x-pane> element* (fixed & flexible) for all layouts to work with!
+// [x] - Make a *pane* for all layouts to work with!
 // https://m3.material.io/foundations/layout/understanding-layout/parts-of-layout#73de653a-fc57-4a7c-bc3b-5b9e94207de8
+
+// [x] - Support RTL Layout!!
+
+/**
+ * 
+ * @Note attributes that start with a question mark in the example
+ * code are optional attributes! (e.g. ?myAttr=1 => used as `myAttr=1` in html)
+ * 
+**/
 
 /**
  * 
@@ -47,14 +54,14 @@ window.addComponentToList("x-root", "div", "x-root-class");
  * and *navigation* slots!
  * 
  * @Example
- *      <x-layout>
+ *      <x-layout ?view="collapse">
  *          <div slot="nav-bar">
  *              ...
  *          </div>
  *          <div slot="nav-rail">
  *              ...
  *          </div>
- *          <div slot="group">
+ *          <div slot="group" ?view="static">
  *              ...
  *          </div>
  *          <div slot="group">
@@ -128,7 +135,7 @@ window.addComponentToList("x-layout", "x-layout");
  * @Example
  *      <div slot="group">
  *          <x-float>My Top Float</x-float>
- *          <x-pane slot="pane">My Pane Content!</x-pane>
+ *          <x-pane slot="pane" ?view="full">My Pane Content!</x-pane>
  *          <x-float>My Bottom Float</x-float>
  *      </div>
  * 

@@ -248,7 +248,9 @@ x-layout > [slot=nav-rail] {
 /*** x-float style ***/
 .x-layout-float {
     color: var(--md-sys-color-on-background);
+    height: fit-content;
     margin: var(--safe-area) 0px;
+    min-height: 40px;
 }
 .x-layout-float * {
     color: var(--md-sys-color-on-background);
@@ -260,12 +262,12 @@ x-layout > [slot=nav-rail] {
     padding: var(--pane-border-radius);
     margin: var(--safe-area) 0px;
     min-height: 40px;
+    height: fit-content;
     background: var(--md-sys-color-surface);
     color: var(--md-sys-color-on-surface);
 }
 .x-layout-pane[view=full]{
     min-height: calc(var(--screen-height) - 2 * var(--safe-area) - 2 * var(--pane-border-radius));
-    height: calc(var(--screen-height) - 2 * var(--safe-area) - 2 * var(--pane-border-radius));
 }
 .x-layout-pane * {
     color: var(--md-sys-color-on-surface);

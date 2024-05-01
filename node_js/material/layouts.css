@@ -24,7 +24,7 @@ x-layout {
     justify-content: space-between;
     background-color: var(--md-sys-color-surface-container);
     min-height: calc(100% - 2 * var(--safe-area));
-    height: fit-content;
+    height: calc(100% - 2 * var(--safe-area));
     padding: var(--safe-area);
     --group-margin: max(var(--safe-area), 2%);
     --pane-border-radius: 26px;
@@ -81,11 +81,22 @@ x-layout > [slot=group] > :first-child > :first-child {
 }
 
 x-layout > [slot=group][style*=width],
-x-layout > [slot=group][view=static] {
+x-layout > [slot=group][view*=static] {
     flex-grow: 0;
     flex-shrink: 0;
     flex-basis: auto;
     width: 360px;
+}
+
+x-layout > [slot=group][view*=sticky] {
+    position: sticky;
+    top: calc(-1 * var(--safe-area));
+    z-index: 200;
+    background-color: var(--md-sys-color-surface-container);
+    border-radius: 0px 0px var(--pane-border-radius) var(--pane-border-radius);
+    padding-top: var(--safe-area);
+    margin-top: calc(-1 * var(--safe-area));
+    outline: var(--safe-area) solid var(--md-sys-color-surface-container);
 }
 
 x-layout > [slot=nav-bar],
@@ -122,7 +133,7 @@ x-layout > [slot=nav-rail] {
         padding-top: var(--safe-area);
     }
     x-layout > [slot=group][style*=width],
-    x-layout > [slot=group][view=static] {
+    x-layout > [slot=group][view*=static] {
         min-width: 100%;
         max-width: 100%;
         display: block;;
@@ -185,7 +196,7 @@ x-layout > [slot=nav-rail] {
         height: fit-content;
     }
     x-layout[view=collapse] > [slot=group][style*=width],
-    x-layout[view=collapse] > [slot=group][view=static] {
+    x-layout[view=collapse] > [slot=group][view*=static] {
         min-width: 100%;
         max-width: 100%;
     }

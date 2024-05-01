@@ -117,9 +117,12 @@ x-layout > [slot=nav-rail] {
     }
     x-layout {
         width: calc(100vw - 2 * var(--safe-area));
-        padding-top: calc(var(--top-space) + var(--safe-area));
-        /* ^^ THIS NEEDS TO BE FIXED!! ^^ */
         display: block;
+    }
+    x-layout[has-bar] {
+        min-height: calc(100% - 2 * var(--safe-area) - var(--top-space));
+        height: calc(100% - 2 * var(--safe-area) - var(--top-space));
+        padding-top: calc(var(--top-space) + var(--safe-area));
     }
     [dir=ltr] x-layout {
         padding-left: var(--safe-area);
@@ -128,9 +131,6 @@ x-layout > [slot=nav-rail] {
     [dir=rtl] x-layout {
         padding-right: var(--safe-area);
         padding-left: calc(var(--safe-area) - (100vw - 100%));
-    }
-    x-layout:not([has-bar]) {
-        padding-top: var(--safe-area);
     }
     x-layout > [slot=group][style*=width],
     x-layout > [slot=group][view*=static] {
@@ -141,7 +141,6 @@ x-layout > [slot=nav-rail] {
     /* Don't allow side-to-side groups */
     x-layout {
         flex-direction: column;
-        height: fit-content;
     }
     x-layout > [slot=group] {
         width: 100%;
@@ -167,8 +166,10 @@ x-layout > [slot=nav-rail] {
     x-layout:not([group-count='1']):not([view=collapse]) > [slot=nav-bar] {
         display: block;
     }
-    x-layout:not([group-count='1']):not([view=collapse]) {
+    x-layout[has-bar]:not([group-count='1']):not([view=collapse]) {
         width: calc(100vw - 2 * var(--safe-area));
+        min-height: calc(100% - 2 * var(--safe-area) - var(--top-space));
+        height: calc(100% - 2 * var(--safe-area) - var(--top-space));
         padding-top: calc(var(--top-space) + var(--safe-area));
     }
     [dir=ltr] x-layout:not([group-count='1']):not([view=collapse]) {
@@ -178,9 +179,6 @@ x-layout > [slot=nav-rail] {
     [dir=rtl] x-layout:not([group-count='1']):not([view=collapse]) {
         padding-left: calc(var(--safe-area) - (100vw - 100%));
         padding-right: var(--safe-area);
-    }
-    x-layout:not([group-count='1']):not([view=collapse]):not([has-bar]) {
-        padding-top: var(--safe-area);
     }
     /* Switch to rail if view is set to collapse */
     x-layout[view=collapse] > [slot=nav-rail] {

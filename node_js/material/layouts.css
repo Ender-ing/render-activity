@@ -158,16 +158,18 @@ x-layout > [slot=nav-rail] {
     x-layout {
         --safe-area: 24px;
     }
-    /* Switch to rail if only one group is present */
-    x-layout[group-count='1']:not([view=collapse]) > [slot=nav-rail] {
+    /* Switch to rail if only one group is present, or two elements are present */
+    x-layout[has-rail][group-count='1'] > [slot=nav-rail] {
         display: block;
     }
     /* Switch to bottom bar if more than one group is present */
     x-layout:not([group-count='1']):not([view=collapse]) > [slot=nav-bar] {
         display: block;
     }
-    x-layout[has-bar]:not([group-count='1']):not([view=collapse]) {
+    x-layout:not([group-count='1']):not([view=collapse]) {
         width: calc(100vw - 2 * var(--safe-area));
+    }
+    x-layout[has-bar]:not([group-count='1']):not([view=collapse]) {
         min-height: calc(100% - 2 * var(--safe-area) - var(--top-space));
         height: calc(100% - 2 * var(--safe-area) - var(--top-space));
         padding-top: calc(var(--top-space) + var(--safe-area));

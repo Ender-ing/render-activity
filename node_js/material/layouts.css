@@ -88,15 +88,30 @@ x-layout > [slot=group][view*=static] {
     width: 360px;
 }
 
-x-layout > [slot=group][view*=sticky] {
-    position: sticky;
-    top: calc(-1 * var(--safe-area));
-    z-index: 200;
-    background-color: var(--md-sys-color-surface-container);
-    border-radius: 0px 0px var(--pane-border-radius) var(--pane-border-radius);
-    padding-top: var(--safe-area);
-    margin-top: calc(-1 * var(--safe-area));
-    outline: var(--safe-area) solid var(--md-sys-color-surface-container);
+/* Allow view=sticky only when double-pane view is allowed */
+@media screen and (min-width: 840px) {
+    x-layout > [slot=group][view*=sticky] {
+        position: sticky;
+        top: calc(-1 * var(--safe-area));
+        z-index: 200;
+        background-color: var(--md-sys-color-surface-container);
+        border-radius: 0px 0px var(--pane-border-radius) var(--pane-border-radius);
+        padding-top: var(--safe-area);
+        margin-top: calc(-1 * var(--safe-area));
+        outline: var(--safe-area) solid var(--md-sys-color-surface-container);
+    }
+}
+@media screen and (min-width: 600px) and (max-width: 839px) {
+    x-layout:not([view*=collapse]) > [slot=group][view*=sticky] {
+        position: sticky;
+        top: calc(-1 * var(--safe-area));
+        z-index: 200;
+        background-color: var(--md-sys-color-surface-container);
+        border-radius: 0px 0px var(--pane-border-radius) var(--pane-border-radius);
+        padding-top: var(--safe-area);
+        margin-top: calc(-1 * var(--safe-area));
+        outline: var(--safe-area) solid var(--md-sys-color-surface-container);
+    }
 }
 
 x-layout > [slot=nav-bar],
@@ -105,6 +120,7 @@ x-layout > [slot=nav-rail] {
     display: none;
     top: 0px;
     background-color: var(--md-sys-color-surface-container);
+    z-index: 200;
 }
 
 [dir=ltr] x-layout > [slot=nav-bar],
@@ -170,37 +186,37 @@ x-layout > [slot=nav-rail] {
         display: block;
     }
     /* Switch to bottom bar if more than one group is present */
-    x-layout:not([group-count='1']):not([view=collapse]) > [slot=nav-bar] {
+    x-layout:not([group-count='1']):not([view*=collapse]) > [slot=nav-bar] {
         display: block;
     }
-    x-layout:not([group-count='1']):not([view=collapse]) {
+    x-layout:not([group-count='1']):not([view*=collapse]) {
         width: calc(100vw - 2 * var(--safe-area));
     }
-    x-layout[has-bar]:not([group-count='1']):not([view=collapse]) {
+    x-layout[has-bar]:not([group-count='1']):not([view*=collapse]) {
         min-height: calc(100% - 2 * var(--safe-area) - var(--top-space));
         height: calc(100% - 2 * var(--safe-area) - var(--top-space));
         padding-top: calc(var(--top-space) + var(--safe-area));
     }
-    [dir=ltr] x-layout:not([group-count='1']):not([view=collapse]),
-    [dir=rtl] x-layout:not([group-count='1']):not([view=collapse]) {
+    [dir=ltr] x-layout:not([group-count='1']):not([view*=collapse]),
+    [dir=rtl] x-layout:not([group-count='1']):not([view*=collapse]) {
         padding-left: var(--safe-area);
         padding-right: var(--safe-area);
     }
     /* Switch to rail if view is set to collapse */
-    x-layout[view=collapse] > [slot=nav-rail] {
+    x-layout[view*=collapse] > [slot=nav-rail] {
         display: block;
     }
-    x-layout[view=collapse]{
+    x-layout[view*=collapse]{
         display: block;
     }
-    x-layout[view=collapse] > [slot=group] {
+    x-layout[view*=collapse] > [slot=group] {
         width: 100%;
         margin-left: 0px;
         margin-bottom: var(--group-margin);
         height: fit-content;
     }
-    x-layout[view=collapse] > [slot=group][style*=width],
-    x-layout[view=collapse] > [slot=group][view*=static] {
+    x-layout[view*=collapse] > [slot=group][style*=width],
+    x-layout[view*=collapse] > [slot=group][view*=static] {
         min-width: 100%;
         max-width: 100%;
     }

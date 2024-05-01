@@ -11,7 +11,10 @@
 // [] - Make a *cutout slot* for phone cutouts and custom navigation bars on desktop
 // https://m3.material.io/foundations/layout/understanding-layout/hardware-considerations#6c0f6cca-3019-4b4f-87d7-8d879de3ef38
 
-// [] - Make a *fold slot* for foldable devices sold line
+// ??? - Detect fold state on foldable devices
+// https://m3.material.io/foundations/layout/understanding-layout/hardware-considerations#6bbf6976-041a-4a10-adf8-8cbb33f36a1e
+
+// ??? - Make a *fold slot* for foldable devices sold line
 // https://m3.material.io/foundations/layout/understanding-layout/hardware-considerations#22276e2c-47fa-43c2-8443-bf525fbbf80f
 
 // [x] - Make a *nav slot*
@@ -20,13 +23,12 @@
 // [x] - Make a *bar slot*
 // https://m3.material.io/foundations/layout/understanding-layout/parts-of-layout#12ef4a8f-7aa2-441c-b045-ded31bcdb45d
 
-// ??? - Detect fold state on foldable devices
-// https://m3.material.io/foundations/layout/understanding-layout/hardware-considerations#6bbf6976-041a-4a10-adf8-8cbb33f36a1e
-
 // [x] - Make a *pane* for all layouts to work with!
 // https://m3.material.io/foundations/layout/understanding-layout/parts-of-layout#73de653a-fc57-4a7c-bc3b-5b9e94207de8
 
 // [x] - Support RTL Layout!!
+
+// [] - Add a custom overlay scrollbar!
 
 /**
  * 

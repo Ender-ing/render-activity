@@ -264,3 +264,8 @@ x-layout > [slot=nav-rail] {
 .x-layout-pane * {
     color: var(--md-sys-color-on-surface);
 }
+
+.x-layout-pane:last-child,
+.x-layout-float:last-child{
+    margin-bottom: 0px;
+}

@@ -7,6 +7,7 @@ x-layout {
     overflow-x: hidden;
     top: 0px;
     left: 0px;
+    --screen-height: 100dvh;
 }
 
 .x-root-class {
@@ -28,28 +29,48 @@ x-layout {
     --rail-space: 100px;
     --top-space: 100px;
     /* default is rail */
-    padding-left: calc(var(--rail-space) + var(--safe-area));
-    padding-right: calc(var(--safe-area) - 100vw + 100%);
     width: calc(100% - 2 * var(--safe-area) - var(--rail-space) + 100vw - 100%);
 }
+[dir=ltr] x-layout {
+    padding-left: calc(var(--rail-space) + var(--safe-area));
+    padding-right: calc(var(--safe-area) - 100vw + 100%);
+}
+[dir=rtl] x-layout {
+    padding-right: calc(var(--rail-space) + var(--safe-area));
+    padding-left: calc(var(--safe-area) - 100vw + 100%);
+}
 x-layout:not([has-rail]) {
-    padding-left: var(--safe-area);
     width: calc(100% - 2 * var(--safe-area) + 100vw - 100%);
+}
+[dir=ltr] x-layout:not([has-rail]) {
+    padding-left: var(--safe-area);
+}
+[dir=rtl] x-layout:not([has-rail]) {
+    padding-right: var(--safe-area);
 }
 
 x-layout > [slot=group] {
     --nav-width: 50px;
     width: var(--nav-width);
-    height: 100%;
+    height: fit-content;
     flex: 1;
-    margin-left: var(--group-margin);
     min-width: 0px;
     position: relative;
 }
+[dir=ltr] x-layout > [slot=group] {
+    margin-left: var(--group-margin);
+}
+[dir=rtl] x-layout > [slot=group] {
+    margin-right: var(--group-margin);
+}
 
-x-layout > :not([slot=group]) + [slot=group],
-x-layout > [slot=group]:first-child {
+[dir=ltr] x-layout > :not([slot=group]) + [slot=group],
+[dir=ltr] x-layout > [slot=group]:first-child {
     margin-left: 0px;
+}
+[dir=rtl] x-layout > :not([slot=group]) + [slot=group],
+[dir=rtl] x-layout > [slot=group]:first-child {
+    margin-right: 0px;
 }
 
 x-layout > [slot=group] > :first-child,
@@ -71,7 +92,6 @@ x-layout > [slot=nav-rail] {
     display: none;
     left: 0px;
     top: 0px;
-    background: var(--md-sys-color-on-background);
 }
 
 @media screen and (max-width: 600px) {
@@ -85,10 +105,16 @@ x-layout > [slot=nav-rail] {
     x-layout {
         width: calc(100% - 2 * var(--safe-area));
         padding-top: calc(var(--top-space) + var(--safe-area));
-        padding-left: max(calc(var(--safe-area) - 100vw + 100%), var(--safe-area));
-        padding-right: calc(min(calc(100vw - 100% - var(--safe-area)), 0px) + var(--safe-area));
         /* ^^ THIS NEEDS TO BE FIXED!! ^^ */
         display: block;
+    }
+    [dir=ltr] x-layout {
+        padding-left: max(calc(var(--safe-area) - 100vw + 100%), var(--safe-area));
+        padding-right: calc(min(calc(100vw - 100% - var(--safe-area)), 0px) + var(--safe-area));
+    }
+    [dir=rtl] x-layout {
+        padding-right: max(calc(var(--safe-area) - 100vw + 100%), var(--safe-area));
+        padding-left: calc(min(calc(100vw - 100% - var(--safe-area)), 0px) + var(--safe-area));
     }
     x-layout:not([has-bar]) {
         padding-top: var(--safe-area);
@@ -106,8 +132,13 @@ x-layout > [slot=nav-rail] {
     }
     x-layout > [slot=group] {
         width: 100%;
-        margin-left: 0px;
         margin-bottom: var(--group-margin);
+    }
+    [dir=ltr] x-layout > [slot=group] {
+        margin-left: 0px;
+    }
+    [dir=rtl] x-layout > [slot=group] {
+        margin-right: 0px;
     }
 }
 
@@ -126,8 +157,14 @@ x-layout > [slot=nav-rail] {
     x-layout:not([group-count='1']):not([view=collapse]) {
         width: calc(100% - 2 * var(--safe-area) + 100vw - 100%);
         padding-top: calc(var(--top-space) + var(--safe-area));
+    }
+    [dir=ltr] x-layout:not([group-count='1']):not([view=collapse]) {
         padding-right: calc(var(--safe-area) - 100vw + 100%);
         padding-left: var(--safe-area);
+    }
+    [dir=ltr] x-layout:not([group-count='1']):not([view=collapse]) {
+        padding-left: calc(var(--safe-area) - 100vw + 100%);
+        padding-right: var(--safe-area);
     }
     x-layout:not([group-count='1']):not([view=collapse]):not([has-bar]) {
         padding-top: var(--safe-area);
@@ -172,6 +209,7 @@ x-layout > [slot=nav-rail] {
         display: block;
     }
     /* Be careful about space and placement! */
+    /* use view=collapse if you feel screen space won't be enough! */
 }
 
 @media screen and (min-width: 1600px) {
@@ -218,8 +256,8 @@ x-layout > [slot=nav-rail] {
     color: var(--md-sys-color-on-surface);
 }
 .x-layout-pane[view=full]{
-    min-height: max(40px, calc(100% - 2 * var(--safe-area)));
-    height: max(40px, calc(100% - 2 * var(--safe-area)));
+    min-height: calc(var(--screen-height) - 2 * var(--safe-area) - 2 * var(--pane-border-radius));
+    height: calc(var(--screen-height) - 2 * var(--safe-area) - 2 * var(--pane-border-radius));
 }
 .x-layout-pane * {
     color: var(--md-sys-color-on-surface);

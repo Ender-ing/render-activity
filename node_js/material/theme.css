@@ -44,14 +44,6 @@
     background: var(--md-sys-color-secondary-container);
 }
 
-/* Hide scrollbar on devices with a touch screen */
-@media (pointer:coarse) {
-    *::-webkit-scrollbar {
-        width: 0px;
-    }
-}
-
-
 /* Text selection */
 
 .dark ::-moz-selection,

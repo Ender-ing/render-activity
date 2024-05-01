@@ -277,3 +277,12 @@ x-layout > [slot=nav-rail] {
 .x-layout-float:last-child{
     margin-bottom: 0px;
 }
+
+/* Hide scrollbar on devices with a touch screen */
+/* (For some reason, placing this in the theme.css file
+is breaking JS stylesheet styles detection) */
+@media (pointer:coarse) {
+    *::-webkit-scrollbar {
+        width: 0px;
+    }
+}

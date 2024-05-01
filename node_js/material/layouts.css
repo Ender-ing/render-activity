@@ -103,9 +103,18 @@ x-layout > [slot=nav-bar],
 x-layout > [slot=nav-rail] {
     position: fixed;
     display: none;
-    left: 0px;
     top: 0px;
     background-color: var(--md-sys-color-surface-container);
+}
+
+[dir=ltr] x-layout > [slot=nav-bar],
+[dir=ltr] x-layout > [slot=nav-rail] {
+    left: 0px;
+}
+
+[dir=rtl] x-layout > [slot=nav-bar],
+[dir=rtl] x-layout > [slot=nav-rail] {
+    right: 0px;
 }
 
 @media screen and (max-width: 600px) {

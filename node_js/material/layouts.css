@@ -52,7 +52,8 @@ x-layout > [slot=group]:first-child {
     margin-left: 0px;
 }
 
-x-layout > [slot=group] > :first-child {
+x-layout > [slot=group] > :first-child,
+x-layout > [slot=group] > :first-child > :first-child {
     margin-top: 0px;
 }
 
@@ -142,6 +143,7 @@ x-layout > [slot=nav-rail] {
         width: 100%;
         margin-left: 0px;
         margin-bottom: var(--group-margin);
+        height: fit-content;
     }
     x-layout[view=collapse] > [slot=group][style*=width],
     x-layout[view=collapse] > [slot=group][view=static] {

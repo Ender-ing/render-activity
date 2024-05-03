@@ -28,10 +28,14 @@ x-layout {
     padding: var(--safe-area);
     --group-margin: max(var(--safe-area), 2%);
     --pane-border-radius: 26px;
-    --rail-space: 100px;
-    --top-space: 100px;
+    --rail-space: calc(80px + var(--safe-area));
+    --bar-space: calc(80px + var(--safe-area));
     /* default is rail */
     width: calc(100vw - 2 * var(--safe-area) - var(--rail-space));
+}
+x-layout[primary],
+[primary] x-layout{
+    background-color: var(--md-sys-color-primary-container);
 }
 [dir=ltr] x-layout {
     padding-left: calc(var(--rail-space) + var(--safe-area));
@@ -100,6 +104,11 @@ x-layout > [slot=group][view*=static] {
         margin-top: calc(-1 * var(--safe-area));
         outline: var(--safe-area) solid var(--md-sys-color-surface-container);
     }
+    x-layout[primary] > [slot=group][view*=sticky],
+    [primary] x-layout > [slot=group][view*=sticky] {
+        background-color: var(--md-sys-color-primary-container);
+        outline: var(--safe-area) solid var(--md-sys-color-primary-container);
+    }    
 }
 @media screen and (min-width: 600px) and (max-width: 839px) {
     x-layout:not([view*=collapse]) > [slot=group][view*=sticky] {
@@ -112,6 +121,11 @@ x-layout > [slot=group][view*=static] {
         margin-top: calc(-1 * var(--safe-area));
         outline: var(--safe-area) solid var(--md-sys-color-surface-container);
     }
+    x-layout[primary]:not([view*=collapse]) > [slot=group][view*=sticky],
+    [primary] x-layout:not([view*=collapse]) > [slot=group][view*=sticky] {
+        background-color: var(--md-sys-color-primary-container);
+        outline: var(--safe-area) solid var(--md-sys-color-primary-container);
+    }    
 }
 
 x-layout > [slot=nav-bar],
@@ -122,6 +136,11 @@ x-layout > [slot=nav-rail] {
     background-color: var(--md-sys-color-surface-container);
     z-index: 200;
 }
+[primary] [slot=nav-bar],
+[primary] [slot=nav-rail] {
+    background-color: var(--md-sys-color-primary-container);
+}    
+
 
 [dir=ltr] x-layout > [slot=nav-bar],
 [dir=ltr] x-layout > [slot=nav-rail] {
@@ -146,9 +165,9 @@ x-layout > [slot=nav-rail] {
         display: block;
     }
     x-layout[has-bar] {
-        min-height: calc(100% - 2 * var(--safe-area) - var(--top-space));
-        height: calc(100% - 2 * var(--safe-area) - var(--top-space));
-        padding-top: calc(var(--top-space) + var(--safe-area));
+        min-height: calc(100% - 2 * var(--safe-area) - var(--bar-space));
+        height: calc(100% - 2 * var(--safe-area) - var(--bar-space));
+        padding-top: calc(var(--bar-space) + var(--safe-area));
     }
     [dir=ltr] x-layout,
     [dir=rtl] x-layout {
@@ -193,9 +212,9 @@ x-layout > [slot=nav-rail] {
         width: calc(100vw - 2 * var(--safe-area));
     }
     x-layout[has-bar]:not([group-count='1']):not([view*=collapse]) {
-        min-height: calc(100% - 2 * var(--safe-area) - var(--top-space));
-        height: calc(100% - 2 * var(--safe-area) - var(--top-space));
-        padding-top: calc(var(--top-space) + var(--safe-area));
+        min-height: calc(100% - 2 * var(--safe-area) - var(--bar-space));
+        height: calc(100% - 2 * var(--safe-area) - var(--bar-space));
+        padding-top: calc(var(--bar-space) + var(--safe-area));
     }
     [dir=ltr] x-layout:not([group-count='1']):not([view*=collapse]),
     [dir=rtl] x-layout:not([group-count='1']):not([view*=collapse]) {
@@ -281,6 +300,11 @@ x-layout > [slot=nav-rail] {
     color: var(--md-sys-color-on-background);
 }
 
+[primary] .x-layout-float,
+[primary] .x-layout-float * {
+    color: var(--md-sys-color-on-primary-container);
+}
+
 /*** x-pane style ***/
 .x-layout-pane {
     border-radius: var(--pane-border-radius);
@@ -291,11 +315,18 @@ x-layout > [slot=nav-rail] {
     background: var(--md-sys-color-surface);
     color: var(--md-sys-color-on-surface);
 }
+[primary] .x-layout-pane {
+    background: var(--md-sys-color-on-primary);
+    color: var(--md-sys-color-on-primary-container);
+}
 .x-layout-pane[view=full]{
     min-height: calc(var(--screen-height) - 2 * var(--safe-area) - 2 * var(--pane-border-radius));
 }
 .x-layout-pane * {
     color: var(--md-sys-color-on-surface);
+}
+[primary] .x-layout-pane * {
+    color: var(--md-sys-color-on-primary-container);
 }
 
 .x-layout-pane:last-child,

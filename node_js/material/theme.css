@@ -41,7 +41,12 @@
 }
 
 *::-webkit-scrollbar-thumb:hover {
-    background: var(--md-sys-color-secondary-container);
+    background: var(--md-sys-color-surface-container-highest);
+}
+
+[primary]::-webkit-scrollbar-thumb,
+[primary]::-webkit-scrollbar-thumb:hover {
+    background: var(--md-sys-color-primary);
 }
 
 /* Text selection */

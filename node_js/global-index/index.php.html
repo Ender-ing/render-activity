@@ -79,6 +79,12 @@ header('Content-Security-Policy:'.
 
     <script>
         // Manage cookies
+        // Note to self: Add a user concent dialog that will be used to inform the user
+        // of the fact that cookies are being used, and inform them of their right to
+        // disable unnecessary cookies.
+        // In addition, add a section that lets the user choose if they wish to be tracked
+        // (using Google Tag Manager) or not.
+        // Note that all said preferences may be altered and controlled during user registration.
         document.documentElement.getCookie = function(name){
             return (document.cookie.match(new RegExp(`^(?:.*;)?\\s*${name}\\s*=\\s*([^;]+)(?:.*)?$`))||[,null])[1];
         };

@@ -14,6 +14,7 @@ const pathM = require('path');
 const path = process.argv[2];
 const path2 = process.argv[3];
 const path3 = process.argv[4];
+const path4 = process.argv[5];
 
 // Read the contents of a directory
 function readDirCon(path){
@@ -52,10 +53,38 @@ async function getContent(path){
 async function getJSON(path){
     return JSON.parse(await getContent(path));
 }
+async function _getJSON(path){
+    let r;
+    try{
+        r = await getContent(path);
+    }catch{
+        r = "{}";
+    }
+    return JSON.parse(r);
+}
 
 // Overwrite file content
 async function writeContent(path, content){
     await fs.writeFileSync(path, content);
+}
+
+// Write a file (when you are not sure if the directory already exists)
+function _writeContent(path, content){
+    return new Promise(function(resolve, reject) {
+        fs.mkdir(pathM.dirname(path), { recursive: true}, async function (err) {
+            if (err) {
+                reject(err);
+                throw err;
+            }    
+            let r = await fs.writeFileSync(path, content);
+            resolve(r);
+        });    
+    });
+}
+
+// Delete a file
+async function deleteFile(path){
+    await fs.unlinkSync(path);
 }
 
 // Get the latest modification time of all files within a directory
@@ -78,15 +107,44 @@ async function latestDirFileMod(path) {
     return latestModified;
 }
 
+function deleteEmptyFolders(dirPath) {
+    if (!fs.existsSync(dirPath)) return; // Exit if the path doesn't exist
+
+    const files = fs.readdirSync(dirPath);
+
+    if (!files.length) {
+        // If the directory is empty, delete it
+        fs.rmdirSync(dirPath);
+    } else {
+        // If it has files/folders, recurse into subdirectories
+        files.forEach(file => {
+            const filePath = pathM.join(dirPath, file);
+            if (fs.statSync(filePath).isDirectory()) {
+                deleteEmptyFolders(filePath); 
+            }
+        });
+
+        // Recheck if the directory is now empty (it might be after recursion)
+        if (!fs.readdirSync(dirPath).length) {
+            fs.rmdirSync(dirPath);
+        }
+    }
+}
+
 module.exports = {
     _p: pathM,
     path,
     path2,
     path3,
+    path4,
     readDirCon,
     latestDirFileMod,
     getContent,
     writeContent,
-    getJSON
+    _writeContent,
+    deleteFile,
+    getJSON,
+    _getJSON,
+    deleteEmptyFolders
     //_path: p
 };

@@ -7,7 +7,7 @@
 // node static.js <input_path> <original_path> <source_path>
 
 // Get file-system functions
-const { path, path2, path3, writeContent, getJSON, _p, readDirCon, latestDirFileMod, getContent } = require('./_files');
+const { path, path2, path3, path4, writeContent, getJSON, _p, readDirCon, latestDirFileMod, getContent } = require('./_files');
 const { compressXML, compressJSON, _compressXML, replaceFileVars, compressDisplay } = require('./_compress');
 
 // Keep track of sitemap data
@@ -60,7 +60,7 @@ async function writeSitmap(){
 }
 
 // Check file type and comnpress its contents
-async function compressFileContents(fullPath, fileName, source, components){
+async function compressFileContents(basePath, fullPath, fileName, source, components){
     if(fileName.indexOf(".xml") != -1){
         await compressXML(fullPath, source);
     }else if(fileName.indexOf(".display") != -1){
@@ -69,9 +69,9 @@ async function compressFileContents(fullPath, fileName, source, components){
             components[fileName.substring(1, fileName.indexOf(".display"))] = await getContent(fullPath);
         }else{
             // Compress display file
-            await compressDisplay(fullPath, source, components);
+            await compressDisplay(path4, basePath, fullPath, source, components);
         }
-    }else if(fileName.indexOf(".json") != -1 || fileName.indexOf(".locale") != -1){
+    }else if(fileName.indexOf(".json") != -1){
         await compressJSON(fullPath, source);
     }else{
         // ?? this could be quite demanding... ??
@@ -93,7 +93,7 @@ function pathIgnored(path, ignore){
 }
 
 // Scan through a directory recursively
-async function scanDir(dir, source, components = {}){
+async function scanDir(dir, source, base, components = {}){
     const files = await readDirCon(dir);
     const compRep = {...components};
     for (const file of files) {
@@ -103,10 +103,10 @@ async function scanDir(dir, source, components = {}){
         if(file.name.indexOf("gen.") == -1){
             if (file.isDirectory()) {
                 // Search sub-directories
-                await scanDir(filePath, source, compRep);
+                await scanDir(filePath, source, base, compRep);
             } else {
                 // Compress file
-                await compressFileContents(filePath, file.name, source, compRep);
+                await compressFileContents(base, filePath, file.name, source, compRep);
                 // Add file to sitemap
                 if(file.name == "index.display" && !pathIgnored(filePath, source.web?.sitemap?.ignore)){
                     await addSitemapItem(filePath, source.web.host);
@@ -122,7 +122,7 @@ async function processStatic(){
     let source = await getJSON(path3);
 
     // Start scan
-    await scanDir(path, source);
+    await scanDir(path, source, path);
 
     // Generate sitemap
     await writeSitmap();

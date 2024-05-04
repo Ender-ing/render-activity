@@ -1,0 +1,8 @@
+RewriteEngine On
+
+# Serve the content of one html file for all pages!
+RewriteCond %{HTTP:x-display-request} ^$ [OR]
+RewriteCond %{HTTP:x-display-request} !^.+$
+RewriteCond %{REQUEST_URI} \.html$ [OR]
+RewriteCond %{REQUEST_URI} /$
+RewriteRule ^(.*)$ {{$_lang.code}}/index.php [L] 

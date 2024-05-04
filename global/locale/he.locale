@@ -1,0 +1,38 @@
+{
+    "language": {
+        "arabic": "ערבית",
+        "english": "אנגלית",
+        "hebrew": "עברית"
+    },
+    "error": {
+        "title": "משהו השתבש!"
+    },
+    "redirect": {
+        "back": "תחזור",
+        "reload": "טען מחדש",
+        "check_status": "לבדוק מצב"
+    },
+    "action": {
+        "ok": "אוקיי",
+        "cancel": "ביטול"
+    },
+    "network": {
+        "error": {
+            "title": "בעיה ברשת!",
+            "files": "לא יכולנו לגשת לחלק מהקבצים עקב שגיאת רשת!"
+        }
+    },
+    "content": {
+        "not_available": {
+            "title": "תוכן לא זמין!",
+            "message": "הדף שאליו אתה מנסה לגשת אינו זמין! בבקשה נסה שוב מאוחר יותר..."
+        }
+    },
+    "_lang": {
+        "code": "he"
+    },
+    "_meta": {
+        "title": "Ender.ing",
+        "description": "ברוכים הבאים ל-Ender.ing!"
+    }
+}

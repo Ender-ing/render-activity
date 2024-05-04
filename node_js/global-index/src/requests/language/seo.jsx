@@ -5,7 +5,7 @@
 **/
 
 import { createSignal } from "solid-js";
-import { localiseText } from "./inject";
+//import { localiseText } from "./inject";
 
 // Get pure URL
 function getPureURL(lang = null){
@@ -61,16 +61,17 @@ function createCanonical(){
 }
 
 // Create a meta element
+/*
 function createMetaElement(name){
     let meta = document.createElement('meta');
     meta.setAttribute("name", name);
     // Append element
     document.head.appendChild(meta);
     return meta;
-}
+}*/
 
 // Add page description
-let meta = {
+/*let meta = {
     title: null,
     description: null,
     globalTitle: null
@@ -98,7 +99,7 @@ async function addMeta(){
     document.title = title;
     // Set description
     meta.description.setAttribute("content", await localiseText("{{?_meta.description}}"));
-}
+}*/
 
 // Add needed meta data for search engine language recognition 
 export const [getIsErrorResult, setIsErrorResult] = createSignal(false);
@@ -117,5 +118,5 @@ export function languageMeta(){
     }
 
     // Add meta elements
-    addMeta();
+    // addMeta();
 }

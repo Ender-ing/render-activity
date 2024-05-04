@@ -1,0 +1,38 @@
+{
+    "language": {
+        "arabic": "Arabic",
+        "english": "English",
+        "hebrew": "Hebrew"
+    },
+    "error": {
+        "title": "Something went wrong!"
+    },
+    "redirect": {
+        "back": "Go Back",
+        "reload": "Reload",
+        "check_status": "Check Status"
+    },
+    "action": {
+        "ok": "Ok",
+        "cancel": "Cancel"
+    },
+    "network": {
+        "error": {
+            "title": "Network Error!",
+            "files": "We couldn't access some files due to a network error!"
+        }
+    },
+    "content": {
+        "not_available": {
+            "title": "Content not Available!",
+            "message": "The page you're trying to access is not available! Please try again later..."
+        }
+    },
+    "_lang": {
+        "code": "en"
+    },
+    "_meta": {
+        "title": "Ender.ing",
+        "description": "Welcome to Ender.ing!"
+    }
+}

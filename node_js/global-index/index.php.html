@@ -408,18 +408,18 @@ header('Content-language: '.$LANG_CODE);
     <!-- All default page dialogs -->
     <div id="dialogs-activity" class="dialogs-container">
         <md-dialog id="network-connection-error" type="alert">
-            <div slot="headline" locale-content="{{$network.error.title}}"></div>
-            <form slot="content" id="network-connection-error-form" method="dialog" locale-content="{{$network.error.files}}"></form>
+            <div slot="headline">{{$network.error.title}}</div>
+            <form slot="content" id="network-connection-error-form" method="dialog">{{$network.error.files}}</form>
             <div slot="actions">
-                <md-text-button id="network-connection-error-reload" form="network-connection-error-form" value="reload" locale-content="{{$redirect.reload}}"></md-text-button>
+                <md-text-button id="network-connection-error-reload" form="network-connection-error-form" value="reload">{{$redirect.reload}}</md-text-button>
             </div>
         </md-dialog>
         <md-dialog id="content-files-error" type="alert">
-            <div slot="headline" locale-content="{{$content.not_available.title}}"></div>
-            <form slot="content" id="content-files-error-form" method="dialog" locale-content="{{$content.not_available.message}}"></form>
+            <div slot="headline">{{$content.not_available.title}}</div>
+            <form slot="content" id="content-files-error-form" method="dialog">{{$content.not_available.message}}</form>
             <div slot="actions">
-                <md-text-button id="content-files-error-back" form="content-files-error-form" value="back" locale-content="{{$redirect.back}}"></md-text-button>
-                <md-text-button id="content-files-error-reload" form="content-files-error-form" value="reload" locale-content="{{$redirect.reload}}"></md-text-button>
+                <md-text-button id="content-files-error-back" form="content-files-error-form" value="back">{{$redirect.back}}</md-text-button>
+                <md-text-button id="content-files-error-reload" form="content-files-error-form" value="reload">{{$redirect.reload}}</md-text-button>
             </div>
         </md-dialog>
         <script async>

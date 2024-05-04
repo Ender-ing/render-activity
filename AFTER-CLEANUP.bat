@@ -21,6 +21,12 @@ for /D %%f in (*) do (
 
     :: Delete local $.display components
     del /Q /S %OUTPUT_PATH%\%%f\$**.display > nul 2>&1
+
+    :: Delete .locale files
+    del /Q /S %OUTPUT_PATH%\%%f\**.locale > nul 2>&1
+
+    :: Delete empty folders
+    CMD "Running Backup" /C "node %BUILD_PATH%\node_js\utility\delete_empty.js %OUTPUT_PATH%\%%f"
 )
 
 :: Return to the original directory

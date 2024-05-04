@@ -8,13 +8,14 @@ import { createSignal } from "solid-js";
 //import { DIALOG, showDialog } from "../content/dialogs";
 import { localiseContent } from "./language/process";
 import { setIsErrorResult } from "./language/seo";
+import { checkLocale } from "./language/preference";
 
 //  Get display content!
 export const PAGES = {
-    ERROR_404: "https://resources.ender.ing/web/client/global-pages/error-404/",
-    ERROR_CODE: "https://resources.ender.ing/web/client/global-pages/error-code/",
-    ERROR_CONNECTION: "https://resources.ender.ing/web/client/global-pages/error-connection/",
-    ERROR_SERVER: "https://resources.ender.ing/web/client/global-pages/error-server/"
+    ERROR_404: () => `https://resources.ender.ing/${checkLocale()}/web/client/global-pages/error-404/`,
+    ERROR_CODE: () => `https://resources.ender.ing/${checkLocale()}/web/client/global-pages/error-code/`,
+    ERROR_CONNECTION: () => `https://resources.ender.ing/${checkLocale()}/web/client/global-pages/error-connection/`,
+    ERROR_SERVER: () => `https://resources.ender.ing/${checkLocale()}/web/client/global-pages/error-server/`
 };
 export async function getDisplay(base){
     let displayURL = getURL(base);
@@ -69,15 +70,15 @@ function fetchDisplay(displayURL, pathname, text = false, updateContentPathname 
             // Check if this is an HTML file
             if((response.status === 404 ||
                     (responseChunk?.indexOf('<!DOCTYPE') != -1))
-                && pathname !== fixBase(PAGES.ERROR_404)){
-                pathname = fixBase(PAGES.ERROR_404);
+                && pathname !== fixBase(PAGES.ERROR_404())){
+                pathname = fixBase(PAGES.ERROR_404());
                 updateContentPathname = false;
                 console.warn("Display file could not be loaded!");
                 setIsErrorResult(true);
-                return await fetchDisplay(getURL(PAGES.ERROR_404), fixBase(PAGES.ERROR_404), true);
+                return await fetchDisplay(getURL(PAGES.ERROR_404()), fixBase(PAGES.ERROR_404()), true);
             }else if (!response.ok) {
                 // Catch all other server errors!
-                throw PAGES.ERROR_SERVER;
+                throw PAGES.ERROR_SERVER();
                 // showDialog(DIALOG.network.error);
                 //throw new Error('Network response was not ok');
             }
@@ -86,14 +87,14 @@ function fetchDisplay(displayURL, pathname, text = false, updateContentPathname 
                 setContentURL(pathname);
             }
             return responseText;
-        }).then(async xmlString => {
+        })/*.then(async xmlString => {
             if(!text){
                 let localisedXML = await localiseContent(xmlString);
                 return localisedXML;
             }else{
                 return xmlString;
             }
-        }).then(xmlString => {
+        })*/.then(xmlString => {
             if(!text){
                 // Parse the XML string
                 let xmlDoc;
@@ -101,7 +102,7 @@ function fetchDisplay(displayURL, pathname, text = false, updateContentPathname 
                     const parser = new DOMParser();
                     xmlDoc = parser.parseFromString(xmlString, "text/xml");
                 }catch{
-                    throw PAGES.ERROR_CODE;
+                    throw PAGES.ERROR_CODE();
                 }
     
                 // Extract the values you need
@@ -118,7 +119,7 @@ function fetchDisplay(displayURL, pathname, text = false, updateContentPathname 
             // Check error type
             // Fetch offline errors trigger an error throw!
             if(typeof errorURL != "string"){
-                reject(PAGES.ERROR_CONNECTION);
+                reject(PAGES.ERROR_CONNECTION());
             }else{
                 reject(errorURL);
             }

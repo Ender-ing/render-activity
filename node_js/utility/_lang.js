@@ -1,19 +1,16 @@
 /**
  * 
- * Manage language string replacement requests for language files
+ * Manage language expressions
  * 
 **/
 
-//import { getContentURL } from "../display";
-//import { getGlobalLocale } from "./global";
-//import { getLocale } from "./load";
-//import { checkLocale } from "./preference";
+const { _p, _writeContent, deleteFile, _getJSON } = require("./_files");
 
 // Get JSON value by string
 function getJSONValueByPath(obj, path) {
     let pathParts = path.split('.');
 
-    let current = obj; // Start at the root object
+    let current = {...obj}; // Start at the root object
     for (let part of pathParts) {
         if (current[part] === undefined) {
             return undefined; // Value not found
@@ -64,19 +61,18 @@ function replaceLocaleStrVars(value, vars, localeObj, globalObj){
     return newVal;
 }
 
-// Replace language expressions inside the retuned value
+// Replace content lang
 function localiseOutput(value, localeObj, globalObj){
-    if(precheckLocale(value)){
-        return replaceStrings(value, localeObj, globalObj);
+    // Check if result needs to be processed too!
+    if((/\{\{|\}\}/g).test(value)){
+        return replaceLangExp(value, localeObj, globalObj);
     }else{
         return value;
     }
 }
-
-// Replace placeholder strings with their values
-export function replaceStrings(xmlDocString, localeObj, globalObj){
+function replaceLangExp(content, localeObj, globalObj){
     let result;
-    return xmlDocString.replaceAll(/\{\{(.*?)\}\[?(.*?)\]?\}/g, (match, idString, varString) => {
+    return content.replaceAll(/\{\{(.*?)\}\[?(.*?)\]?\}/g, (match, idString, varString) => {
         let id = idString.replaceAll(/\s/g, "");
         if(id[0] === "$"){
             result = replaceLocaleStrVars(getJSONValueByPath(globalObj, id.substring(1)), varString, localeObj, globalObj);
@@ -98,31 +94,58 @@ export function replaceStrings(xmlDocString, localeObj, globalObj){
     });
 }
 
-// Do a pre-check to determine if you need to load locale files!
-function precheckLocale(xmlDocString){
-    return (/\{\{|\}\}/g).test(xmlDocString);
+// Get .locale files
+async function getLocaleObject(path){
+    // Get .locale files
+    let r = {
+        ar: await _getJSON(_p.join(path, "ar.locale")) || null,
+        en: await _getJSON(_p.join(path, "en.locale")) || null,
+        he: await _getJSON(_p.join(path, "he.locale")) || null
+    };
+    if(r.ar == null){
+        console.warn(`Empty locale file detected! (in ${path} => ar.locale)`);
+        r.ar = {};
+    }
+    if(r.he == null){
+        console.warn(`Empty locale file detected! (in ${path} => he.locale)`);
+        r.he = {};
+    }
+    if(r.en == null){
+        console.warn(`Empty locale file detected! (in ${path} => en.locale)`);
+        r.en = {};
+    }
+    return r;
 }
 
-// Replace language strings in XML document
-/*export async function localiseContent(xmlDocString){
-    let localisedContent = xmlDocString;
+// Generate language directory out of display files
+let globalOBj = null,
+    localeObj = null;
+async function writeLangContent(base, path, lang, content){
+    let newPath = _p.join(base, lang, path.replace(base, ""));
+    let newContent = content;
+    // Get locale objects
+    // Replace language expressions
+    newContent = replaceLangExp(newContent, localeObj[lang], globalOBj[lang]);
+    // Write new content
+    _writeContent(newPath, newContent);
+}
+async function writeContentMultiLang(base, path, content, globalPath, del = true){
+    // Get locale objects
+    globalOBj = await getLocaleObject(globalPath);
+    localeObj = await getLocaleObject(_p.dirname(path));
 
-    // Do a pre-check
-    if(precheckLocale(localisedContent)){
-        // Check prefered language
-        let lang = checkLocale();
+    // Write content for all three languages
+    await writeLangContent(base, path, "en", content);
+    await writeLangContent(base, path, "ar", content);
+    await writeLangContent(base, path, "he", content);
 
-        // Change global strings
-        let globalObj = await getGlobalLocale(lang);
-        // Get locale string
-        let localeObj = await getLocale(lang, getContentURL());
-
-        // Change dir locale strings
-        localisedContent = replaceStrings(localisedContent, localeObj, globalObj);
-        localeObj = null;
-    }else{
-        localisedContent = xmlDocString;
+    // Delete the original file
+    if(del){
+        await deleteFile(path);
     }
+}
 
-    return localisedContent;
-}*/
+module.exports = {
+    writeContentMultiLang,
+    replaceLangExp
+};

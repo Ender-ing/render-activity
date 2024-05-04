@@ -5,7 +5,6 @@
 **/
 
 import { awaitVisibility } from "../requests/content";
-import { localiseInject } from "../requests/language/inject";
 import { augmentInject } from "../requests/process";
 
 export const DIALOG = {
@@ -22,9 +21,7 @@ function showDialogElm(elm){
     // Augment dialog element
     augmentInject(elm, "dialog");
     // Localise dialog content
-    localiseInject(elm).then(function(){
-        elm.open = true;
-    });
+    elm.open = true;
 }
 
 // Show a dialog specific to an error

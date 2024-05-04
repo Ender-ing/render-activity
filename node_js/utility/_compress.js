@@ -10,6 +10,7 @@ const CleanCSS = require('clean-css');
 const terser = require("terser");
 const { replaceVars } = require('./_replace_variables');
 const { injectLocalComponents } = require('./_display');
+const { writeContentMultiLang } = require('./_lang');
 
 // Compress XML file
 let minifyXMLM = null;
@@ -66,8 +67,8 @@ async function _compressTags(content){
         return `<style${attr}>${fixXMLTagContent(newCSS)}</style>`
     });
     return newContent;
-} 
-async function compressDisplay(path, source, components = null){
+}
+async function compressDisplay(globalPath, base, path, source, components = null){
     // Get content
     let content = await getContent(path);
 
@@ -87,7 +88,7 @@ async function compressDisplay(path, source, components = null){
     content = await _compressTags(content);
 
     // Write new content
-    writeContent(path, content);
+    await writeContentMultiLang(base, path, content, globalPath);
 }
 
 // Compress JSON file

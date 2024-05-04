@@ -7,7 +7,7 @@
 // node static.js <input_path> <original_path> <source_path>
 
 // Get file-system functions
-const { path, path2, path3, writeContent, getJSON, _p, readDirCon, latestDirFileMod } = require('./_files');
+const { path, path2, path3, writeContent, getJSON, _p, readDirCon, latestDirFileMod, getContent } = require('./_files');
 const { compressXML, compressJSON, _compressXML, replaceFileVars, compressDisplay } = require('./_compress');
 
 // Keep track of sitemap data
@@ -51,11 +51,17 @@ async function writeSitmap(){
 }
 
 // Check file type and comnpress its contents
-async function compressFileContents(fullPath, fileName, source){
+async function compressFileContents(fullPath, fileName, source, components){
     if(fileName.indexOf(".xml") != -1){
         await compressXML(fullPath, source);
     }else if(fileName.indexOf(".display") != -1){
-        await compressDisplay(fullPath, source);
+        if(fileName.indexOf("$") == 0){
+            // Add local component to components list
+            components[fileName.substring(1, fileName.indexOf(".display"))] = await getContent(fullPath);
+        }else{
+            // Compress display file
+            await compressDisplay(fullPath, source, components);
+        }
     }else if(fileName.indexOf(".json") != -1 || fileName.indexOf(".locale") != -1){
         await compressJSON(fullPath, source);
     }else{
@@ -78,8 +84,9 @@ function pathIgnored(path, ignore){
 }
 
 // Scan through a directory recursively
-async function scanDir(dir, source){
+async function scanDir(dir, source, components = {}){
     const files = await readDirCon(dir);
+    const compRep = {...components};
     for (const file of files) {
         // Get absolute path
         const filePath = _p.join(dir, file.name);
@@ -87,12 +94,12 @@ async function scanDir(dir, source){
         if(file.name.indexOf("gen.") == -1){
             if (file.isDirectory()) {
                 // Search sub-directories
-                await scanDir(filePath, source);
+                await scanDir(filePath, source, compRep);
             } else {
                 // Compress file
-                await compressFileContents(filePath, file.name, source);
+                await compressFileContents(filePath, file.name, source, compRep);
                 // Add file to sitemap
-                if(file.name.indexOf("index.display") != -1 && !pathIgnored(filePath, source.web?.sitemap?.ignore)){
+                if(file.name == "index.display" && !pathIgnored(filePath, source.web?.sitemap?.ignore)){
                     await addSitemapItem(filePath, source.web.host);
                 }
             }

@@ -18,6 +18,9 @@ for /D %%f in (*) do (
 
     :: Delete GitHub files
     del /Q %OUTPUT_PATH%\%%f\.gitignore > nul 2>&1
+
+    :: Delete local $.display components
+    del /Q /S %OUTPUT_PATH%\%%f\$**.display > nul 2>&1
 )
 
 :: Return to the original directory

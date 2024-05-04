@@ -9,6 +9,7 @@ const jsonMinify = require('node-json-minify');
 const CleanCSS = require('clean-css');
 const terser = require("terser");
 const { replaceVars } = require('./_replace_variables');
+const { injectLocalComponents } = require('./_display');
 
 // Compress XML file
 let minifyXMLM = null;
@@ -66,10 +67,20 @@ async function _compressTags(content){
     });
     return newContent;
 } 
-async function compressDisplay(path, source){
-    // Get content and replace [[variables]]
+async function compressDisplay(path, source, components = null){
+    // Get content
     let content = await getContent(path);
+
+    // Replace locale tags
+    if(components != null){
+        content = injectLocalComponents(path, content, components);
+    }
+
+    // Replace [[variables]]
     content = replaceVars(source, content);
+
+    // Add XML tag
+    content = `<?xml version="1.0" encoding="ISO-8859-1"?>` + content;
 
     // Minify XML
     content = await _compressXML(content);

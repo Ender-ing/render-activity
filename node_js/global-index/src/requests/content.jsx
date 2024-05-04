@@ -7,6 +7,7 @@
 import { createSignal, createEffect } from "solid-js";
 import { getDisplay } from "./display";
 import { languageMeta } from "./language/seo";
+import { checkLocale } from "./language/preference";
 
 export const [getDisplayXML, setDisplayXML] = createSignal();
 export const [getPathname, setPathname] = createSignal(null);
@@ -111,6 +112,9 @@ document.addEventListener('click', (event) => {
         if(clickedElement.host === window.location.host){
             // Prevent the default link behavior
             event.preventDefault();
+
+            // Add language directory
+            clickedElement.pathname = '/' + checkLocale() + clickedElement.pathname;
 
             // Get the new URL
             let newURL = clickedElement.href;

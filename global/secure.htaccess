@@ -1,11 +1,11 @@
 RewriteEngine On
 
 # Set error documents
-ErrorDocument 401 /index.php
-ErrorDocument 402 /index.php
-ErrorDocument 403 /index.php
-ErrorDocument 404 /index.php
-ErrorDocument 500 /index.php
+ErrorDocument 401 /redirect.php
+ErrorDocument 402 /redirect.php
+ErrorDocument 403 /redirect.php
+ErrorDocument 404 /redirect.php
+ErrorDocument 500 /redirect.php
 
 # Force HTTPS/SSL
 RewriteCond %{HTTPS} off 
@@ -29,7 +29,7 @@ RewriteCond %{THE_REQUEST} /index\.php [NC]
 RewriteRule ^(.*)index\.php$ /$1 [R=301,L]
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule . index.php [L] 
+RewriteRule . redirect.php [L] 
 
 DirectoryIndex index.display index.html index.php
 

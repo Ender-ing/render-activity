@@ -81,7 +81,7 @@ async function compressDisplay(globalPath, base, path, source, components = null
     content = replaceVars(source, content);
 
     // Add XML tag
-    content = `<?xml version="1.0" encoding="ISO-8859-1"?>` + content;
+    content = `<?xml version="1.0" encoding="UTF-8"?>` + content;
 
     // Minify XML
     content = await _compressXML(content);

@@ -4,7 +4,7 @@
  * 
 **/
 
-import { fetchLocale } from "./load";
+//import { fetchLocale } from "./load";
 
 // The most common language strings are added here!
 // (things like "Please try again", or "Something went wrong!")
@@ -12,7 +12,7 @@ import { fetchLocale } from "./load";
 // Only load the currently used language!
 
 // 
-let globalLocale = {
+/*let globalLocale = {
     en: null,
     ar: null,
     he: null
@@ -22,4 +22,4 @@ export async function getGlobalLocale(locale){
         globalLocale[locale] = await fetchLocale(`https://resources.ender.ing/web/client/global-locale/${locale}.locale`);
     }
     return globalLocale[locale];
-}
+}*/

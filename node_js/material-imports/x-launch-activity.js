@@ -92,11 +92,11 @@ function preloadContent(){
     // Preload .display file
     preloadFetch(fixBase(window.location.pathname) + "index.display");
     // Preload .locale file
-    let locale = document.documentElement.getCookie("locale");
-    if(locale != null){
-        // This means that locale files are not loaded on the user's first visit to the website!
-        preloadFetch(`${window.RESOURCES}global-locale/${locale}.locale`);
-        preloadFetch(fixBase(window.location.pathname) + `${locale}.locale`);
-    }
+    //let locale = document.documentElement.getCookie("locale");
+    //if(locale != null){
+    //    // This means that locale files are not loaded on the user's first visit to the website!
+    //    preloadFetch(`${window.RESOURCES}global-locale/${locale}.locale`);
+    //    preloadFetch(fixBase(window.location.pathname) + `${locale}.locale`);
+    //}
 }
 document.documentElement.preloadContent = preloadContent;

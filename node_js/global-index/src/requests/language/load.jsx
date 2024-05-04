@@ -4,10 +4,10 @@
  * 
 **/
 
-import { DIALOG, showDialog } from "../../content/dialogs";
+// import { DIALOG, showDialog } from "../../content/dialogs";
 
 // Get the locale file URL
-function getURL(lang, base){
+/*function getURL(lang, base){
     let b;
     if(base[base.length - 1] != "/"){
         b = base + "/";
@@ -85,4 +85,4 @@ export async function getLocale(lang, pathname){
     }
     return JSON;
 }
-window.getLocale = getLocale;
+window.getLocale = getLocale;*/

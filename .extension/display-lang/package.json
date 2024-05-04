@@ -1,29 +1,43 @@
 {
-  "name": "display",
-  "displayName": "display",
-  "description": "Display (XML) File",
-  "version": "0.0.1",
-  "engines": {
-    "vscode": "^1.89.0"
-  },
-  "categories": [
-    "Programming Languages"
-  ],
-  "contributes": {
-    "languages": [{
-      "id": "display-xml",
-      "aliases": ["DISPLAY", "display-xml"],
-      "extensions": [".display"],
-      "configuration": "./language-configuration.json"
-    }],
-    "grammars": [{
-      "language": "display-xml",
-      "scopeName": "source.display.xml",
-      "path": "./syntaxes/display-xml.tmLanguage.json"
-    }]
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/Ender-ing/render-activity.git"
-  }
+    "name": "display",
+    "displayName": "display",
+    "description": "Display (XML) File",
+    "publisher": "ender",
+    "version": "0.0.3",
+    "engines": {
+        "vscode": "^1.88.0"
+    },
+    "scripts": {
+        "publish": "vsce publish",
+        "build": "vsce package"
+    },
+    "categories": [
+        "Programming Languages"
+    ],
+    "contributes": {
+        "languages": [
+            {
+                "id": "display-xml",
+                "aliases": [
+                    "DISPLAY",
+                    "display-xml"
+                ],
+                "extensions": [
+                    ".display"
+                ],
+                "configuration": "./language-configuration.json"
+            }
+        ],
+        "grammars": [
+            {
+                "language": "display-xml",
+                "scopeName": "source.display.xml",
+                "path": "./syntaxes/display-xml.tmLanguage.json"
+            }
+        ]
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Ender-ing/render-activity.git"
+    }
 }

@@ -5,7 +5,6 @@
 **/
 
 import { checkLocale } from "./preference"
-import { languageMeta } from "./seo";
 
 const rtlLocales = ["ar", "he"]
 

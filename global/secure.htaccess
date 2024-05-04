@@ -55,7 +55,7 @@ RewriteCond %{HTTP:x-display-request} ^$ [OR]
 RewriteCond %{HTTP:x-display-request} !^.+$
 RewriteCond %{REQUEST_URI} \.html$ [OR]
 RewriteCond %{REQUEST_URI} /$
-RewriteRule ^(.*)$ index.php [L] 
+RewriteRule ^(.*)$ redirect.php [L] 
 
 # Improve server response time
 # ETag - Used to tell the browser if the requested resource changed since last cache

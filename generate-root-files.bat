@@ -50,6 +50,9 @@ for /D %%f in (*) do (
 
     :: Copy /.well-known/.htaccess
     copy %BUILD_PATH%\global\open.htaccess %OUTPUT_PATH%\%%f\.well-known\.htaccess
+
+    :: Copy redirect.php
+    copy %BUILD_PATH%\global\redirect.php %OUTPUT_PATH%\%%f\redirect.php
 )
 
 :: Delete used files

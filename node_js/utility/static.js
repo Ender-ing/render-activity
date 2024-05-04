@@ -13,7 +13,7 @@ const { compressXML, compressJSON, _compressXML, replaceFileVars, compressDispla
 // Keep track of sitemap data
 // Read https://www.sitemaps.org/protocol.html for more details about sitemap.xml data structure
 const sitemapWrap = (itemsArray) => {
-    let xmlSitemap = `<?xml version="1.0" encoding="UTF-8"?> <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">`
+    let xmlSitemap = `<?xml version="1.0" encoding="UTF-8"?> <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">`
     for (let i = 0; i < itemsArray.length; i++){
         xmlSitemap += `\n${itemsArray[i]}\n`;
     }
@@ -29,8 +29,17 @@ const addSitemapItem = async (file, host) => {
     let originalLastMod = await latestDirFileMod(originalPath);
     originalLastMod = (originalLastMod || new Date()).toLocaleDateString('zh-CN', { day: '2-digit', month: '2-digit', year: 'numeric' }).replace(/\//g, '-'); // YYYY-MM-DD
     // Make a sitemap item
+    let alternate = (host, fileURL, lang) => {
+        return `<xhtml:link
+            rel="alternate"
+            hreflang="${lang}"
+            href="https://${host}/${lang}${fileURL.replaceAll("\\", "/")}" />`;
+    }
     let item = `<url>
         <loc>https://${host}${fileURL.replaceAll("\\", "/")}</loc>
+        ${alternate(host, fileURL, "ar")}
+        ${alternate(host, fileURL, "en")}
+        ${alternate(host, fileURL, "he")}
         <lastmod>${originalLastMod}</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.5</priority>

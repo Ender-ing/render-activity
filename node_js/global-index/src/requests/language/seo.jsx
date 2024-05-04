@@ -7,6 +7,19 @@
 import { createSignal } from "solid-js";
 import { localiseText } from "./inject";
 
+// Get pure URL
+function getPureURL(lang = null){
+    let host = window.location.host;
+    let pathname = window.location.pathname.substring(3); // /XX/...
+    pathname = ((pathname[0] != '/') ? '/' : '') + pathname;
+
+    if(lang != null){
+        pathname = `/${lang}${pathname}`
+    }
+
+    return `https://${host}${pathname}`;
+}
+
 // Create alternate link
 let alternates = {
     en: null,
@@ -24,14 +37,10 @@ function createAlternate(lang){
         // Append element
         document.head.appendChild(alternates[lang]);
     }
-    // Remove hashes from URL (in case the were used)
-    let href = window.location.href;
-    if(href.indexOf("#") != -1){
-        href = href.substring(0, href.indexOf("#"));
-    }
 
     // Set link
-    alternates[lang].setAttribute("href", `${href}#${lang}`);
+    let href = getPureURL(lang);
+    alternates[lang].setAttribute("href", href);
 }
 
 // Create canonical link
@@ -45,16 +54,9 @@ function createCanonical(){
         // Append element
         document.head.appendChild(canonicalLink);
     }
-    // Remove hashes from URL (in case the were used)
-    let href = window.location.href;
-    if(href.indexOf("?") != -1){
-        href = href.substring(0, href.indexOf("?"));
-    }
-    if(href.indexOf("#") != -1){
-        href = href.substring(0, href.indexOf("#"));
-    }
 
     // Set link
+    let href = getPureURL();
     canonicalLink.setAttribute("href", href);
 }
 

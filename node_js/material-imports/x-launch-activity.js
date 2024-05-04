@@ -66,39 +66,6 @@ function awaitFontsLoad(callback){
     });
 }
 
-// Locale allowlist
-const allowedLocales = ["en", "ar", "he"];
-document.documentElement.allowedLocales = allowedLocales;
-
-// Check browser language preference
-function getBrowserPreferred(){
-    let languages = navigator.languages.map(val => val.substring(0, 2));
-    for (let i = 0; i < languages.length; i++) {
-        if(allowedLocales.includes(languages[i])){
-            return languages[i];
-        }
-    }
-    return allowedLocales[0];
-}
-
-// Check saved preferences
-function checkLocale(){
-    // Check hash
-    let hash = window.location.hash.substring(1);
-    if(allowedLocales.includes(hash)){
-        document.documentElement.setCookie("locale", hash);
-    } else {
-        // Check locale cookie
-        locale = (document.documentElement.getCookie("locale") || null);
-        if(locale == null){
-            document.documentElement.setCookie("locale", getBrowserPreferred());
-        }else if(!allowedLocales.includes(locale)){
-            document.documentElement.setCookie("locale", allowedLocales[0]);
-        }
-    }
-}
-document.documentElement.checkLocale = checkLocale;
-
 // Fix pathname base
 function fixBase(base){
     // Add slash to the end of the pathname

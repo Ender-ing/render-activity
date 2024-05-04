@@ -14,3 +14,7 @@ All notable changes to the "display" extension will be documented in this file.
 
 - Add code snippet
 - Add script tag HTML highlighting
+
+## 0.0.5
+
+*None...*

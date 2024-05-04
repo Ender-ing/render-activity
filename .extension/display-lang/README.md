@@ -23,15 +23,3 @@ This is the README for the "DISPLAY XML" extension. This library only adds some 
 ## Known Issues
 
 *None...*
-
-## Release Notes
-
-Users appreciate release notes as you update your extension.
-
-### 0.0.1 - 0.0.2
-
-The initial release of Display XML extension.
-
-### 0.0.3
-
-Update VSCode engine version.

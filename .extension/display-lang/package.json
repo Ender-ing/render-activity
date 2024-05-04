@@ -3,7 +3,7 @@
     "displayName": "display",
     "description": "Display (XML) File",
     "publisher": "ender",
-    "version": "0.0.3",
+    "version": "0.0.4",
     "engines": {
         "vscode": "^1.88.0"
     },
@@ -33,6 +33,12 @@
                 "language": "display-xml",
                 "scopeName": "source.display.xml",
                 "path": "./syntaxes/display-xml.tmLanguage.json"
+            }
+        ],
+        "snippets": [
+            {
+              "language": "display-xml",
+              "path": "./snippets/display.code-snippets"
             }
         ]
     },

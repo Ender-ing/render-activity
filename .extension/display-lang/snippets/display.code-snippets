@@ -1,0 +1,15 @@
+{
+	"display doc": {
+		"isFileTemplate": true,
+		"body": [
+			"<x-layout>",
+			"\t<div slot=\"group\">",
+            "\t\t<x-pane>",
+			"\t\t\t$0",
+            "\t\t</x-pane>",
+			"\t</div>",
+			"</x-layout>"
+		],
+		"description": "DISPLAY XML Document"
+	}
+}

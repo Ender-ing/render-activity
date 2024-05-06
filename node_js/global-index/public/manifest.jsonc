@@ -8,7 +8,7 @@
     "name": "[[name.long]]",
     "short_name": "[[name.short]]",
     // Start page
-    "start_url": "/en/",
+    "start_url": "/check-lang.config.html",
     // View
     "display_override": [
         "window-controls-overlay",

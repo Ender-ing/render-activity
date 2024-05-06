@@ -44,7 +44,7 @@ $langDir = $pathSegments[0];
 
 // Check if the current directory is NOT within the allowed directories
 if (!isset($langDir) || !in_array($langDir, $langs)) {
-    require_once $_SERVER['DOCUMENT_ROOT'].'/redirect.php';
+    require_once $_SERVER['DOCUMENT_ROOT'].'/redirect.config.php';
     die();
 }
 

@@ -47,6 +47,7 @@ const INSTALL_CACHE_LIST = [
     // Index JS file (SolidityJS)
     "https://resources.ender.ing/web/client/@vite/index.js",
     // Root (HTML, display, and locale)
+    "/check-lang.config.html",
     //"/",
     //"/ar/",
     //"/en/",

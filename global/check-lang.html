@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ender.ing</title>
+</head>
+<body>
+    <!-- Use this file to redirect PWA home page! -->
+    <!-- Note: may need to also move .display injection into the BUILD command! -->
+    <script>
+        document.documentElement.getCookie = function(name){
+            return (document.cookie.match(new RegExp(`^(?:.*;)?\\s*${name}\\s*=\\s*([^;]+)(?:.*)?$`))||[,null])[1];
+        };
+        let locale = document.documentElement.getCookie("locale") ?? "en";
+        window.location.href = "/" + locale;
+    </script>
+</body>
+</html>

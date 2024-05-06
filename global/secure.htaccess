@@ -1,11 +1,11 @@
 RewriteEngine On
 
 # Set error documents
-ErrorDocument 401 /redirect.php
-ErrorDocument 402 /redirect.php
-ErrorDocument 403 /redirect.php
-ErrorDocument 404 /redirect.php
-ErrorDocument 500 /redirect.php
+ErrorDocument 401 /redirect.config.php
+ErrorDocument 402 /redirect.config.php
+ErrorDocument 403 /redirect.config.php
+ErrorDocument 404 /redirect.config.php
+ErrorDocument 500 /redirect.config.php
 
 # Force HTTPS/SSL
 RewriteCond %{HTTPS} off 
@@ -29,7 +29,8 @@ RewriteCond %{THE_REQUEST} /index\.php [NC]
 RewriteRule ^(.*)index\.php$ /$1 [R=301,L]
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule . redirect.php [L] 
+RewriteCond %{REQUEST_FILENAME} !\.config\..*$
+RewriteRule . redirect.config.php [L] 
 
 DirectoryIndex index.display index.html index.php
 
@@ -53,9 +54,10 @@ Options All -Indexes
 # Serve the content of one html file for all pages!
 RewriteCond %{HTTP:x-display-request} ^$ [OR]
 RewriteCond %{HTTP:x-display-request} !^.+$
+RewriteCond %{REQUEST_FILENAME} !\.config\..*$
 RewriteCond %{REQUEST_URI} \.html$ [OR]
 RewriteCond %{REQUEST_URI} /$
-RewriteRule ^(.*)$ redirect.php [L] 
+RewriteRule ^(.*)$ redirect.config.php [L] 
 
 # Improve server response time
 # ETag - Used to tell the browser if the requested resource changed since last cache

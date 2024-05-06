@@ -57,7 +57,10 @@ for /D %%f in (*) do (
     copy %BUILD_PATH%\global\secure.htaccess %OUTPUT_PATH%\%%f\.htaccess
 
     :: Copy redirect.php
-    copy %BUILD_PATH%\global\redirect.php %OUTPUT_PATH%\%%f\redirect.php
+    copy %BUILD_PATH%\global\redirect.php %OUTPUT_PATH%\%%f\redirect.config.php
+
+    :: Copy check-lang.html
+    copy %BUILD_PATH%\global\check-lang.html %OUTPUT_PATH%\%%f\check-lang.config.html
 )
 
 :: Delete used files

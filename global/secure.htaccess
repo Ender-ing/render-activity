@@ -27,12 +27,8 @@ RewriteCond %{THE_REQUEST} /index\.html [NC]
 RewriteRule ^(.*)index\.html$ /$1 [R=301,L]
 RewriteCond %{THE_REQUEST} /index\.php [NC]
 RewriteRule ^(.*)index\.php$ /$1 [R=301,L]
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteCond %{REQUEST_FILENAME} !\.config\..*$
-RewriteRule . redirect.config.php [L] 
 
-DirectoryIndex index.display index.html index.php
+DirectoryIndex index.php index.html
 
 # Prevent directory listings
 Options All -Indexes
@@ -52,9 +48,9 @@ Options All -Indexes
 </FilesMatch>
 
 # Serve the content of one html file for all pages!
-RewriteCond %{HTTP:x-display-request} ^$ [OR]
-RewriteCond %{HTTP:x-display-request} !^.+$
+RewriteCond %{REQUEST_URI} !^/(en|ar|he)/.+$
 RewriteCond %{REQUEST_FILENAME} !\.config\..*$
+RewriteCond %{REQUEST_URI} !^/redirect\.config\.php$
 RewriteCond %{REQUEST_URI} \.html$ [OR]
 RewriteCond %{REQUEST_URI} /$
 RewriteRule ^(.*)$ redirect.config.php [L] 

@@ -49,9 +49,9 @@ const INSTALL_CACHE_LIST = [
     // Root (HTML, display, and locale)
     "/check-lang.config.html",
     //"/",
-    //"/ar/",
-    //"/en/",
-    //"/he/",
+    "/ar/",
+    "/en/",
+    "/he/",
     "/ar/index.display",
     "/en/index.display",
     "/he/index.display",
@@ -100,14 +100,23 @@ const INSTALL_CACHE_LIST = [
 ];
 // Add cache version query
 for(let i in INSTALL_CACHE_LIST){
-    INSTALL_CACHE_LIST[i] += (INSTALL_CACHE_LIST[i].indexOf("?") == -1) ? "?" : "&";
-    INSTALL_CACHE_LIST[i] += `cache=${DEPLOY_VERSION}`;
+    let url = new URL((INSTALL_CACHE_LIST[i].indexOf("://") == -1) ? `https://${self.location.hostname}${INSTALL_CACHE_LIST[i]}` : INSTALL_CACHE_LIST[i]);
+    // Only add cache attribute to files, not URL pages!
+    if(shouldAddCacheQuery(url)){
+        INSTALL_CACHE_LIST[i] += (INSTALL_CACHE_LIST[i].indexOf("?") == -1) ? "?" : "&";
+        INSTALL_CACHE_LIST[i] += `cache=${DEPLOY_VERSION}`;
+    }
 }
 // TO-DO!!
 // ADD A CACHE QUERY TO ALL RESOURCES AND FETCH REQUESTS!!
-const CACHE_EXTENSIONS = ['.js','.css','.html','.ico','.png','.svg','.display','.locale'];
+const CACHE_EXTENSIONS = ['.js', '.css', '.html', '.ico', '.png', '.svg', '.display'];
 ENABLE_DYNAMIC_CACHING = true;
 ENABLE_INSTALL_CAHCE = true;
+
+// Check if URL should include a cache query
+function shouldAddCacheQuery(url){
+    return ((url.pathname.indexOf(".") != -1 && url.pathname.indexOf(".config.") == -1) || url.host != self.location.hostname);
+}
 
 // Install Event: Cache essential files
 self.addEventListener('install', event => {
@@ -154,10 +163,12 @@ function shouldCache(url){
 
 // Fetch Event: Dynamic Caching + Network-First Strategy
 self.addEventListener('fetch', event => {
-    const requestUrl = new URL(event.request.url);
-
     // Make a new request with the ?cache query
-    requestUrl.searchParams.append("cache", DEPLOY_VERSION);
+    const requestUrl = new URL(event.request.url);
+    // Only add cache attribute to files, not URL pages!
+    if(shouldAddCacheQuery(requestUrl)){
+        requestUrl.searchParams.append("cache", DEPLOY_VERSION);
+    }
     const newRequest = new Request(requestUrl, {
         method: event.request.method,
         headers: event.request.headers,
@@ -188,9 +199,9 @@ self.addEventListener('fetch', event => {
                     await cache.put(newRequest, fetchResponse.clone());
                     // Cache index.html file for .display directories
                     if(requestUrl.pathname.endsWith("index.display")){
-                        let htmlURL = requestUrl.href.replace("index.display", "");
+                        let htmlURL = requestUrl.href.substring(0, requestUrl.href.indexOf("index.display"));
                         if(!(await caches.match(htmlURL))){
-                           cache.add(requestUrl.href.replace("index.display", ""));
+                            cache.add(htmlURL);
                         }
                     }
                 }

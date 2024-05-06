@@ -115,7 +115,7 @@ ENABLE_INSTALL_CAHCE = true;
 
 // Check if URL should include a cache query
 function shouldAddCacheQuery(url){
-    return ((url.pathname.indexOf(".") != -1 && url.pathname.indexOf(".config.") == -1) || url.host != self.location.hostname);
+    return ((url.pathname.indexOf(".") != -1 && url.pathname.indexOf(".config.") == -1) && url.host.endsWith(self.location.hostname));
 }
 
 // Install Event: Cache essential files

@@ -12,12 +12,12 @@
 
 // Service worker info
 const SERVICE_VERSION = '[[version]]'; // Don't touch this, it's updated automatically!
-const WORKER_VERSION = "A5"; // Update this whenever you make changes to the service worker that may break cache!
+const WORKER_VERSION = "A6"; // Update this whenever you make changes to the service worker that may break cache!
 const DEPLOY_VERSION = SERVICE_VERSION.substring(0, SERVICE_VERSION.lastIndexOf(".")) + "-" + WORKER_VERSION;
 const RESOURCE_CACHE = 'resource-cache-v' + DEPLOY_VERSION; // Used to cache static files
 const CALL_CACHE = 'call-cache-v' + DEPLOY_VERSION; // Used to call API calls (request must include an "x-allow-call-cache" header)
 const CACHE_ALLOWLIST = [RESOURCE_CACHE, CALL_CACHE];
-//const HOST = 'ender.ing';
+const HOST_BASE = "ender.ing";
 const INSTALL_CACHE_LIST = [
     // Branding
     "/brand/icons/favicon.ico",
@@ -115,7 +115,7 @@ ENABLE_INSTALL_CAHCE = true;
 
 // Check if URL should include a cache query
 function shouldAddCacheQuery(url){
-    return ((url.pathname.indexOf(".") != -1 && url.pathname.indexOf(".config.") == -1) && url.host.endsWith(self.location.hostname));
+    return ((url.pathname.indexOf(".") != -1 && url.pathname.indexOf(".config.") == -1) && url.host.endsWith(HOST_BASE));
 }
 
 // Install Event: Cache essential files

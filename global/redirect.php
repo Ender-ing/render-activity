@@ -27,7 +27,7 @@
         }
 
         // 4. Set the 'locale' cookie if a match is found (default to 'en')
-        setcookie('locale', ($matchedLanguage) ? $matchedLanguage : 'en', time() + (86400 * 30), '/'); // Expires in 30 days, accessible across paths
+        setcookie('locale', ($matchedLanguage) ? $matchedLanguage : 'en', time() + (86400 * 30), '/', '.ender.ing'); // Expires in 30 days, accessible across paths
     }
 
     // Redirect to the root language directory

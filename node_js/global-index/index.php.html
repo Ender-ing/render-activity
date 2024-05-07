@@ -406,7 +406,7 @@ header('Content-language: '.$LANG_CODE);
     </div>
 
     <!-- All default page dialogs -->
-    <div id="dialogs-activity" class="dialogs-container">
+    <div id="dialogs-activity" class="dialogs-container" style="display: none;">
         <md-dialog id="network-connection-error" type="alert">
             <div slot="headline">{{$network.error.title}}</div>
             <form slot="content" id="network-connection-error-form" method="dialog">{{$network.error.files}}</form>

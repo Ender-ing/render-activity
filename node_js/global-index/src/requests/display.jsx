@@ -6,7 +6,6 @@
 
 import { createSignal } from "solid-js";
 //import { DIALOG, showDialog } from "../content/dialogs";
-import { localiseContent } from "./language/process";
 import { setIsErrorResult } from "./language/seo";
 import { checkLocale } from "./language/preference";
 

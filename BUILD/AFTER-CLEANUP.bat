@@ -4,7 +4,7 @@
 echo [44;45m Cleaning up .OUTPUT root base files... [0m
 
 :: Get environment variables
-FOR /F "tokens=*" %%i in (../.env) do SET %%i
+FOR /F "tokens=*" %%i in (../.secret.env) do SET %%i
 
 :: Change to the target directory 
 pushd %OUTPUT_PATH%

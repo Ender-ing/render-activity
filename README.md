@@ -12,11 +12,13 @@ You may use the `INSTALL-DEP.bat` file to install all the needed dependencies.
 
 > Warning: The `INSTALL-DEP.bat` file will install local and ***global*** NodeJS dependencies
 
-## `BUILD.env`
+## `.secret.env` & `.template.env`
 
-Contains needed absolute paths for the `BUILD.bat` file to work correctly.
+The `.secret.env` file contains needed absolute paths and secret values.
 
-> Warning: Make sure all paths are correct before running the `BUILD.bat` command!
+> **Warning:** Make sure to **copy** and **rename** `.template.env` file **to `.secret.env`** and use ***correct absolute paths*** before running any command!
+>
+> ***Failure to do so can result in you losing your files!***
 
 ## /TEMPLATE
 

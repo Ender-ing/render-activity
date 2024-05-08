@@ -1,7 +1,7 @@
 @echo off
 
 :: Get environment variables
-FOR /F "tokens=*" %%i in (../.env) do SET %%i
+FOR /F "tokens=*" %%i in (../.secret.env) do SET %%i
 
 cls
 echo [101;93m INSTALLING NODEJS DEPENDENCIES! [0m

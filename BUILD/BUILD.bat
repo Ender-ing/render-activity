@@ -1,7 +1,7 @@
 @echo off
 
 :: Use this code to get environment variables
-:: FOR /F "tokens=*" %%i in (../.env) do SET %%i
+:: FOR /F "tokens=*" %%i in (../.secret.env) do SET %%i
 
 :: Check command arguments
 set noStatic=false

@@ -120,10 +120,10 @@ function xmlToHTML(xmlDoc){
     function ContentCon(props){
         let container;
         onMount(() => {
-
             // Add meta tags
             addMeta(root.getAttribute("title"), root.getAttribute("description"));
 
+            // Add scripts
             container.append(props.rootContent);
             setTimeout(() => {
                 while(scriptsQueue.length > 0){

@@ -7,6 +7,12 @@
 **/
 
 {
+    // Disable cache for this page
+    header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+    header("Cache-Control: post-check=0, pre-check=0", false);
+    header("Pragma: no-cache");
+
+    // Language codes
     $langs = array('en', 'ar', 'he');
 
     // 1. Check if the 'locale' cookie is already set

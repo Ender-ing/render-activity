@@ -1,6 +1,6 @@
 # The `.BUILD` directory
 
-This directory contains all files and scripts needed to build the raw resources hosted on **resources.ender.ing**, and the shared files betweem all subdomains!
+This directory contains all files and scripts needed to build the raw resources hosted on **resources.ender.ing**, and the shared files between all subdomains!
 
 > You may run the `BUILD.bat` file to build all the resources.
 >

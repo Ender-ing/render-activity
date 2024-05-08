@@ -4,7 +4,7 @@
 echo [44;45m Generating branding assets... [0m
 
 :: Get environment variables
-FOR /F "tokens=*" %%i in (BUILD.env) do SET %%i
+FOR /F "tokens=*" %%i in (../.env) do SET %%i
 
 :: Specify the directory to search
 set inputDir=%OUTPUT_PATH%

@@ -152,6 +152,10 @@ x-layout > [slot=nav-rail] {
     right: 0px;
 }
 
+.x-layout-pane[view=full] {
+    --lost-vertical: 0px;
+}
+
 @media screen and (max-width: 600px) {
     x-layout {
         --safe-area: 16px;
@@ -196,6 +200,10 @@ x-layout > [slot=nav-rail] {
     [dir=rtl] x-layout > [slot=group] {
         margin-right: 0px;
     }
+    /* Fix view=full */
+    x-layout[has-bar] > [slot=group] > .x-layout-pane[view=full] {
+        --lost-vertical: var(--bar-space);
+    }
 }
 
 @media screen and (min-width: 600px) and (max-width: 839px) {
@@ -206,7 +214,11 @@ x-layout > [slot=nav-rail] {
     x-layout[has-rail][group-count='1'] > [slot=nav-rail] {
         display: block;
     }
-    /* Switch to bottom bar if more than one group is present */
+    /* Fix view=full */
+    x-layout[has-rail][group-count='1'] > [slot=group] > .x-layout-pane[view=full] {
+        --lost-vertical: 0px;
+    }
+    /* Switch to bar if more than one group is present */
     x-layout:not([group-count='1']):not([view*=collapse]) > [slot=nav-bar] {
         display: block;
     }
@@ -222,6 +234,10 @@ x-layout > [slot=nav-rail] {
     [dir=rtl] x-layout:not([group-count='1']):not([view*=collapse]) {
         padding-left: var(--safe-area);
         padding-right: var(--safe-area);
+    }
+    /* Fix view=full */
+    x-layout:not([group-count='1']):not([view*=collapse]) > [slot=group] > .x-layout-pane[view=full] {
+        --lost-vertical: var(--bar-space);
     }
     /* Switch to rail if view is set to collapse */
     x-layout[view*=collapse] > [slot=nav-rail] {
@@ -243,8 +259,12 @@ x-layout > [slot=nav-rail] {
         min-width: 100%;
         max-width: 100%;
     }
+    /* Fix view=full */
+    x-layout[view*=collapse] > [slot=group] > .x-layout-pane[view=full] {
+        --lost-vertical: var(--bar-space);
+    }
     /* Limit content in the 25% top of the screen! */
-}  
+}
 
 @media screen and (min-width: 840px) and (max-width: 1199px) {
     x-layout {
@@ -324,7 +344,7 @@ x-layout > [slot=nav-rail] {
     color: var(--md-sys-color-on-primary-container);
 }
 .x-layout-pane[view=full]{
-    min-height: calc(var(--screen-height) - 2 * var(--safe-area) - 2 * var(--pane-border-radius));
+    min-height: calc(var(--screen-height) - 2 * var(--safe-area) - 2 * var(--pane-border-radius) - var(--lost-vertical));
 }
 .x-layout-pane * {
     color: var(--md-sys-color-on-surface);

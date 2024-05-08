@@ -9,7 +9,7 @@ const jsonMinify = require('node-json-minify');
 const CleanCSS = require('clean-css');
 const terser = require("terser");
 const { replaceVars } = require('./_replace_variables');
-const { injectLocalComponents } = require('./_display');
+const { injectLocalComponents, injectRootAttributes } = require('./_display');
 const { writeContentMultiLang } = require('./_lang');
 
 // Compress XML file
@@ -71,6 +71,9 @@ async function _compressTags(content){
 async function compressDisplay(globalPath, base, path, source, components = null){
     // Get content
     let content = await getContent(path);
+
+    // Inject meta data
+    content = injectRootAttributes(content, "title", "{{?_meta.title}}", "description", "{{?_meta.description}}");
 
     // Replace locale tags
     if(components != null){

@@ -61,27 +61,20 @@ function createCanonical(){
 }
 
 // Create a meta element
-/*
 function createMetaElement(name){
     let meta = document.createElement('meta');
     meta.setAttribute("name", name);
     // Append element
     document.head.appendChild(meta);
     return meta;
-}*/
+}
 
 // Add page description
-/*let meta = {
+let meta = {
     title: null,
-    description: null,
-    globalTitle: null
+    description: null
 };
-async function addMeta(){
-    // Check global title value
-    if(meta.globalTitle == null){
-        meta.globalTitle = await localiseText("{{$_meta.title}}");
-    }
-
+export async function addMeta(title, description){
     // Set meta elements
     if(meta.description == null){
         meta.description = createMetaElement("description");
@@ -91,15 +84,13 @@ async function addMeta(){
     }
 
     // Set title
-    let title = await localiseText("{{?_meta.title}}");
-    if(title !== meta.globalTitle){
-        title += ` | ${window.SERVICE_TITLE}`;
-    }
-    meta.title.setAttribute("content", await localiseText("{{?_meta.title}}"));
-    document.title = title;
+    let t = `${title} | ${window.SERVICE_TITLE}`;
+    meta.title.setAttribute("content", t);
+    document.title = t;
+
     // Set description
-    meta.description.setAttribute("content", await localiseText("{{?_meta.description}}"));
-}*/
+    meta.description.setAttribute("content", description);
+}
 
 // Add needed meta data for search engine language recognition 
 export const [getIsErrorResult, setIsErrorResult] = createSignal(false);
@@ -116,7 +107,4 @@ export function languageMeta(){
         canonicalLink.remove();
         canonicalLink = null;
     }
-
-    // Add meta elements
-    // addMeta();
 }

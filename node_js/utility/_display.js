@@ -82,7 +82,23 @@ function injectLocalComponents(path, xmlString, components){
     return newContent;
 }
 
+// Inject root node attributes
+function injectRootAttributes(xmlString, ...args){
+    //
+    let newContent = xmlString;
+    let i = newContent.indexOf(">");
+
+    let attrs = "";
+    for (let k = 0; k < args.length; k+=2) {
+        attrs += ` ${args[k]}="${args[k+1]}"`
+    }
+
+    // Inject attributes
+    newContent = newContent.substring(0, i) + attrs + newContent.substring(i);
+    return newContent;
+}
 
 module.exports = {
+    injectRootAttributes,
     injectLocalComponents
 };

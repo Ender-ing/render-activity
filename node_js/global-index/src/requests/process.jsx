@@ -5,6 +5,7 @@
  **/
 
 import { createSignal, onCleanup, onMount } from 'solid-js';
+import { addMeta } from './language/seo';
 
 // Fix HTML and XML characters in JS source code
 function fixJSSource(str) {
@@ -119,6 +120,10 @@ function xmlToHTML(xmlDoc){
     function ContentCon(props){
         let container;
         onMount(() => {
+
+            // Add meta tags
+            addMeta(root.getAttribute("title"), root.getAttribute("description"));
+
             container.append(props.rootContent);
             setTimeout(() => {
                 while(scriptsQueue.length > 0){

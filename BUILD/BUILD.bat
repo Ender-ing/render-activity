@@ -8,8 +8,8 @@ set noStatic=false
 
 for /f "tokens=*" %%a in ("%*") do (
     if /i "%%a" == "--no-static" (
-      set noStatic=true
-      break
+        set noStatic=true
+        break
     )
 )
 

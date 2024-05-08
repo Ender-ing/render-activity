@@ -261,7 +261,7 @@ x-layout > [slot=nav-rail] {
     }
     /* Fix view=full */
     x-layout[view*=collapse] > [slot=group] > .x-layout-pane[view=full] {
-        --lost-vertical: var(--bar-space);
+        --lost-vertical: 0px;
     }
     /* Limit content in the 25% top of the screen! */
 }

@@ -186,6 +186,8 @@ x-layout > [slot=nav-rail] {
     }
     x-layout > [slot=group] {
         width: 100%;
+    }
+    x-layout > [slot=group]:not(:last-child) {
         margin-bottom: var(--group-margin);
     }
     [dir=ltr] x-layout > [slot=group] {
@@ -231,8 +233,10 @@ x-layout > [slot=nav-rail] {
     x-layout[view*=collapse] > [slot=group] {
         width: 100%;
         margin-left: 0px;
-        margin-bottom: var(--group-margin);
         height: fit-content;
+    }
+    x-layout[view*=collapse] > [slot=group]:not(:last-child) {
+        margin-bottom: var(--group-margin);
     }
     x-layout[view*=collapse] > [slot=group][style*=width],
     x-layout[view*=collapse] > [slot=group][view*=static] {

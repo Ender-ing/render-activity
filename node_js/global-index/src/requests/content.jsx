@@ -27,11 +27,13 @@ function updateDisplay() {
 
         // Add error handling!
         getDisplay(getPathname()).then(xml => {
+            // Change page content
             setDisplayXML(xml);
 
             // Update SEO meta data
             languageMeta();
 
+            // Show content
             window.document.documentElement.setContentResourceLoaded(getPathname(), 1);
         });
 

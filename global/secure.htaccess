@@ -74,7 +74,7 @@ RewriteCond %{REQUEST_URI} !^@public/ [NC]
 # Block hotlinking for heavy files from other domains 
 RewriteRule \.(mp4|mov|webm|avi|flv|wmv|mp3|wav|ogg|jpg|jpeg|png|gif|pdf|doc|docx|zip|rar)$ - [F,NC]
 
-# Content Delivery Optomisation headers
+# Content Delivery Optimisation headers
 <IfModule mod_headers.c>
    # Match HTML files
    <FilesMatch "\.(html|php|htm|js|css)$">

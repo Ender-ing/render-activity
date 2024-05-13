@@ -14,7 +14,7 @@ function startSolidJS(){
 
     // Start tracking pathname!
     setupDisplayUpdates();
-    
+
     // Render content
     const root = document.getElementById("content-activity");
     if(root instanceof HTMLElement){

@@ -6,17 +6,22 @@ import { processDisplay } from "./requests/process";
 import { updateDocLocaleInfo } from "./requests/language/doc";
 
 function startSolidJS(){
+    // Prevent duplicate calls!
     document.documentElement.startSolidJS = null;
 
     // Check content language
     updateDocLocaleInfo();
 
-    // Start waiting for URL updated!
+    // Start tracking pathname!
     setupDisplayUpdates();
     
     // Render content
     const root = document.getElementById("content-activity");
-    render(() => <>{processDisplay(getDisplayXML())}</>, root);
+    if(root instanceof HTMLElement){
+        render(() => <>{processDisplay(getDisplayXML())}</>, root);
+    }else{
+        setTimeout(window.location.reload, 500);
+    }
 }
 document.documentElement.startSolidJS = startSolidJS;
 

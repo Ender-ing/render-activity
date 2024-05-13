@@ -56,7 +56,8 @@ function createCanonical(){
     }
 
     // Set link
-    let href = getPureURL();
+    // (English is the preferred language)
+    let href = getPureURL("en");
     canonicalLink.setAttribute("href", href);
 }
 

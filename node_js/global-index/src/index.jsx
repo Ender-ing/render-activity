@@ -17,7 +17,7 @@ function startSolidJS(){
 
     // Render content
     const root = document.getElementById("content-activity");
-    if(root instanceof HTMLElement){
+    if(root != null){
         render(() => <>{processDisplay(getDisplayXML())}</>, root);
     }else{
         setTimeout(window.location.reload, 500);

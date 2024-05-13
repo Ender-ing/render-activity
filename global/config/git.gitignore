@@ -29,14 +29,11 @@ www
 .bashrc
 .ftpquota
 .gemrc
-.htaccess
 .htaccess.swp
 .lastlogin
 .myimunify_id
 .spamassassinenable
 .viminfo
-# Ignore security files
-.htpasswd
 # Ignore backup files
 backup-**
 

@@ -1,19 +1,17 @@
 #!/bin/bash
 
-case "$1" in
-  "get-update")
+if [ "$1" == "get-update" ]; then
     # Discard local changes
     git reset --hard HEAD
     # Pull latest changes
     git pull
-    ;;
-  "commit")
+elif [ "$1" == "commit" ]; then
+    # Fix file ending
+    git config --global core.autocrlf input
     # Add new changes
-    git add .
+    git add --renormalize .
     # Commit changes
     git commit -m "Origin Change Commit"
-    ;;
-  *)
-    echo "Invalid command! Please use 'get-update' or 'commit'."
-    ;;
-esac
+else
+  echo "Invalid command. Please use 'get-update', 'commit', or 'status'."
+fi

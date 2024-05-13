@@ -29,12 +29,16 @@ for /D %%f in (*) do (
     CMD "Running Backup" /C "node %BUILD_PATH%\node_js\utility\delete_empty.js %OUTPUT_PATH%\%%f"
 
     :: Copy .gitignore file
-    copy %BUILD_PATH%\global\config\git.gitignore %OUTPUT_PATH%\.gitignore
+    copy /Y %BUILD_PATH%\global\config\git.gitignore %OUTPUT_PATH%\.gitignore
 
     :: Copy command files
-    copy %BUILD_PATH%\global\config\.bash_profile %OUTPUT_PATH%\.bash_profile
-    copy %BUILD_PATH%\global\config\git.bash %OUTPUT_PATH%\git.bash
+    copy /Y %BUILD_PATH%\global\config\.bash_profile %OUTPUT_PATH%\.bash_profile
+    copy /Y %BUILD_PATH%\global\config\git.bash %OUTPUT_PATH%\git.bash
 )
+
+:: Fix file ending
+CMD "Running Backup" /C "git config core.autocrlf true"
+CMD "Running Backup" /C "git add --renormalize ."
 
 :: Return to the original directory
 popd

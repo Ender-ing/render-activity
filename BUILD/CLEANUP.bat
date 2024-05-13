@@ -14,8 +14,24 @@ if exist %OUTPUT_PATH% (
     echo Folder deletion failed. Please check permissions or if the folder is in use.
     exit 1
 ) else (
-    :: Create the folder (handle potential errors)
-    mkdir %OUTPUT_PATH% 2>nul
+    :: Create the folder (with .git folder)
+    CMD "Running Backup" /C "git clone git@github.com:Ender-ing/host.git %OUTPUT_PATH%"
+
+    :: Change to the target directory 
+    pushd %OUTPUT_PATH% 
+
+    :: Iterate through each folder in the directory
+    for /D %%f in (*) do (
+        :: Only process folders that don't have a dot in their name
+        set name=%%~f
+        IF NOT "!name:~0,1!" == "." (
+            :: Delete folder
+            rd /s /q "%%f"
+        )
+    )
+
+    :: Return to the original directory
+    popd
 
     :: Check if the folder was created successfully
     if exist %OUTPUT_PATH% (

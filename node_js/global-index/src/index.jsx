@@ -4,6 +4,10 @@ import { render } from "solid-js/web";
 import { setupDisplayUpdates, getDisplayXML } from "./requests/content";
 import { processDisplay } from "./requests/process";
 import { updateDocLocaleInfo } from "./requests/language/doc";
+import { showConsoleWarning } from "./console";
+
+// Show console warning
+showConsoleWarning();
 
 function startSolidJS(){
     // Prevent duplicate calls!

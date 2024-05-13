@@ -1,0 +1,49 @@
+# Ignore server setup folders
+.attracta
+.cagefs
+.cl.selector
+.clwpos
+.cpanel
+.gnupg
+.htpasswds
+.koality
+.razor
+.softaculous
+.spamassassin
+.ssh
+.subaccounts
+.trash
+.update-c
+access-logs
+etc
+logs
+public_ftp
+ssl
+tmp
+mail
+# Ignore duplicate root directories
+www
+# Ignore server setup files
+.bash_history
+.bash_logout
+.bashrc
+.ftpquota
+.gemrc
+.htaccess
+.htaccess.swp
+.lastlogin
+.myimunify_id
+.spamassassinenable
+.viminfo
+# Ignore security files
+.htpasswd
+# Ignore backup files
+backup-**
+
+# Ignore sub-directories setup folders
+cgi-bin
+acme-challenge
+pki-validation
+
+# Ignore log files
+**_log

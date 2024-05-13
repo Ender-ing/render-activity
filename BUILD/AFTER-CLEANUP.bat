@@ -27,6 +27,13 @@ for /D %%f in (*) do (
 
     :: Delete empty folders
     CMD "Running Backup" /C "node %BUILD_PATH%\node_js\utility\delete_empty.js %OUTPUT_PATH%\%%f"
+
+    :: Copy .gitignore file
+    copy %BUILD_PATH%\global\config\git.gitignore %OUTPUT_PATH%\.gitignore
+
+    :: Copy command files
+    copy %BUILD_PATH%\global\config\.bash_profile %OUTPUT_PATH%\.bash_profile
+    copy %BUILD_PATH%\global\config\git.bash %OUTPUT_PATH%\git.bash
 )
 
 :: Return to the original directory

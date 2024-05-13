@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ "$1" == "get-update" ]; then
+if [ "$1" == "get" ]; then
     # Discard local changes
     git reset --hard HEAD
     # Pull latest changes

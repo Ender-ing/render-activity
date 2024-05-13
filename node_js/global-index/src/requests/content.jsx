@@ -20,6 +20,11 @@ function updateDisplay() {
         console.log(`New location: ${getPathname()}`);
         window.document.documentElement.setContentResourceGoal(getPathname(), 1);
 
+        // Check if this is the first load
+        if(window.IS_FIRST_LOAD && window.FIRST_LOAD != getPathname()){
+            window.IS_FIRST_LOAD = false;
+        }
+
         // Add error handling!
         getDisplay(getPathname()).then(xml => {
             setDisplayXML(xml);

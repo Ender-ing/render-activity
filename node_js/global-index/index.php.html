@@ -64,10 +64,12 @@ header('Content-language: '.$LANG_CODE);
     <script>
         // Global service name
         window.SERVICE_TITLE = "[[name.long]]";
-        // Global links
+        // Global links and tracking
         window.LINKS = {
             SERVER_STATUS: "https://links.ender.ing/server/status"
         };
+        window.FIRST_LOAD = window.location.pathname;
+        window.IS_FIRST_LOAD = true;
         // Manage global delay
         window.CHECK_DOM_DELAY = 1;
         window.CHECK_DOM_LOOP_DELAY = 50;

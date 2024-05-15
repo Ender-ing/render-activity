@@ -12,6 +12,7 @@ if [ "$1" == "help" ]; then
     printf "\t%-15s %s\n" "discard" "Discard local commits and changes (USE CAREFULLY!)"
     echo -e "\n (CloudFlare)"
     printf "\t%-15s %s\n" "cache" "Purge all CloudFlare cache (ender.ing)"
+    printf "\t%-15s %s\n" "block" "Block all requests (ender.ing)"
     echo -e "\n"
     printf "\t%-15s %s\n" "web" "(get & cache)"
     echo -e "\n"
@@ -24,12 +25,6 @@ elif [ "$1" == "get" ]; then
     wait $pid
     # Fix command permissions
     chmod +x ~/git.bash
-elif [ "$1" == "cache" ]; then
-    # Purge all cloudflare cache (ender.ing)
-    curl -X POST "https://api.cloudflare.com/client/v4/zones/93b9b28f28499469f4918c8cf1f4eb06/purge_cache" \
-     -H "Authorization: Bearer mRqfjhkaIyCaWqAZx_24W1LaorlsQ3riBtNFlJQp" \
-     -H "Content-Type: application/json" \
-     -d '{"purge_everything":true}'
 elif [ "$1" == "commit" ]; then
     # Fix file ending
     git config --global core.autocrlf input
@@ -43,6 +38,18 @@ elif [ "$1" == "rollback" ]; then
 elif [ "$1" == "discard" ]; then
     # Rollback local commits (discarding local changes)
     git reset --hard HEAD~1
+elif [ "$1" == "cache" ]; then
+    # Purge all cloudflare cache (ender.ing)
+    curl -X POST "https://api.cloudflare.com/client/v4/zones/93b9b28f28499469f4918c8cf1f4eb06/purge_cache" \
+     -H "Authorization: Bearer mRqfjhkaIyCaWqAZx_24W1LaorlsQ3riBtNFlJQp" \
+     -H "Content-Type: application/json" \
+     -d '{"purge_everything":true}'
+elif [ "$1" == "block" ]; then
+    # Block all cloudflare access (ender.ing)
+    curl -X POST "https://api.cloudflare.com/client/v4/zones/93b9b28f28499469f4918c8cf1f4eb06/firewall/rules" \
+     -H "Authorization: Bearer mRqfjhkaIyCaWqAZx_24W1LaorlsQ3riBtNFlJQp" \
+     -H "Content-Type: application/json" \
+     -d '{"filter":{"expression":"http.request.uri matches \"*\""},"action":"block"}'
 elif [ "$1" == "web" ]; then
     # Update files and purge cache
     ~/git.bash get

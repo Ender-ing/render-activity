@@ -51,7 +51,7 @@ Options All -Indexes
 RewriteCond %{REQUEST_URI} !^/(en|ar|he)/.+$
 RewriteCond %{REQUEST_FILENAME} !\.config\..*$
 RewriteCond %{REQUEST_URI} !^/redirect\.config\.php$
-RewriteCond %{REQUEST_URI} \.html$ [OR]
+RewriteCond %{REQUEST_URI} index\.html$ [OR]
 RewriteCond %{REQUEST_URI} /$
 RewriteRule ^(.*)$ redirect.config.php [L] 
 

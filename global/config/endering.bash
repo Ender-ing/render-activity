@@ -1,11 +1,31 @@
 #!/bin/bash
 
-# Get Cloudflare Token
+# Command
+cmd=~/endering.bash
+
+# Get Cloudflare secrets
 CLOUDFLARE_TOKEN=$(grep CLOUDFLARE_TOKEN ~/cloudflare.secret.env | cut -d '=' -f2-)
 CLOUDFLARE_ZONE=$(grep CLOUDFLARE_ZONE ~/cloudflare.secret.env | cut -d '=' -f2-)
 CLOUDFLARE_RULESET=$(grep CLOUDFLARE_RULESET ~/cloudflare.secret.env | cut -d '=' -f2-)
 CLOUDFLARE_RULE_BLOCKALL=$(grep CLOUDFLARE_RULE_BLOCKALL ~/cloudflare.secret.env | cut -d '=' -f2-)
-cmd=~/endering.bash
+
+# Process CloudFlare responses
+function cloudflare_response() {
+    local response="$1"  # Capture the response passed as an argument
+    local status_code=$(echo "$response" | grep -o '"success": [a-z]*' | awk -F ':' '{print $2}')
+    if [[ -z "$status_code" ]]; then
+        $status_code=$(echo "$response" | grep -o '"success":[a-z]*' | awk -F ':' '{print $2}')
+    fi
+    local error_message=""
+
+    if [[ "$status_code" == "true" || "$status_code" == " true" ]]; then
+        echo "$2"
+    else
+        error_message=$(echo "$response" | grep -o '"message":".*"' | sed 's/"message"://;s/"//g')
+        echo "$response"
+        echo "Request failed! Error: $error_message"
+    fi
+}
 
 if [ "$1" == "help" ]; then
     # Show valid commands
@@ -48,13 +68,15 @@ elif [ "$1" == "discard" ]; then
     git reset --hard HEAD~1
 elif [ "$1" == "cache" ]; then
     # Purge all cloudflare cache (ender.ing)
-    curl -X POST "https://api.cloudflare.com/client/v4/zones/$CLOUDFLARE_ZONE/purge_cache" \
+    r=$(curl -X POST "https://api.cloudflare.com/client/v4/zones/$CLOUDFLARE_ZONE/purge_cache" \
      -H "Authorization: Bearer $CLOUDFLARE_TOKEN" \
      -H "Content-Type: application/json" \
-     -d '{"purge_everything":true}'
+     -d '{"purge_everything":true}')
+    # Check response
+    cloudflare_response "$r" "Cache cleared successfully!"
 elif [ "$1" == "block" ]; then
     # Block all cloudflare access (ender.ing)
-    curl -X PUT "https://api.cloudflare.com/client/v4/zones/$CLOUDFLARE_ZONE/rulesets/$CLOUDFLARE_RULESET" \
+    r=$(curl -X PUT "https://api.cloudflare.com/client/v4/zones/$CLOUDFLARE_ZONE/rulesets/$CLOUDFLARE_RULESET" \
      -H "Authorization: Bearer $CLOUDFLARE_TOKEN" \
      -H "Content-Type: application/json" \
      -d '{
@@ -67,12 +89,14 @@ elif [ "$1" == "block" ]; then
                     "enabled": true
                 }
             ]
-        }'
+        }')
+    # Check response
+    cloudflare_response "$r" "Global access block was successful!"
     # Clear cache
     $cmd cache
 elif [ "$1" == "unblock" ]; then
     # Block all cloudflare access (ender.ing)
-    curl -X PUT "https://api.cloudflare.com/client/v4/zones/$CLOUDFLARE_ZONE/rulesets/$CLOUDFLARE_RULESET" \
+    r=$(curl -X PUT "https://api.cloudflare.com/client/v4/zones/$CLOUDFLARE_ZONE/rulesets/$CLOUDFLARE_RULESET" \
      -H "Authorization: Bearer $CLOUDFLARE_TOKEN" \
      -H "Content-Type: application/json" \
      -d '{
@@ -85,7 +109,9 @@ elif [ "$1" == "unblock" ]; then
                     "enabled": false
                 }
             ]
-        }'
+        }')
+    # Check response
+    cloudflare_response "$r" "Global access unblock was successful!"
     # Clear cache
     $cmd cache
 elif [ "$1" == "web" ]; then

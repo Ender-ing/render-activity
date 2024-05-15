@@ -1,3 +1,12 @@
+# Redefine error documents
+# (Page keeps getting redirected before authorization without this..)
+ErrorDocument 401 "401 error"
+ErrorDocument 402 "402 error"
+ErrorDocument 403 "403 error"
+ErrorDocument 404 "404 error"
+ErrorDocument 500 "500 error"
+
+# Secure directory!
 AuthType Basic
 AuthName "restricted area"
 AuthUserFile /home/endering/.htpasswd

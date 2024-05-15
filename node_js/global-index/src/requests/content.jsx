@@ -116,7 +116,7 @@ document.addEventListener('click', (event) => {
     // Check if this is a link element
     if (clickedElement != null && clickedElement.target != "_blank") {
         // Check if the href is valid
-        if(clickedElement.host === window.location.host){
+        if((clickedElement.host === window.location.host) && (clickedElement.pathname.lastIndexOf(".") <= clickedElement.pathname.lastIndexOf("/"))){
             // Prevent the default link behavior
             event.preventDefault();
 

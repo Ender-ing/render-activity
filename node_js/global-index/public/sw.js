@@ -48,13 +48,6 @@ const INSTALL_CACHE_LIST = [
     "https://resources.ender.ing/web/client/@vite/index.js",
     // Root (HTML, display, and locale)
     "/check-lang.config.html",
-    //"/",
-    "/ar/",
-    "/en/",
-    "/he/",
-    "/ar/index.display",
-    "/en/index.display",
-    "/he/index.display",
     // Code Error Global Page (display, and locale)
     "https://resources.ender.ing/ar/web/client/global-pages/error-code/index.display",
     "https://resources.ender.ing/en/web/client/global-pages/error-code/index.display",
@@ -97,6 +90,14 @@ const INSTALL_CACHE_LIST = [
     "https://fonts.gstatic.com/s/notosanshebrew/v43/or30Q7v33eiDljA1IufXTtVf7V6RvEEdhQlk0LlGxCyaePiWTNzENg.woff2",
     "https://fonts.gstatic.com/s/notosanshebrew/v43/or30Q7v33eiDljA1IufXTtVf7V6RvEEdhQlk0LlGxCyaePiaTNzENg.woff2",
     "https://fonts.gstatic.com/s/notosanshebrew/v43/or30Q7v33eiDljA1IufXTtVf7V6RvEEdhQlk0LlGxCyaePiUTNw.woff2",
+], INSTALL_PAGE_CACHE_LIST = [
+    //"/",
+    "/ar/",
+    "/en/",
+    "/he/",
+    "/ar/index.display",
+    "/en/index.display",
+    "/he/index.display",
 ];
 // Add cache version query
 for(let i in INSTALL_CACHE_LIST){
@@ -124,7 +125,14 @@ self.addEventListener('install', event => {
         // Combine skipWaiting() with the cache opening process:
         Promise.all([
             caches.open(RESOURCE_CACHE)
-                    .then(cache => cache.addAll(((ENABLE_INSTALL_CAHCE) ? INSTALL_CACHE_LIST : []))),
+                    .then(cache => {
+                        if(ENABLE_INSTALL_CAHCE){
+                            cache.addAll(INSTALL_CACHE_LIST);
+                            try{
+                                cache.addAll(INSTALL_PAGE_CACHE_LIST);
+                            }catch{}
+                        }
+                    }),
                 self.skipWaiting() // Activate the new service worker immediately
             ])
     );

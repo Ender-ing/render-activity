@@ -36,6 +36,11 @@ for /D %%f in (*) do (
     copy /Y %BUILD_PATH%\global\config\endering.bash %OUTPUT_PATH%\endering.bash
 )
 
+:: Remove cache for deleted files
+for /f "tokens=1,2 delims= " %%a in ('git ls-files --deleted') do (
+    CMD "Running Backup" /C "git rm --cached %%a"
+)
+
 :: Fix file ending
 CMD "Running Backup" /C "git config core.autocrlf true"
 CMD "Running Backup" /C "git add --renormalize ."

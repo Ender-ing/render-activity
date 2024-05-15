@@ -5,6 +5,7 @@ CLOUDFLARE_TOKEN=$(grep CLOUDFLARE_TOKEN ~/cloudflare.secret.env | cut -d '=' -f
 CLOUDFLARE_ZONE=$(grep CLOUDFLARE_ZONE ~/cloudflare.secret.env | cut -d '=' -f2-)
 CLOUDFLARE_RULESET=$(grep CLOUDFLARE_RULESET ~/cloudflare.secret.env | cut -d '=' -f2-)
 CLOUDFLARE_RULE_BLOCKALL=$(grep CLOUDFLARE_RULE_BLOCKALL ~/cloudflare.secret.env | cut -d '=' -f2-)
+cmd=~/endering.bash
 
 if [ "$1" == "help" ]; then
     # Show valid commands
@@ -31,7 +32,7 @@ elif [ "$1" == "get" ]; then
     git pull & pid=$!  # Store the process ID of the git pull command
     wait $pid
     # Fix command permissions
-    chmod +x ~/endering.bash
+    chmod +x $cmd
 elif [ "$1" == "commit" ]; then
     # Fix file ending
     git config --global core.autocrlf input
@@ -67,6 +68,8 @@ elif [ "$1" == "block" ]; then
                 }
             ]
         }'
+    # Clear cache
+    $cmd cache
 elif [ "$1" == "unblock" ]; then
     # Block all cloudflare access (ender.ing)
     curl -X PUT "https://api.cloudflare.com/client/v4/zones/$CLOUDFLARE_ZONE/rulesets/$CLOUDFLARE_RULESET" \
@@ -83,10 +86,12 @@ elif [ "$1" == "unblock" ]; then
                 }
             ]
         }'
+    # Clear cache
+    $cmd cache
 elif [ "$1" == "web" ]; then
     # Update files and purge cache
-    ~/endering.bash get
-    ~/endering.bash cache
+    $cmd get
+    $cmd cache
 else
   echo "Invalid command! Use the command 'endering help' to see valid commands."
 fi

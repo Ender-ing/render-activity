@@ -1,4 +1,10 @@
 # Prevent overriding in subdirectories
+# NOT IN USE!
+# NOT IN USE!
+# NOT IN USE!
+# NOT IN USE!
+# NOT IN USE!
+# NOT IN USE!
 AllowOverride None
 
 RewriteEngine On

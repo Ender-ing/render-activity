@@ -61,7 +61,7 @@ elif [ "$1" == "block" ]; then
                 {
                     "id": "'$CLOUDFLARE_RULE_BLOCKALL'",
                     "description": "Block ALL Requests (cmd:endering block)",
-                    "expression": "(http.host contains \"ender.ing\")",
+                    "expression": "(ssl) or (not ssl)",
                     "action": "block",
                     "enabled": true
                 }
@@ -77,7 +77,7 @@ elif [ "$1" == "unblock" ]; then
                 {
                     "id": "'$CLOUDFLARE_RULE_BLOCKALL'",
                     "description": "Block ALL Requests (cmd:endering block)",
-                    "expression": "(http.host contains \"ender.ing\")",
+                    "expression": "(ssl) or (not ssl)",
                     "action": "block",
                     "enabled": false
                 }

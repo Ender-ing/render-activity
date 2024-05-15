@@ -82,6 +82,18 @@ function _writeContent(path, content){
     });
 }
 
+function copyFile(src, dest){
+    return new Promise(function(resolve, reject) {
+        fs.copyFile(src, dest, (err) => {
+            if (err) {
+                reject(err);
+                throw err;
+            }
+            resolve(null);
+        });
+    });
+}
+
 // Delete a file
 async function deleteFile(path){
     await fs.unlinkSync(path);
@@ -142,6 +154,7 @@ module.exports = {
     getContent,
     writeContent,
     _writeContent,
+    copyFile,
     deleteFile,
     getJSON,
     _getJSON,

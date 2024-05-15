@@ -7,7 +7,7 @@
 // node static.js <input_path> <original_path> <source_path>
 
 // Get file-system functions
-const { path, path2, path3, path4, writeContent, getJSON, _p, readDirCon, latestDirFileMod, getContent } = require('./_files');
+const { path, path2, path3, path4, writeContent, getJSON, _p, readDirCon, latestDirFileMod, getContent, copyFile } = require('./_files');
 const { compressXML, compressJSON, _compressXML, replaceFileVars, compressDisplay } = require('./_compress');
 
 // Keep track of sitemap data
@@ -102,6 +102,10 @@ async function scanDir(dir, source, base, components = {}){
         // Ignore gen.** files and directories
         if(file.name.indexOf("gen.") == -1){
             if (file.isDirectory()) {
+                // secure "secret" directories!
+                if(file.name.indexOf("@secret") != -1 || file.name.indexOf("secret@") != -1){
+                    await copyFile(_p.join(path4, "global", "private.htaccess"), _p.join(filePath, ".htaccess"));
+                }
                 // Search sub-directories
                 await scanDir(filePath, source, base, compRep);
             } else {

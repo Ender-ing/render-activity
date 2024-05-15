@@ -31,7 +31,7 @@ for /D %%f in (*) do (
 
     :: Generate index file
     CMD "Running Backup" /C "node %BUILD_PATH%\node_js\utility\variables.js %RESOURCES_PATH%\web\client\@vite\index.php.html %OUTPUT_PATH%\%%f\gen.info.json %OUTPUT_PATH%\%%f\index.php"
-    CMD "Running Backup" /C "node %BUILD_PATH%\node_js\utility\locale_expression.js %OUTPUT_PATH%\%%f\index.php %OUTPUT_PATH%\%%f %BUILD_PATH%\global\locale"
+    CMD "Running Backup" /C "node %BUILD_PATH%\node_js\utility\locale_expression.js %OUTPUT_PATH%\%%f\index.php %OUTPUT_PATH%\%%f %BUILD_PATH%"
 
     :: Generate service worker
     CMD "Running Backup" /C "node %BUILD_PATH%\node_js\utility\variables.js %RESOURCES_PATH%\web\client\@vite\sw.js %OUTPUT_PATH%\%%f\gen.info.json %OUTPUT_PATH%\%%f\sw.js"
@@ -48,7 +48,7 @@ for /D %%f in (*) do (
 
     :: copy /XX/.htaccess
     copy %BUILD_PATH%\global\locale.htaccess %OUTPUT_PATH%\%%f\.htaccess
-    CMD "Running Backup" /C "node %BUILD_PATH%\node_js\utility\locale_expression.js %OUTPUT_PATH%\%%f\.htaccess %OUTPUT_PATH%\%%f %BUILD_PATH%\global\locale"
+    CMD "Running Backup" /C "node %BUILD_PATH%\node_js\utility\locale_expression.js %OUTPUT_PATH%\%%f\.htaccess %OUTPUT_PATH%\%%f %BUILD_PATH%"
 
     :: Copy /.well-known/.htaccess
     copy %BUILD_PATH%\global\open.htaccess %OUTPUT_PATH%\%%f\.well-known\.htaccess

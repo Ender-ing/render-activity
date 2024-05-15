@@ -22,7 +22,7 @@ for /D %%f in (*) do (
 
         :: Compress folder contents in NodeJS and Replace content variables in NodeJS
         :: Generate SiteMap based on index.display files
-        CMD "Running Backup" /C "node %BUILD_PATH%\node_js\utility\static.js %OUTPUT_PATH%\%%f %ROOTS_PATH%\%%f %OUTPUT_PATH%\%%f\gen.info.json %BUILD_PATH%\global\locale\"
+        CMD "Running Backup" /C "node %BUILD_PATH%\node_js\utility\static.js %OUTPUT_PATH%\%%f %ROOTS_PATH%\%%f %OUTPUT_PATH%\%%f\gen.info.json %BUILD_PATH%"
     )
 )
 

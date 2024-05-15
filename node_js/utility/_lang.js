@@ -131,7 +131,7 @@ async function writeLangContent(base, path, lang, content){
 }
 async function writeContentMultiLang(base, path, content, globalPath, del = true){
     // Get locale objects
-    globalOBj = await getLocaleObject(globalPath);
+    globalOBj = await getLocaleObject(_p.join(globalPath, "global", "locale"));
     localeObj = await getLocaleObject(_p.dirname(path));
 
     // Write content for all three languages

@@ -7,6 +7,6 @@ if [ -f ~/.bashrc ]; then
 fi
 
 # Add a custom alias
-alias ender='~/endering.bash'
+alias endering='~/endering.bash'
 
 # User specific environment and startup programs

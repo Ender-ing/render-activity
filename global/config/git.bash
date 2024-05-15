@@ -53,7 +53,7 @@ elif [ "$1" == "cache" ]; then
 elif [ "$1" == "block" ]; then
     # Block all cloudflare access (ender.ing)
     curl -X PUT "https://api.cloudflare.com/client/v4/zones/$CLOUDFLARE_ZONE/rulesets/$CLOUDFLARE_RULESET" \
-     -H "Authorization: Bearer mRqfjhkaIyCaWqAZx_24W1LaorlsQ3riBtNFlJQp" \
+     -H "Authorization: Bearer $CLOUDFLARE_TOKEN" \
      -H "Content-Type: application/json" \
      -d '{
             "rules": [

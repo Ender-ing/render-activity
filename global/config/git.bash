@@ -1,5 +1,11 @@
 #!/bin/bash
 
+# Get Cloudflare Token
+CLOUDFLARE_TOKEN=$(grep CLOUDFLARE_TOKEN ~/cloudflare.secret.env | cut -d '=' -f2-)
+CLOUDFLARE_ZONE=$(grep CLOUDFLARE_ZONE ~/cloudflare.secret.env | cut -d '=' -f2-)
+CLOUDFLARE_RULESET=$(grep CLOUDFLARE_RULESET ~/cloudflare.secret.env | cut -d '=' -f2-)
+CLOUDFLARE_RULE_BLOCKALL=$(grep CLOUDFLARE_RULE_BLOCKALL ~/cloudflare.secret.env | cut -d '=' -f2-)
+
 if [ "$1" == "help" ]; then
     # Show valid commands
     echo "This is a list of valid commands you are able to use on this server:"
@@ -40,16 +46,26 @@ elif [ "$1" == "discard" ]; then
     git reset --hard HEAD~1
 elif [ "$1" == "cache" ]; then
     # Purge all cloudflare cache (ender.ing)
-    curl -X POST "https://api.cloudflare.com/client/v4/zones/93b9b28f28499469f4918c8cf1f4eb06/purge_cache" \
-     -H "Authorization: Bearer mRqfjhkaIyCaWqAZx_24W1LaorlsQ3riBtNFlJQp" \
+    curl -X POST "https://api.cloudflare.com/client/v4/zones/$CLOUDFLARE_ZONE/purge_cache" \
+     -H "Authorization: Bearer $CLOUDFLARE_TOKEN" \
      -H "Content-Type: application/json" \
      -d '{"purge_everything":true}'
 elif [ "$1" == "block" ]; then
     # Block all cloudflare access (ender.ing)
-    curl -X POST "https://api.cloudflare.com/client/v4/zones/93b9b28f28499469f4918c8cf1f4eb06/firewall/rules" \
+    curl -X PUT "https://api.cloudflare.com/client/v4/zones/$CLOUDFLARE_ZONE/rulesets/$CLOUDFLARE_RULESET" \
      -H "Authorization: Bearer mRqfjhkaIyCaWqAZx_24W1LaorlsQ3riBtNFlJQp" \
      -H "Content-Type: application/json" \
-     -d '{"filter":{"expression":"http.request.uri matches \"*\""},"action":"block"}'
+     -d '{
+            "rules": [
+                {
+                    "id": "'$CLOUDFLARE_RULE_BLOCKALL'",
+                    "description": "Block ALL Requests (cmd:update block)",
+                    "expression": "(http.host contains \"ender.ing\")",
+                    "action": "block",
+                    "enabled": true
+                }
+            ]
+        }'
 elif [ "$1" == "web" ]; then
     # Update files and purge cache
     ~/git.bash get
@@ -57,3 +73,14 @@ elif [ "$1" == "web" ]; then
 else
   echo "Invalid command! Use the command 'update help' to see valid commands."
 fi
+
+
+# Create a WAP rule:
+#    curl -X POST "https://api.cloudflare.com/client/v4/zones/$CLOUDFLARE_ZONE/rulesets/$CLOUDFLARE_RULESET/rules" \
+#     -H "Authorization: Bearer $CLOUDFLARE_TOKEN" \
+#     -H "Content-Type: application/json" \
+#     -d '{
+#       "description": "<title>",
+#       "expression": "(???)",
+#       "action": "???"
+#     }'

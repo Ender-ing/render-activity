@@ -193,8 +193,7 @@ self.addEventListener('fetch', event => {
                 // Responde with offline page if the fetch failed due to a network error
                 if (!fetchResponse || fetchResponse.status !== 200 || fetchResponse.type !== 'basic') {
                     return fetchResponse;
-                }
-                if (ENABLE_DYNAMIC_CACHING) {
+                }else if (ENABLE_DYNAMIC_CACHING) {
                     const cache = await caches.open(RESOURCE_CACHE);
                     await cache.put(newRequest, fetchResponse.clone());
                     // Cache index.html file for .display directories
@@ -204,8 +203,8 @@ self.addEventListener('fetch', event => {
                             cache.add(htmlURL);
                         }
                     }
+                    return fetchResponse;
                 }
-                return fetchResponse;
             }
         })());
     } else {

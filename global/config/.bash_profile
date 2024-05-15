@@ -7,6 +7,6 @@ if [ -f ~/.bashrc ]; then
 fi
 
 # Add a custom alias
-alias update='~/git.bash'
+alias ender='~/endering.bash'
 
 # User specific environment and startup programs

@@ -33,7 +33,7 @@ for /D %%f in (*) do (
 
     :: Copy command files
     copy /Y %BUILD_PATH%\global\config\.bash_profile %OUTPUT_PATH%\.bash_profile
-    copy /Y %BUILD_PATH%\global\config\git.bash %OUTPUT_PATH%\git.bash
+    copy /Y %BUILD_PATH%\global\config\endering.bash %OUTPUT_PATH%\endering.bash
 )
 
 :: Fix file ending

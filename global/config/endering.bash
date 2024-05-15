@@ -19,6 +19,7 @@ if [ "$1" == "help" ]; then
     echo -e "\n (CloudFlare)"
     printf "\t%-15s %s\n" "cache" "Purge all CloudFlare cache (ender.ing)"
     printf "\t%-15s %s\n" "block" "Block all requests (ender.ing)"
+    printf "\t%-15s %s\n" "unblock" "Undo block action (ender.ing)"
     echo -e "\n"
     printf "\t%-15s %s\n" "web" "(get & cache)"
     echo -e "\n"
@@ -30,7 +31,7 @@ elif [ "$1" == "get" ]; then
     git pull & pid=$!  # Store the process ID of the git pull command
     wait $pid
     # Fix command permissions
-    chmod +x ~/git.bash
+    chmod +x ~/endering.bash
 elif [ "$1" == "commit" ]; then
     # Fix file ending
     git config --global core.autocrlf input
@@ -59,19 +60,35 @@ elif [ "$1" == "block" ]; then
             "rules": [
                 {
                     "id": "'$CLOUDFLARE_RULE_BLOCKALL'",
-                    "description": "Block ALL Requests (cmd:update block)",
+                    "description": "Block ALL Requests (cmd:endering block)",
                     "expression": "(http.host contains \"ender.ing\")",
                     "action": "block",
                     "enabled": true
                 }
             ]
         }'
+elif [ "$1" == "unblock" ]; then
+    # Block all cloudflare access (ender.ing)
+    curl -X PUT "https://api.cloudflare.com/client/v4/zones/$CLOUDFLARE_ZONE/rulesets/$CLOUDFLARE_RULESET" \
+     -H "Authorization: Bearer $CLOUDFLARE_TOKEN" \
+     -H "Content-Type: application/json" \
+     -d '{
+            "rules": [
+                {
+                    "id": "'$CLOUDFLARE_RULE_BLOCKALL'",
+                    "description": "Block ALL Requests (cmd:endering block)",
+                    "expression": "(http.host contains \"ender.ing\")",
+                    "action": "block",
+                    "enabled": false
+                }
+            ]
+        }'
 elif [ "$1" == "web" ]; then
     # Update files and purge cache
-    ~/git.bash get
-    ~/git.bash cache
+    ~/endering.bash get
+    ~/endering.bash cache
 else
-  echo "Invalid command! Use the command 'update help' to see valid commands."
+  echo "Invalid command! Use the command 'endering help' to see valid commands."
 fi
 
 

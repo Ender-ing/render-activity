@@ -41,11 +41,10 @@ if [ "$1" == "help" ]; then
     printf "\t%-15s %s\n" "cache" "Purge all CloudFlare cache"
     printf "\t%-15s %s\n" "block" "Block all requests"
     printf "\t%-15s %s\n" "unblock" "Undo block action"
-    echo -e "\n"
     echo -e "\n Quick commands:"
     printf "\t%-15s %s\n" "web" "(get & cache)"
     echo -e "\n"
-    echo "Do not spam these commands!"
+    echo "(Do not spam these commands!)"
 elif [ "$1" == "get" ]; then
     # Discard local changes
     git reset --hard HEAD

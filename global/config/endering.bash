@@ -42,6 +42,7 @@ if [ "$1" == "help" ]; then
     printf "\t%-15s %s\n" "block" "Block all requests"
     printf "\t%-15s %s\n" "unblock" "Undo block action"
     echo -e "\n"
+    echo -e "\n Quick commands:"
     printf "\t%-15s %s\n" "web" "(get & cache)"
     echo -e "\n"
     echo "Do not spam these commands!"
@@ -119,7 +120,7 @@ elif [ "$1" == "web" ]; then
     $cmd get
     $cmd cache
 else
-  echo "Invalid command! Use the command 'endering help' to see valid commands."
+    echo "Invalid command! Use the command 'endering help' to see valid commands."
 fi
 
 

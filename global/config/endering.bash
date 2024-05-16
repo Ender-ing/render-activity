@@ -29,7 +29,6 @@ function cloudflare_response() {
 
 if [ "$1" == "help" ]; then
     # Show valid commands
-    echo "This is a list of valid commands you are able to use on this server."
     echo "(*) => commands that are not exposed to the external terminal (terminal.ender.ing) are marked with an asterisk!"
     echo -e "\n"
     printf "\t%-15s %s\n" "help" "View commands list"

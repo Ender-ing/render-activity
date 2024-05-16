@@ -54,4 +54,4 @@ Contains global configuration files used on the server on all subdomains.
 
 > Note that you need to use a GitHub account that has access to the private `host` repository in order to pull files and commit changes!
 
-The generated output directory should include a `.git` folder. You can use your GitHub account to push your changes to the private `host` repository. After pushing the changes, ask the server staff/manager to run the `update get` command in the server's terminal.
+The generated output directory should include a `.git` folder. You can use your GitHub account to push your changes to the private `host` repository. After pushing the changes, ask the server staff/manager to run the `endering get` command in the [server's terminal](https://terminal.ender.ing/@secret/).

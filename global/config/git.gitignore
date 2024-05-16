@@ -45,3 +45,4 @@ pki-validation
 # Ignore log files
 **_log
 **.custom_log
+**.custom_record

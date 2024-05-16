@@ -118,6 +118,7 @@ elif [ "$1" == "unblock" ]; then
     $cmd cache
 elif [ "$1" == "clean" ]; then
     # Delete log files
+    # Note: never delete *.custom_record files using this command
     find ~/. -name "*.custom_log" -type f -delete
     find ~/. -name "error_log" -type f -delete
     # Delete backups

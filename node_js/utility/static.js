@@ -10,6 +10,16 @@
 const { path, path2, path3, path4, writeContent, getJSON, _p, readDirCon, latestDirFileMod, getContent, copyFile } = require('./_files');
 const { compressXML, compressJSON, _compressXML, replaceFileVars, compressDisplay } = require('./_compress');
 
+// Get relative web path
+const getWebPath  = (absPath, fixSlash = true) => {
+    let webPath = absPath.replace("index.display", "");
+    webPath = webPath.replace(path, "");
+    if(fixSlash){
+        webPath = webPath.replaceAll("\\", "/");
+    }
+    return webPath;
+};
+
 // Keep track of sitemap data
 // Read https://www.sitemaps.org/protocol.html for more details about sitemap.xml data structure
 const sitemapWrap = (itemsArray) => {
@@ -22,8 +32,7 @@ const sitemapWrap = (itemsArray) => {
 };
 const addSitemapItem = async (file, host) => {
     // Get path (host relative)
-    let fileURL = file.replace("index.display", "");
-    fileURL = fileURL.replace(path, "");
+    let fileURL = getWebPath(file, false);
     // Get original file last mod date
     let originalPath = _p.join(path2, fileURL);
     let originalLastMod = await latestDirFileMod(originalPath);

@@ -41,6 +41,8 @@ if [ "$1" == "help" ]; then
     printf "\t%-15s %s\n" "cache" "Purge all CloudFlare cache"
     printf "\t%-15s %s\n" "block" "Block all requests"
     printf "\t%-15s %s\n" "unblock" "Undo block action"
+    echo -e "\n Maintenance commands:"
+    printf "\t%-15s %s\n" "clean" "Clean up unnecessary files (e.g. logs, backups)"
     echo -e "\n Quick commands:"
     printf "\t%-15s %s\n" "web" "(get & cache)"
     echo -e "\n"
@@ -114,6 +116,14 @@ elif [ "$1" == "unblock" ]; then
     cloudflare_response "$r" "Global access unblock was successful!"
     # Clear cache
     $cmd cache
+elif [ "$1" == "clean" ]; then
+    # Delete log files
+    find ~/. -name "*.custom_log" -type f -delete
+    find ~/. -name "error_log" -type f -delete
+    # Delete backups
+    find ~/. -name "backup-*.tar.gz" -type f -delete
+    # Empty temporary directory
+    rm -rf ~/tmp/*
 elif [ "$1" == "web" ]; then
     # Update files and purge cache
     $cmd get

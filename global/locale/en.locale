@@ -5,7 +5,8 @@
         "hebrew": "Hebrew"
     },
     "error": {
-        "title": "Something went wrong!"
+        "title": "Something went wrong!",
+        "device": "Oops, it seems you can't use our service on this device!"
     },
     "redirect": {
         "back": "Go Back",

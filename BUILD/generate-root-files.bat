@@ -46,6 +46,9 @@ for /D %%f in (*) do (
     :: Check securitytxt.org for more info
     CMD "Running Backup" /C "node %BUILD_PATH%\node_js\utility\variables.js %BUILD_PATH%\global\security.txt %OUTPUT_PATH%\%%f\gen.info.json %OUTPUT_PATH%\%%f\.well-known\security.txt"
 
+    :: secure @secret@ directories
+    CMD "Running Backup" /C "node %BUILD_PATH%\node_js\utility\secrets.js %OUTPUT_PATH%\%%f %BUILD_PATH%"
+
     :: copy /XX/.htaccess
     copy %BUILD_PATH%\global\locale.htaccess %OUTPUT_PATH%\%%f\.htaccess
     CMD "Running Backup" /C "node %BUILD_PATH%\node_js\utility\locale_expression.js %OUTPUT_PATH%\%%f\.htaccess %OUTPUT_PATH%\%%f %BUILD_PATH%"

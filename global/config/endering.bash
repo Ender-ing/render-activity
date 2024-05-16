@@ -29,7 +29,8 @@ function cloudflare_response() {
 
 if [ "$1" == "help" ]; then
     # Show valid commands
-    echo "This is a list of valid commands you are able to use on this server:"
+    echo "This is a list of valid commands you are able to use on this server."
+    echo "(*) => commands that are not exposed to the external terminal (terminal.ender.ing) are marked with an asterisk!"
     echo -e "\n"
     printf "\t%-15s %s\n" "help" "View commands list"
     echo -e "\n (GitHub)"
@@ -43,6 +44,7 @@ if [ "$1" == "help" ]; then
     printf "\t%-15s %s\n" "unblock" "Undo block action"
     echo -e "\n Maintenance commands:"
     printf "\t%-15s %s\n" "clean" "Clean up unnecessary files (e.g. logs, backups)"
+    printf "\t%-15s %s\n" "*clean-records" "Clean up record files (Only use when sure!)"
     echo -e "\n Quick commands:"
     printf "\t%-15s %s\n" "web" "(get & cache)"
     echo -e "\n"
@@ -125,6 +127,9 @@ elif [ "$1" == "clean" ]; then
     find ~/. -name "backup-*.tar.gz" -type f -delete
     # Empty temporary directory
     rm -rf ~/tmp/*
+elif [ "$1" == "clean-records" ]; then
+    # Delete record log files
+    find ~/. -name "*.custom_record" -type f -delete
 elif [ "$1" == "web" ]; then
     # Update files and purge cache
     $cmd get

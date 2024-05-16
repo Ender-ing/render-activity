@@ -44,3 +44,4 @@ pki-validation
 
 # Ignore log files
 **_log
+**.log

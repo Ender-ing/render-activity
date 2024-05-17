@@ -47,7 +47,7 @@ function createAlternate(lang){
         alternates.ar = document.getElementById("meta-alternate-ar");
         alternates.en = document.getElementById("meta-alternate-en");
         alternates.he = document.getElementById("meta-alternate-he");
-        return createAlternate(lang);
+        return setTimeout(() => createAlternate(lang), window.CHECK_DOM_LOOP_DELAY);
     }
 
     // Set link
@@ -61,7 +61,7 @@ function createCanonical(){
     // Set alternate element
     if(canonicalLink == null){
         canonicalLink = document.getElementById("meta-canonical");
-        return createCanonical();
+        return setTimeout(createCanonical, window.CHECK_DOM_LOOP_DELAY);
     }
     if(canonicalLink.detached){
         document.head.appendChild(canonicalLink);
@@ -86,11 +86,11 @@ export async function addMeta(title, description){
     // Set meta elements
     if(meta.description == null){
         meta.description = document.getElementById("meta-description");
-        return addMeta(title, description);
+        return setTimeout(() => addMeta(title, description), window.CHECK_DOM_LOOP_DELAY);
     }
     if(meta.title == null){
         meta.title = document.getElementById("meta-title");
-        return addMeta(title, description);
+        return setTimeout(() => addMeta(title, description), window.CHECK_DOM_LOOP_DELAY);
     }
 
     // Set title

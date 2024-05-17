@@ -51,6 +51,6 @@ awaitReadyState(function(){
     // (Note: always update cookie values after user login and page load!)
     let state = (document.documentElement.getCookie("allow_gtag") || GTAG_DEFAULT) == true;
     if(state){
-        setTimeout(injectGTag, 1000);
+        setTimeout(injectGTag, 100);
     }
 });

@@ -90,9 +90,9 @@ async function compressFileContents(basePath, fullPath, fileName, source, compon
 }
 
 // Check if a path is ignored by gen.info.json
-let globalPages = ["@catch"];
+let ignoredPages = ["@catch", "@secret"];
 function pathIgnored(path, ignore){
-    let ignoreList = [...(ignore || []), ...globalPages];
+    let ignoreList = [...(ignore || []), ...ignoredPages];
     let pathChunks = path.split(/\\|\//g);
     for(let i = 0; i < pathChunks.length; i++){
         if(ignoreList.includes(pathChunks[i])){

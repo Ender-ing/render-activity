@@ -6,7 +6,7 @@
 
 // Define dataLayer object
 const GTAG = "G-5F32MWD0EQ";
-const GTAG_DEFAULT = false; // Disable Google Tag By Default!
+const GTAG_DEFAULT = true; // Disable Google Tag By Default! (SWITCH THIS TO FALSE LATER...)
 window.dataLayer = window.dataLayer || [];
 function gtag(){
     dataLayer.push(arguments);

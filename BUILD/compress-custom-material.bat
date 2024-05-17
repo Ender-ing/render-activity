@@ -5,6 +5,8 @@ echo [44;45m Compressing raw Material Design assets... [0m
 
 :: Get environment variables
 FOR /F "tokens=*" %%i in (../.secret.env) do SET %%i
+call ./SAFETY.bat || ( set errorTrigger="call" && goto local_bat_error )
+if %errorlevel% NEQ 0 ( set errorTrigger="level" && goto local_bat_error )
 
 :: Specify the directory to search
 set inputDir=%BUILD_PATH%\node_js\material

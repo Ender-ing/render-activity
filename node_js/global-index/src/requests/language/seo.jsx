@@ -27,15 +27,12 @@ let alternates = {
     ar: null
 };
 function createAlternate(lang){
-    // Set alternate element
+    // Get alternate element
     if(alternates[lang] == null){
-        let link = document.createElement('link');
-        link.setAttribute("rel", "alternate");
-        link.setAttribute("hreflang", lang);
-        alternates[lang] = link;
-
-        // Append element
-        document.head.appendChild(alternates[lang]);
+        alternates.ar = document.getElementById("meta-alternate-ar");
+        alternates.en = document.getElementById("meta-alternate-en");
+        alternates.he = document.getElementById("meta-alternate-he");
+        return createAlternate(lang);
     }
 
     // Set link
@@ -48,26 +45,14 @@ let canonicalLink = null;
 function createCanonical(){
     // Set alternate element
     if(canonicalLink == null){
-        canonicalLink = document.createElement('link');
-        canonicalLink.setAttribute("rel", "canonical");
-
-        // Append element
-        document.head.appendChild(canonicalLink);
+        canonicalLink = document.getElementById("meta-canonical");
+        return createCanonical();
     }
 
     // Set link
     // (English is the preferred language)
     let href = getPureURL("en");
     canonicalLink.setAttribute("href", href);
-}
-
-// Create a meta element
-function createMetaElement(name){
-    let meta = document.createElement('meta');
-    meta.setAttribute("name", name);
-    // Append element
-    document.head.appendChild(meta);
-    return meta;
 }
 
 // Add page description
@@ -78,10 +63,12 @@ let meta = {
 export async function addMeta(title, description){
     // Set meta elements
     if(meta.description == null){
-        meta.description = createMetaElement("description");
+        meta.description = document.getElementById("meta-description");
+        return addMeta(title, description);
     }
     if(meta.title == null){
-        meta.title = createMetaElement("title");
+        meta.title = document.getElementById("meta-title");
+        return addMeta(title, description);
     }
 
     // Set title

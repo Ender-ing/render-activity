@@ -49,7 +49,7 @@ async function addIndexFile(file, host, serviceName){
 
     // Replace meta data
     let title = getTxt("{{?_meta.title}}");
-    newContent = newContent.replaceAll("@@title", `${title} | ${serviceName}`);
+    newContent = newContent.replaceAll("@@title", (title != serviceName) ? `${title} | ${serviceName}` : title);
     newContent = newContent.replaceAll("@@description", getTxt("{{?_meta.description}}"));
 
     // Replace alternate links

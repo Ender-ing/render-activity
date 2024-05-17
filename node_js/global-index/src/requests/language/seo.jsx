@@ -94,7 +94,7 @@ export async function addMeta(title, description){
     }
 
     // Set title
-    let t = `${title} | ${window.SERVICE_TITLE}`;
+    let t = (title != window.SERVICE_TITLE) ? `${title} | ${window.SERVICE_TITLE}` : title;
     meta.title.setAttribute("content", t);
     document.title = t;
 

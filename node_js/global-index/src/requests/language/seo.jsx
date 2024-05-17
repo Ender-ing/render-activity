@@ -20,6 +20,21 @@ function getPureURL(lang = null){
     return `https://${host}${pathname}`;
 }
 
+// Prevent indexing, allow following
+let robots = null;
+function addMetaRobots(){
+    // <meta name="robots" content="noindex, follow">
+    if(robots == null){
+        // Create tag
+        robots = document.createElement('meta');
+        robots.setAttribute('name', 'robots');
+        robots.setAttribute('content', 'noindex, follow');
+
+        // Append tag
+        document.head.appendChild(robots);
+    }
+}
+
 // Create alternate link
 let alternates = {
     en: null,
@@ -97,13 +112,26 @@ export function languageMeta(){
         createAlternate("ar");
     }
 
+    // Get canonical
+    if(canonicalLink == null){
+        createCanonical();
+    }
+
     // Set page as canonical
     if(!getIsErrorResult()){
         if(!IS_FIRST_LOAD){
             createCanonical();
+            // Allow indexing
+            if(robots != null){
+                robots.remove();
+                robots = null;
+            }
         }
-    }else if(!canonicalLink.detached){
+    }else if(canonicalLink != null && !canonicalLink.detached){
+        // Remove canonical
         canonicalLink.parentNode.removeChild(canonicalLink);
         canonicalLink.detached = true;
+        // Prevent indexing
+        addMetaRobots();
     }
 }

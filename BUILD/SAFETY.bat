@@ -19,6 +19,14 @@ exit /B 1
 :: if "!_cv_value_:~16!" EQU "" ( goto _cv_exit_ )
 :: set _cv_value_=
 
+set _cv_value_=%OUTPUT_PATH%::Err
+if "!_cv_value_:~16!" EQU "" ( goto _cv_exit_ )
+set _cv_value_=
+
+set _cv_value_=%RESOURCES_PATH%::Err
+if "!_cv_value_:~16!" EQU "" ( goto _cv_exit_ )
+set _cv_value_=
+
 set _cv_value_=%BUILD_PATH%::Err
 if "!_cv_value_:~16!" EQU "" ( goto _cv_exit_ )
 set _cv_value_=
@@ -27,10 +35,13 @@ set _cv_value_=%ROOTS_PATH%::Err
 if "!_cv_value_:~16!" EQU "" ( goto _cv_exit_ )
 set _cv_value_=
 
-set _cv_value_=%OUTPUT_PATH%::Err
-if "!_cv_value_:~16!" EQU "" ( goto _cv_exit_ )
-set _cv_value_=
+:: Backup checks (with original names)
+set _cv_value_=Backup_Check
 
-set _cv_value_=%RESOURCES_PATH%::Err
-if "!_cv_value_:~16!" EQU "" ( goto _cv_exit_ )
-set _cv_value_=
+if "!OUTPUT_PATH:~16!" EQU "" ( goto _cv_exit_ );
+
+if "!RESOURCES_PATH:~16!" EQU "" ( goto _cv_exit_ );
+
+if "!BUILD_PATH:~16!" EQU "" ( goto _cv_exit_ );
+
+if "!ROOTS_PATH:~16!" EQU "" ( goto _cv_exit_ );

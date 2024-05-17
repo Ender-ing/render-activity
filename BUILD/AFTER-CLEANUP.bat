@@ -19,6 +19,10 @@ for /D %%f in (*) do (
     :: Delete GitHub files
     del /Q /S %OUTPUT_PATH%\%%f\.gitignore > nul 2>&1
 
+    :: Delete markdown files
+    :: Note: add /S when you finish docs.ender.ing
+    del /Q %OUTPUT_PATH%\%%f\*.md > nul 2>&1
+
     :: Delete local $.display components
     del /Q /S %OUTPUT_PATH%\%%f\$**.display > nul 2>&1
 

@@ -23,7 +23,7 @@ const getWebPath  = (absPath, fixSlash = true) => {
 // Add the index file
 let content;
 let globalObj = null;
-async function addIndexFile(file, host){
+async function addIndexFile(file, host, serviceName){
     // Get path (host relative)
     let pathname = getWebPath(file);
     let url = (lang) => `https://${host}/${lang}${pathname}`;
@@ -49,8 +49,7 @@ async function addIndexFile(file, host){
 
     // Replace meta data
     let title = getTxt("{{?_meta.title}}");
-    let globalTitle = getTxt("{{$_meta.title}}");
-    newContent = newContent.replaceAll("@@title", (title != globalTitle) ? `${title} | ${globalTitle}` : title);
+    newContent = newContent.replaceAll("@@title", `${title} | ${serviceName}`);
     newContent = newContent.replaceAll("@@description", getTxt("{{?_meta.description}}"));
 
     // Replace alternate links
@@ -80,7 +79,7 @@ async function scanDir(dir, source){
             } else {
                 // Add index file
                 if(file.name == "index.display"){
-                    await addIndexFile(filePath, source.web.host);
+                    await addIndexFile(filePath, source.web.host, source.name.long);
                 }
             }
         }     

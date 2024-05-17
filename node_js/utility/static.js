@@ -45,7 +45,7 @@ const addSitemapItem = async (file, host) => {
             href="https://${host}/${lang}${fileURL.replaceAll("\\", "/")}" />`;
     }
     let item = `<url>
-        <loc>https://${host}${fileURL.replaceAll("\\", "/")}</loc>
+        <loc>https://${host}/en${fileURL.replaceAll("\\", "/")}</loc>
         ${alternate(host, fileURL, "ar")}
         ${alternate(host, fileURL, "en")}
         ${alternate(host, fileURL, "he")}

@@ -12,7 +12,7 @@
 
 // Service worker info
 const SERVICE_VERSION = '[[version]]'; // Don't touch this, it's updated automatically!
-const WORKER_VERSION = "A6"; // Update this whenever you make changes to the service worker that may break cache!
+const WORKER_VERSION = "A7"; // Update this whenever you make changes to the service worker that may break cache!
 const DEPLOY_VERSION = SERVICE_VERSION.substring(0, SERVICE_VERSION.lastIndexOf(".")) + "-" + WORKER_VERSION;
 const RESOURCE_CACHE = 'resource-cache-v' + DEPLOY_VERSION; // Used to cache static files
 const CALL_CACHE = 'call-cache-v' + DEPLOY_VERSION; // Used to call API calls (request must include an "x-allow-call-cache" header)
@@ -199,7 +199,8 @@ self.addEventListener('fetch', event => {
                 // Prevent failed responses from being cached
                 // TO-DO:
                 // Responde with offline page if the fetch failed due to a network error
-                if (!fetchResponse || fetchResponse.status !== 200 || fetchResponse.type !== 'basic') {
+                if (!fetchResponse || fetchResponse.status !== 200 || fetchResponse.type !== 'basic' ||
+                    (fetchResponse.url.includes("@secret") || fetchResponse.url.includes("secret@"))) {
                     return fetchResponse;
                 }else if (ENABLE_DYNAMIC_CACHING) {
                     const cache = await caches.open(RESOURCE_CACHE);

@@ -3,11 +3,11 @@ RewriteEngine On
 Options -Indexes
 
 # Set error documents
-ErrorDocument 401 /{{$_lang.code}}/index.php
-ErrorDocument 402 /{{$_lang.code}}/index.php
-ErrorDocument 403 /{{$_lang.code}}/index.php
-ErrorDocument 404 /{{$_lang.code}}/index.php
-ErrorDocument 500 /{{$_lang.code}}/index.php
+ErrorDocument 401 /{{$_lang.code}}/@catch/index.php
+ErrorDocument 402 /{{$_lang.code}}/@catch/index.php
+ErrorDocument 403 /{{$_lang.code}}/@catch/index.php
+ErrorDocument 404 /{{$_lang.code}}/@catch/index.php
+ErrorDocument 500 /{{$_lang.code}}/@catch/index.php
 
 # Remove "index.html" and "index.php" from URL
 RewriteCond %{HTTP:x-display-request} ^$ [OR]
@@ -16,12 +16,5 @@ RewriteCond %{THE_REQUEST} /index\.html [NC]
 RewriteRule ^(.*)index\.html$ /$1 [R=301,L]
 RewriteCond %{THE_REQUEST} /index\.php [NC]
 RewriteRule ^(.*)index\.php$ /$1 [R=301,L]
-
-# Serve the content of one html file for all pages!
-RewriteCond %{HTTP:x-display-request} ^$ [OR]
-RewriteCond %{HTTP:x-display-request} !^.+$
-RewriteCond %{THE_REQUEST} /index\.(html|php) [OR]
-RewriteCond %{REQUEST_URI} /$
-RewriteRule ^(.*)$ /{{$_lang.code}}/index.php [L] 
 
 DirectoryIndex index.php index.html

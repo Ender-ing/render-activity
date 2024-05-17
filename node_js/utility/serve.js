@@ -42,7 +42,6 @@ async function addIndexFile(file, host){
     }catch{
         localObj = {};
     }
-    console.log(localPath, localObj);
 
     // Get content
     let getTxt = (c) => replaceLangExp(c, localObj, globalObj[lang]);

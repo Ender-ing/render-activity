@@ -48,6 +48,10 @@ function createCanonical(){
         canonicalLink = document.getElementById("meta-canonical");
         return createCanonical();
     }
+    if(canonicalLink.detached){
+        document.head.appendChild(canonicalLink);
+        canonicalLink.detached = false;
+    }
 
     // Set link
     // (English is the preferred language)
@@ -61,6 +65,9 @@ let meta = {
     description: null
 };
 export async function addMeta(title, description){
+    if(IS_FIRST_LOAD){
+        return null;
+    }
     // Set meta elements
     if(meta.description == null){
         meta.description = document.getElementById("meta-description");
@@ -84,15 +91,19 @@ export async function addMeta(title, description){
 export const [getIsErrorResult, setIsErrorResult] = createSignal(false);
 export function languageMeta(){
     // Add alternate versions of the page
-    createAlternate("en");
-    createAlternate("he");
-    createAlternate("ar");
+    if(!IS_FIRST_LOAD){
+        createAlternate("en");
+        createAlternate("he");
+        createAlternate("ar");
+    }
 
     // Set page as canonical
     if(!getIsErrorResult()){
-        createCanonical();
-    }else if(canonicalLink != null){
-        canonicalLink.remove();
-        canonicalLink = null;
+        if(!IS_FIRST_LOAD){
+            createCanonical();
+        }
+    }else if(!canonicalLink.detached){
+        canonicalLink.parentNode.removeChild(canonicalLink);
+        canonicalLink.detached = true;
     }
 }

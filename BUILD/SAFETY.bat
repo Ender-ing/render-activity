@@ -35,16 +35,4 @@ set _cv_value_=%ROOTS_PATH%::
 if "!_cv_value_:~18!" EQU "" ( goto _cv_exit_ )
 set _cv_value_=
 
-:: Backup checks (with original names)
-:: if "!MY_VAR:~16!" EQU "" ( goto _cv_exit_ );
-set _cv_value_=Backup_Check
-
-if "!OUTPUT_PATH:~16!" EQU "" ( goto _cv_exit_ );
-
-if "!RESOURCES_PATH:~16!" EQU "" ( goto _cv_exit_ );
-
-if "!BUILD_PATH:~16!" EQU "" ( goto _cv_exit_ );
-
-if "!ROOTS_PATH:~16!" EQU "" ( goto _cv_exit_ );
-
 exit /B 0

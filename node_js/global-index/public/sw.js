@@ -100,10 +100,10 @@ const INSTALL_CACHE_LIST = [
     "/he/index.display",
 ];
 // Add cache version query
-for(let i in INSTALL_CACHE_LIST){
+for (let i in INSTALL_CACHE_LIST) {
     let url = new URL((INSTALL_CACHE_LIST[i].indexOf("://") == -1) ? `https://${self.location.hostname}${INSTALL_CACHE_LIST[i]}` : INSTALL_CACHE_LIST[i]);
     // Only add cache attribute to files, not URL pages!
-    if(shouldAddCacheQuery(url)){
+    if (shouldAddCacheQuery(url)) {
         INSTALL_CACHE_LIST[i] += (INSTALL_CACHE_LIST[i].indexOf("?") == -1) ? "?" : "&";
         INSTALL_CACHE_LIST[i] += `cache=${DEPLOY_VERSION}`;
     }
@@ -115,7 +115,7 @@ ENABLE_DYNAMIC_CACHING = true;
 ENABLE_INSTALL_CAHCE = true;
 
 // Check if URL should include a cache query
-function shouldAddCacheQuery(url){
+function shouldAddCacheQuery(url) {
     return ((url.pathname.indexOf(".") != -1 && url.pathname.indexOf(".config.") == -1) && url.host.endsWith(HOST_BASE));
 }
 
@@ -125,16 +125,16 @@ self.addEventListener('install', event => {
         // Combine skipWaiting() with the cache opening process:
         Promise.all([
             caches.open(RESOURCE_CACHE)
-                    .then(cache => {
-                        if(ENABLE_INSTALL_CAHCE){
-                            cache.addAll(INSTALL_CACHE_LIST);
-                            try{
-                                cache.addAll(INSTALL_PAGE_CACHE_LIST);
-                            }catch{}
-                        }
-                    }),
-                self.skipWaiting() // Activate the new service worker immediately
-            ])
+                .then(cache => {
+                    if (ENABLE_INSTALL_CAHCE) {
+                        cache.addAll(INSTALL_CACHE_LIST);
+                        try {
+                            cache.addAll(INSTALL_PAGE_CACHE_LIST);
+                        } catch { }
+                    }
+                }),
+            self.skipWaiting() // Activate the new service worker immediately
+        ])
     );
 });
 
@@ -146,27 +146,28 @@ self.addEventListener('activate', async event => {
     // Delete all old caches
     const cacheNames = await caches.keys();
     let cacheDeleted = false;
-    for (let i = 0; i < cacheNames.length; i++){
-        if(!CACHE_ALLOWLIST.includes(cacheNames[i])){
+    for (let i = 0; i < cacheNames.length; i++) {
+        if (!CACHE_ALLOWLIST.includes(cacheNames[i])) {
             await caches.delete(cacheNames[i]);
             cacheDeleted = true;
         }
     }
     // Reload all tabs (to ensure no old cache is used in the page)
-    if(cacheDeleted){
+    if (cacheDeleted) {
         // Get all tabs
-        const tabs = await self.clients.matchAll({type: 'window'})
+        const tabs = await self.clients.matchAll({ type: 'window' })
         tabs.forEach((tab) => {
             // Refresh each one of them
             tab.navigate(tab.url);
-        });    
+        });
     }
 });
 
 // Check if request should be cached
-function shouldCache(url){
-    return CACHE_EXTENSIONS.some(ext => url.pathname.endsWith(ext)) ||
-            url.pathname.endsWith("/");
+function shouldCache(url) {
+    return ENABLE_DYNAMIC_CACHING
+        && (CACHE_EXTENSIONS.some(ext => url.pathname.endsWith(ext)) || url.pathname.endsWith("/"))
+        && !(fetchResponse.url.includes("@secret") || fetchResponse.url.includes("secret@"));
 }
 
 // Fetch Event: Dynamic Caching + Network-First Strategy
@@ -174,7 +175,7 @@ self.addEventListener('fetch', event => {
     // Make a new request with the ?cache query
     const requestUrl = new URL(event.request.url);
     // Only add cache attribute to files, not URL pages!
-    if(shouldAddCacheQuery(requestUrl)){
+    if (shouldAddCacheQuery(requestUrl)) {
         requestUrl.searchParams.append("cache", DEPLOY_VERSION);
     }
     const newRequest = new Request(requestUrl, {
@@ -192,23 +193,22 @@ self.addEventListener('fetch', event => {
     if (shouldCache(requestUrl)) {
         event.respondWith((async () => {
             let cacheResponse = await caches.match(newRequest, { ignoreVary: true }); // Check for the file in the cache
-            if(cacheResponse){
+            if (cacheResponse) {
                 return cacheResponse;
-            }else{
+            } else {
                 let fetchResponse = await fetch(newRequest);
                 // Prevent failed responses from being cached
                 // TO-DO:
                 // Responde with offline page if the fetch failed due to a network error
-                if (!fetchResponse || fetchResponse.status !== 200 || fetchResponse.type !== 'basic' ||
-                    (fetchResponse.url.includes("@secret") || fetchResponse.url.includes("secret@"))) {
+                if (!fetchResponse || fetchResponse.status !== 200 || fetchResponse.type !== 'basic') {
                     return fetchResponse;
-                }else if (ENABLE_DYNAMIC_CACHING) {
+                } else {
                     const cache = await caches.open(RESOURCE_CACHE);
                     await cache.put(newRequest, fetchResponse.clone());
                     // Cache index.html file for .display directories
-                    if(requestUrl.pathname.endsWith("index.display")){
+                    if (requestUrl.pathname.endsWith("index.display")) {
                         let htmlURL = requestUrl.href.substring(0, requestUrl.href.indexOf("index.display"));
-                        if(!(await caches.match(htmlURL))){
+                        if (!(await caches.match(htmlURL))) {
                             cache.add(htmlURL);
                         }
                     }

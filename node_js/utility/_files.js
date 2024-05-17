@@ -110,7 +110,7 @@ async function latestDirFileMod(path) {
         if (!file.isDirectory()) { // Skip directories
             const filePath = pathM.join(path, file.name);
             const stats = await getFileStats(filePath);
-  
+
             if (latestModified === null || stats.mtimeMs > latestModified.getTime()) {
                 latestModified = stats.mtime;
             }

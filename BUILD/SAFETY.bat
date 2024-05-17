@@ -45,3 +45,5 @@ if "!RESOURCES_PATH:~16!" EQU "" ( goto _cv_exit_ );
 if "!BUILD_PATH:~16!" EQU "" ( goto _cv_exit_ );
 
 if "!ROOTS_PATH:~16!" EQU "" ( goto _cv_exit_ );
+
+exit /B 0

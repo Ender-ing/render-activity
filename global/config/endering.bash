@@ -46,7 +46,7 @@ if [ "$1" == "help" ]; then
     printf "\t%-18s %s\n" "*clean-records" "Clean up record files (Only use when sure!)"
     printf "\t%-18s %s\n" "fix-perms" "Fix files permissions"
     echo -e "\n Quick commands:"
-    printf "\t%-18s %s\n" "web" "(get & fix-perms & cache)"
+    printf "\t%-18s %s\n" "web" "(get & cache)"
     echo -e "\n"
     echo "(Do not spam these commands!)"
 elif [ "$1" == "get" ]; then
@@ -57,6 +57,8 @@ elif [ "$1" == "get" ]; then
     wait $pid
     # Fix command permissions (keep this here, to prevent access lockout!)
     chmod +x $cmd
+    # Fix all permissions
+    $cmd fix-perms
 elif [ "$1" == "commit" ]; then
     # Fix file ending
     git config --global core.autocrlf input
@@ -143,7 +145,6 @@ elif [ "$1" == "fix-perms" ]; then
 elif [ "$1" == "web" ]; then
     # Update files and purge cache
     $cmd get
-    $cmd fix-perms
     $cmd cache
 else
     echo "Invalid command! Use the command '(endering) help' to see valid commands."

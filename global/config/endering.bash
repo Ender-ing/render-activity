@@ -44,6 +44,7 @@ if [ "$1" == "help" ]; then
     echo -e "\n Maintenance commands:"
     printf "\t%-18s %s\n" "clean" "Clean up unnecessary files (e.g. logs, backups)"
     printf "\t%-18s %s\n" "*clean-records" "Clean up record files (Only use when sure!)"
+    printf "\t%-18s %s\n" "fix-perms" "Fix files permissions"
     echo -e "\n Quick commands:"
     printf "\t%-18s %s\n" "web" "(get & cache)"
     echo -e "\n"
@@ -54,7 +55,7 @@ elif [ "$1" == "get" ]; then
     # Pull latest changes
     git pull & pid=$!  # Store the process ID of the git pull command
     wait $pid
-    # Fix command permissions
+    # Fix command permissions (keep this here, to prevent access lockout!)
     chmod +x $cmd
 elif [ "$1" == "commit" ]; then
     # Fix file ending
@@ -120,21 +121,31 @@ elif [ "$1" == "unblock" ]; then
 elif [ "$1" == "clean" ]; then
     # Delete log files
     # Note: never delete *.custom_record files using this command
+    echo "Deleting logs..."
     find ~/. -name "*.custom_log" -type f -delete
     find ~/. -name "error_log" -type f -delete
     # Delete backups
+    echo "Deleting backups..."
     find ~/. -name "backup-*.tar.gz" -type f -delete
     # Empty temporary directory
+    echo "Emptying temporary directory..."
     rm -rf ~/tmp/*
 elif [ "$1" == "clean-records" ]; then
     # Delete record log files
+    echo "Deleting record logs..."
     find ~/. -name "*.custom_record" -type f -delete
+elif [ "$1" == "fix-perms" ]; then
+    # Fix files permissions
+    echo "Fixing $cmd..."
+    chmod +x $cmd
+    echo "Fixing ~/.htpasswd..."
+    chmod 644 ~/.htpasswd
 elif [ "$1" == "web" ]; then
     # Update files and purge cache
     $cmd get
     $cmd cache
 else
-    echo "Invalid command! Use the command 'endering help' to see valid commands."
+    echo "Invalid command! Use the command '(endering) help' to see valid commands."
 fi
 
 

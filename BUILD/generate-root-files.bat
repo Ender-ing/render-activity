@@ -1,7 +1,7 @@
 @echo off
 
 :: This file is meant to handle all brand-related assets generation and server configuration files
-echo [44;45m Generating branding assets... [0m
+echo [44;45m Generating root files... [0m
 
 :: Get environment variables
 FOR /F "tokens=*" %%i in (../.secret.env) do SET %%i
@@ -30,8 +30,8 @@ for /D %%f in (*) do (
     CMD "Running Backup" /C "node %BUILD_PATH%\node_js\utility\manifest.js %RESOURCES_PATH%\web\client\@vite\manifest.jsonc %OUTPUT_PATH%\%%f\gen.info.json %OUTPUT_PATH%\%%f\manifest.webmanifest"
 
     :: Generate index file
-    CMD "Running Backup" /C "node %BUILD_PATH%\node_js\utility\variables.js %RESOURCES_PATH%\web\client\@vite\index.php.html %OUTPUT_PATH%\%%f\gen.info.json %OUTPUT_PATH%\%%f\index.php"
-    CMD "Running Backup" /C "node %BUILD_PATH%\node_js\utility\locale_expression.js %OUTPUT_PATH%\%%f\index.php %OUTPUT_PATH%\%%f %BUILD_PATH%"
+    CMD "Running Backup" /C "node %BUILD_PATH%\node_js\utility\variables.js %RESOURCES_PATH%\web\client\@vite\index.php.html %OUTPUT_PATH%\%%f\gen.info.json %OUTPUT_PATH%\%%f\gen.index.php"
+    CMD "Running Backup" /C "node %BUILD_PATH%\node_js\utility\serve.js %OUTPUT_PATH%\%%f %OUTPUT_PATH%\%%f\gen.index.php %OUTPUT_PATH%\%%f\gen.info.json %BUILD_PATH%"
 
     :: Generate service worker
     CMD "Running Backup" /C "node %BUILD_PATH%\node_js\utility\variables.js %RESOURCES_PATH%\web\client\@vite\sw.js %OUTPUT_PATH%\%%f\gen.info.json %OUTPUT_PATH%\%%f\sw.js"

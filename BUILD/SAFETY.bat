@@ -16,26 +16,27 @@ exit /B 1
 
 :: You may use this code to check the value of a variable
 :: set _cv_value_=%MY_VAR%
-:: if "!_cv_value_:~16!" EQU "" ( goto _cv_exit_ )
+:: if "!_cv_value_:~18!" EQU "" ( goto _cv_exit_ )
 :: set _cv_value_=
 
-set _cv_value_=%OUTPUT_PATH%::Err
-if "!_cv_value_:~16!" EQU "" ( goto _cv_exit_ )
+set _cv_value_=%OUTPUT_PATH%::
+if "!_cv_value_:~18!" EQU "" ( goto _cv_exit_ )
 set _cv_value_=
 
-set _cv_value_=%RESOURCES_PATH%::Err
-if "!_cv_value_:~16!" EQU "" ( goto _cv_exit_ )
+set _cv_value_=%RESOURCES_PATH%::
+if "!_cv_value_:~18!" EQU "" ( goto _cv_exit_ )
 set _cv_value_=
 
-set _cv_value_=%BUILD_PATH%::Err
-if "!_cv_value_:~16!" EQU "" ( goto _cv_exit_ )
+set _cv_value_=%BUILD_PATH%::
+if "!_cv_value_:~18!" EQU "" ( goto _cv_exit_ )
 set _cv_value_=
 
-set _cv_value_=%ROOTS_PATH%::Err
-if "!_cv_value_:~16!" EQU "" ( goto _cv_exit_ )
+set _cv_value_=%ROOTS_PATH%::
+if "!_cv_value_:~18!" EQU "" ( goto _cv_exit_ )
 set _cv_value_=
 
 :: Backup checks (with original names)
+:: if "!MY_VAR:~16!" EQU "" ( goto _cv_exit_ );
 set _cv_value_=Backup_Check
 
 if "!OUTPUT_PATH:~16!" EQU "" ( goto _cv_exit_ );

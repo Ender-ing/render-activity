@@ -74,6 +74,7 @@ function _writeContent(path, content){
     });
 }
 
+// Copy a file
 function copyFile(src, dest){
     return new Promise(function(resolve, reject) {
         fs.copyFile(src, dest, (err) => {
@@ -89,6 +90,17 @@ function copyFile(src, dest){
 // Delete a file
 async function deleteFile(path){
     await fs.unlinkSync(path);
+}
+
+// Check if a file path is correct
+async function fileExists(path){
+    try {
+        const normalizedPath = pathM.normalize(path); // Normalize path
+        await fs.promises.access(normalizedPath, fs.constants.F_OK); // Check file existence
+        return true;
+    } catch (err) {
+        return false;
+    }
 }
 
 // Get the latest modification time of all files within a directory
@@ -144,6 +156,7 @@ module.exports = {
     _writeContent,
     copyFile,
     deleteFile,
+    fileExists,
     getJSON,
     _getJSON,
     deleteEmptyFolders

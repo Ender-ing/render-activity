@@ -26,6 +26,18 @@ function replaceVars(source, content){
     });
 }
 
+// Replace placeholder variables
+function replacePlaceholder(content, key, value){
+    return content.replaceAll(/\@\@([\w\-]+)/g, function(match, placeholder){
+        if(placeholder == key){
+            return value;
+        }else{
+            return `@@${placeholder}`;
+        }
+    });
+}
+
 module.exports = {
-    replaceVars
+    replaceVars,
+    replacePlaceholder
 };

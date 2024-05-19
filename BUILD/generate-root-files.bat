@@ -43,7 +43,10 @@ for /D %%f in (*) do (
     CMD "Running Backup" /C "node %BUILD_PATH%\node_js\utility\serve.js %OUTPUT_PATH%\%%f %OUTPUT_PATH%\%%f\gen.index.php %OUTPUT_PATH%\%%f\gen.info.json %BUILD_PATH%"
 
     :: Generate service worker
-    CMD "Running Backup" /C "node %BUILD_PATH%\node_js\utility\variables.js %RESOURCES_PATH%\web\client\@vite\sw.js %OUTPUT_PATH%\%%f\gen.info.json %OUTPUT_PATH%\%%f\sw.js"
+    REM CMD "Running Backup" /C "node %BUILD_PATH%\node_js\utility\variables.js %RESOURCES_PATH%\web\client\@vite\sw.js %OUTPUT_PATH%\%%f\gen.info.json %OUTPUT_PATH%\%%f\sw.js"
+    REM ^ you may reuse this line if you needed to use gen.info.json data! ^
+    copy %RESOURCES_PATH%\web\client\@vite\sw.js %OUTPUT_PATH%\%%f\sw.js
+    CMD "Running Backup" /C "node %BUILD_PATH%\node_js\utility\placeholder.js %OUTPUT_PATH%\%%f\sw.js %OUTPUT_PATH%\%%f\gen.version.txt version"
 
     :: Generate robots.txt
     CMD "Running Backup" /C "node %BUILD_PATH%\node_js\utility\variables.js %BUILD_PATH%\global\robots.txt %OUTPUT_PATH%\%%f\gen.info.json %OUTPUT_PATH%\%%f\robots.txt"

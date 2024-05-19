@@ -1,0 +1,166 @@
+{
+    "$global_ignore": [
+        "gen.version.txt",
+        "*.md"
+    ],
+    "$default": {
+        "hash": null,
+        "ignore": [],
+        "version": {
+            "major": 0,
+            "minor": 0,
+            "patch": 0
+        },
+        "auto": true
+    },
+    "account": {
+        "hash": "8e12af5b8bc11c796500164117d86039ef4f660b60cafc7b85ba56c2b6461f93",
+        "ignore": [],
+        "version": {
+            "major": 0,
+            "minor": 0,
+            "patch": 1
+        },
+        "auto": true
+    },
+    "authority": {
+        "hash": "6d2e30186a4c48a7071e7ad125027966d4e541c689e70073937c0e2e8e87b35a",
+        "ignore": [],
+        "version": {
+            "major": 0,
+            "minor": 0,
+            "patch": 1
+        },
+        "auto": true
+    },
+    "chat": {
+        "hash": "1b575093528d445ba900ac4526f5be67bf908a8384029061b4c829755685ad9b",
+        "ignore": [],
+        "version": {
+            "major": 0,
+            "minor": 0,
+            "patch": 1
+        },
+        "auto": true
+    },
+    "crew": {
+        "hash": "7d629ea607d4646008fb568efad571f6407feddbef8d26dcd4d243ef155de1ad",
+        "ignore": [],
+        "version": {
+            "major": 0,
+            "minor": 0,
+            "patch": 1
+        },
+        "auto": true
+    },
+    "docs": {
+        "hash": "303f477c20cf80b95f2722c90a75d330a18df4184b2536fb3f2651ba37a8025d",
+        "ignore": [],
+        "version": {
+            "major": 0,
+            "minor": 0,
+            "patch": 1
+        },
+        "auto": true
+    },
+    "email": {
+        "hash": "c8b237479098da6d4b598583d596ddd78969af2ffa103a80e6e480ae2bae9498",
+        "ignore": [],
+        "version": {
+            "major": 0,
+            "minor": 0,
+            "patch": 1
+        },
+        "auto": true
+    },
+    "links": {
+        "hash": "10194b3e7fc9762bd4b536edef8caefb94682c2c118b670ad1398452b4cb2115",
+        "ignore": [],
+        "version": {
+            "major": 0,
+            "minor": 0,
+            "patch": 1
+        },
+        "auto": true
+    },
+    "mta-sts": {
+        "hash": "4913169d7981bef84fd44f93293e9681c4876a2d3fa39363389a017d0477110d",
+        "ignore": [],
+        "version": {
+            "major": 0,
+            "minor": 0,
+            "patch": 1
+        },
+        "auto": true
+    },
+    "omni": {
+        "hash": "6f4f36e7a0f0bdd903fb17ea01fa028c88c16fe342f7832c82bb027d49e76d59",
+        "ignore": [],
+        "version": {
+            "major": 0,
+            "minor": 0,
+            "patch": 1
+        },
+        "auto": true
+    },
+    "public_html": {
+        "hash": "3002a5f604a08914fd7c35b8d140b92495a5951bbb0db5243d50899e51ee8c44",
+        "ignore": [],
+        "version": {
+            "major": 0,
+            "minor": 0,
+            "patch": 1
+        },
+        "auto": true
+    },
+    "resources": {
+        "hash": "bee24810553176a365b2d0a16f2e86ffafa299872cd6eea19a4ba31cc335c0c8",
+        "ignore": [],
+        "version": {
+            "major": 0,
+            "minor": 0,
+            "patch": 1
+        },
+        "auto": true
+    },
+    "sites": {
+        "hash": "20ac60272e8ecf8c9b3c80f4e77bf202f28a6096b84a21765d7308381cae5fca",
+        "ignore": [],
+        "version": {
+            "major": 0,
+            "minor": 0,
+            "patch": 1
+        },
+        "auto": true
+    },
+    "terminal": {
+        "hash": "3f6cc6e8984400a00e424cf6ca82315a1c29a67acdad2935458cb09a446e534e",
+        "ignore": [],
+        "version": {
+            "major": 0,
+            "minor": 0,
+            "patch": 1
+        },
+        "auto": true
+    },
+    "test": {
+        "hash": "f8943c8c1cf7ec16d8b7bc5b2be5daf94e83f5da2cfc7348abaf899a8d5f9f7e",
+        "ignore": [],
+        "version": {
+            "major": 0,
+            "minor": 0,
+            "patch": 1
+        },
+        "auto": true
+    },
+    "tweaker": {
+        "hash": "5049da32ff883b4f1e04d920534f4b36f5e403373e2a28f63a7482e494a9d06b",
+        "ignore": [],
+        "version": {
+            "major": 0,
+            "minor": 0,
+            "patch": 1
+        },
+        "auto": true
+    }
+}

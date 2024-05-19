@@ -3,7 +3,6 @@
         "long": "LONG",
         "short": "SHORT"
     },
-    "version": "0.0.0",
     "web": {
         "host": "sub.ender.ing",
         "sitemap": {

@@ -3,21 +3,37 @@
 :: Exit
 goto local_bat_file
 :local_bat_error
-echo [91m An error occurred white attempting to load environment variables ^(errorlevel: %errorlevel%^, errorTrigger: %errorTrigger%) [0m
+echo [91m An error occurred white attempting to load environment variables ^(errorlevel: %errorlevel%, errorTrigger: %errorTrigger%^) [0m
 exit /B 1
 :local_bat_file
 
 :: Get environment variables
 FOR /F "tokens=*" %%i in (../.secret.env) do SET %%i
-call ./SAFETY.bat || ( set errorTrigger="call" && goto local_bat_error )
+call ../SAFETY.bat || ( set errorTrigger="call" && goto local_bat_error )
 if %errorlevel% NEQ 0 ( set errorTrigger="level" && goto local_bat_error )
 
 :: Check command arguments
 set noStatic=false
+set versionUpdate=true
+set addMajor=0
+set addMinor=0
+set addPatch=0
 
 for /f "tokens=*" %%a in ("%*") do (
     if /i "%%a" == "--no-static" (
         set noStatic=true
+        break
+    ) else if /i "%%a" == "--no-version-update" (
+        set versionUpdate=false
+        break
+    ) else if /i "%%a" == "--major" (
+        set addMajor=1
+        break
+    ) else if /i "%%a" == "--minor" (
+        set addMinor=1
+        break
+    ) else if /i "%%a" == "--patch" (
+        set addPatch=1
         break
     )
 )
@@ -27,6 +43,10 @@ echo [101;93m STARTING BUILDING PROCESS [0m
 
 :: You may use the `INSTALL-DEP.bat` file to install all the needed NodeJS dependencies
 :: INSTALL-DEP.bat
+
+:: Check version status
+:: (Only checks source, will edit source)
+CMD "Running Backup" /C "VERSION.bat %versionUpdate% %addMajor% %addMinor% %addPatch%"
 
 :: Set up temporary git directory
 CMD "Running Backup" /C "GIT.bat"

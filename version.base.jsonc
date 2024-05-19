@@ -1,0 +1,46 @@
+/**
+ *
+ * This is a template of the version.json file.
+ *
+**/
+{
+    // The global ignore list applies to all files and folders in all root directories
+    // It is used to exclude files and folders from directory hash updates
+    // Proper name selectors are as follows
+    // *VALUE        => Any file/folder name that ends with "VALUE"
+    // VALUE*        => Any file/folder name that starts with "VALUE"
+    // *VALUE*       => Any file/folder name that contains "VALUE" (also applies to "VALUE" by itself)
+    // VALUE         => Any file/folder name that matches "VALUE"
+    "$global_ignore": [
+        // This file is ignored because it can trigger an update on every build
+        "gen.version.txt",
+        // Markdown files are ignored because they currently do not affect the generated content
+        "*.md"
+    ],
+    // This is the default directory object
+    // It is used to generate a directory object for any newly added root directories
+    "$default": {
+        // The hash value of the directory (its contents)
+        "hash": null,
+        // The hash files/folders ignore list for the directory
+        // (same selector as the global ignore list)
+        "ignore": [],
+        // Version info
+        "version": {
+            // (unlimited range)
+            // Updated when major/important updated are detected
+            // Updated on minor-version overflow
+            "major": 0,
+            // (0-99)
+            // Updated when normal/minor updates are detected
+            // Updated on patch-version overflow
+            "minor": 0,
+            // (0-99)
+            // Updated when small patches are made
+            // Updated if the version increase was triggered automatically (command-invoked)
+            "patch": 0
+        },
+        // Decide if you allow automatic version increase
+        "auto": true
+    }
+}

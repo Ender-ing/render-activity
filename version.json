@@ -134,12 +134,12 @@
         "auto": true
     },
     "terminal": {
-        "hash": "3f6cc6e8984400a00e424cf6ca82315a1c29a67acdad2935458cb09a446e534e",
+        "hash": "b119d5b3edabe71aca0a705b2d69fea70eb4b49a1a1372d48fc470e1929841bc",
         "ignore": [],
         "version": {
             "major": 0,
             "minor": 0,
-            "patch": 1
+            "patch": 2
         },
         "auto": true
     },

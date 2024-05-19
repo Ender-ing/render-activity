@@ -2,6 +2,7 @@
 setlocal enabledelayedexpansion
 
 :: Handle environment variables checks
+:: ALWAYS USE THIS FILE WHEN YOU TRY TO USE ENVIRONMENT VARIABLES!
 
 :: Skip exit
 goto _cv_content_

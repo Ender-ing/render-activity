@@ -4,6 +4,7 @@
  * 
 **/
 
+const { error } = require('console');
 const fs = require('fs');
 const pathM = require('path');
 
@@ -65,7 +66,7 @@ function _writeContent(path, content){
         fs.mkdir(pathM.dirname(path), { recursive: true}, async function (err) {
             if (err) {
                 reject(err);
-                throw err;
+                error(err);
             }    
             let r = await fs.writeFileSync(path, content);
             resolve(r);
@@ -78,7 +79,7 @@ function copyFile(src, dest){
         fs.copyFile(src, dest, (err) => {
             if (err) {
                 reject(err);
-                throw err;
+                error(err);
             }
             resolve(null);
         });

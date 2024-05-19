@@ -5,6 +5,7 @@
 **/
 
 const { DOMParser, XMLSerializer } = require('@xmldom/xmldom');
+const { error } = require('./_console');
 
 // Create a DOM context
 const parser = new DOMParser();
@@ -15,7 +16,7 @@ function createXMLDOM(xmlString){
 
 // Throw a local component error
 function throwComponentError(text, path){
-    throw new Error(`DISPLAY Local Component Error: ${text} (in ${path})`);
+    error(`DISPLAY Local Component Error: ${text} (in ${path})`);
 }
 
 // Process attribute command
@@ -68,7 +69,6 @@ function replaceLocalComponent(components, path, tag, attributes, content = null
     return serializer.serializeToString(xmlDom);
 }
 function injectLocalComponents(path, xmlString, components){
-    // console.log(components);
     let newContent = xmlString;
     // Replace local <$> components tags
     newContent = newContent.replaceAll(/<(\$[\w\-]+)([^>]*?)\/>/gis, function(match, tag, attributes){

@@ -4,6 +4,7 @@
  * 
 **/
 
+const { warn } = require("./_console");
 const { _p, _writeContent, deleteFile, _getJSON } = require("./_files");
 
 // Get JSON value by string
@@ -103,15 +104,15 @@ async function getLocaleObject(path){
         he: await _getJSON(_p.join(path, "he.locale")) || null
     };
     if(r.ar == null){
-        console.warn(`Empty locale file detected! (in ${path} => ar.locale)`);
+        warn(`Empty locale file detected! (in ${path} => ar.locale)`);
         r.ar = {};
     }
     if(r.he == null){
-        console.warn(`Empty locale file detected! (in ${path} => he.locale)`);
+        warn(`Empty locale file detected! (in ${path} => he.locale)`);
         r.he = {};
     }
     if(r.en == null){
-        console.warn(`Empty locale file detected! (in ${path} => en.locale)`);
+        warn(`Empty locale file detected! (in ${path} => en.locale)`);
         r.en = {};
     }
     return r;

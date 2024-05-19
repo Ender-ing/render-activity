@@ -4,6 +4,7 @@
     "@rollup/plugin-node-resolve": "^15.2.3",
     "@xmldom/xmldom": "^0.8.10",
     "clean-css": "^5.3.3",
+    "colors": "^1.4.0",
     "fs": "^0.0.1-security",
     "icon-gen": "^4.0.0",
     "minify-xml": "^4.4.1",

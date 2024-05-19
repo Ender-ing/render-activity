@@ -8,6 +8,7 @@
 
 // Get file-system functions
 const { arg1, arg2 } = require('./_args');
+const { log, error } = require('./_console');
 
 // Get icon-gen module
 const icongen = require('icon-gen');
@@ -24,10 +25,10 @@ function generateIcons() {
         }
     })
         .then((results) => {
-            console.log(results)
+            log(results)
         })
         .catch((err) => {
-            console.error(err)
+            error(err)
         })
 }
 

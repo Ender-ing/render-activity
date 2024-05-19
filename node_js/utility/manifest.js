@@ -7,19 +7,19 @@
 // node manifest.js <input_path> <source_path> <output_path>
 
 // Get file-system functions
-const { path, path2, path3, getContent, writeContent, getJSON } = require('./_files');
+const { arg1, arg2, arg3 } = require('./_args');
+const { getContent, writeContent, getJSON } = require('./_files');
 const { replaceVars } = require('./_replace_variables');
 const jsonMinify = require('node-json-minify');
 
-
 async function generateManifest(){
-    let source = await getJSON(path2);
+    let source = await getJSON(arg2);
 
-    let content = jsonMinify(await getContent(path));
+    let content = jsonMinify(await getContent(arg1));
 
     content = replaceVars(source, content);
     
-    writeContent(path3, content);
+    writeContent(arg3, content);
 }
 
 generateManifest();

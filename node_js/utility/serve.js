@@ -7,13 +7,14 @@
 // node serve.js <source_path> <input_path> <info_path> <build_path>
 
 // Get file-system functions
-const { path, path2, path3, path4, getJSON, _p, readDirCon, getContent, writeContent } = require('./_files');
+const { arg1, arg2, arg3, arg4 } = require('./_args');
+const { getJSON, _p, readDirCon, getContent, writeContent } = require('./_files');
 const { writeContentMultiLang, replaceLangExp } = require('./_lang');
 
 // Get relative web path
 const getWebPath  = (absPath, fixSlash = true) => {
     let webPath = absPath.replace("index.display", "");
-    webPath = webPath.replace(path, "");
+    webPath = webPath.replace(arg1, "");
     if(fixSlash){
         webPath = webPath.replaceAll("\\", "/");
     }
@@ -62,7 +63,6 @@ async function addIndexFile(file, host, serviceName){
 
     // Generate index
     await writeContent(file.replace("index.display", "index.php"), newContent);
-    // await writeContentMultiLang(path, path2, newContent, path4, false);
 }
 
 // Scan through a directory recursively
@@ -89,7 +89,7 @@ async function scanDir(dir, source){
 // Process the static directory files
 async function processStatic(){
     // Set source data
-    let source = await getJSON(path3);
+    let source = await getJSON(arg3);
 
     // Get global langauge objects
     globalObj = {
@@ -97,15 +97,15 @@ async function processStatic(){
         en: null,
         he: null
     };
-    globalObj.ar = await getJSON(_p.join(path4, "global", "locale", "ar.locale"));
-    globalObj.en = await getJSON(_p.join(path4, "global", "locale", "en.locale"));
-    globalObj.he = await getJSON(_p.join(path4, "global", "locale", "he.locale"));
+    globalObj.ar = await getJSON(_p.join(arg4, "global", "locale", "ar.locale"));
+    globalObj.en = await getJSON(_p.join(arg4, "global", "locale", "en.locale"));
+    globalObj.he = await getJSON(_p.join(arg4, "global", "locale", "he.locale"));
 
     // Get index content
-    content = await getContent(path2);
+    content = await getContent(arg2);
 
     // Start scan
-    await scanDir(path, source);
+    await scanDir(arg1, source);
 }
 
 processStatic();

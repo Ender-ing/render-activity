@@ -6,6 +6,7 @@
 
 // delete_empty.js <input_path>
 
-const { deleteEmptyFolders, path } = require("./_files");
+const { arg1 } = require("./_args");
+const { deleteEmptyFolders } = require("./_files");
 
-deleteEmptyFolders(path);
+deleteEmptyFolders(arg1);

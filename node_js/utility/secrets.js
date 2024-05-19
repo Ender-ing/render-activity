@@ -7,7 +7,8 @@
 // node secrets.js <input_path> <build_path>
 
 // Get file-system functions
-const { path, path2, _p, readDirCon, copyFile } = require('./_files');
+const { arg1, arg2 } = require('./_args');
+const { _p, readDirCon, copyFile } = require('./_files');
 
 // Scan through a directory recursively
 async function scanDir(dir, source, base, components = {}){
@@ -21,7 +22,7 @@ async function scanDir(dir, source, base, components = {}){
             if (file.isDirectory()) {
                 // secure "secret" directories!
                 if(file.name.indexOf("@secret") != -1 || file.name.indexOf("secret@") != -1){
-                    await copyFile(_p.join(path2, "global", "private.htaccess"), _p.join(filePath, ".htaccess"));
+                    await copyFile(_p.join(arg2, "global", "private.htaccess"), _p.join(filePath, ".htaccess"));
                 }
                 // Search sub-directories
                 await scanDir(filePath, source, base, compRep);
@@ -33,7 +34,7 @@ async function scanDir(dir, source, base, components = {}){
 // Process the @secret@ directories
 async function processSecret(){
     // Start scan
-    await scanDir(path, {}, path);
+    await scanDir(arg1, {}, arg1);
 }
 
 processSecret();

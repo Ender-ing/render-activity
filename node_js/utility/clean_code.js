@@ -7,7 +7,8 @@
 // node clean_code.js <path>
 
 // Get file-system functions
-const { path, getContent, writeContent } = require('./_files');
+const { arg1 } = require('./_args');
+const { getContent, writeContent } = require('./_files');
 
 // Clean comments
 function cleanComments(code) {
@@ -123,4 +124,4 @@ async function cleanupContent(path){
 }
 
 // Cleanup code!
-cleanupContent(path);
+cleanupContent(arg1);

@@ -7,13 +7,13 @@
 // node icons.js <input_path> <output_path>
 
 // Get file-system functions
-const { path, path2 } = require('./_files');
+const { arg1, arg2 } = require('./_args');
 
 // Get icon-gen module
 const icongen = require('icon-gen');
 
 function generateIcons() {
-    icongen(path, path2, {
+    icongen(arg1, arg2, {
         report: false,
         ico: {},
         icns: {},

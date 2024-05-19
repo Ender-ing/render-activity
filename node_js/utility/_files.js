@@ -7,15 +7,6 @@
 const fs = require('fs');
 const pathM = require('path');
 
-//var p = require('path');
-// p.join <Function>
-
-// Get input/output paths
-const path = process.argv[2];
-const path2 = process.argv[3];
-const path3 = process.argv[4];
-const path4 = process.argv[5];
-
 // Read the contents of a directory
 function readDirCon(path){
     return new Promise((resolve, reject) => {
@@ -145,10 +136,6 @@ function deleteEmptyFolders(dirPath) {
 
 module.exports = {
     _p: pathM,
-    path,
-    path2,
-    path3,
-    path4,
     readDirCon,
     latestDirFileMod,
     getContent,

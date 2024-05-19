@@ -7,13 +7,14 @@
 // node static.js <input_path> <original_path> <source_path> <build_path>
 
 // Get file-system functions
-const { path, path2, path3, path4, writeContent, getJSON, _p, readDirCon, latestDirFileMod, getContent, copyFile } = require('./_files');
+const { arg1, arg2, arg3, arg4 } = require('./_args');
+const { writeContent, getJSON, _p, readDirCon, latestDirFileMod, getContent, copyFile } = require('./_files');
 const { compressXML, compressJSON, _compressXML, replaceFileVars, compressDisplay } = require('./_compress');
 
 // Get relative web path
 const getWebPath  = (absPath, fixSlash = true) => {
     let webPath = absPath.replace("index.display", "");
-    webPath = webPath.replace(path, "");
+    webPath = webPath.replace(arg1, "");
     if(fixSlash){
         webPath = webPath.replaceAll("\\", "/");
     }
@@ -34,7 +35,7 @@ const addSitemapItem = async (file, host) => {
     // Get path (host relative)
     let fileURL = getWebPath(file, false);
     // Get original file last mod date
-    let originalPath = _p.join(path2, fileURL);
+    let originalPath = _p.join(arg2, fileURL);
     let originalLastMod = await latestDirFileMod(originalPath);
     originalLastMod = (originalLastMod || new Date()).toLocaleDateString('zh-CN', { day: '2-digit', month: '2-digit', year: 'numeric' }).replace(/\//g, '-'); // YYYY-MM-DD
     // Make a sitemap item
@@ -65,7 +66,7 @@ async function writeSitmap(){
     let xmlSitemap = sitemapWrap(sitemapItems);
     xmlSitemap = await _compressXML(xmlSitemap);
     // Write sitemap.xml
-    await writeContent(_p.join(path, "sitemap.xml"), xmlSitemap);
+    await writeContent(_p.join(arg1, "sitemap.xml"), xmlSitemap);
 }
 
 // Check file type and comnpress its contents
@@ -78,7 +79,7 @@ async function compressFileContents(basePath, fullPath, fileName, source, compon
             components[fileName.substring(1, fileName.indexOf(".display"))] = await getContent(fullPath);
         }else{
             // Compress display file
-            await compressDisplay(path4, basePath, fullPath, source, components);
+            await compressDisplay(arg4, basePath, fullPath, source, components);
         }
     }else if(fileName.indexOf(".json") != -1){
         await compressJSON(fullPath, source);
@@ -129,10 +130,10 @@ async function scanDir(dir, source, base, components = {}){
 // Process the static directory files
 async function processStatic(){
     // Set source data
-    let source = await getJSON(path3);
+    let source = await getJSON(arg3);
 
     // Start scan
-    await scanDir(path, source, path);
+    await scanDir(arg1, source, arg1);
 
     // Generate sitemap
     await writeSitmap();

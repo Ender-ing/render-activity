@@ -12,7 +12,7 @@
 
 // Service worker info
 const SERVICE_VERSION = '@@version'; // Don't touch this, it's updated automatically!
-const WORKER_VERSION = "A9"; // Update this whenever you make changes to the service worker that may break cache!
+const WORKER_VERSION = "AA"; // Update this whenever you make changes to the service worker that may break cache!
 const DEPLOY_VERSION = SERVICE_VERSION.substring(0, SERVICE_VERSION.lastIndexOf(".")) + "-" + WORKER_VERSION;
 const RESOURCE_CACHE = 'resource-cache-v' + DEPLOY_VERSION; // Used to cache static files
 const CALL_CACHE = 'call-cache-v' + DEPLOY_VERSION; // Used to call API calls (request must include an "x-allow-call-cache" header)
@@ -133,7 +133,7 @@ self.addEventListener('install', event => {
                         } catch { }
                     }
                 }),
-            self.skipWaiting() // Activate the new service worker immediately
+                self.skipWaiting() // Activate the new service worker immediately
         ])
     );
 });
@@ -223,7 +223,14 @@ self.addEventListener('fetch', event => {
 
 // Page communication
 self.addEventListener('message', (event) => {
-    if (event.data.type === 'GET-SERVICE-VERSION') {
-        event.ports[0].postMessage(SERVICE_VERSION);
+});
+self.addEventListener('message', event => {
+    const sender = event.source; // Get the sender (client)
+    const message = event.data;  // Get the message data
+
+    // Check message
+    if (message.type === 'GET-SERVICE-VERSION') {
+        sender.postMessage(SERVICE_VERSION);
     }
 });
+  

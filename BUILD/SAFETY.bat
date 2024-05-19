@@ -19,6 +19,8 @@ exit /B 1
 :: if "!_cv_value_:~18!" EQU "" ( goto _cv_exit_ )
 :: set _cv_value_=
 
+:: Check defined variables
+
 set _cv_value_=%OUTPUT_PATH%::
 if "!_cv_value_:~18!" EQU "" ( goto _cv_exit_ )
 set _cv_value_=
@@ -32,6 +34,12 @@ if "!_cv_value_:~18!" EQU "" ( goto _cv_exit_ )
 set _cv_value_=
 
 set _cv_value_=%ROOTS_PATH%::
+if "!_cv_value_:~18!" EQU "" ( goto _cv_exit_ )
+set _cv_value_=
+
+:: Check system variables
+
+set _cv_value_=%TEMP%::
 if "!_cv_value_:~18!" EQU "" ( goto _cv_exit_ )
 set _cv_value_=
 

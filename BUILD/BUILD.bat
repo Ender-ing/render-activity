@@ -28,7 +28,10 @@ echo [101;93m STARTING BUILDING PROCESS [0m
 :: You may use the `INSTALL-DEP.bat` file to install all the needed NodeJS dependencies
 :: INSTALL-DEP.bat
 
-:: Clean up .OUTPUT directory
+:: Set up temporary git directory
+CMD "Running Backup" /C "GIT.bat"
+
+:: Clean up .OUTPUT directory & copy git files
 CMD "Running Backup" /C "CLEANUP.bat"
 
 :: Copy base static files

@@ -8,6 +8,9 @@ FOR /F "tokens=*" %%i in (../.secret.env) do SET %%i
 call ./SAFETY.bat || ( set errorTrigger="call" && goto local_bat_error )
 if %errorlevel% NEQ 0 ( set errorTrigger="level" && goto local_bat_error )
 
+:: Temporary git path
+set TEMP_GIT_PATH=%TEMP%\endering-build-temp-git
+
 :: Attempt to delete the folder
 rmdir /s /q %OUTPUT_PATH% 2>nul
 
@@ -16,30 +19,30 @@ if exist %OUTPUT_PATH% (
     echo Folder deletion failed. Please check permissions or if the folder is in use.
     exit 1
 ) else (
-    :: Create the folder (with .git folder)
-    CMD "Running Backup" /C "git clone git@github.com:Ender-ing/host.git %OUTPUT_PATH%"
+    :: Create directory
+    mkdir %OUTPUT_PATH%
 
     :: Change to the target directory 
-    pushd %OUTPUT_PATH% 
+    pushd %TEMP_GIT_PATH%
 
-    :: Iterate through each folder in the directory
-    for /D %%f in (*) do (
-        :: Only process folders that don't have a dot in their name
-        set name=%%~f
-        IF NOT "!name:~0,1!" == "." (
-            :: Delete folder
-            rd /s /q "%%f"
-        )
+    :: Copy .git folder
+    echo Copying .git directory...
+    xcopy /E /H /C /Y /I .git %OUTPUT_PATH%\.git
+
+    :: Copy root files
+    for %%f in (*) do (
+        echo Copying %%f...
+        copy %TEMP_GIT_PATH%\%%f %OUTPUT_PATH%\%%f
     )
 
     :: Return to the original directory
     popd
 
     :: Check if the folder was created successfully
-    if exist %OUTPUT_PATH% (
+    if exist %OUTPUT_PATH%\.git (
         echo The output folder %OUTPUT_PATH% has been cleaned up successfully!
     ) else (
-        echo Error creating folder. Check permissions or path.
+        echo Error creating output folder. Check permissions or path.
         exit 1
     )
 )

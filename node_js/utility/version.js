@@ -51,17 +51,18 @@ async function dirHash(path, ignore){
         if(shouldIgnore(entry.name, ignore)){
             // Skip this item!
             continue;
-        }
-        // Check item type
-        const fullPath = _p.join(path, entry.name);
-        if (entry.isDirectory()) {
-            // Recursively call for subdirectories
-            const subDirHash = await dirHash(fullPath, ignore);
-            hash.update(subDirHash);
-        } else if (entry.isFile()) {
-            // Read file contents and update hash
-            const fileData = await getContent(fullPath);
-            hash.update(fileData);
+        }else{
+            // Check item type
+            const fullPath = _p.join(path, entry.name);
+            if (entry.isDirectory()) {
+                // Recursively call for subdirectories
+                const subDirHash = await dirHash(fullPath, ignore);
+                hash.update(subDirHash);
+            } else if (entry.isFile()) {
+                // Read file contents and update hash
+                const fileData = await getContent(fullPath);
+                hash.update(fileData);
+            }
         }
     }
   

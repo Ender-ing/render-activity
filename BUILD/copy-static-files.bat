@@ -7,7 +7,7 @@ echo [44;45m Copying root base files... [0m
 :: Exit
 goto local_bat_file
 :local_bat_error
-echo [91m An error occurred white attempting to load environment variables ^(errorlevel: %errorlevel%^, errorTrigger: %errorTrigger%) [0m
+echo [91m An error occurred white attempting to load environment variables ^(errorlevel: %errorlevel%, errorTrigger: %errorTrigger%^) [0m
 exit /B 1
 :local_bat_file
 

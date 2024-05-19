@@ -11,6 +11,16 @@ function log(...args){
     console.log(...args);
 }
 
+// Show informative text
+function info(...args){
+    console.log(args.join("\n").blue);
+}
+
+// Show action text
+function action(...args){
+    console.log(args.join("\n").green);
+}
+
 // Show warnings
 function warn(...args){
     console.warn(args.join("\n").yellow);
@@ -29,6 +39,8 @@ function error(msg){
 
 module.exports = {
     log,
+    info,
+    action,
     warn,
     error
 };

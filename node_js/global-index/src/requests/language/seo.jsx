@@ -5,7 +5,6 @@
 **/
 
 import { createSignal } from "solid-js";
-//import { localiseText } from "./inject";
 
 // Get pure URL
 function getPureURL(lang = null){

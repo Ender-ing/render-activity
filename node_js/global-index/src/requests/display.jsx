@@ -86,14 +86,7 @@ function fetchDisplay(displayURL, pathname, text = false, updateContentPathname 
                 setContentURL(pathname);
             }
             return responseText;
-        })/*.then(async xmlString => {
-            if(!text){
-                let localisedXML = await localiseContent(xmlString);
-                return localisedXML;
-            }else{
-                return xmlString;
-            }
-        })*/.then(xmlString => {
+        }).then(xmlString => {
             if(!text){
                 // Parse the XML string
                 let xmlDoc;

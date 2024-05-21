@@ -1,4 +1,5 @@
 @echo off
+:: This file is meant to run all other .bat files in the .BUILD folder
 
 :: Exit
 goto local_bat_file

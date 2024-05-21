@@ -1,6 +1,6 @@
 @echo off
-
 :: This file is meant to setup the .git temporary directory!
+
 echo [44;45m Creating temporary .git directory... [0m
 
 :: Exit

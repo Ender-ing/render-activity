@@ -1,4 +1,6 @@
 # .bash_profile
+# Web server bash profile!
+
 # Use the command "source ~/.bash_profile" to load this profile
 
 # Get the aliases and functions

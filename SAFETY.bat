@@ -1,5 +1,8 @@
 @echo off
 setlocal enabledelayedexpansion
+:: This file is meant to check all defined variables and used environment variables for safety!
+:: This is meant to make it harder for accedintal data lost to occur due to variables misconfigurations
+:: (Note that this is not fool-proof!)
 
 :: Handle environment variables checks
 :: ALWAYS USE THIS FILE WHEN YOU TRY TO USE ENVIRONMENT VARIABLES!

@@ -1,6 +1,6 @@
 @echo off
-
 :: This file is meant to handle all brand-related assets generation and server configuration files
+
 echo [44;45m Generating root files... [0m
 
 :: Exit

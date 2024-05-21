@@ -1,7 +1,7 @@
 @echo off
 setlocal enabledelayedexpansion
-
 :: This file is meant to check source code for any changes
+
 echo [44;45m Checking source for changes... [0m
 
 :: Exit

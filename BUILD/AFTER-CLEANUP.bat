@@ -1,6 +1,6 @@
 @echo off
-
 :: This file is meant to delete all the files that are not needed on the internet
+
 echo [44;45m Cleaning up OUTPUT root files... [0m
 
 :: Exit

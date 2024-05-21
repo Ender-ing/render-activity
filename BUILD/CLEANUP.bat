@@ -1,7 +1,7 @@
 @echo off
+:: This file is meant to empty the OUTPUT directory!
 
-:: This file is meant to empty the .OUTPUT directory!
-echo [44;45m Cleaning up .OUTPUT directory... [0m
+echo [44;45m Cleaning up OUTPUT directory... [0m
 
 :: Exit
 goto local_bat_file

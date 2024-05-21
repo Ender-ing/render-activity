@@ -1,4 +1,5 @@
 @echo off
+:: This file is meant to delete all generated versioning files from the source!
 
 :: Exit
 goto local_bat_file

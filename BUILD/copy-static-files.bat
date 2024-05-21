@@ -1,7 +1,7 @@
 @echo off
 setlocal enabledelayedexpansion
-
 :: This file is meant to copy all static server files into the .OUTPUT directory
+
 echo [44;45m Copying root base files... [0m
 
 :: Exit

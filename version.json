@@ -64,12 +64,12 @@
         "auto": true
     },
     "email": {
-        "hash": "c8b237479098da6d4b598583d596ddd78969af2ffa103a80e6e480ae2bae9498",
+        "hash": "d2a2665d38b8f1bc8a2519741090950bd6833cd2a7d7da48aa96d33eebaf61cb",
         "ignore": [],
         "version": {
             "major": 0,
             "minor": 0,
-            "patch": 1
+            "patch": 2
         },
         "auto": true
     },
@@ -134,12 +134,12 @@
         "auto": true
     },
     "terminal": {
-        "hash": "bce4950e81d90ff16933bb6e26213fb006ebbcc0dd57493242581f8acc465ac2",
+        "hash": "5bd313fb7e9a4128da033eff5d71b21bf5a60dd00dfe69a9b10a6f60c1b35d30",
         "ignore": [],
         "version": {
             "major": 0,
             "minor": 0,
-            "patch": 10
+            "patch": 11
         },
         "auto": true
     },

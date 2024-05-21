@@ -1,6 +1,6 @@
 @echo off
-
 :: This file is meant to comrpess and minify the raw files used in the material folder
+
 echo [44;45m Compressing raw Material Design assets... [0m
 
 :: Exit

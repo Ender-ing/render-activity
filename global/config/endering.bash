@@ -1,4 +1,5 @@
 #!/bin/bash
+# Web server "endering" command contents!
 
 # Command
 cmd=~/endering.bash

@@ -1,4 +1,5 @@
 @echo off
+:: This file is meant to install all NodeJS modules used by the BUILD command!
 
 cls
 

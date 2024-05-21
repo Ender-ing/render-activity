@@ -54,12 +54,12 @@
         "auto": true
     },
     "docs": {
-        "hash": "1cf91324d929e045d9ca0d168d21fe710cf0764561a9652b22ad98f649253fc3",
+        "hash": "c10edc1c34ff9733e6b11c7613c7c043e25130791743ecf682dfe86b10a9d7e8",
         "ignore": [],
         "version": {
             "major": 0,
             "minor": 0,
-            "patch": 1
+            "patch": 4
         },
         "auto": true
     },
@@ -94,12 +94,12 @@
         "auto": true
     },
     "omni": {
-        "hash": "6f4f36e7a0f0bdd903fb17ea01fa028c88c16fe342f7832c82bb027d49e76d59",
+        "hash": "6b6a9c55c54d4aa5b92ad3a7c16053ed0dbeddc8d090959877ca7f3d950ee5d2",
         "ignore": [],
         "version": {
             "major": 0,
             "minor": 0,
-            "patch": 1
+            "patch": 3
         },
         "auto": true
     },
@@ -134,12 +134,12 @@
         "auto": true
     },
     "terminal": {
-        "hash": "7038e3d073837793f628009929a48993d822b416630e407c1a6bac371cd67457",
+        "hash": "bce4950e81d90ff16933bb6e26213fb006ebbcc0dd57493242581f8acc465ac2",
         "ignore": [],
         "version": {
             "major": 0,
             "minor": 0,
-            "patch": 7
+            "patch": 10
         },
         "auto": true
     },

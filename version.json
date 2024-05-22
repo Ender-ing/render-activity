@@ -54,12 +54,12 @@
         "auto": true
     },
     "docs": {
-        "hash": "ed0eb05d81a3f732d603f3f2a4ad2f06c81f68078c480e7614307a34f4c966f7",
+        "hash": "5e308ddbfc4d3e3e536f41fc8730ade4320acc7f969980f089d35f3176bec4b6",
         "ignore": [],
         "version": {
             "major": 0,
             "minor": 0,
-            "patch": 5
+            "patch": 6
         },
         "auto": true
     },
@@ -94,12 +94,12 @@
         "auto": true
     },
     "omni": {
-        "hash": "6b6a9c55c54d4aa5b92ad3a7c16053ed0dbeddc8d090959877ca7f3d950ee5d2",
+        "hash": "4db5c150da45a685777d7f267558535615665b8b6f52e64adb661021e1552989",
         "ignore": [],
         "version": {
             "major": 0,
             "minor": 0,
-            "patch": 3
+            "patch": 4
         },
         "auto": true
     },
@@ -134,22 +134,22 @@
         "auto": true
     },
     "terminal": {
-        "hash": "5bd313fb7e9a4128da033eff5d71b21bf5a60dd00dfe69a9b10a6f60c1b35d30",
+        "hash": "b1366c739924f60ccdf5a9b3bde1d82146d92752536c5aa54c26596a7563ed27",
         "ignore": [],
         "version": {
             "major": 0,
             "minor": 0,
-            "patch": 11
+            "patch": 12
         },
         "auto": true
     },
     "test": {
-        "hash": "f8943c8c1cf7ec16d8b7bc5b2be5daf94e83f5da2cfc7348abaf899a8d5f9f7e",
+        "hash": "44cf789bbbac57545f2c5d72b7529d9d718e27671cfcea55a9d2abcea40ff5a3",
         "ignore": [],
         "version": {
             "major": 0,
             "minor": 0,
-            "patch": 1
+            "patch": 2
         },
         "auto": true
     },

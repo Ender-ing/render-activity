@@ -12,6 +12,17 @@ function gtag(){
     dataLayer.push(arguments);
 }
 
+// Define global tracking object
+window.pageTracking = {
+    gtag,
+    states: {
+        pending: 0,
+        active: 1,
+        inactive: 2
+    },
+    status: 0
+};
+
 // Define script injection code
 function injectGTag(){
     let script = document.createElement('script');
@@ -51,6 +62,9 @@ awaitReadyState(function(){
     // (Note: always update cookie values after user login and page load!)
     let state = (document.documentElement.getCookie("allow_gtag") || GTAG_DEFAULT) == true;
     if(state){
-        setTimeout(injectGTag, 100);
+        injectGTag();
+        window.pageTracking.status = window.pageTracking.states.active;
+    }else{
+        window.pageTracking.status = window.pageTracking.states.inactive;
     }
 });

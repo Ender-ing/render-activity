@@ -9,14 +9,26 @@ import { getDisplay, getIsErrorResult, getServeStatus } from "./display";
 import { languageMeta } from "./language/seo";
 import { checkLocale } from "./language/preference";
 import { EVENT_CONTENT_RENDER, gtag } from "../tracking/gtag";
+import { detectDeviceSystem, detectDeviceType } from "../tracking/platform";
 
 export const [getDisplayXML, setDisplayXML] = createSignal();
 export const [getPathname, setPathname] = createSignal(null);
 
 // Report content status (gtag)
-function reportServeResult(source) {
+async function reportServeResult(source) {
+    // Get needed info
+    let device = detectDeviceType();
+    let os = await detectDeviceSystem();
+
     // trigger 'content render' event
-    gtag('event', EVENT_CONTENT_RENDER, { 'content_language': checkLocale(), 'content_source': source, 'content_status':  getServeStatus()});
+    gtag('event', EVENT_CONTENT_RENDER, {
+        'user_platform': os.name,
+        'user_platform_full': os.full,
+        'user_device': device,
+        'content_language': checkLocale(),
+        'content_source': source,
+        'content_status':  getServeStatus()
+    });
 }
 
 // Keep checking for URL changes and update the content of the page accordingly

@@ -38,7 +38,7 @@ function updateDisplay() {
             window.document.documentElement.setContentResourceLoaded(getPathname(), 1);
 
             // Trigger page_render event
-            gtag('event', EVENT_CONTENT_RENDER, { 'content_source': getPathname() });
+            gtag('event', EVENT_CONTENT_RENDER, { 'language': checkLocale(), 'value': getPathname() });
         });
 
         return getPathname();

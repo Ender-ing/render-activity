@@ -17,7 +17,7 @@ export function gtag(...args){
 // - <event_name> ( <event_args>... ) -
 
 export const EVENT_CONTENT_RENDER = "content_render";
-// content_render ( content_source )
+// content_render ( language, value )
 
 export const EVENT_USER_LOGIN = "user_login";
-// user_login ( user_db_id )
+// user_login ( user_id_hash )

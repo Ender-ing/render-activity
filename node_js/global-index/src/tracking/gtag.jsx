@@ -8,7 +8,7 @@
 export function gtag(...args){
     // Allow pushing data only if the tracking state is not set to inactive!
     // (allow pushing data when the tracker is being loaded/checked)
-    if(window.pageTracking.status != window.pageTracking.states.inactive){
+    if(window.pageTracking?.status != window.pageTracking?.states?.inactive){
         window.pageTracking.gtag(...args);
     }
 }

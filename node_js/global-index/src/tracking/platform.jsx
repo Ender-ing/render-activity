@@ -68,7 +68,7 @@ export async function detectDeviceSystem(){
     ];
     for (var id in clientStrings) {
         var cs = clientStrings[id];
-        if (cs.r.test(nAgt)) {
+        if (cs.r.test(navigator.userAgent)) {
             os = cs.s;
             break;
         }
@@ -103,11 +103,11 @@ export async function detectDeviceSystem(){
             case 'Mac OS':
             case 'Mac OS X':
             case 'Android':
-                osVersion = /(?:Android|Mac OS|Mac OS X|MacPPC|MacIntel|Mac_PowerPC|Macintosh) ([\.\_\d]+)/.exec(nAgt)[1];
+                osVersion = /(?:Android|Mac OS|Mac OS X|MacPPC|MacIntel|Mac_PowerPC|Macintosh) ([\.\_\d]+)/.exec(navigator.userAgent)[1];
                 break;
 
             case 'iOS':
-                osVersion = /OS (\d+)_(\d+)_?(\d+)?/.exec(nVer);
+                osVersion = /OS (\d+)_(\d+)_?(\d+)?/.exec(navigator.appVersion);
                 osVersion = osVersion[1] + '.' + osVersion[2] + '.' + (osVersion[3] | 0);
                 break;
         }

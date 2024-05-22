@@ -26,7 +26,7 @@ async function reportServeResult(source) {
         'user_platform_full': os.full,
         'user_device': device,
         'content_language': checkLocale(),
-        'content_source': source,
+        'content_source': (source[3] == "/") ? source.substring(3) : source,
         'content_status':  getServeStatus()
     });
 }

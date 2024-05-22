@@ -4,7 +4,7 @@
  * 
 **/
 
-import { createSignal } from "solid-js";
+import { getIsErrorResult } from "../display";
 
 // Get pure URL
 function getPureURL(lang = null){
@@ -102,7 +102,6 @@ export async function addMeta(title, description){
 }
 
 // Add needed meta data for search engine language recognition 
-export const [getIsErrorResult, setIsErrorResult] = createSignal(false);
 export function languageMeta(){
     // Add alternate versions of the page
     if(!IS_FIRST_LOAD){

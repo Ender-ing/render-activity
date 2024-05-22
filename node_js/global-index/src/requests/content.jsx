@@ -5,13 +5,19 @@
 **/
 
 import { createSignal, createEffect } from "solid-js";
-import { getDisplay } from "./display";
+import { getDisplay, getIsErrorResult, getServeStatus } from "./display";
 import { languageMeta } from "./language/seo";
 import { checkLocale } from "./language/preference";
 import { EVENT_CONTENT_RENDER, gtag } from "../tracking/gtag";
 
 export const [getDisplayXML, setDisplayXML] = createSignal();
 export const [getPathname, setPathname] = createSignal(null);
+
+// Report content status (gtag)
+function reportServeResult(source) {
+    // trigger 'content render' event
+    gtag('event', EVENT_CONTENT_RENDER, { 'content_language': checkLocale(), 'content_source': source, 'content_status':  getServeStatus()});
+}
 
 // Keep checking for URL changes and update the content of the page accordingly
 function updateDisplay() {
@@ -37,8 +43,8 @@ function updateDisplay() {
             // Show content
             window.document.documentElement.setContentResourceLoaded(getPathname(), 1);
 
-            // Trigger page_render event
-            gtag('event', EVENT_CONTENT_RENDER, { 'language': checkLocale(), 'value': getPathname() });
+            // Report render status
+            reportServeResult(getPathname());
         });
 
         return getPathname();

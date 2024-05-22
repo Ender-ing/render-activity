@@ -6,8 +6,14 @@
 
 import { createSignal } from "solid-js";
 //import { DIALOG, showDialog } from "../content/dialogs";
-import { setIsErrorResult } from "./language/seo";
 import { checkLocale } from "./language/preference";
+
+// Track content status
+export const [getIsErrorResult, setIsErrorResult] = createSignal(false);
+
+// Track served content status (detailed)
+export const SERVE_NORMAL = "normal", SERVE_NOT_FOUND = "not found", SERVE_INVALID_CONTENT = "invalid content";
+export const [getServeStatus, setServeStatus] = createSignal(null);
 
 //  Get display content!
 export const PAGES = {
@@ -20,11 +26,17 @@ export async function getDisplay(base){
     let displayURL = getURL(base);
     let XML;
     try {
+        // Normal tracking
         setIsErrorResult(false);
+        setServeStatus(SERVE_NORMAL);
+        // Fetch content
         XML = await fetchDisplay(displayURL, fixBase(base));
     }catch(errorServe) {
+        // Fetch error page
         XML = await fetchDisplay(getURL(errorServe), fixBase(errorServe));
+        // Update tracking
         setIsErrorResult(true);
+        setServeStatus(SERVE_INVALID_CONTENT);
     }
     return XML;
 }
@@ -74,6 +86,7 @@ function fetchDisplay(displayURL, pathname, text = false, updateContentPathname 
                 updateContentPathname = false;
                 console.warn("Display file could not be loaded!");
                 setIsErrorResult(true);
+                setServeStatus(SERVE_NOT_FOUND);
                 return await fetchDisplay(getURL(PAGES.ERROR_404()), fixBase(PAGES.ERROR_404()), true);
             }else if (!response.ok) {
                 // Catch all other server errors!

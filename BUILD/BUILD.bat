@@ -24,7 +24,7 @@ for /f "tokens=*" %%a in ("%*") do (
     if /i "%%a" == "--no-static" (
         set noStatic=true
         break
-    ) else if /i "%%a" == "--no-version-update" (
+    ) else if /i "%%a" == "--no-update" (
         set versionUpdate=false
         break
     ) else if /i "%%a" == "--major" (

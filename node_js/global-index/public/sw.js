@@ -12,7 +12,7 @@
 
 // Service worker info
 const SERVICE_VERSION = '@@version'; // Don't touch this, it's updated automatically!
-const WORKER_VERSION = "AA"; // Update this whenever you make changes to the service worker that may break cache!
+const WORKER_VERSION = "AB"; // Update this whenever you make changes to the service worker that may break cache!
 const DEPLOY_VERSION = SERVICE_VERSION.substring(0, SERVICE_VERSION.lastIndexOf(".")) + "-" + WORKER_VERSION;
 const RESOURCE_CACHE = 'resource-cache-v' + DEPLOY_VERSION; // Used to cache static files
 const CALL_CACHE = 'call-cache-v' + DEPLOY_VERSION; // Used to call API calls (request must include an "x-allow-call-cache" header)
@@ -133,7 +133,7 @@ self.addEventListener('install', event => {
                         } catch { }
                     }
                 }),
-                self.skipWaiting() // Activate the new service worker immediately
+            self.skipWaiting() // Activate the new service worker immediately
         ])
     );
 });
@@ -221,6 +221,19 @@ self.addEventListener('fetch', event => {
     }
 });
 
+// Reset all cache
+async function resetCache(callback = null) {
+    // Delete ALL cache!
+    let cacheNames = await caches.keys();
+    for(let i = 0; i < cacheNames.length; i++) {
+        await caches.delete(cacheName);
+    }
+    // Callback!
+    if(typeof callback == "function"){
+        callback();
+    }
+}
+
 // Page communication
 self.addEventListener('message', (event) => {
 });
@@ -231,6 +244,10 @@ self.addEventListener('message', event => {
     // Check message
     if (message.type === 'GET-SERVICE-VERSION') {
         sender.postMessage(SERVICE_VERSION);
+    } else if (message.type === 'RESET-CACHE') {
+        // Reset cache
+        resetCache(function(){
+            sender.postMessage(SERVICE_VERSION);
+        });
     }
 });
-  

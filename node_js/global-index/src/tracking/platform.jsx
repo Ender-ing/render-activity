@@ -119,6 +119,6 @@ export async function detectDeviceSystem(){
         version: (osVersion.replaceAll(/\s/g, "") != "") ? osVersion : null,
         full: null
     };
-    deviceSystem.full = deviceSystem.name + ((deviceSystem.version != null) ? deviceSystem.version : "");
+    deviceSystem.full = deviceSystem.name + ((deviceSystem.version != null) ? (" " + deviceSystem.version) : "");
     return deviceSystem;
 }

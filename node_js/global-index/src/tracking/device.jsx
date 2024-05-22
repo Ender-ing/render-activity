@@ -4,25 +4,35 @@
  *
  **/
 
-// Get device type
-let deviceType = null;
-export function detectDeviceType() {
+// Get device size
+let deviceSize = null;
+const sizeQueries = [
+    ["compact", window.matchMedia("(max-width: 600px)")],
+    ["medium", window.matchMedia("(min-width: 600px) and (max-width: 839px)")],
+    ["expanded", window.matchMedia("(min-width: 840px) and (max-width: 1199px)")],
+    ["large", window.matchMedia("(min-width: 1200px) and (max-width: 1599px)")],
+    ["extra-large", window.matchMedia("(min-width: 1600px)")]
+];
+export function detectDeviceSize(soft = false) {
     // Return value (if it's already defined)
-    if(deviceType != null){
-        return deviceType;
+    if(deviceSize != null && soft){
+        return deviceSize;
     }
 
-    // Check device type
-    if (/android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(navigator.userAgent)) {
-        deviceType =  'mobile';
-    } else if (/fullscreen|full\-screen|webkitfullscreen|mozfullscreen|msfullscreen/i.test(navigator.documentElement)) {
-        deviceType = 'desktop';
-    } else {
-        deviceType = 'unknown';
+    // Check screen size
+    let size = null;
+    for(let i = 0; i < sizeQueries.length; i++){
+        if(sizeQueries[i][1].matches){
+            size = sizeQueries[i][0];
+        }
+    }
+    if(size == null){
+        size = "unknown";
     }
 
     // Return value
-    return deviceType;
+    deviceSize = size;
+    return deviceSize;
 }
 
 // Get system

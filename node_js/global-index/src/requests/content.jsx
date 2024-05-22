@@ -9,7 +9,7 @@ import { getDisplay, getIsErrorResult, getServeStatus } from "./display";
 import { languageMeta } from "./language/seo";
 import { checkLocale } from "./language/preference";
 import { EVENT_CONTENT_RENDER, gtag } from "../tracking/gtag";
-import { detectDeviceSystem, detectDeviceType } from "../tracking/platform";
+import { detectDeviceSystem, detectDeviceSize } from "../tracking/device";
 
 export const [getDisplayXML, setDisplayXML] = createSignal();
 export const [getPathname, setPathname] = createSignal(null);
@@ -17,7 +17,7 @@ export const [getPathname, setPathname] = createSignal(null);
 // Report content status (gtag)
 async function reportServeResult(source) {
     // Get needed info
-    let device = detectDeviceType();
+    let device = detectDeviceSize(true);
     let os = await detectDeviceSystem();
 
     // trigger 'content render' event

@@ -9,7 +9,7 @@
 // Get file-system functions
 const { arg1, arg2, arg3, arg4 } = require('./_args');
 const { getJSON, _p, readDirCon, getContent, writeContent } = require('./_files');
-const { writeContentMultiLang, replaceLangExp } = require('./_lang');
+const { replaceLangExp } = require('./_lang');
 
 // Get relative web path
 const getWebPath  = (absPath, fixSlash = true) => {

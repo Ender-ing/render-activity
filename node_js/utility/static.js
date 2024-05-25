@@ -8,8 +8,8 @@
 
 // Get file-system functions
 const { arg1, arg2, arg3, arg4 } = require('./_args');
-const { writeContent, getJSON, _p, readDirCon, latestDirFileMod, getContent, copyFile } = require('./_files');
-const { compressXML, compressJSON, _compressXML, replaceFileVars, compressDisplay } = require('./_compress');
+const { writeContent, getJSON, _p, readDirCon, latestDirFileMod, getContent } = require('./_files');
+const { compressXML, compressJSON, _compressXML, compressDisplay } = require('./_compress');
 
 // Get relative web path
 const getWebPath  = (absPath, fixSlash = true) => {

@@ -34,18 +34,22 @@ async function addIndexFile(file, host, serviceName){
     pathname = pathname.substring(3);
 
     // Get local language object
-    let localObj;
+    let localObj = {
+        ar: {},
+        en: {},
+        he: {}
+    };
     let localPath;
     try{
-        localPath = file.replace("index.display", `${lang}.locale`);
-        localPath = localPath.replaceAll(/\\(en|ar|he)\\/gi, "/");
-        localObj = await getJSON(localPath);
-    }catch{
-        localObj = {};
-    }
+        localPath = file.replaceAll(/\\(en|ar|he)\\/gi, "/");
+        const getLocalPath = (l) => localPath.replace("index.display", `${l}.locale`);
+        localObj.ar = await getJSON(getLocalPath("ar"));
+        localObj.en = await getJSON(getLocalPath("en"));
+        localObj.he = await getJSON(getLocalPath("he"));
+    }catch{ }
 
     // Get content
-    let getTxt = (c) => replaceLangExp(c, localObj, globalObj[lang]);
+    let getTxt = (c) => replaceLangExp(c, localObj, globalObj, lang);
     let newContent = getTxt(content);
 
     // Replace meta data

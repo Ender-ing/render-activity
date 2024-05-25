@@ -49,7 +49,7 @@ async function addIndexFile(file, host, serviceName){
     }catch{ }
 
     // Get content
-    let getTxt = (c) => replaceLangExp(c, localObj, globalObj, lang);
+    let getTxt = (c) => replaceLangExp(c, localObj, globalObj, lang, `~serve.js => ${file}~`);
     let newContent = getTxt(content);
 
     // Replace meta data

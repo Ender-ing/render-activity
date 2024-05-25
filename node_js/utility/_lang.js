@@ -4,11 +4,14 @@
  * 
 **/
 
-const { warn, error, log } = require("./_console");
+const { warn, error, CONSOLE_SOFT_ERROR } = require("./_console");
 const { _p, _writeContent, deleteFile, _getJSON } = require("./_files");
 
+// Default language
+const defaultLang = "en";
+
 // Get JSON value by string
-function getJSONValueByPath(obj, path, lang) {
+function getJSONValueByPath(obj, path, lang, sourcePath, supress = false) {
     let pathParts = path.split('.');
 
     // Detect expression language
@@ -21,32 +24,48 @@ function getJSONValueByPath(obj, path, lang) {
             // Update first path value
             pathParts[0] = parts[1];
         }else{
-            error(`Invalid source language expression! (correct format: 'XX:...', current value: ${path})`);
+            error(`Invalid source language expression! (correct format: 'XX:...')`, `(expression path '${path}')`, `(at ${sourcePath})`, CONSOLE_SOFT_ERROR);
         }
     }
 
-    // Check if the source language is whitelisted!
+    // Check if the source language is defined!
     if(obj[expLang] == null){
-        error(`Undefined language code! (${expLang})`);
+        if(expLang != defaultLang){
+            warn(`Undefined language code, falling back to default language! (${expLang} => ${defaultLang})`, `(expression path '${path}')`, `(at ${sourcePath})`);
+            expLang = defaultLang;
+        }else{
+            error(`Undefined language code! (${expLang})`, `(expression path '${path}')`, `(at ${sourcePath})`, CONSOLE_SOFT_ERROR);
+        }
     }
 
     let current = obj[expLang]; // Start at the root object
-    for (let part of pathParts) {
-        if (current[part] === undefined) {
-            return undefined; // Value not found
+    // Catch out-of-bound paths
+    try{
+        for (let part of pathParts) {
+            current = current[part];
+
+            // Check value
+            if (current === undefined) {
+                break;
+            }
         }
-        current = current[part];
+    }catch{
+        if(!supress){
+            error(`Invalid language expression path!`, `(expression path '${path}')`, `(at ${sourcePath})`, CONSOLE_SOFT_ERROR);
+        }
+        current = undefined;
     }
 
-    if(current == null){
-        warn(`Undefined language expression value! (${path} not found!)`);
+    // Check if a value was found
+    if(current == undefined && !supress){
+        error(`Invalid language expression path!`, `(expression path '${path}')`, `(at ${sourcePath})`, CONSOLE_SOFT_ERROR);
     }
 
-    return current; 
+    return current;
 }
 
 // Process language expression strings
-function processLocaleStrInput(varString, localeObj, globalObj, lang){
+function processLocaleStrInput(varString, localeObj, globalObj, lang, sourcePath){
     let vars = varString.split(",").map(val => {
         if(val.indexOf("`") != -1){
             return val.match(/`(.*?)`/, "$1")[1];
@@ -54,17 +73,17 @@ function processLocaleStrInput(varString, localeObj, globalObj, lang){
             let id = val.replaceAll(/\s/g, "");
             if(id.indexOf("$") == 0){
                 id = id.substring(1);
-                return getJSONValueByPath(globalObj, id, lang);
+                return getJSONValueByPath(globalObj, id, lang, sourcePath);
             }else if(id.indexOf("?") == 0){
                 id = id.substring(1);
-                let value = getJSONValueByPath(localeObj, id, lang);
+                let value = getJSONValueByPath(localeObj, id, lang, sourcePath, true); // supress value error
                 if(value != undefined){
                     return value;
                 }else{
-                    return getJSONValueByPath(globalObj, id, lang);
+                    return getJSONValueByPath(globalObj, id, lang, sourcePath);
                 }
             }else{
-                return getJSONValueByPath(localeObj, id, lang);
+                return getJSONValueByPath(localeObj, id, lang, sourcePath);
             }
         }else{
             return val;
@@ -74,10 +93,10 @@ function processLocaleStrInput(varString, localeObj, globalObj, lang){
 }
 
 // Replace values inside language expression strings
-function replaceLocaleStrVars(value, vars, localeObj, globalObj, lang){
+function replaceLocaleStrVars(value, vars, localeObj, globalObj, lang, sourcePath){
     let newVal = value;
     if(vars != null && vars.replaceAll(/\s/g, "") != ''){
-        let vs = processLocaleStrInput(vars, localeObj, globalObj, lang);
+        let vs = processLocaleStrInput(vars, localeObj, globalObj, lang, sourcePath);
         for(let i = 0; i < vs.length; i++){
             newVal = newVal.replaceAll("$" + (i + 1), `<bdi>${vs[i]}</bdi>`);
         }
@@ -86,33 +105,36 @@ function replaceLocaleStrVars(value, vars, localeObj, globalObj, lang){
 }
 
 // Replace content lang
-function localiseOutput(value, localeObj, globalObj, lang){
+function localiseOutput(value, localeObj, globalObj, lang, sourcePath){
     // Check if result needs to be processed too!
     if((/\{\{|\}\}/g).test(value)){
-        return replaceLangExp(value, localeObj, globalObj, lang);
+        return replaceLangExp(value, localeObj, globalObj, lang, sourcePath);
     }else{
         return value;
     }
 }
-function replaceLangExp(content, localeObj, globalObj, lang){
+function replaceLangExp(content, localeObj, globalObj, lang, sourcePath){
     let result;
     return content.replaceAll(/\{\{(.*?)\}\[?(.*?)\]?\}/g, (match, idString, varString) => {
         let id = idString.replaceAll(/\s/g, "");
         if(id[0] === "$"){
-            result = replaceLocaleStrVars(getJSONValueByPath(globalObj, id.substring(1), lang), varString, localeObj, globalObj, lang);
-            return localiseOutput(result, localeObj, globalObj, lang);
+            result = replaceLocaleStrVars(getJSONValueByPath(globalObj, id.substring(1), lang, sourcePath), varString, localeObj, globalObj, lang, sourcePath);
+            return localiseOutput(result, localeObj, globalObj, lang, sourcePath);
         }else{
             let fallback = id[0] == "?";
-            let value = getJSONValueByPath(localeObj, id.substring(fallback), lang);
-            if(fallback && value != undefined){
-                result = replaceLocaleStrVars(value, varString, localeObj, globalObj, lang);
-                return localiseOutput(result, localeObj, globalObj, lang);
-            }else if(fallback && value == undefined){
-                result = replaceLocaleStrVars(getJSONValueByPath(globalObj, id.substring(fallback), lang), varString, localeObj, globalObj, lang);
-                return localiseOutput(result, localeObj, globalObj, lang);
+            if(fallback){
+                let value = getJSONValueByPath(localeObj, id.substring(fallback), lang, sourcePath, true);
+                if(value != undefined){
+                    result = replaceLocaleStrVars(value, varString, localeObj, globalObj, lang, sourcePath);
+                    return localiseOutput(result, localeObj, globalObj, lang, sourcePath);
+                }else{
+                    result = replaceLocaleStrVars(getJSONValueByPath(globalObj, id.substring(fallback), lang, sourcePath), varString, localeObj, globalObj, lang, sourcePath);
+                    return localiseOutput(result, localeObj, globalObj, lang, sourcePath);
+                }
             }else{
-                result = replaceLocaleStrVars(value, varString, localeObj, globalObj, lang);
-                return localiseOutput(result, localeObj, globalObj, lang);
+                let value = getJSONValueByPath(localeObj, id.substring(fallback), lang, sourcePath);
+                result = replaceLocaleStrVars(value, varString, localeObj, globalObj, lang, sourcePath);
+                return localiseOutput(result, localeObj, globalObj, lang, sourcePath);
             }
         }
     });
@@ -149,7 +171,7 @@ async function writeLangContent(base, path, lang, content){
     let newContent = content;
     // Get locale objects
     // Replace language expressions
-    newContent = replaceLangExp(newContent, localeObj, globalOBj, lang);
+    newContent = replaceLangExp(newContent, localeObj, globalOBj, lang, path);
     // Write new content
     _writeContent(newPath, newContent);
 }

@@ -28,7 +28,7 @@ if exist %outputDir% (
     exit 1
 ) else (
     :: Create the folder (handle potential errors)
-    mkdir %outputDir% 2>nul
+    mkdir %outputDir% > NUL 2>&1
 
     :: Check if the folder was created successfully
     if exist %outputDir% (

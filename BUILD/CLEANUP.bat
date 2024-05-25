@@ -19,7 +19,7 @@ if %errorlevel% NEQ 0 ( set errorTrigger="level" && goto local_bat_error )
 set TEMP_GIT_PATH=%TEMP%\endering-build-temp-git
 
 :: Attempt to delete the folder
-rmdir /s /q %OUTPUT_PATH% 2>nul
+rmdir /s /q %OUTPUT_PATH% > NUL 2>&1
 
 :: Check if deletion was successful
 if exist %OUTPUT_PATH% (

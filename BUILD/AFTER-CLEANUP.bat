@@ -23,30 +23,30 @@ for /D %%f in (*) do (
     echo Handling %%f
 
     :: Delete generative files
-    del /Q /S %OUTPUT_PATH%\%%f\gen.* > nul 2>&1
+    del /Q /S %OUTPUT_PATH%\%%f\gen.* > NUL 2>&1
 
     :: Delete GitHub files
-    del /Q /S %OUTPUT_PATH%\%%f\.gitignore > nul 2>&1
+    del /Q /S %OUTPUT_PATH%\%%f\.gitignore > NUL 2>&1
 
     :: Delete markdown files
     :: Note: add /S when you finish docs.ender.ing
-    del /Q %OUTPUT_PATH%\%%f\*.md > nul 2>&1
+    del /Q %OUTPUT_PATH%\%%f\*.md > NUL 2>&1
 
     :: Delete local $.display components
-    del /Q /S %OUTPUT_PATH%\%%f\$**.display > nul 2>&1
+    del /Q /S %OUTPUT_PATH%\%%f\$**.display > NUL 2>&1
 
     :: Delete .locale files
-    del /Q /S %OUTPUT_PATH%\%%f\**.locale > nul 2>&1
+    del /Q /S %OUTPUT_PATH%\%%f\**.locale > NUL 2>&1
 
     :: Delete empty folders
     CMD "Running Backup" /C "node %BUILD_PATH%\node_js\utility\delete_empty.js %OUTPUT_PATH%\%%f"
 
     :: Copy .gitignore file
-    copy /Y %BUILD_PATH%\global\config\git.gitignore %OUTPUT_PATH%\.gitignore
+    copy /Y %BUILD_PATH%\global\config\git.gitignore %OUTPUT_PATH%\.gitignore > NUL 2>&1
 
     :: Copy command files
-    copy /Y %BUILD_PATH%\global\config\.bash_profile %OUTPUT_PATH%\.bash_profile
-    copy /Y %BUILD_PATH%\global\config\endering.bash %OUTPUT_PATH%\endering.bash
+    copy /Y %BUILD_PATH%\global\config\.bash_profile %OUTPUT_PATH%\.bash_profile > NUL 2>&1
+    copy /Y %BUILD_PATH%\global\config\endering.bash %OUTPUT_PATH%\endering.bash > NUL 2>&1
 )
 
 :: Remove cache for deleted files

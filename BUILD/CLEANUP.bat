@@ -34,12 +34,12 @@ if exist %OUTPUT_PATH% (
 
     :: Copy .git folder
     echo Copying .git directory...
-    xcopy /E /H /C /Y /I .git %OUTPUT_PATH%\.git
+    xcopy /E /H /C /Y /I .git %OUTPUT_PATH%\.git > NUL
 
     :: Copy root files
     for %%f in (*) do (
         echo Copying %%f...
-        copy %TEMP_GIT_PATH%\%%f %OUTPUT_PATH%\%%f
+        copy %TEMP_GIT_PATH%\%%f %OUTPUT_PATH%\%%f > NUL
     )
 
     :: Return to the original directory

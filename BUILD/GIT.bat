@@ -34,7 +34,7 @@ if exist %TEMP_GIT_PATH%\.git (
 ) else (
 
     :: Attempt to delete the folder
-    rmdir /s /q %TEMP_GIT_PATH% 2>nul
+    rmdir /s /q %TEMP_GIT_PATH% > NUL 2>&1
 
     :: Create the folder (with .git folder)
     mkdir %TEMP_GIT_PATH%
@@ -43,7 +43,7 @@ if exist %TEMP_GIT_PATH%\.git (
     pushd %TEMP_GIT_PATH% 
 
     :: Clone repository
-    CMD "Running Backup" /C "git clone git@github.com:Ender-ing/host.git %TEMP_GIT_PATH%"
+    CMD "Running Backup" /C "git clone git@github.com:Ender-ing/host.git %TEMP_GIT_PATH%" > NUL
 
     :: Return to the original directory
     popd

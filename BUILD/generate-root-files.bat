@@ -27,13 +27,13 @@ for /D %%f in (*) do (
     echo Handling %%f
 
     :: Generate icons (\brands)
-    mkdir %OUTPUT_PATH%\%%f\brand\
-    mkdir %OUTPUT_PATH%\%%f\brand\icons\
+    mkdir %OUTPUT_PATH%\%%f\brand\ > NUL
+    mkdir %OUTPUT_PATH%\%%f\brand\icons\ > NUL
     CMD "Running Backup" /C "node %BUILD_PATH%\node_js\utility\icons.js %OUTPUT_PATH%\%%f\gen.logo.svg %OUTPUT_PATH%\%%f\brand\icons\"
-    copy %OUTPUT_PATH%\%%f\gen.logo.svg %OUTPUT_PATH%\%%f\brand\icons\logo.svg
-    copy %OUTPUT_PATH%\%%f\gen.maskable.svg %OUTPUT_PATH%\%%f\brand\icons\logo-maskable.svg
-    del %OUTPUT_PATH%\%%f\brand\icons\**.icns
-    del %OUTPUT_PATH%\%%f\brand\icons\app.ico
+    copy %OUTPUT_PATH%\%%f\gen.logo.svg %OUTPUT_PATH%\%%f\brand\icons\logo.svg > NUL
+    copy %OUTPUT_PATH%\%%f\gen.maskable.svg %OUTPUT_PATH%\%%f\brand\icons\logo-maskable.svg > NUL
+    del %OUTPUT_PATH%\%%f\brand\icons\**.icns > NUL
+    del %OUTPUT_PATH%\%%f\brand\icons\app.ico > NUL
 
     :: Generate manifest
     CMD "Running Backup" /C "node %BUILD_PATH%\node_js\utility\manifest.js %RESOURCES_PATH%\web\client\@vite\manifest.jsonc %OUTPUT_PATH%\%%f\gen.info.json %OUTPUT_PATH%\%%f\manifest.webmanifest"
@@ -45,14 +45,14 @@ for /D %%f in (*) do (
     :: Generate service worker
     REM CMD "Running Backup" /C "node %BUILD_PATH%\node_js\utility\variables.js %RESOURCES_PATH%\web\client\@vite\sw.js %OUTPUT_PATH%\%%f\gen.info.json %OUTPUT_PATH%\%%f\sw.js"
     REM ^ you may reuse this line if you needed to use gen.info.json data! ^
-    copy %RESOURCES_PATH%\web\client\@vite\sw.js %OUTPUT_PATH%\%%f\sw.js
+    copy %RESOURCES_PATH%\web\client\@vite\sw.js %OUTPUT_PATH%\%%f\sw.js > NUL
     CMD "Running Backup" /C "node %BUILD_PATH%\node_js\utility\placeholder.js %OUTPUT_PATH%\%%f\sw.js %OUTPUT_PATH%\%%f\gen.version.txt version"
 
     :: Generate robots.txt
     CMD "Running Backup" /C "node %BUILD_PATH%\node_js\utility\variables.js %BUILD_PATH%\global\robots.txt %OUTPUT_PATH%\%%f\gen.info.json %OUTPUT_PATH%\%%f\robots.txt"
 
     :: Make .well-known directory
-    mkdir %OUTPUT_PATH%\%%f\.well-known 2>nul
+    mkdir %OUTPUT_PATH%\%%f\.well-known > NUL
 
     :: Generate security.txt
     :: Check securitytxt.org for more info
@@ -62,26 +62,26 @@ for /D %%f in (*) do (
     CMD "Running Backup" /C "node %BUILD_PATH%\node_js\utility\secrets.js %OUTPUT_PATH%\%%f %BUILD_PATH%"
 
     :: copy /XX/.htaccess
-    copy %BUILD_PATH%\global\locale.htaccess %OUTPUT_PATH%\%%f\.htaccess
+    copy %BUILD_PATH%\global\locale.htaccess %OUTPUT_PATH%\%%f\.htaccess > NUL
     CMD "Running Backup" /C "node %BUILD_PATH%\node_js\utility\locale_expression.js %OUTPUT_PATH%\%%f\.htaccess %OUTPUT_PATH%\%%f %BUILD_PATH%"
 
     :: Copy /.well-known/.htaccess
-    copy %BUILD_PATH%\global\open.htaccess %OUTPUT_PATH%\%%f\.well-known\.htaccess
+    copy %BUILD_PATH%\global\open.htaccess %OUTPUT_PATH%\%%f\.well-known\.htaccess > NUL
 
     :: Copy .htaccess
-    copy %BUILD_PATH%\global\secure.htaccess %OUTPUT_PATH%\%%f\.htaccess
+    copy %BUILD_PATH%\global\secure.htaccess %OUTPUT_PATH%\%%f\.htaccess > NUL
 
     :: Copy redirect.php
-    copy %BUILD_PATH%\global\redirect.php %OUTPUT_PATH%\%%f\redirect.config.php
+    copy %BUILD_PATH%\global\redirect.php %OUTPUT_PATH%\%%f\redirect.config.php > NUL
 
     :: Copy check-lang.html
-    copy %BUILD_PATH%\global\check-lang.html %OUTPUT_PATH%\%%f\check-lang.config.html
+    copy %BUILD_PATH%\global\check-lang.html %OUTPUT_PATH%\%%f\check-lang.config.html > NUL
 )
 
 :: Delete used files
-del "%RESOURCES_PATH%\web\client\@vite\manifest.jsonc"
-del "%RESOURCES_PATH%\web\client\@vite\index.php.html"
-del "%RESOURCES_PATH%\web\client\@vite\sw.js"
+del "%RESOURCES_PATH%\web\client\@vite\manifest.jsonc" > NUL
+del "%RESOURCES_PATH%\web\client\@vite\index.php.html" > NUL
+del "%RESOURCES_PATH%\web\client\@vite\sw.js" > NUL
 
 :: Return to the original directory
 popd

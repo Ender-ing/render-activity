@@ -30,7 +30,7 @@ if exist %outputDir% (
     exit 1
 ) else (
     :: Create the folder (handle potential errors)
-    mkdir %outputDir% 2>nul
+    mkdir %outputDir% > NUL 2>&1
 
     :: Check if the folder was created successfully
     if exist %outputDir% (
@@ -57,11 +57,9 @@ for %%f in (*) do (
     :: Adding to beginning
     (echo ^(function^(^)^{ 
         type %outputDir%\%%f) > %outputDir%\%%f.tmp
-    move /y %outputDir%\%%f.tmp %outputDir%\%%f 
+    move /y %outputDir%\%%f.tmp %outputDir%\%%f > NUL
     :: Adding to end
     >> %outputDir%\%%f echo ^}^)^(^)^;
-    :: Remove temporary file
-    del %outputDir%\%%f.tmp
 
     :: Remove comments from the code
     :: npm install -g strip-comments

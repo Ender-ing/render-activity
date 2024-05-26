@@ -8,7 +8,7 @@
 
 // Get file-system functions
 const { arg1, arg2 } = require('./_args');
-const { error, info } = require('./_console');
+const { error, info, CONSOLE_SOFT_ERROR } = require('./_console');
 
 // Get icon-gen module
 const icongen = require('icon-gen');
@@ -24,9 +24,10 @@ function generateIcons() {
             icoSizes: [32]
         }
     }).then((results) => {
-        info(`Assets generated from ${arg1}`);
+        info(`Assets successfully generated from ${arg1}!`);
     }).catch((err) => {
-        error(err)
+        error(`Couldn't generate assets from ${arg1}!`, CONSOLE_SOFT_ERROR);
+        error(err);
     })
 }
 

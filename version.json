@@ -1,6 +1,7 @@
 {
     "$global_ignore": [
         ".gitignore",
+        ".git",
         "gen.version.txt",
         "*.md"
     ],
@@ -55,7 +56,7 @@
         "auto": true
     },
     "docs": {
-        "hash": "171a29d351de6e1e4f7564a8c388228df729de669e80ad9dd0056fbc1f5dfbc9",
+        "hash": "c2ca35d90a292b7385b29286ddbb8b782b0613d90dd06277d086da050a882528",
         "ignore": [],
         "version": {
             "major": 0,
@@ -115,7 +116,7 @@
         "auto": true
     },
     "resources": {
-        "hash": "2cee85fe0aba13ed0f3508e444614e3c0ae3eda994817005673555af24215f88",
+        "hash": "b7e35fc7fcc76ae3826a01a0e0941d043b6e31c3461155db4c91fbe51ef69988",
         "ignore": [],
         "version": {
             "major": 0,
@@ -135,7 +136,7 @@
         "auto": true
     },
     "terminal": {
-        "hash": "fb9d527411dea1d71cdf42dbf01fc9b673210b3eca0ae25c287b6cea18b510ed",
+        "hash": "61e3f14c3a521526368bd793b2e3cd7024eb45cd3e31a427878c6d9e6a705175",
         "ignore": [],
         "version": {
             "major": 0,
@@ -145,7 +146,7 @@
         "auto": true
     },
     "test": {
-        "hash": "c1ad8792d6a0330c7f5cb0a538f1582310a00a436b6aeebe0d79b23ee1ba0a1d",
+        "hash": "64ea05efbbb9871879e58bade5154cf6fdf7ba6429ca784a95ece5532d14b161",
         "ignore": [],
         "version": {
             "major": 0,

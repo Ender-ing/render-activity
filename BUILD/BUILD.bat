@@ -15,7 +15,7 @@ if %errorlevel% NEQ 0 ( set errorTrigger="level" && goto local_bat_error )
 
 :: Check command arguments
 set noStatic=false
-set versionUpdate=true
+set autoVersionUpdate=true
 set addMajor=0
 set addMinor=0
 set addPatch=0
@@ -24,8 +24,8 @@ for /f "tokens=*" %%a in ("%*") do (
     if /i "%%a" == "--no-static" (
         set noStatic=true
         break
-    ) else if /i "%%a" == "--no-update" (
-        set versionUpdate=false
+    ) else if /i "%%a" == "--no-auto-update" (
+        set autoVersionUpdate=false
         break
     ) else if /i "%%a" == "--major" (
         set addMajor=1
@@ -47,7 +47,7 @@ echo [101;93m STARTING BUILDING PROCESS [0m
 
 :: Check version status
 :: (Only checks source, will edit source)
-CMD "Running Backup" /C "VERSION.bat %versionUpdate% %addMajor% %addMinor% %addPatch%"
+CMD "Running Backup" /C "VERSION.bat %autoVersionUpdate% %addMajor% %addMinor% %addPatch%"
 
 :: Set up temporary git directory
 CMD "Running Backup" /C "GIT.bat"

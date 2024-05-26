@@ -4,9 +4,9 @@
  * 
 **/
 
-// node version.js <input_path> <input_key> <source_path> <gloal_increase>
+// node version.js <input_path> <input_key> <source_path> <gloal_increase> <should_auto_increase>
 
-const { arg1, arg2, arg3, arg4 } = require('./_args');
+const { arg1, arg2, arg3, arg4, arg5 } = require('./_args');
 const { log, warn, error, info, action } = require('./_console');
 const { getContent, writeContent, getJSON, _p, readDirCon } = require('./_files');
 const crypto = require('crypto');
@@ -126,7 +126,7 @@ async function checkVersion(path, name){
     // Increase version
     if(verIncreaseVal == 0){
         // Check for changes
-        if(currHash != source[name].hash && source[name]?.auto){
+        if(currHash != source[name].hash && source[name]?.auto && arg5 == "true"){
             // Auto-increase version
             info(`Auto-updating version of source '${name}'...`);
             source[name].version = updateVersion([0, 0, 1], source[name].version);

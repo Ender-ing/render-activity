@@ -206,7 +206,7 @@ x-layout > [slot=nav-rail] {
     }
 }
 
-@media screen and (min-width: 600px) and (max-width: 839px) {
+@media screen and (min-width: 601px) and (max-width: 839px) {
     x-layout {
         --safe-area: 24px;
     }

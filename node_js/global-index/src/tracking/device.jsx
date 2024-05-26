@@ -8,7 +8,7 @@
 let deviceSize = null;
 const sizeQueries = [
     ["compact", window.matchMedia("(max-width: 600px)")],
-    ["medium", window.matchMedia("(min-width: 600px) and (max-width: 839px)")],
+    ["medium", window.matchMedia("(min-width: 601px) and (max-width: 839px)")],
     ["expanded", window.matchMedia("(min-width: 840px) and (max-width: 1199px)")],
     ["large", window.matchMedia("(min-width: 1200px) and (max-width: 1599px)")],
     ["extra-large", window.matchMedia("(min-width: 1600px)")]

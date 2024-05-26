@@ -12,6 +12,9 @@
     // *VALUE*       => Any file/folder name that contains "VALUE" (also applies to "VALUE" by itself)
     // VALUE         => Any file/folder name that matches "VALUE"
     "$global_ignore": [
+        // Ignore GitHub files/folders
+        ".gitignore",
+        ".git",
         // This file is ignored because it can trigger an update on every build
         "gen.version.txt",
         // Markdown files are ignored because they currently do not affect the generated content

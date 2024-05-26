@@ -144,12 +144,12 @@
         "auto": true
     },
     "test": {
-        "hash": "10985e52cf70df78da1b6e8e93ba2b17da1420bc5126b0528b3064135f7a490f",
+        "hash": "50dd69862f9fb2dcca80442bffdb521fc775aab7e1cafce79f9c9939dff4b3a8",
         "ignore": [],
         "version": {
             "major": 0,
             "minor": 0,
-            "patch": 4
+            "patch": 5
         },
         "auto": true
     },

@@ -137,6 +137,9 @@ async function checkVersion(path, name){
     }
 
     // Update hash
+    if(source[name].hash != currHash){
+        info(`Updating hash of source '${name}'...`);
+    }
     source[name].hash = currHash;
 
     // Write new version

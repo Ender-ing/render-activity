@@ -54,12 +54,12 @@
         "auto": true
     },
     "docs": {
-        "hash": "c5d3ed7d2b7708e901a5586782ad521f7be98bb8a501dd67e44f805397a9d61b",
+        "hash": "0f0bb1aec815a3e5f963317620508639141373ecd603613ebb1d6b2352a542f0",
         "ignore": [],
         "version": {
             "major": 0,
             "minor": 0,
-            "patch": 7
+            "patch": 8
         },
         "auto": true
     },

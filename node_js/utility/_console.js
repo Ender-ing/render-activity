@@ -15,17 +15,17 @@ function log(...args){
 
 // Show informative text
 function info(...args){
-    console.log(args.join(newLine).blue);
+    console.log(("(?) " + args.join(newLine)).blue);
 }
 
 // Show action text
 function action(...args){
-    console.log(args.join(newLine).green);
+    console.log(("(#) " + args.join(newLine)).green);
 }
 
 // Show warnings
 function warn(...args){
-    console.warn(args.join(newLine).yellow);
+    console.warn(("(!) " + args.join(newLine)).yellow);
 }
 
 // Show errors and end script!
@@ -37,7 +37,7 @@ function error(...args){
         args.slice(flagIndex, flagIndex);
     }
     if(typeof args[0] == 'string'){
-        console.error(args.join(newLine).red);
+        console.error(("(!) " + args.join(newLine)).red);
         // throw new Error(msg);
     }else{
         console.error(args[0].stack.red);

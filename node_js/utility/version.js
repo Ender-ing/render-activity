@@ -105,8 +105,23 @@ async function checkVersion(path, name){
     // Check version.json
     if(!(name in source)){
         // Create JSON object
-        warn(`Warning: Source '${name}' base versioning set to default version! (0.0.0)`);
+        warn(`Source '${name}' base versioning set to default version! (0.0.0)`);
         source[name] = copyJSONObj(source["$default"]);
+        // Get last saved gen.version.txt version
+        try{
+            let txtVersion = await getContent(_p.join(path, "gen.version.txt"))
+            // Check data
+            if(txtVersion != null){
+                let ver = txtVersion.split(".").map(v => Number(v));
+                if(typeof ver[0] == "number" && typeof ver[1] == "number" && typeof ver[2] == "number"){
+                    // Restore data
+                    info(`Restoring version data for source '${name}'`);
+                    source[name].version.major = ver[0];
+                    source[name].version.minor = ver[1];
+                    source[name].version.patch = ver[2];    
+                }
+            }
+        }catch{}
     }
 
     // Check for any version increase (command-invoked)

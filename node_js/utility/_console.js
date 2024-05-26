@@ -15,17 +15,17 @@ function log(...args){
 
 // Show informative text
 function info(...args){
-    console.log(("(?) " + args.join(newLine)).blue);
+    console.log(("(?) (info) " + args.join(newLine)).blue);
 }
 
 // Show action text
 function action(...args){
-    console.log(("(#) " + args.join(newLine)).green);
+    console.log(("(#) (action) " + args.join(newLine)).green);
 }
 
 // Show warnings
 function warn(...args){
-    console.warn(("(!) " + args.join(newLine)).yellow);
+    console.warn(("(!) (Warning) " + args.join(newLine)).yellow);
 }
 
 // Show errors and end script!
@@ -37,11 +37,13 @@ function error(...args){
         args.slice(flagIndex, flagIndex);
     }
     if(typeof args[0] == 'string'){
-        console.error(("(!) " + args.join(newLine)).red);
+        console.error((`(!) (${(flagIndex != -1) ? "soft " : ""}error) ` + args.join(newLine)).red);
         // throw new Error(msg);
     }else{
         console.error(args[0].stack.red);
-        throw new Error(args[0]);
+        if(flagIndex == -1){
+            throw new Error(args[0]);
+        }
     }
     if(flagIndex == -1){
         process.exit(1);

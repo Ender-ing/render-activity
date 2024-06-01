@@ -29,6 +29,11 @@
             "message": "The page you're trying to access is not available! Please try again later..."
         }
     },
+    "organisation": {
+        "name": "Ender",
+        "description": "An open-source online project aimed to present various unrestricted virtual solutions for secure and free consumption.",
+        "address": "Israel, Galilee"
+    },
     "_lang": {
         "code": "en"
     },

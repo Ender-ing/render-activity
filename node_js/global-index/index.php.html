@@ -383,12 +383,42 @@ header('Content-language: '.$LANG_CODE);
     <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin />
 
     <!-- meta data -->
+    <!-- @@VALUES are replaced by the build script! -->
     <meta name="title" content="@@title" id="meta-title">
     <meta name="description" content="@@description" id="meta-description">
     <link rel="alternate" hreflang="ar" href="@@href-alt-ar" id="meta-alternate-ar">
     <link rel="alternate" hreflang="en" href="@@href-alt-en" id="meta-alternate-en">
     <link rel="alternate" hreflang="he" href="@@href-alt-he" id="meta-alternate-he">
     <link rel="canonical" href="@@href-con" id="meta-canonical">
+
+    <!-- Ender.ing metadata -->
+    <meta name="keywords" content="computers, technology, open source, free, ender, endering">
+    <!-- read: https://developers.google.com/search/docs/appearance/structured-data/organization#example -->
+    <script type="application/ld+json">
+    {
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            "image": "https://ender.ing/brand/icons/logo-512.png",
+            "url": "https://ender.ing",
+            "sameAs": ["https://ender.ing/about/"],
+            "logo": "https://ender.ing/brand/icons/logo-512.png",
+            "name": "{{$organisation.name}}",
+            "description": "{{$organisation.description}}",
+            "email": "admin@ender.ing",
+            "foundingDate": "2024-06-01",
+            "keywords": "computers, technology, open source, free, ender, endering",
+            "address": "{{$organisation.address}}",
+            "founder": {
+                "@type": "Person",
+                "givenName": "0xENDER",
+                "additionalName": "Ender",
+                "email": "admin@ender.ing",
+                "address": "{{$organisation.address}}",
+                "addressCountry": "IL",
+                "gender": "Male"
+            }
+        }
+    </script>
 </head>
 
 <body>

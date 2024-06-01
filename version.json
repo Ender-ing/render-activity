@@ -106,22 +106,22 @@
         "auto": true
     },
     "public_html": {
-        "hash": "3002a5f604a08914fd7c35b8d140b92495a5951bbb0db5243d50899e51ee8c44",
+        "hash": "bf8d7337e3f7f50cc3799863f88258b5f302eb9614bab1bfb119a1c36a3dc806",
         "ignore": [],
         "version": {
             "major": 0,
             "minor": 0,
-            "patch": 1
+            "patch": 2
         },
         "auto": true
     },
     "resources": {
-        "hash": "b7e35fc7fcc76ae3826a01a0e0941d043b6e31c3461155db4c91fbe51ef69988",
+        "hash": "2b8aea1e52d7b0f5b600710d5ba9dcd6f8d85f1206a6da9947897e3d9a97b0c4",
         "ignore": [],
         "version": {
             "major": 0,
             "minor": 0,
-            "patch": 1
+            "patch": 2
         },
         "auto": true
     },

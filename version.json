@@ -26,7 +26,7 @@
         "auto": true
     },
     "authority": {
-        "hash": "6d2e30186a4c48a7071e7ad125027966d4e541c689e70073937c0e2e8e87b35a",
+        "hash": "4740f2dde5d016c1dc9a27558d9b42faa85a1061e3e3d3cbd21b5764405d68bf",
         "ignore": [],
         "version": {
             "major": 0,
@@ -36,7 +36,7 @@
         "auto": true
     },
     "chat": {
-        "hash": "1b575093528d445ba900ac4526f5be67bf908a8384029061b4c829755685ad9b",
+        "hash": "65d20acaae813360289942cb6d3b45a0dda334028b9a64e4910841ecdfd2f501",
         "ignore": [],
         "version": {
             "major": 0,
@@ -46,7 +46,7 @@
         "auto": true
     },
     "crew": {
-        "hash": "7d629ea607d4646008fb568efad571f6407feddbef8d26dcd4d243ef155de1ad",
+        "hash": "866329f61855b3c5e4c5fbd01f45e54300879b28d516d10d06417f67d906b38f",
         "ignore": [],
         "version": {
             "major": 0,
@@ -56,7 +56,7 @@
         "auto": true
     },
     "docs": {
-        "hash": "c2ca35d90a292b7385b29286ddbb8b782b0613d90dd06277d086da050a882528",
+        "hash": "4b80fc84fbcf68896bbe0b8e2a7907ddf8485ca7748771b55ac00283f205ac2c",
         "ignore": [],
         "version": {
             "major": 0,
@@ -66,7 +66,7 @@
         "auto": true
     },
     "email": {
-        "hash": "d2a2665d38b8f1bc8a2519741090950bd6833cd2a7d7da48aa96d33eebaf61cb",
+        "hash": "ddc449ff9454b6320b2649539db4df3ce2a57115dc2a22bab6cccdf8d62ac6f0",
         "ignore": [],
         "version": {
             "major": 0,
@@ -96,7 +96,7 @@
         "auto": true
     },
     "omni": {
-        "hash": "a7ed8dfc3ba5cb94bfccb824e2331a7a39be8d3f5a411ba0542dcd00c5a79eaa",
+        "hash": "21f739f05c859dc73f1a25c49da7f93a90e9ca3aa95f2bec05f498c42c11212c",
         "ignore": [],
         "version": {
             "major": 0,
@@ -126,7 +126,7 @@
         "auto": true
     },
     "sites": {
-        "hash": "20ac60272e8ecf8c9b3c80f4e77bf202f28a6096b84a21765d7308381cae5fca",
+        "hash": "7532974a779450f5396d6ebaa76ef708d3ef27d268cc9109752738973d7b86d4",
         "ignore": [],
         "version": {
             "major": 0,
@@ -146,7 +146,7 @@
         "auto": true
     },
     "test": {
-        "hash": "6f7da7f07caf873490569ecc6ece2a7e03ffba787036e96de5a7950311ae44a2",
+        "hash": "64b03bab41b0a52c47749f101f8a03f87e69c954c03347fc008fb6c7b62759c8",
         "ignore": [],
         "version": {
             "major": 0,
@@ -156,7 +156,7 @@
         "auto": true
     },
     "tweaker": {
-        "hash": "5049da32ff883b4f1e04d920534f4b36f5e403373e2a28f63a7482e494a9d06b",
+        "hash": "86cc912070a4e8615e2dd259cd63f0f0c5a7cc5aec3b3bad890b5a51ee8f1d33",
         "ignore": [],
         "version": {
             "major": 0,

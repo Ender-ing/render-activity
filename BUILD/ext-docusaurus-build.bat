@@ -19,9 +19,11 @@ if %errorlevel% NEQ 0 ( set errorTrigger="level" && goto local_bat_error )
 pushd %DOCUSAURUS_PATH%
 
 :: Delete build files
-del "%OUTPUT_PATH%\docs\en" > NUL
-del "%OUTPUT_PATH%\docs\ar" > NUL
-del "%OUTPUT_PATH%\docs\he" > NUL
+echo "1"
+rmdir /s /q "%OUTPUT_PATH%\docs\en" > NUL
+rmdir /s /q "%OUTPUT_PATH%\docs\ar" > NUL
+rmdir /s /q "%OUTPUT_PATH%\docs\he" > NUL
+echo "2"
 del "%OUTPUT_PATH%\docs\*.html" > NUL
 del "%OUTPUT_PATH%\docs\*.php" > NUL
 del "%OUTPUT_PATH%\docs\sw.js" > NUL
@@ -29,8 +31,8 @@ del "%OUTPUT_PATH%\docs\.htaccess" > NUL
 del "%OUTPUT_PATH%\docs\manifest.webmanifest" > NUL
 
 :: Delete cache file
-del "%DOCUSAURUS_PATH%\.docusaurus" > NUL
-del "%DOCUSAURUS_PATH%\build" > NUL
+rmdir /s /q "%DOCUSAURUS_PATH%\.docusaurus" > NUL
+rmdir /s /q "%DOCUSAURUS_PATH%\build" > NUL
 
 :: build the project
 CMD "Running Backup" /C "npm run build"

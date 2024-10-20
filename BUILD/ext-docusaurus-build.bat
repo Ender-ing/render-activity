@@ -40,5 +40,8 @@ CMD "Running Backup" /C "npm run build"
 :: Move files to the docs subdomain directory!
 robocopy "%DOCUSAURUS_PATH%\build" "%OUTPUT_PATH%\docs" /s /mov /e
 
+:: Copy .htaccess
+copy %BUILD_PATH%\global\secure.ext.htaccess %OUTPUT_PATH%\docs\.htaccess > NUL
+
 :: Return to the original directory
 popd

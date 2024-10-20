@@ -8,11 +8,11 @@ RewriteEngine On
 
 ##START-SYNC
 # Set error documents
-ErrorDocument 401 /redirect.config.php
-ErrorDocument 402 /redirect.config.php
-ErrorDocument 403 /redirect.config.php
-ErrorDocument 404 /redirect.config.php
-ErrorDocument 500 /redirect.config.php
+ErrorDocument 401 /404.php
+ErrorDocument 402 /404.php
+ErrorDocument 403 /404.php
+ErrorDocument 404 /404.php
+ErrorDocument 500 /404.php
 ##END-SYNC
 
 # Force HTTPS/SSL
@@ -56,13 +56,7 @@ Options All -Indexes
 </FilesMatch>
 
 ##START-SYNC
-# Serve the content of one html file for all pages!
-RewriteCond %{REQUEST_URI} !^/(en|ar|he)/.+$
-RewriteCond %{REQUEST_FILENAME} !\.config\..*$
-RewriteCond %{REQUEST_URI} !^/redirect\.config\.php$
-RewriteCond %{REQUEST_URI} index\.html$ [OR]
-RewriteCond %{REQUEST_URI} /$
-RewriteRule ^(.*)$ redirect.config.php [L] 
+## ...
 ##END-SYNC
 
 # Improve server response time

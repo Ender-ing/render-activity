@@ -22,8 +22,13 @@ pushd %DOCUSAURUS_PATH%
 del "%DOCUSAURUS_PATH%\.docusaurus" > NUL
 del "%DOCUSAURUS_PATH%\build" > NUL
 
+:: Do other stuff before building the project!
+
 :: build the project
 CMD "Running Backup" /C "npm run build"
+
+:: Move files to the docs subdomain directory!
+robocopy "%DOCUSAURUS_PATH%\build" "%OUTPUT_PATH%\docs" /s /mov /e
 
 :: Return to the original directory
 popd

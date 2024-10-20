@@ -56,12 +56,12 @@
         "auto": true
     },
     "docs": {
-        "hash": "4b80fc84fbcf68896bbe0b8e2a7907ddf8485ca7748771b55ac00283f205ac2c",
+        "hash": "44c275e29653a288a15a5badcde3cd56dd9946fd0fd94ff34687f081c62c60df",
         "ignore": [],
         "version": {
             "major": 0,
-            "minor": 0,
-            "patch": 8
+            "minor": 1,
+            "patch": 0
         },
         "auto": true
     },
@@ -96,7 +96,7 @@
         "auto": true
     },
     "omni": {
-        "hash": "21f739f05c859dc73f1a25c49da7f93a90e9ca3aa95f2bec05f498c42c11212c",
+        "hash": "501d3ea0b6a6cd0ceb1ba6587916cf903e1bd49d310ad1176485748eeccad058",
         "ignore": [],
         "version": {
             "major": 0,

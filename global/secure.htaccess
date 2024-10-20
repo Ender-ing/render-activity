@@ -198,12 +198,12 @@ RewriteRule \.(mp4|mov|webm|avi|flv|wmv|mp3|wav|ogg|jpg|jpeg|png|gif|pdf|doc|doc
     base-uri 'none'; \
     connect-src 'self' https://*.ender.ing https://www.google-analytics.com https://fonts.googleapis.com https://fonts.gstatic.com; \
     manifest-src 'self'; \
-    script-src 'self' https://*.ender.ing 'unsafe-inline' 'strict-dynamic' https://*.ender.ing https://www.googletagmanager.com; \
+    script-src 'self' https://*.ender.ing 'unsafe-inline' https://*.ender.ing https://www.googletagmanager.com; \
     style-src 'self' https://*.ender.ing 'unsafe-inline' https://fonts.googleapis.com; \
     object-src 'none'; \
     font-src https://fonts.googleapis.com https://fonts.gstatic.com; \
     form-action 'self' https://*.ender.ing; \
-    img-src 'self' https://*.ender.ing data:; \
+    img-src 'self' https://*.ender.ing https://github.com data:; \
     frame-ancestors 'none'; \
     upgrade-insecure-requests; \
     "

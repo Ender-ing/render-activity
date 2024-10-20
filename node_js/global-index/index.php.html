@@ -1,11 +1,7 @@
 <!DOCTYPE html>
 <!--
-    index.php.html - Base index file for all served pages!
+    Base index file for all served pages!
         (language + Display file support)
-    index.shell.php.html - Base index file for all served pages!
-        (no language / no Display file support)
-
-    NOTE: Remember to keep the two index files in sync!
 -->
 
 <!--START SYNC-->
@@ -33,7 +29,7 @@ header('Content-Security-Policy:'.
     'object-src \'none\';'.
     'font-src https://fonts.googleapis.com https://fonts.gstatic.com;'.
     'form-action \'self\' https://*.ender.ing;'.
-    'img-src \'self\' https://*.ender.ing data:;'.
+    'img-src \'self\' https://*.ender.ing https://github.com data:;'.
     'frame-ancestors \'none\';'.
     'upgrade-insecure-requests;');
 

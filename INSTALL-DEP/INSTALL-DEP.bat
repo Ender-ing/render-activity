@@ -25,6 +25,9 @@ popd
 pushd %BUILD_PATH%\node_js\global-index
 CMD "Running Backup" /C "npm i"
 popd
+pushd %DOCUSAURUS_PATH%
+CMD "Running Backup" /C "npm i"
+popd
 
 echo [44;45m INSTALLING LOCAL NODEJS DEPENDENCIES... [0m
 

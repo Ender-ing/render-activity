@@ -135,8 +135,11 @@ async function processStatic(){
     // Start scan
     await scanDir(arg1, source, arg1);
 
-    // Generate sitemap
-    await writeSitmap();
+    // Create sitemap.xml file
+    if(!(typeof source.web?.sitemap == 'boolean' && source.web.sitemap == false)){
+        // Generate sitemap
+        await writeSitmap();
+    }
 }
 
 processStatic();

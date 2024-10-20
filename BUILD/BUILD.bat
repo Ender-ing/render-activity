@@ -77,6 +77,9 @@ CMD "Running Backup" /C "compress-custom-material.bat"
 :: Generate all root directories files
 CMD "Running Backup" /C "generate-root-files.bat"
 
+:: Build the "docs" directory
+CMD "Running Backup" /C "ext-docusaurus-build.bat"
+
 :: Cleanup .OUTPUT directory
 CMD "Running Backup" /C "AFTER-CLEANUP.bat"
 

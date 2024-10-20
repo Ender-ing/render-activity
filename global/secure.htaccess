@@ -193,6 +193,20 @@ RewriteRule \.(mp4|mov|webm|avi|flv|wmv|mp3|wav|ogg|jpg|jpeg|png|gif|pdf|doc|doc
     # Set the content-security-policy header
     # For more info, refer to https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP#browser_compatibility
     # Check the global-index file for the php script that manages the CSP header!
+    Header set Content-Security-Policy " \
+    default-src 'none'; \
+    base-uri 'none'; \
+    connect-src 'self' https://*.ender.ing https://www.google-analytics.com https://fonts.googleapis.com https://fonts.gstatic.com; \
+    manifest-src 'self'; \
+    script-src 'self' https://*.ender.ing 'unsafe-inline' 'strict-dynamic' https://*.ender.ing https://www.googletagmanager.com; \
+    style-src 'self' https://*.ender.ing 'unsafe-inline' https://fonts.googleapis.com; \
+    object-src 'none'; \
+    font-src https://fonts.googleapis.com https://fonts.gstatic.com; \
+    form-action 'self' https://*.ender.ing; \
+    img-src 'self' https://*.ender.ing data:; \
+    frame-ancestors 'none'; \
+    upgrade-insecure-requests; \
+    "
 
     # Only allow subdomains and the main domain to acccess files!
     #SetEnvIf Origin ^(https?://.+\.ender\.ing(?::\d{1,5})?)$   CORS_ALLOW_ORIGIN=$1

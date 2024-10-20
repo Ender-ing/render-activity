@@ -15,10 +15,6 @@ FOR /F "tokens=*" %%i in (../.secret.env) do SET %%i
 call ../SAFETY.bat || ( set errorTrigger="call" && goto local_bat_error )
 if %errorlevel% NEQ 0 ( set errorTrigger="level" && goto local_bat_error )
 
-:: Specify the directory to search
-set inputDir=%OUTPUT_PATH%
-set outputDir=%OUTPUT_PATH%
-
 :: Change to the target directory 
 pushd %OUTPUT_PATH%
 
@@ -38,7 +34,9 @@ for /D %%f in (*) do (
     :: Generate manifest
     CMD "Running Backup" /C "node %BUILD_PATH%\node_js\utility\manifest.js %RESOURCES_PATH%\web\client\@vite\manifest.jsonc %OUTPUT_PATH%\%%f\gen.info.json %OUTPUT_PATH%\%%f\manifest.webmanifest"
 
-    :: Generate index file
+    :: Generate index files
+    CMD "Running Backup" /C "node %BUILD_PATH%\node_js\utility\variables.js %RESOURCES_PATH%\web\client\@vite\index.shell.php.html %OUTPUT_PATH%\%%f\gen.info.json %OUTPUT_PATH%\%%f\gen.shell.php"
+    CMD "Running Backup" /C "node %BUILD_PATH%\node_js\utility\serve.js %OUTPUT_PATH%\%%f %OUTPUT_PATH%\%%f\gen.shell.php %OUTPUT_PATH%\%%f\gen.info.json %BUILD_PATH%"
     CMD "Running Backup" /C "node %BUILD_PATH%\node_js\utility\variables.js %RESOURCES_PATH%\web\client\@vite\index.php.html %OUTPUT_PATH%\%%f\gen.info.json %OUTPUT_PATH%\%%f\gen.index.php"
     CMD "Running Backup" /C "node %BUILD_PATH%\node_js\utility\serve.js %OUTPUT_PATH%\%%f %OUTPUT_PATH%\%%f\gen.index.php %OUTPUT_PATH%\%%f\gen.info.json %BUILD_PATH%"
 
@@ -81,6 +79,7 @@ for /D %%f in (*) do (
 :: Delete used files
 del "%RESOURCES_PATH%\web\client\@vite\manifest.jsonc" > NUL
 del "%RESOURCES_PATH%\web\client\@vite\index.php.html" > NUL
+del "%RESOURCES_PATH%\web\client\@vite\index.shell.php.html" > NUL
 del "%RESOURCES_PATH%\web\client\@vite\sw.js" > NUL
 
 :: Return to the original directory

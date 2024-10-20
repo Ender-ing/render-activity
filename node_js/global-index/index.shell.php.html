@@ -37,33 +37,9 @@ header('Content-Security-Policy:'.
     'frame-ancestors \'none\';'.
     'upgrade-insecure-requests;');
 
-/**
- * 
- * Manage server-side preferences code
- * 
-**/
+    // NO LANGUAGE SUPPORT!
 
-// Allowed languages
-$langs = array('en', 'ar', 'he');
-$rtlLangs = array('ar', 'he');
-
-// Get the current URL path (relative to the domain)
-$currentPath = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-$pathSegments = explode('/', trim($currentPath, '/'));
-// Get language folder
-$langDir = $pathSegments[0];
-
-// Check if the current directory is NOT within the allowed directories
-if (!isset($langDir) || !in_array($langDir, $langs)) {
-    require_once $_SERVER['DOCUMENT_ROOT'].'/redirect.config.php';
-    die();
-}
-
-// Get language info
-$LANG_CODE = $langDir;
-$LANG_IS_RTL = in_array($LANG_CODE, $rtlLangs);
-
-?>" lang="<?php echo $LANG_CODE; ?>" dir="<?php echo (($LANG_IS_RTL) ? 'rtl' : 'ltr'); ?>" translate="no">
+?>" lang="en" dir="ltr" translate="no">
 <!--END SYNC-->
 
 <head>
@@ -489,7 +465,7 @@ $LANG_IS_RTL = in_array($LANG_CODE, $rtlLangs);
     <script src="https://resources.ender.ing/web/client/@material/general.js" async></script>
     <script src="https://resources.ender.ing/web/client/@material/x-layouts.js" async></script>
 <!--START SYNC-->
-    <script src="/src/index.jsx" type="module" async></script>
+    <!--<script src="/src/index.jsx" type="module" async></script>-->
 <!--END SYNC-->
 
     <!-- All extra files go here! -->

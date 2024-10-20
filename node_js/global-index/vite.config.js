@@ -36,8 +36,7 @@ export default defineConfig({
         sourcemap: true, // Enables source maps in production
         rollupOptions: {
             input: {
-                index: './index.php.html',
-                shell: './index.shell.php.html',
+                index: './index.php.html'
             },
             output: {
                 entryFileNames: `[name].js`,

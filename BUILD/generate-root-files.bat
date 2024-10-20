@@ -34,9 +34,7 @@ for /D %%f in (*) do (
     :: Generate manifest
     CMD "Running Backup" /C "node %BUILD_PATH%\node_js\utility\manifest.js %RESOURCES_PATH%\web\client\@vite\manifest.jsonc %OUTPUT_PATH%\%%f\gen.info.json %OUTPUT_PATH%\%%f\manifest.webmanifest"
 
-    :: Generate index files
-    CMD "Running Backup" /C "node %BUILD_PATH%\node_js\utility\variables.js %RESOURCES_PATH%\web\client\@vite\index.shell.php.html %OUTPUT_PATH%\%%f\gen.info.json %OUTPUT_PATH%\%%f\gen.shell.php"
-    CMD "Running Backup" /C "node %BUILD_PATH%\node_js\utility\serve.js %OUTPUT_PATH%\%%f %OUTPUT_PATH%\%%f\gen.shell.php %OUTPUT_PATH%\%%f\gen.info.json %BUILD_PATH%"
+    :: Generate index file
     CMD "Running Backup" /C "node %BUILD_PATH%\node_js\utility\variables.js %RESOURCES_PATH%\web\client\@vite\index.php.html %OUTPUT_PATH%\%%f\gen.info.json %OUTPUT_PATH%\%%f\gen.index.php"
     CMD "Running Backup" /C "node %BUILD_PATH%\node_js\utility\serve.js %OUTPUT_PATH%\%%f %OUTPUT_PATH%\%%f\gen.index.php %OUTPUT_PATH%\%%f\gen.info.json %BUILD_PATH%"
 
@@ -79,7 +77,6 @@ for /D %%f in (*) do (
 :: Delete used files
 del "%RESOURCES_PATH%\web\client\@vite\manifest.jsonc" > NUL
 del "%RESOURCES_PATH%\web\client\@vite\index.php.html" > NUL
-del "%RESOURCES_PATH%\web\client\@vite\index.shell.php.html" > NUL
 del "%RESOURCES_PATH%\web\client\@vite\sw.js" > NUL
 
 :: Return to the original directory

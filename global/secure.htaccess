@@ -132,7 +132,7 @@ RewriteRule \.(mp4|mov|webm|avi|flv|wmv|mp3|wav|ogg|jpg|jpeg|png|gif|pdf|doc|doc
     Header set Referrer-Policy no-referrer-when-downgrade
 
     # Set Embedder Policy (experimental)
-    Header set Cross-Origin-Embedder-Policy require-corp
+    Header set Cross-Origin-Embedder-Policy credentialless
 
     # Set resource policy
     # IF YOU SET THIS TO SAME-SITE/SAME-ORIGIN, MANIFEST IMAGES STOP LOADING

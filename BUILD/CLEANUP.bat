@@ -16,7 +16,7 @@ call ../SAFETY.bat || ( set errorTrigger="call" && goto local_bat_error )
 if %errorlevel% NEQ 0 ( set errorTrigger="level" && goto local_bat_error )
 
 :: Temporary git path
-set TEMP_GIT_PATH=%TEMP%\endering-build-temp-git
+set TEMP_GIT_PATH=%TEMP%\.endering-build-temp-git
 
 :: Attempt to delete the folder
 rmdir /s /q %OUTPUT_PATH% > NUL 2>&1

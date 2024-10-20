@@ -16,7 +16,7 @@ call ../SAFETY.bat || ( set errorTrigger="call" && goto local_bat_error )
 if %errorlevel% NEQ 0 ( set errorTrigger="level" && goto local_bat_error )
 
 :: Temporary git path
-set TEMP_GIT_PATH=%TEMP%\endering-build-temp-git
+set TEMP_GIT_PATH=%TEMP%\.endering-build-temp-git
 
 :: Check if deletion was successful
 if exist %TEMP_GIT_PATH%\.git (

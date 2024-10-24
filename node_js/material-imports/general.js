@@ -4,6 +4,12 @@
  * 
 **/
 
+// Check page independence!
+if(!window.DEPENDENT){
+    window.addComponentToList = () => {};
+    document.documentElement.resourceLoaded = () => {};
+}
+
 // Utility functions
 async function awaitShadowRoot(elm) {
     if (elm.shadowRoot != null) {

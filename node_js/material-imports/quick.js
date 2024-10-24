@@ -8,6 +8,7 @@
 if(!window.DEPENDENT){
     window.addComponentToList = () => {};
     document.documentElement.resourceLoaded = () => {};
+    window.STYLESHEET = window.STYLESHEET_NO_MEDIA = window.JAVASCRIPT = 0;
 }
 
 import '@material/web/progress/circular-progress.js';

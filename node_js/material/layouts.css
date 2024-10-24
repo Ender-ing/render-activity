@@ -63,6 +63,7 @@ x-layout > [slot=group] {
     flex: 1;
     min-width: 0px;
     position: relative;
+    box-sizing: unset;
 }
 [dir=ltr] x-layout > [slot=group] {
     margin-left: var(--group-margin);
@@ -339,6 +340,7 @@ x-layout > [slot=nav-rail] {
     height: fit-content;
     background: var(--md-sys-color-surface);
     color: var(--md-sys-color-on-surface);
+    box-sizing: unset;
 }
 [primary] .x-layout-pane {
     background: var(--md-sys-color-on-primary);

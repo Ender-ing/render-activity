@@ -53,7 +53,8 @@
 
 .dark ::-moz-selection,
 .dark-medium-contrast ::-moz-selection,
-.dark-high-contrast ::-moz-selection {
+.dark-high-contrast ::-moz-selection,
+[data-theme=dark] ::-moz-selection {
     /* Code for Firefox */
     color: var(--md-sys-color-secondary-fixed-dim);
     background: var(--md-sys-color-on-secondary-fixed-variant);
@@ -61,14 +62,16 @@
 
 .dark ::selection,
 .dark-medium-contrast ::selection,
-.dark-high-contrast ::selection {
+.dark-high-contrast ::selection,
+[data-theme=dark] ::selection {
     color: var(--md-sys-color-secondary-fixed-dim);
     background: var(--md-sys-color-on-secondary-fixed-variant);
 }
 
 .light ::-moz-selection,
 .light-medium-contrast ::-moz-selection,
-.light-high-contrast ::-moz-selection {
+.light-high-contrast ::-moz-selection,
+[data-theme=light] ::-moz-selection {
     /* Code for Firefox */
     color: var(--md-sys-color-on-secondary-container);
     background: var(--md-sys-color-secondary-fixed-dim);
@@ -76,7 +79,8 @@
 
 .light ::selection,
 .light-medium-contrast ::selection,
-.light-high-contrast ::selection {
+.light-high-contrast ::selection,
+[data-theme=light] ::selection {
     color: var(--md-sys-color-on-secondary-container);
     background: var(--md-sys-color-secondary-fixed-dim);
 }

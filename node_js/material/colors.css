@@ -2,7 +2,8 @@
 
 /* Light mode */
 :root,
-.light {
+.light,
+[data-theme=light] {
     --md-sys-color-primary: rgb(63 95 144);
     --md-sys-color-surface-tint: rgb(63 95 144);
     --md-sys-color-on-primary: rgb(255 255 255);
@@ -160,7 +161,8 @@
 
 /* Dark mode */
 
-.dark {
+.dark,
+[data-theme=dark] {
     --md-sys-color-primary: rgb(168 200 255);
     --md-sys-color-surface-tint: rgb(168 200 255);
     --md-sys-color-on-primary: rgb(6 48 95);

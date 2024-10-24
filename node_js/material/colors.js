@@ -2,6 +2,13 @@
     Manage the colour-scheme of pages!
 */
 
+// Check page independence!
+if(!window.DEPENDENT){
+    window.addComponentToList = () => {};
+    document.documentElement.resourceLoaded = () => {};
+    window.STYLESHEET = window.STYLESHEET_NO_MEDIA = window.JAVASCRIPT = 0;
+}
+
 (function(){
     // Save classlist
     const PAGE = document.documentElement.classList;

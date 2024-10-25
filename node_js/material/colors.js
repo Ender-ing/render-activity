@@ -75,7 +75,7 @@ if(!window.DEPENDENT){
     awaitColorsLoad(() => {
         // Check scheme cookie value
         let colorScheme = document.documentElement.getCookie("scheme");
-        if(colorScheme != null && Number(colorScheme) < schemeList.length - 1){
+        if(colorScheme != null && Number(colorScheme) < 7){
             updateColourScheme(Number(colorScheme));
         }else{
             // Always auto-detect

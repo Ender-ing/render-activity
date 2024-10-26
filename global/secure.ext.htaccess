@@ -197,7 +197,7 @@ RewriteRule \.(mp4|mov|webm|avi|flv|wmv|mp3|wav|ogg|jpg|jpeg|png|gif|pdf|doc|doc
     object-src 'none'; \
     font-src https://fonts.googleapis.com https://fonts.gstatic.com; \
     form-action 'self' https://*.ender.ing; \
-    img-src 'self' https://*.ender.ing https://github.com https://avatars.githubusercontent.com data:; \
+    img-src 'self' https://*.ender.ing data:; \
     frame-ancestors 'none'; \
     upgrade-insecure-requests; \
     "

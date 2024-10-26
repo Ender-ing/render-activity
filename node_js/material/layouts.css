@@ -206,6 +206,11 @@ x-layout > [slot=nav-rail] {
     x-layout[has-bar] > [slot=group] > .x-layout-pane[view=full] {
         --lost-vertical: var(--bar-space);
     }
+    /* Hide view=disappear+ */
+    x-layout > [slot=group][view*=disappear],
+    x-layout > [slot=group][view*=disappear-early] {
+        display: none;
+    }
 }
 
 @media screen and (min-width: 601px) and (max-width: 839px) {
@@ -265,6 +270,11 @@ x-layout > [slot=nav-rail] {
     x-layout[view*=collapse] > [slot=group] > .x-layout-pane[view=full] {
         --lost-vertical: 0px;
     }
+    /* Hide view=disappear+ */
+    x-layout > [slot=group][view*=disappear],
+    x-layout > [slot=group][view*=disappear-early] {
+        display: none;
+    }
     /* Limit content in the 25% top of the screen! */
 }
 
@@ -275,6 +285,10 @@ x-layout > [slot=nav-rail] {
     /* Switch to rail navigation */
     x-layout > [slot=nav-rail] {
         display: block;
+    }
+    /* Hide view=disappear-early */
+    x-layout > [slot=group][view*=disappear-early] {
+        display: none;
     }
 }
 

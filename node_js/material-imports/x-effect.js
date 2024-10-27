@@ -41,6 +41,8 @@ class XEffect extends LitElement {
         if(!this.hasAttribute("tabindex")){
             this.setAttribute("tabindex", "0");
         }
+        // Hide the default effect
+        this.classList.add("no-default-focus");
         // Add the focus ring
         let focusRing = document.createElement('md-focus-ring');
         focusRing.setAttribute("aria-hidden", "true");
@@ -86,6 +88,9 @@ class XEffect extends LitElement {
         position: relative;
         width: fit-content;
         height: fit-content;
+    }
+    .no-default-focus:focus {
+        outline: none;
     }`;
 
     render() {

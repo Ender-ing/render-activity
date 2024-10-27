@@ -146,12 +146,12 @@
         "auto": true
     },
     "test": {
-        "hash": "97f2d1f1489014f352fee0fccc8827ff18deb54e3b662ada674e7e5c94b7eff6",
+        "hash": "b677f0d49d7dfdd291a28404709403173bec85247462bce2deea506df60d7e68",
         "ignore": [],
         "version": {
             "major": 0,
             "minor": 0,
-            "patch": 6
+            "patch": 7
         },
         "auto": true
     },

@@ -88,7 +88,6 @@ class XEffect extends LitElement {
         position: relative;
         width: fit-content;
         height: fit-content;
-        overflow: hidden;
     }
     :host([class*="no-default-focus"]),
     :host([class*="no-default-focus"]):focus {

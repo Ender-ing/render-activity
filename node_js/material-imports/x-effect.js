@@ -32,23 +32,64 @@ class XEffect extends LitElement {
         super();
     }
 
-    static styles = css`
-    #wrapper {
-        all: inherit;
-        position: relative;
-    }
-    `;
     connectedCallback() {
         super.connectedCallback();
     }
 
+    enableFocus(){
+        // Make sure the element can be focused!
+        if(!this.hasAttribute("tabindex")){
+            this.setAttribute("tabindex", "0");
+        }
+        // Add the focus ring
+        let focusRing = document.createElement('md-focus-ring');
+        focusRing.setAttribute("aria-hidden", "true");
+        focusRing.slot = "child";
+        this.appendChild(focusRing);
+    }
+    enableRipple(){
+        // Add the ripple cover
+        let rippleCover = document.createElement('md-ripple');
+        rippleCover.setAttribute("aria-hidden", "true");
+        rippleCover.slot = "child";
+        this.appendChild(rippleCover);
+    }
+    enableElevation(){
+        // Add the elevation cover
+        let elevationCover = document.createElement('md-elevation');
+        elevationCover.setAttribute("aria-hidden", "true");
+        elevationCover.slot = "child";
+        this.appendChild(elevationCover);
+    }
+
+    firstUpdated() {
+        // Check the wanted effects!
+        if(this.hasAttribute("list")){
+            let list = this.getAttribute("list").replace(/\s\s/g, " ").split(" ");
+            if(list.includes("focus")){
+                this.enableFocus();
+            }
+            if(list.includes("ripple")){
+                this.enableRipple();
+            }
+            if(list.includes("elevation")){
+                this.enableElevation();
+            }
+        }else{
+            console.warn("It is not recommended to use an empty list for <x-effect> elements!");
+        }
+    }
+
+    static styles = css`
+    :host {
+        display: block;
+        position: relative;
+        width: fit-content;
+        height: fit-content;
+    }`;
+
     render() {
-        return html`<div class="wrapper">
-            <md-ripple aria-hidden="true"></md-ripple>
-            <md-elevation aria-hidden="true"></md-elevation>
-            <md-focus-ring aria-hidden="true"></md-focus-ring>
-            <slot name="child"></slot>
-        </div>`;
+        return html`<slot name="child"></slot>`;
     }
 }
 customElements.define('x-effect', XEffect);

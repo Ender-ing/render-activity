@@ -2,6 +2,8 @@
  * 
  * Manage effects
  * 
+ * (PROBLEM: THE ELEMENT KINDA BREAKS THE RIPPLE EFFECT AND THE SHADOW BOX!)
+ * 
 **/
 
 // Check page independence!
@@ -36,7 +38,7 @@ class XEffect extends LitElement {
         super.connectedCallback();
     }
 
-    enableFocus(){
+    enableFocus(child){
         // Make sure the element can be focused!
         if(!this.hasAttribute("tabindex")){
             this.setAttribute("tabindex", "0");
@@ -47,35 +49,50 @@ class XEffect extends LitElement {
         let focusRing = document.createElement('md-focus-ring');
         focusRing.setAttribute("aria-hidden", "true");
         focusRing.slot = "child";
+        // Mark this element as a support element
+        focusRing.dataset.support = true;
+        // Attach the effect
         this.appendChild(focusRing);
+        // Attach the effect to the child
+        focusRing.attach(child);
     }
-    enableRipple(){
+    enableRipple(child){
         // Add the ripple cover
         let rippleCover = document.createElement('md-ripple');
         rippleCover.setAttribute("aria-hidden", "true");
         rippleCover.slot = "child";
+        // Mark this element as a support element
+        rippleCover.dataset.support = true;
+        // Attach the effect
         this.appendChild(rippleCover);
+        // Attach the effect to the child
+        rippleCover.attach(child);
     }
-    enableElevation(){
+    enableElevation(child){
         // Add the elevation cover
         let elevationCover = document.createElement('md-elevation');
         elevationCover.setAttribute("aria-hidden", "true");
         elevationCover.slot = "child";
+        // Mark this element as a support element
+        elevationCover.dataset.support = true;
+        // Attach the effect
         this.appendChild(elevationCover);
     }
 
     firstUpdated() {
+        // Get the child
+        let child = this.querySelector("[slot=child]:not([data-support])")
         // Check the wanted effects!
         if(this.hasAttribute("list")){
             let list = this.getAttribute("list").replace(/\s\s/g, " ").split(" ");
             if(list.includes("focus")){
-                this.enableFocus();
+                this.enableFocus(child);
             }
             if(list.includes("ripple")){
-                this.enableRipple();
+                this.enableRipple(child);
             }
             if(list.includes("elevation")){
-                this.enableElevation();
+                this.enableElevation(child);
             }
         }else{
             console.warn("It is not recommended to use an empty list for <x-effect> elements!");
@@ -92,6 +109,9 @@ class XEffect extends LitElement {
     :host([class*="no-default-focus"]),
     :host([class*="no-default-focus"]):focus {
         outline: none;
+    }
+    :host {
+        @apply --md-ripple;
     }`;
 
     render() {

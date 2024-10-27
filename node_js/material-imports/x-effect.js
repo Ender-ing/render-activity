@@ -90,6 +90,7 @@ class XEffect extends LitElement {
         height: fit-content;
         overflow: hidden;
     }
+    .no-default-focus,
     .no-default-focus:focus {
         outline: none;
     }`;

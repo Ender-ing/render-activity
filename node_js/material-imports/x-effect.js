@@ -33,8 +33,9 @@ class XEffect extends LitElement {
     }
 
     static styles = css`
-    :host {
-      display: relative;
+    #wrapper {
+        all: inherit;
+        display: relative;
     }
     `;
     connectedCallback() {
@@ -42,11 +43,12 @@ class XEffect extends LitElement {
     }
 
     render() {
-        return html`
-        <md-ripple aria-hidden="true"></md-ripple>
-        <md-elevation aria-hidden="true"></md-elevation>
-        <md-focus-ring aria-hidden="true"></md-focus-ring>
-        <slot name="child"></slot>`;
+        return html`<div class="wrapper">
+            <md-ripple aria-hidden="true"></md-ripple>
+            <md-elevation aria-hidden="true"></md-elevation>
+            <md-focus-ring aria-hidden="true"></md-focus-ring>
+            <slot name="child"></slot>
+        </div>`;
     }
 }
 customElements.define('x-effect', XEffect);

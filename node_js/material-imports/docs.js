@@ -15,3 +15,4 @@ import '@material/web/chips/assist-chip.js';
 // (effects)
 import '@material/web/focus/md-focus-ring.js';
 import '@material/web/elevation/elevation.js';
+import '@material/web/focus/md-focus-ring.js';

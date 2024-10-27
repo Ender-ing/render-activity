@@ -25,7 +25,7 @@ if(!window.DEPENDENT){
  *      </x-effect>
  * 
 **/
-import { html, LitElement } from 'lit';
+import { css, html, LitElement } from 'lit';
 
 class XEffect extends LitElement {
     constructor() {

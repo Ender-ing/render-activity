@@ -21,7 +21,7 @@
         "version": {
             "major": 0,
             "minor": 0,
-            "patch": 1
+            "patch": 2
         },
         "auto": true
     },
@@ -31,7 +31,7 @@
         "version": {
             "major": 0,
             "minor": 0,
-            "patch": 1
+            "patch": 2
         },
         "auto": true
     },
@@ -41,7 +41,7 @@
         "version": {
             "major": 0,
             "minor": 0,
-            "patch": 1
+            "patch": 2
         },
         "auto": true
     },
@@ -51,7 +51,7 @@
         "version": {
             "major": 0,
             "minor": 0,
-            "patch": 1
+            "patch": 2
         },
         "auto": true
     },
@@ -61,7 +61,7 @@
         "version": {
             "major": 0,
             "minor": 1,
-            "patch": 2
+            "patch": 3
         },
         "auto": true
     },
@@ -71,7 +71,7 @@
         "version": {
             "major": 0,
             "minor": 0,
-            "patch": 2
+            "patch": 3
         },
         "auto": true
     },
@@ -81,7 +81,7 @@
         "version": {
             "major": 0,
             "minor": 0,
-            "patch": 1
+            "patch": 2
         },
         "auto": true
     },
@@ -91,7 +91,7 @@
         "version": {
             "major": 0,
             "minor": 0,
-            "patch": 1
+            "patch": 2
         },
         "auto": true
     },
@@ -101,7 +101,7 @@
         "version": {
             "major": 0,
             "minor": 0,
-            "patch": 5
+            "patch": 6
         },
         "auto": true
     },
@@ -111,7 +111,7 @@
         "version": {
             "major": 0,
             "minor": 0,
-            "patch": 2
+            "patch": 3
         },
         "auto": true
     },
@@ -121,7 +121,7 @@
         "version": {
             "major": 0,
             "minor": 0,
-            "patch": 2
+            "patch": 3
         },
         "auto": true
     },
@@ -131,7 +131,7 @@
         "version": {
             "major": 0,
             "minor": 0,
-            "patch": 1
+            "patch": 2
         },
         "auto": true
     },
@@ -141,7 +141,7 @@
         "version": {
             "major": 0,
             "minor": 0,
-            "patch": 12
+            "patch": 13
         },
         "auto": true
     },
@@ -151,7 +151,7 @@
         "version": {
             "major": 0,
             "minor": 0,
-            "patch": 5
+            "patch": 6
         },
         "auto": true
     },
@@ -161,7 +161,7 @@
         "version": {
             "major": 0,
             "minor": 0,
-            "patch": 1
+            "patch": 2
         },
         "auto": true
     }

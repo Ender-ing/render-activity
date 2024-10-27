@@ -35,7 +35,7 @@ class XEffect extends LitElement {
     static styles = css`
     #wrapper {
         all: inherit;
-        display: relative;
+        position: relative;
     }
     `;
     connectedCallback() {

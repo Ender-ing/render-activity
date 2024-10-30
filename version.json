@@ -35,16 +35,6 @@
         },
         "auto": true
     },
-    "chat": {
-        "hash": "65d20acaae813360289942cb6d3b45a0dda334028b9a64e4910841ecdfd2f501",
-        "ignore": [],
-        "version": {
-            "major": 0,
-            "minor": 0,
-            "patch": 2
-        },
-        "auto": true
-    },
     "crew": {
         "hash": "866329f61855b3c5e4c5fbd01f45e54300879b28d516d10d06417f67d906b38f",
         "ignore": [],
@@ -155,23 +145,13 @@
         },
         "auto": true
     },
-    "tweaker": {
-        "hash": "86cc912070a4e8615e2dd259cd63f0f0c5a7cc5aec3b3bad890b5a51ee8f1d33",
-        "ignore": [],
-        "version": {
-            "major": 0,
-            "minor": 0,
-            "patch": 2
-        },
-        "auto": true
-    },
     "utils": {
-        "hash": "b97a94e86aed76d1e7aee9f6d3b3ba543da93e58fd2d4adbf8e7d9a6b8a2ba29",
+        "hash": "4832cc19220ccd17b636929e5c5785e0907c8c472d512e47a883ce88590ddcd4",
         "ignore": [],
         "version": {
             "major": 0,
             "minor": 0,
-            "patch": 3
+            "patch": 4
         },
         "auto": true
     }

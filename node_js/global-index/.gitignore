@@ -1,2 +1,5 @@
+# NodeJS
 node_modules
+# Docusaurus
 dist
+vite.config.js.timestamp-*

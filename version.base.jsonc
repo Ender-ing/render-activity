@@ -22,7 +22,7 @@
         "*.md"
     ],
     // The GitHub directory that includes all of the organisation's secrets!
-    "$secrets": "https://github.com/Ender-ing/secrets.git",
+    "$secrets": "https://github.com/Ender-ing/wre-secrets.git",
     // This is the default directory object
     // It is used to generate a directory object for any newly added root directories
     "$default": {

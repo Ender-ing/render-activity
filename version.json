@@ -6,7 +6,7 @@
         "gen.version.txt",
         "*.md"
     ],
-    "$secrets": "https://github.com/Ender-ing/secrets.git",
+    "$secrets": "https://github.com/Ender-ing/wre-secrets.git",
     "$default": {
         "hash": null,
         "ignore": [],

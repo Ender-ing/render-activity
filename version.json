@@ -70,6 +70,9 @@
     "links": {
         "hash": "f9f128082176dcd7322a0868ccbac7e83b2aba733a04aed1e1d44eadba8d8683",
         "ignore": [],
+        "github": {
+            "projectName": "wrr-links"
+        },
         "version": {
             "major": 0,
             "minor": 0,
@@ -103,6 +106,9 @@
     "public_html": {
         "hash": "3834597af5acfe4941c5b551ae859de232f55bde93bf7a24d9d198099658d6c5",
         "ignore": [],
+        "github": {
+            "projectName": "wrr-www"
+        },
         "version": {
             "major": 0,
             "minor": 0,
@@ -137,6 +143,9 @@
     "sites": {
         "hash": "7532974a779450f5396d6ebaa76ef708d3ef27d268cc9109752738973d7b86d4",
         "ignore": [],
+        "github": {
+            "projectName": "wrr-sites"
+        },
         "version": {
             "major": 0,
             "minor": 0,

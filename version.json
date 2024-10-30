@@ -86,12 +86,12 @@
         "auto": true
     },
     "resources": {
-        "hash": "7d3632c157caa31291baf0c773f45d24e45e82a5f45ba81e2a7e733a83c141c9",
+        "hash": "2b577a66b777bc5608802f59781cc3aa2b037f2c14c70400757db9cb430b1d7f",
         "ignore": [],
         "version": {
             "major": 0,
             "minor": 0,
-            "patch": 3
+            "patch": 4
         },
         "auto": true
     },

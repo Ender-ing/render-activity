@@ -35,16 +35,6 @@
         },
         "auto": true
     },
-    "crew": {
-        "hash": "866329f61855b3c5e4c5fbd01f45e54300879b28d516d10d06417f67d906b38f",
-        "ignore": [],
-        "version": {
-            "major": 0,
-            "minor": 0,
-            "patch": 2
-        },
-        "auto": true
-    },
     "docs": {
         "hash": "44c275e29653a288a15a5badcde3cd56dd9946fd0fd94ff34687f081c62c60df",
         "ignore": [],

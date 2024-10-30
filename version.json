@@ -22,6 +22,9 @@
     "account": {
         "hash": "fae9e9c57c2f8fc309623fc66921ab291fe456b61b0f7aa45447a808b69cf758",
         "ignore": [],
+        "github": {
+            "projectName": "wrr-account"
+        },
         "version": {
             "major": 0,
             "minor": 0,
@@ -32,6 +35,9 @@
     "authority": {
         "hash": "4740f2dde5d016c1dc9a27558d9b42faa85a1061e3e3d3cbd21b5764405d68bf",
         "ignore": [],
+        "github": {
+            "projectName": "wrr-authority"
+        },
         "version": {
             "major": 0,
             "minor": 0,

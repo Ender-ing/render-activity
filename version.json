@@ -55,16 +55,6 @@
         },
         "auto": true
     },
-    "email": {
-        "hash": "ddc449ff9454b6320b2649539db4df3ce2a57115dc2a22bab6cccdf8d62ac6f0",
-        "ignore": [],
-        "version": {
-            "major": 0,
-            "minor": 0,
-            "patch": 3
-        },
-        "auto": true
-    },
     "links": {
         "hash": "f9f128082176dcd7322a0868ccbac7e83b2aba733a04aed1e1d44eadba8d8683",
         "ignore": [],
@@ -136,22 +126,12 @@
         "auto": true
     },
     "test": {
-        "hash": "07c16b245849bee82312a5e2a7a2eaa17e45465e602e1bccb83e6092884272fb",
+        "hash": "88b54e700f5980050bb065d69d4aec34b5b4f4742404650cb46dc73e49811665",
         "ignore": [],
         "version": {
             "major": 0,
             "minor": 0,
-            "patch": 9
-        },
-        "auto": true
-    },
-    "utils": {
-        "hash": "4832cc19220ccd17b636929e5c5785e0907c8c472d512e47a883ce88590ddcd4",
-        "ignore": [],
-        "version": {
-            "major": 0,
-            "minor": 0,
-            "patch": 4
+            "patch": 10
         },
         "auto": true
     }

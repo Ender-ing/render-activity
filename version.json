@@ -96,6 +96,9 @@
     "omni": {
         "hash": "bb647140d33392e80c90676a7fc832a8458cebc0918d8132cf61f7c597314c58",
         "ignore": [],
+        "github": {
+            "projectName": "wrr-omni"
+        },
         "version": {
             "major": 0,
             "minor": 0,

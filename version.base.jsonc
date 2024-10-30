@@ -13,8 +13,9 @@
     // VALUE         => Any file/folder name that matches "VALUE"
     "$global_ignore": [
         // Ignore GitHub files/folders
-        ".gitignore",
         ".git",
+        ".gitignore",
+        ".gitattributes",
         // This file is ignored because it can trigger an update on every build
         "gen.version.txt",
         // Markdown files are ignored because they currently do not affect the generated content
@@ -28,6 +29,43 @@
         // The hash files/folders ignore list for the directory
         // (same selector as the global ignore list)
         "ignore": [],
+        // The GitHub repository
+        "github": {
+            // The name of the repository (the same as the name in the URL of the repository)
+            "projectName": "PROJECT-NAME"
+        },
+        // Extra actions that need to be done to complete setup!
+        "sourceActions": [
+            // NOTE: in actions, path that start with "%%" point to the input directory specific to
+            // this subdomain/item!
+            // NOTE: in actions, path that start with "%" point to the root input directory that
+            // contains all items/subdomains!
+            {
+                // Add a GitHub dependency need to work with this!
+                "type": "add-github-dependency",
+                // GitHub info
+                "github": {
+                    "projectName": "NAME"
+                },
+                // Destination
+                "to": "%/.NAME"
+                // NOTE: if you need to add a an extra github dependency, you must add it with the
+                // name format: ".ext.NAME"
+            },
+            {
+                // Duplicate a file that needs to be edited
+                // (this is usually done to prepare secret files!)
+                "type": "duplicate-incomplete-file",
+                // Source file
+                "from": "%%/PATH/TO/original.file",
+                // Destination
+                "to": "%%/PATH/TO/duplicate.file",
+                // Add a note to the user on what to do in relation to this action!
+                "note": "..."
+            }
+            // ^^ REMEMBER! ^^
+            // These actions edit the source files, not the final output!
+        ],
         // Version info
         "version": {
             // (unlimited range)

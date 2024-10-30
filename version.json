@@ -1,7 +1,8 @@
 {
     "$global_ignore": [
-        ".gitignore",
         ".git",
+        ".gitignore",
+        ".gitattributes",
         "gen.version.txt",
         "*.md"
     ],

@@ -21,6 +21,8 @@
         // Markdown files are ignored because they currently do not affect the generated content
         "*.md"
     ],
+    // The GitHub directory that includes all of the organisation's secrets!
+    "$secrets": "https://github.com/Ender-ing/secrets.git",
     // This is the default directory object
     // It is used to generate a directory object for any newly added root directories
     "$default": {
@@ -59,9 +61,19 @@
                 // Source file
                 "from": "%%/PATH/TO/original.file",
                 // Destination
-                "to": "%%/PATH/TO/duplicate.file",
-                // Add a note to the user on what to do in relation to this action!
-                "note": "..."
+                "to": "%%/PATH/TO/duplicate.file"
+            },
+            {
+                // Replace values within your code!
+                // (this is done to insert sensitive information!)
+                "type": "strict-file-secret-insert",
+                // Destination file to edit
+                "to": "%%/PATH/TO/incomplete.file"
+                // NOTE: this operation will fail if the type of the file does not exist within
+                // the extension allowlist!
+                // NOTE: this will replace strings that follow this format from the
+                // $secrets GitHub repository:
+                // 
             }
             // ^^ REMEMBER! ^^
             // These actions edit the source files, not the final output!

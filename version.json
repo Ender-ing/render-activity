@@ -6,9 +6,12 @@
         "gen.version.txt",
         "*.md"
     ],
+    "$secrets": "https://github.com/Ender-ing/secrets.git",
     "$default": {
         "hash": null,
         "ignore": [],
+        "github": {},
+        "sourceActions": [],
         "version": {
             "major": 0,
             "minor": 0,
@@ -39,6 +42,18 @@
     "docs": {
         "hash": "44c275e29653a288a15a5badcde3cd56dd9946fd0fd94ff34687f081c62c60df",
         "ignore": [],
+        "github": {
+            "projectName": "wrr-docs"
+        },
+        "sourceActions": [
+            {
+                "type": "add-github-dependency",
+                "github": {
+                    "projectName": "wre-docs"
+                },
+                "to": "%/.ext.docs"
+            }
+        ],
         "version": {
             "major": 0,
             "minor": 1,
@@ -59,6 +74,9 @@
     "mta-sts": {
         "hash": "00409030b72e36e64281735d2ddde2ea88b4ec6f72bcf6de5be674e75c17fd46",
         "ignore": [],
+        "github": {
+            "projectName": "wrr-mta-sts"
+        },
         "version": {
             "major": 0,
             "minor": 0,
@@ -89,6 +107,20 @@
     "resources": {
         "hash": "2b577a66b777bc5608802f59781cc3aa2b037f2c14c70400757db9cb430b1d7f",
         "ignore": [],
+        "github": {
+            "projectName": "wrr-resources"
+        },
+        "sourceActions": [
+            {
+                "type": "duplicate-incomplete-file",
+                "from": "%%/web/server/email/VARS/ENV.email.template.php",
+                "to": "%%/web/server/email/VARS/ENV.email.secret.php"
+            },
+            {
+                "type": "strict-file-secret-insert",
+                "to": "%%/web/server/email/VARS/ENV.email.secret.php"
+            }
+        ],
         "version": {
             "major": 0,
             "minor": 0,
@@ -109,6 +141,9 @@
     "terminal": {
         "hash": "a225dd1c9e95a8811567dfb4b1152b303611e6cd22b5abbbe0f475289d849f13",
         "ignore": [],
+        "github": {
+            "projectName": "wrr-terminal"
+        },
         "version": {
             "major": 0,
             "minor": 0,
@@ -119,6 +154,9 @@
     "test": {
         "hash": "88b54e700f5980050bb065d69d4aec34b5b4f4742404650cb46dc73e49811665",
         "ignore": [],
+        "github": {
+            "projectName": "wrr-web-tests"
+        },
         "version": {
             "major": 0,
             "minor": 0,

@@ -73,7 +73,10 @@
                 // the extension allowlist!
                 // NOTE: this will replace strings that follow this format from the
                 // $secrets GitHub repository:
-                // 
+                // [U+E0DE][U+E201][U+E1DE]RAW-VALUE-ID[U+E0DE][U+E202][U+E1DE]
+                // RAW-VALUE-ID
+                // You may use the online tool to get the ID for your specific need:
+                // https://test.ender.ing/en/tools/unicode-hex-converter/
             }
             // ^^ REMEMBER! ^^
             // These actions edit the source files, not the final output!

@@ -146,17 +146,27 @@
         "auto": true
     },
     "test": {
-        "hash": "4fb03d75c48ad8d72c1e07b0fb1dbf8728fcdf66462d8096cb0a895421c46d63",
+        "hash": "07c16b245849bee82312a5e2a7a2eaa17e45465e602e1bccb83e6092884272fb",
         "ignore": [],
         "version": {
             "major": 0,
             "minor": 0,
-            "patch": 8
+            "patch": 9
         },
         "auto": true
     },
     "tweaker": {
         "hash": "86cc912070a4e8615e2dd259cd63f0f0c5a7cc5aec3b3bad890b5a51ee8f1d33",
+        "ignore": [],
+        "version": {
+            "major": 0,
+            "minor": 0,
+            "patch": 2
+        },
+        "auto": true
+    },
+    "utils": {
+        "hash": "ddfa35f403246834a93aef7db046f6ce7124042c057b2844327a339f7e6020ce",
         "ignore": [],
         "version": {
             "major": 0,

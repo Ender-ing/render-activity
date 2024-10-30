@@ -152,7 +152,7 @@
         "auto": true
     },
     "test": {
-        "hash": "88b54e700f5980050bb065d69d4aec34b5b4f4742404650cb46dc73e49811665",
+        "hash": "a4853f90ad4d12ddffc7372eff7cf15107ba2a7bc52dbe7c9f431086a5ddd64f",
         "ignore": [],
         "github": {
             "projectName": "wrr-web-tests"
@@ -160,7 +160,7 @@
         "version": {
             "major": 0,
             "minor": 0,
-            "patch": 10
+            "patch": 11
         },
         "auto": true
     }

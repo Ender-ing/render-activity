@@ -94,7 +94,7 @@
         "auto": true
     },
     "omni": {
-        "hash": "bb647140d33392e80c90676a7fc832a8458cebc0918d8132cf61f7c597314c58",
+        "hash": "6e9de74051dc2e5648ef9ea922803da8c2d097bd2c784f2afd4cfb7d566c133e",
         "ignore": [],
         "github": {
             "projectName": "wrr-omni"
@@ -102,7 +102,7 @@
         "version": {
             "major": 0,
             "minor": 0,
-            "patch": 6
+            "patch": 7
         },
         "auto": true
     },

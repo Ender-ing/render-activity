@@ -47,40 +47,43 @@ echo [101;93m STARTING BUILDING PROCESS [0m
 
 :: Check version status
 :: (Only checks source, will edit source)
-CMD "Running Backup" /C "VERSION.bat %autoVersionUpdate% %addMajor% %addMinor% %addPatch%"
+REM CMD "Running Backup" /C "VERSION.bat %autoVersionUpdate% %addMajor% %addMinor% %addPatch%"
 
 :: Set up temporary git directory
-CMD "Running Backup" /C "GIT.bat"
+REM CMD "Running Backup" /C "GIT.bat"
 
 :: Clean up .OUTPUT directory & copy git files
-CMD "Running Backup" /C "CLEANUP.bat"
+REM CMD "Running Backup" /C "CLEANUP.bat"
 
 :: Copy base static files
 if "%noStatic%" == "true" (
-    CMD "Running Backup" /C "copy-gen-files.bat"
+    REM CMD "Running Backup" /C "copy-gen-files.bat"
 ) else (
-    CMD "Running Backup" /C "copy-static-files.bat"
+    REM CMD "Running Backup" /C "copy-static-files.bat"
 )
 
 :: Build all global index resources (@vite)
-CMD "Running Backup" /C "build-global-index.bat"
+REM CMD "Running Backup" /C "build-global-index.bat"
 
 :: Build all needed material resources (@material)
 :: Note: make sure you can use the "npx rollup" command before running this script
-CMD "Running Backup" /C "build-material-imports.bat"
+REM CMD "Running Backup" /C "build-material-imports.bat"
 
 :: Compress all custom material code (material)
 :: YOU CAN REMOVE THIS ONCE YOU COMPLETE THE BASE STATIC FILES COPY COMMAND!
 :: (You'd just have to move the related files to the resources directory)
-CMD "Running Backup" /C "compress-custom-material.bat"
+REM CMD "Running Backup" /C "compress-custom-material.bat"
 
 :: Generate all root directories files
-CMD "Running Backup" /C "generate-root-files.bat"
+REM CMD "Running Backup" /C "generate-root-files.bat"
 
 :: Build the "docs" directory
-CMD "Running Backup" /C "ext-docusaurus-build.bat"
+REM CMD "Running Backup" /C "ext-docusaurus-build.bat"
 
 :: Cleanup .OUTPUT directory
-CMD "Running Backup" /C "AFTER-CLEANUP.bat"
+REM CMD "Running Backup" /C "AFTER-CLEANUP.bat"
+
+:: Track the build
+CMD "Running Backup" /C "TRACK.bat"
 
 echo [101;93m BUILDING PROCESS DONE! [0m

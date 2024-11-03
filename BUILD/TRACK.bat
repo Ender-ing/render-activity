@@ -15,48 +15,15 @@ FOR /F "tokens=*" %%i in (../.secret.env) do SET %%i
 call ../SAFETY.bat || ( set errorTrigger="call" && goto local_bat_error )
 if %errorlevel% NEQ 0 ( set errorTrigger="level" && goto local_bat_error )
 
-:: Generate a random 32-character string
-setlocal enabledelayedexpansion
-set "randomString="
-for /l %%n in (1,1,32) do (
-    set /a randomChar=0x%random% %% 16
-    set "randomChar=!randomChar:~-1!"
-    if !randomChar! geq A (
-        set "randomChar=!randomChar:A=a!"
-    )
-    set "randomString=!randomString!!randomChar!"
-)
-
 :: Change to the target directory 
 pushd %OUTPUT_PATH%
 
-:: Save this string in the file!
-echo %randomString% > build.txt
-
-:: Get the current time in GMT+2
-for /f "tokens=1-6 delims=/: " %%a in ('date /t') do (
-    set year=%%a
-    set month=%%b
-    set day=%%c
-)
-for /f "tokens=1-3 delims=:. " %%a in ('time /t') do (
-    set hour=%%a
-    set minute=%%b
-    set second=%%c
-)
-
-:: Calculate GMT+2 time
-set /a hour+=2
-if %hour% geq 24 (
-    set /a hour-=24
-    set /a day+=1
-)
-
-:: Format the datetime string
-set datetime=%year%-%month%-%day% %hour%-%minute%-%second%
+:: Generate a random 32-character hexadecimal string using PowerShell
+powershell -Command "[System.Guid]::NewGuid().ToString('N')" > build.txt
 
 :: Echo the time to the build file
-echo %datetime% >> build.txt
+:: (Need to actually add this later on...)
+echo "YYYY-MM-DD HH:MM:SS TT" >> build.txt
 
 :: Return to the original directory
 popd

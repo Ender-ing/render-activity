@@ -47,43 +47,43 @@ echo [101;93m STARTING BUILDING PROCESS [0m
 
 :: Check version status
 :: (Only checks source, will edit source)
-REM CMD "Running Backup" /C "VERSION.bat %autoVersionUpdate% %addMajor% %addMinor% %addPatch%"
+CMD "Running Backup" /C "VERSION.bat %autoVersionUpdate% %addMajor% %addMinor% %addPatch%"
 
 :: Set up temporary git directory
-REM CMD "Running Backup" /C "GIT.bat"
+CMD "Running Backup" /C "GIT.bat"
 
 :: Clean up .OUTPUT directory & copy git files
-REM CMD "Running Backup" /C "CLEANUP.bat"
+CMD "Running Backup" /C "CLEANUP.bat"
 
 :: Copy base static files
 if "%noStatic%" == "true" (
-    REM CMD "Running Backup" /C "copy-gen-files.bat"
+    CMD "Running Backup" /C "copy-gen-files.bat"
 ) else (
-    REM CMD "Running Backup" /C "copy-static-files.bat"
+    CMD "Running Backup" /C "copy-static-files.bat"
 )
 
 :: Build all global index resources (@vite)
-REM CMD "Running Backup" /C "build-global-index.bat"
+CMD "Running Backup" /C "build-global-index.bat"
 
 :: Build all needed material resources (@material)
 :: Note: make sure you can use the "npx rollup" command before running this script
-REM CMD "Running Backup" /C "build-material-imports.bat"
+CMD "Running Backup" /C "build-material-imports.bat"
 
 :: Compress all custom material code (material)
 :: YOU CAN REMOVE THIS ONCE YOU COMPLETE THE BASE STATIC FILES COPY COMMAND!
 :: (You'd just have to move the related files to the resources directory)
-REM CMD "Running Backup" /C "compress-custom-material.bat"
+CMD "Running Backup" /C "compress-custom-material.bat"
 
 :: Generate all root directories files
-REM CMD "Running Backup" /C "generate-root-files.bat"
+CMD "Running Backup" /C "generate-root-files.bat"
 
 :: Build the "docs" directory
-REM CMD "Running Backup" /C "ext-docusaurus-build.bat"
+CMD "Running Backup" /C "ext-docusaurus-build.bat"
 
 :: Cleanup .OUTPUT directory
-REM CMD "Running Backup" /C "AFTER-CLEANUP.bat"
+CMD "Running Backup" /C "AFTER-CLEANUP.bat"
 
-:: Track the build
+:: Track the build action
 CMD "Running Backup" /C "TRACK.bat"
 
 echo [101;93m BUILDING PROCESS DONE! [0m

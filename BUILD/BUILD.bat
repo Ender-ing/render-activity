@@ -39,6 +39,13 @@ for /f "tokens=*" %%a in ("%*") do (
     )
 )
 
+:: Warn the user about the purpose of this command!
+echo [7;31m Warning! [0m
+echo [31m You are starting the build command! [0m
+echo [31m This command is meant only for producing the final codebase for ://ender.ing. [0m
+echo [7m Press any key to continue, or Ctrl+C to abort. [0m
+pause
+
 cls
 echo [101;93m STARTING BUILDING PROCESS [0m
 

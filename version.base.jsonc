@@ -6,13 +6,6 @@
  *
 **/
 {
-    // The global ignore list applies to all files and folders in all root directories
-    // It is used to exclude files and folders from directory hash updates
-    // Proper name selectors are as follows
-    // *VALUE        => Any file/folder name that ends with "VALUE"
-    // VALUE*        => Any file/folder name that starts with "VALUE"
-    // *VALUE*       => Any file/folder name that contains "VALUE" (also applies to "VALUE" by itself)
-    // VALUE         => Any file/folder name that matches "VALUE"
     "$global_ignore": [
         // Ignore GitHub files/folders
         ".git",
@@ -30,11 +23,11 @@
     "$default": {
         // The hash value of the directory (its contents)
         "hash": null,
-        // The hash files/folders ignore list for the directory
-        // (same selector as the global ignore list)
         "ignore": [],
         // The GitHub repository
         "github": {
+            // The name of the user/organisation (defaults to `Ender-ing`)
+            "userName": "Ender-ing",
             // The name of the repository (the same as the name in the URL of the repository)
             "projectName": "PROJECT-NAME"
         },
@@ -49,6 +42,7 @@
                 "type": "add-github-dependency",
                 // GitHub info
                 "github": {
+                    "userName": "Ender-ing",
                     "projectName": "NAME"
                 },
                 // Destination
@@ -85,17 +79,8 @@
         ],
         // Version info
         "version": {
-            // (unlimited range)
-            // Updated when major/important updated are detected
-            // Updated on minor-version overflow
             "major": 0,
-            // (0-99)
-            // Updated when normal/minor updates are detected
-            // Updated on patch-version overflow
             "minor": 0,
-            // (0-99)
-            // Updated when small patches are made
-            // Updated if the version increase was triggered automatically (command-invoked)
             "patch": 0
         },
         // Decide if you allow automatic version increase

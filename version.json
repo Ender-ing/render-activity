@@ -170,7 +170,7 @@
         "auto": true
     },
     "test": {
-        "hash": "aa236f413caaec7bc0c4fb439c4e85ae1118db6478adb4e037e388558c56e3d4",
+        "hash": "b8487a4c56c9b80b6e5e18a6163d6227f9994dcc4cc58e7375a912af45586d27",
         "ignore": [],
         "github": {
             "projectName": "wrr-web-tests"

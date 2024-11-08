@@ -40,7 +40,10 @@ const srcActions = {
                     const setup = setupSecretRepURL(root, manifest["$secrets"]);
                     if(setup){
                         // You are ready now, start duplication and insertion!
-                        duplicateAndInsertSecrets(obj.from, obj.to);
+                        duplicateAndInsertSecrets(
+                            processActionPath(root, dir, obj.from),
+                            processActionPath(root, dir, obj.to)
+                        );
                     }else{
                         error(`Failed to setup the secrets directory!`);
                     }
@@ -72,6 +75,9 @@ function isFileNameSecret(path){
     const name = _p.basename(path);
     // Allowed names: 'secret.*', '*.secret.*', and '*.secret'!
     return (name.includes(".secret.") || name.startsWith("secret.") || name.endsWith(".secret"));
+}
+function processActionPath(root, dir, path){
+    return path.replaceAll("%%", dir).replaceAll("%", root);
 }
 
 // Check each subdomain's actions

@@ -127,12 +127,8 @@
         },
         "sourceActions": [
             {
-                "type": "duplicate-incomplete-file",
-                "from": "%%/web/server/email/VARS/ENV.email.template.php",
-                "to": "%%/web/server/email/VARS/ENV.email.secret.php"
-            },
-            {
                 "type": "strict-file-secret-insert",
+                "from": "%%/web/server/email/VARS/ENV.email.redacted.php",
                 "to": "%%/web/server/email/VARS/ENV.email.secret.php"
             }
         ],

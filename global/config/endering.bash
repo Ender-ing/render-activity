@@ -5,10 +5,10 @@
 cmd=~/endering.bash
 
 # Get Cloudflare secrets
-CLOUDFLARE_TOKEN=$(grep CLOUDFLARE_TOKEN ~/cloudflare.secret.env | cut -d '=' -f2-)
-CLOUDFLARE_ZONE=$(grep CLOUDFLARE_ZONE ~/cloudflare.secret.env | cut -d '=' -f2-)
-CLOUDFLARE_RULESET=$(grep CLOUDFLARE_RULESET ~/cloudflare.secret.env | cut -d '=' -f2-)
-CLOUDFLARE_RULE_BLOCKALL=$(grep CLOUDFLARE_RULE_BLOCKALL ~/cloudflare.secret.env | cut -d '=' -f2-)
+CLOUDFLARE_TOKEN=$(grep CLOUDFLARE-TOKEN ~/secrets.env | cut -d '=' -f2-)
+CLOUDFLARE_ZONE=$(grep CLOUDFLARE-ZONE ~/secrets.env | cut -d '=' -f2-)
+CLOUDFLARE_RULESET=$(grep CLOUDFLARE-RULESET ~/secrets.env | cut -d '=' -f2-)
+CLOUDFLARE_RULE_BLOCKALL=$(grep CLOUDFLARE-RULE-BLOCKALL ~/secrets.env | cut -d '=' -f2-)
 
 # Process CloudFlare responses
 function cloudflare_response() {

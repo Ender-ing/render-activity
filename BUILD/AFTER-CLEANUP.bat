@@ -25,6 +25,9 @@ for /D %%f in (*) do (
     :: Delete generative files
     del /Q /S %OUTPUT_PATH%\%%f\gen.* > NUL 2>&1
 
+    :: Delete redacted files
+    del /Q /S %OUTPUT_PATH%\%%f\**.redacted.* > NUL 2>&1
+
     :: Delete GitHub files
     del /Q /S %OUTPUT_PATH%\%%f\.gitignore > NUL 2>&1
     del /Q /S %OUTPUT_PATH%\%%f\.gitattributes > NUL 2>&1

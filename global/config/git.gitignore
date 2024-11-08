@@ -21,8 +21,10 @@ public_ftp
 ssl
 tmp
 mail
+
 # Ignore duplicate root directories
 www
+
 # Ignore server setup files
 .bash_history
 .bash_logout
@@ -34,6 +36,7 @@ www
 .myimunify_id
 .spamassassinenable
 .viminfo
+
 # Ignore backup files
 backup-**
 

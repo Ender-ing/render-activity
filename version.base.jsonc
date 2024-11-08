@@ -51,22 +51,15 @@
                 // name format: ".ext.NAME"
             },
             {
-                // Duplicate a file that needs to be edited
-                // (this is usually done to prepare secret files!)
-                "type": "duplicate-incomplete-file",
-                // Source file
-                "from": "%%/PATH/TO/original.file",
-                // Destination
-                "to": "%%/PATH/TO/duplicate.file"
-            },
-            {
                 // Replace values within your code!
                 // (this is done to insert sensitive information!)
                 "type": "strict-file-secret-insert",
-                // Destination file to edit
-                "to": "%%/PATH/TO/incomplete.file"
+                // Source file (the file you want to edit)
+                "from": "%%/PATH/TO/the.redacted.file",
+                // Destination of the file's new sensitive version
+                "to": "%%/PATH/TO/the.secret.file"
                 // NOTE: this operation will fail if the type of the file does not exist within
-                // the extension allowlist!
+                // the extension allowlist: [.redacted.php]
                 // NOTE: this will replace strings that follow this format from the
                 // $secrets GitHub repository:
                 // [U+E0DE][U+E201][U+E1DE]RAW-VALUE-ID[U+E0DE][U+E202][U+E1DE]

@@ -90,10 +90,10 @@ CMD "Running Backup" /C "ext-docusaurus-build.bat"
 :: Process all JSON source build actions
 CMD "Running Backup" /C "execute-after-source-actions.bat"
 
-:: Cleanup .OUTPUT directory
-CMD "Running Backup" /C "AFTER-CLEANUP.bat"
-
 :: Track the build action
 CMD "Running Backup" /C "TRACK.bat"
+
+:: Cleanup .OUTPUT directory
+CMD "Running Backup" /C "AFTER-CLEANUP.bat"
 
 echo [101;93m BUILDING PROCESS DONE! [0m

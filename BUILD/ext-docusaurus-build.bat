@@ -27,7 +27,6 @@ del "%OUTPUT_PATH%\docs\*.html" > NUL
 del "%OUTPUT_PATH%\docs\*.php" > NUL
 del "%OUTPUT_PATH%\docs\sw.js" > NUL
 del "%OUTPUT_PATH%\docs\.htaccess" > NUL
-del "%OUTPUT_PATH%\docs\manifest.webmanifest" > NUL
 
 :: Delete cache file
 echo "Deleting cache files..."

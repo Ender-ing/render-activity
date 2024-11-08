@@ -40,7 +40,7 @@ function error(...args){
         console.error((`(!) (${(flagIndex != -1) ? "soft " : ""}error) ` + args.join(newLine)).red);
         // throw new Error(msg);
     }else{
-        console.error(args[0].stack.red);
+        console.error(args[0]?.stack?.red || args[0]?.stack);
         if(flagIndex == -1){
             throw new Error(args[0]);
         }

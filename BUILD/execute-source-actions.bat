@@ -22,7 +22,7 @@ pushd %OUTPUT_PATH%
 CMD "Running Backup" /C "node %BUILD_PATH%\node_js\utility\source_actions.js %OUTPUT_PATH% %BUILD_PATH%\roots.manifest.json"
 
 :: Move files and delete .secrets folder
-xcopy "%OUTPUT_PATH%\.secrets\*" "%OUTPUT_PATH%" /E /I /EXCLUDE:*.git
+xcopy /E /I "%OUTPUT_PATH%\.secrets\*" "%OUTPUT_PATH%" 
 del /f /q %OUTPUT_PATH%\.secrets > NUL 2>&1
 rmdir /s /q %OUTPUT_PATH%\.secrets > NUL 2>&1
 

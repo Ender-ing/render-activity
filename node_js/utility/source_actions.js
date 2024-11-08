@@ -17,7 +17,7 @@ const secretsAllowlist = [".redacted.php"];
 
 // Supported source action types
 const srcActions = {
-    "add-github-dependency": function (root, dir, obj, manifest) {
+    "add-github-dependency": async function (root, dir, obj, manifest) {
         // Get repository info
         const userName = (obj?.github?.userName || defaultGithubUser);
         const projectName = obj?.github?.projectName;
@@ -29,7 +29,7 @@ const srcActions = {
             error(`'github' value is invalid! (${dir})`);
         }
     },
-    "strict-file-secret-insert": function (root, dir, obj, manifest) {
+    "strict-file-secret-insert": async function (root, dir, obj, manifest) {
         action(`Filling in secrets into '${obj.to}' (based on'${obj.from}')`);
         // Check if the source file is in the allowlist!
         if(isInSecretsAllowlist(obj.from)){
@@ -37,7 +37,7 @@ const srcActions = {
             if(isFileNameSecret(obj.to)){
                 // Prepare the secrets directory
                 if(typeof manifest["$secrets"] == "string"){
-                    const setup = setupSecretRepURL(root, manifest["$secrets"]);
+                    const setup = await setupSecretRepURL(root, manifest["$secrets"]);
                     if(setup){
                         // You are ready now, start duplication and insertion!
                         duplicateAndInsertSecrets(
@@ -78,7 +78,9 @@ function isFileNameSecret(path){
     return (name.includes(".secret.") || name.startsWith("secret.") || name.endsWith(".secret"));
 }
 function processActionPath(root, dir, path){
-    return path.replaceAll("%%", dir).replaceAll("%", root);
+    return _p.normalize(
+        path.replaceAll("%%", dir).replaceAll("%", root)
+    );
 }
 
 // Check each subdomain's actions
@@ -100,7 +102,7 @@ async function checkSourceActions(outputRootPath, manifestPath){
             for(let i = 0; i < actionsObj.length; i++){
                 if (typeof actionsObj[i]?.type == "string" &&
                     srcActions[actionsObj[i]?.type] != undefined){
-                    srcActions[actionsObj[i].type](
+                    await srcActions[actionsObj[i].type](
                         outputRootPath,
                         _p.join(outputRootPath, sub),
                         actionsObj[i],

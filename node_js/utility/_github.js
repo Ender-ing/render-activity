@@ -9,20 +9,28 @@ const { error } = require('./_console');
 const { _p, renameFolder } = require('./_files');
 
 // Make sure the secrets repository is cloned!
-function cloneGitHubRep(dir, userName, projectName, newName){
-    return cloneGitHubRepURL(dir, `https://github.com/${userName}/${projectName}.git`, newName);
+async function cloneGitHubRep(dir, userName, projectName, newName){
+    return await cloneGitHubRepURL(
+        dir,
+        `https://github.com/${userName}/${projectName}.git`,
+        newName,
+        projectName
+    );
 }
-function cloneGitHubRepURL(dir, url, newName){
+async function cloneGitHubRepURL(dir, url, newName, projectName = null){
     // Clone to dir
-    executeCommand(
+    await executeCommand(
         'git',
         ['clone', url],
         {
             cwd: dir
         }
     );
+    if(projectName == null){
+        projectName = _p.basename(url).replace(".git", "");
+    }
     // Rename the name of the folder to ".secrets"
-    const r = renameFolder(_p.join(dir, projectName), _p.join(root, newName));
+    const r = renameFolder(_p.join(dir, projectName), _p.join(dir, newName));
     if(!r){
         error(`Failed to rename "${projectName}" repository to "${newName}"!`);
         return false;

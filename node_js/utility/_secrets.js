@@ -9,19 +9,25 @@ const { getContent, _p, writeContent, folderExists } = require('./_files');
 const { cloneGitHubRep, cloneGitHubRepURL } = require('./_github');
 
 // Make sure the secrets repository is cloned!
-function setupSecretRep(root, userName, projectName){
+async function setupSecretRep(root, userName, projectName){
     if(folderExists(_p.join(root, ".secrets"))){
         return true;
     }
     // Clone to root
-    return cloneGitHubRep(root, userName, projectName, ".secrets");
+    return await cloneGitHubRep(root, userName, projectName, ".secrets");
 }
-function setupSecretRepURL(root, url){
-    if(folderExists(_p.join(root, ".secrets"))){
+async function setupSecretRepURL(root, url){
+    if(!folderExists(_p.join(root, ".secrets"))){
         return true;
     }
     // Clone to root
-    return cloneGitHubRepURL(root, url, ".secrets");
+    try{
+        await cloneGitHubRepURL(root, url, ".secrets");
+        return true;
+    }catch(e){
+        error(e);
+        return false;
+    }
 }
 
 // Get a secret value
@@ -50,13 +56,17 @@ async function getSecretValue(root, valueName){
 // Replace a secret value ID
 async function insertSecretValues(root, content){
     // [U+E0DE][U+E201][U+E1DE]RAW-VALUE-ID[U+E0DE][U+E202][U+E1DE]
-    return await content.replaceAll(
-        /\uE0DE\uE201\uE1DE(.*?)\uE0DE\uE202\uE1DE/gm,
-        async (valueName) => {
-            info(`Inserting secret '${valueName}'!`);
-            return await getSecretValue(root, valueName);
-        }
-    );
+    const regex = /\uE0DE\uE201\uE1DE(.*?)\uE0DE\uE202\uE1DE/gm;
+    // Get all matches
+    const matches = [...content.matchAll(regex)];
+    for (const match of matches) {
+        const valueName = match[1];
+        // Wait for values and replace!
+        const secretValue = await getSecretValue(root, valueName);
+        content = content.replace(match[0], secretValue);
+    }
+    // Return final content!
+    return content;
 }
 
 // Duplicate and replace values

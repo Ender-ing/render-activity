@@ -71,9 +71,7 @@ function isFileNameSecret(path){
     // Get file name
     const name = _p.basename(path);
     // Allowed names: 'secret.*', '*.secret.*', and '*.secret'!
-    if(name.includes(".secret.") || name.startsWith("secret.") || name.endsWith(".secret")){
-        //
-    }
+    return (name.includes(".secret.") || name.startsWith("secret.") || name.endsWith(".secret"));
 }
 
 // Check each subdomain's actions

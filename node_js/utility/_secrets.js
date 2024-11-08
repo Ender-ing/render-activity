@@ -26,7 +26,7 @@ function setupSecretRepURL(root, url){
 
 // Get a secret value
 const lastSecretsValue = [false, undefined];
-async function getSecretValue(valueName){
+async function getSecretValue(root, valueName){
     // Get all values
     if(!lastSecretsValue[0]){
         lastSecretsValue[1] = await getContent(
@@ -48,21 +48,21 @@ async function getSecretValue(valueName){
 }
 
 // Replace a secret value ID
-async function insertSecretValues(content){
+async function insertSecretValues(root, content){
     // [U+E0DE][U+E201][U+E1DE]RAW-VALUE-ID[U+E0DE][U+E202][U+E1DE]
     return await content.replaceAll(
         /\uE0DE\uE201\uE1DE(.*?)\uE0DE\uE202\uE1DE/gm,
         async (valueName) => {
             info(`Inserting secret '${valueName}'!`);
-            return await getSecretValue(valueName);
+            return await getSecretValue(root, valueName);
         }
     );
 }
 
 // Duplicate and replace values
-async function duplicateAndInsertSecrets(fromPath, toPath){
+async function duplicateAndInsertSecrets(root, fromPath, toPath){
     const redactedContent = await getContent(fromPath);
-    const sensitiveContent = await insertSecretValues(redactedContent);
+    const sensitiveContent = await insertSecretValues(root, redactedContent);
     // Create the file
     const result = writeContent(toPath, sensitiveContent);
     if(result){

@@ -41,6 +41,7 @@ const srcActions = {
                     if(setup){
                         // You are ready now, start duplication and insertion!
                         duplicateAndInsertSecrets(
+                            root,
                             processActionPath(root, dir, obj.from),
                             processActionPath(root, dir, obj.to)
                         );

@@ -30,7 +30,7 @@
         "version": {
             "major": 0,
             "minor": 0,
-            "patch": 2
+            "patch": 3
         },
         "auto": true
     },
@@ -43,7 +43,7 @@
         "version": {
             "major": 0,
             "minor": 0,
-            "patch": 2
+            "patch": 3
         },
         "auto": true
     },
@@ -65,7 +65,7 @@
         "version": {
             "major": 0,
             "minor": 1,
-            "patch": 3
+            "patch": 4
         },
         "auto": true
     },
@@ -78,7 +78,7 @@
         "version": {
             "major": 0,
             "minor": 0,
-            "patch": 2
+            "patch": 3
         },
         "auto": true
     },
@@ -91,7 +91,7 @@
         "version": {
             "major": 0,
             "minor": 0,
-            "patch": 2
+            "patch": 3
         },
         "auto": true
     },
@@ -104,7 +104,7 @@
         "version": {
             "major": 0,
             "minor": 0,
-            "patch": 7
+            "patch": 8
         },
         "auto": true
     },
@@ -117,12 +117,12 @@
         "version": {
             "major": 0,
             "minor": 0,
-            "patch": 3
+            "patch": 4
         },
         "auto": true
     },
     "resources": {
-        "hash": "6b6eb62e0e4c5022297e157e0474f371aadfb40147d18f378e5f67f18db37e6b",
+        "hash": "25a0f05d22825e08fcb6583143c1755948895640a30fab9f17b88f285de06962",
         "ignore": [],
         "github": {
             "projectName": "wrr-resources"
@@ -137,7 +137,7 @@
         "version": {
             "major": 0,
             "minor": 0,
-            "patch": 5
+            "patch": 7
         },
         "auto": true
     },
@@ -150,7 +150,7 @@
         "version": {
             "major": 0,
             "minor": 0,
-            "patch": 2
+            "patch": 3
         },
         "auto": true
     },
@@ -163,7 +163,7 @@
         "version": {
             "major": 0,
             "minor": 0,
-            "patch": 13
+            "patch": 14
         },
         "auto": true
     },
@@ -176,7 +176,7 @@
         "version": {
             "major": 0,
             "minor": 0,
-            "patch": 16
+            "patch": 17
         },
         "auto": true
     }

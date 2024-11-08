@@ -4,7 +4,9 @@
         ".gitignore",
         ".gitattributes",
         "gen.version.txt",
-        "*.md"
+        "README.md",
+        "LICENSE",
+        "README"
     ],
     "$secrets": "https://github.com/Ender-ing/wre-secrets.git",
     "$default": {

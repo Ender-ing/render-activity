@@ -13,8 +13,10 @@
         ".gitattributes",
         // This file is ignored because it can trigger an update on every build
         "gen.version.txt",
-        // Markdown files are ignored because they currently do not affect the generated content
-        "*.md"
+        // Some markdown files are ignored because they do not affect the generated content
+        "README.md",
+        "LICENSE",
+        "README"
     ],
     // The GitHub directory that includes all of the organisation's secrets!
     "$secrets": "https://github.com/Ender-ing/wre-secrets.git",

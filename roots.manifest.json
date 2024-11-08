@@ -122,7 +122,7 @@
         "auto": true
     },
     "resources": {
-        "hash": "2b577a66b777bc5608802f59781cc3aa2b037f2c14c70400757db9cb430b1d7f",
+        "hash": "6b6eb62e0e4c5022297e157e0474f371aadfb40147d18f378e5f67f18db37e6b",
         "ignore": [],
         "github": {
             "projectName": "wrr-resources"
@@ -137,7 +137,7 @@
         "version": {
             "major": 0,
             "minor": 0,
-            "patch": 4
+            "patch": 5
         },
         "auto": true
     },

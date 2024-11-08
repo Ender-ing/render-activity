@@ -99,10 +99,10 @@ function updateVersion(increase, version){
 // Check versioning
 async function checkVersion(path, name){
 
-    // Get version.json
+    // Get roots.manifest.json
     let source = await getJSON(arg3);
 
-    // Check version.json
+    // Check roots.manifest.json
     if(!(name in source)){
         // Create JSON object
         warn(`Source '${name}' base versioning set to default version! (0.0.0)`);
@@ -168,7 +168,7 @@ async function checkVersion(path, name){
         error(`Missing version data from source '${name}'!`);
     }
 
-    // Update version.json file
+    // Update roots.manifest.json file
     writeContent(arg3, JSON.stringify(source, null, 4));
 }
 

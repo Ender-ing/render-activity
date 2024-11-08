@@ -31,8 +31,8 @@ for /D %%f in (*) do (
     IF NOT "!name:~0,1!" == "." (
         echo Versioning %%f
 
-        :: Check directory (version.json  & gen.version.txt files will be updated!)
-        CMD "Running Backup" /C "node %BUILD_PATH%\node_js\utility\version.js %ROOTS_PATH%\%%f %%f %BUILD_PATH%\version.json %increaseVersion% %autoVersionUpdate%"
+        :: Check directory (roots.manifest.json  & gen.version.txt files will be updated!)
+        CMD "Running Backup" /C "node %BUILD_PATH%\node_js\utility\version.js %ROOTS_PATH%\%%f %%f %BUILD_PATH%\roots.manifest.json %increaseVersion% %autoVersionUpdate%"
     )
 )
 

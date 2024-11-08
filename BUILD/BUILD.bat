@@ -84,7 +84,10 @@ CMD "Running Backup" /C "compress-custom-material.bat"
 :: Generate all root directories files
 CMD "Running Backup" /C "generate-root-files.bat"
 
-:: Build the "docs" directory
+:: Process all JSON source build actions
+CMD "Running Backup" /C "execute-source-actions.bat"
+
+:: Build the "Docusaurus" directory
 CMD "Running Backup" /C "ext-docusaurus-build.bat"
 
 :: Cleanup .OUTPUT directory

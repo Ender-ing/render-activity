@@ -1,5 +1,5 @@
 @echo off
-:: This file is meant to execute JSON source build actions
+:: This file is meant to execute JSON after: source build actions
 
 echo [44;45m Cleaning up OUTPUT root files... [0m
 

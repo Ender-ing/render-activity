@@ -176,10 +176,12 @@ window.addComponentToList("filled-text-field", "md-filled-text-field");
 import '@material/web/textfield/outlined-text-field.js';
 window.addComponentToList("outlined-text-field", "md-outlined-text-field");
 
-// Load navigation rail
-//import '@material/web/labs/navigationbar/navigation-bar';
-//window.addComponentToList("navigation-bar", "md-navigation-bar");
-//window.addComponentToList("navigation-tab", "md-navigation-tab");
+// Load navigation rail & bar
+// (note: there is no 'navigation-rail' element in the labs yet!)
+// import '@material/web/labs/navigationbar/navigation-bar.js';
+// window.addComponentToList("navigation-bar", "md-navigation-bar");
+// import '@material/web/labs/navigationtab/navigation-tab.js';
+// window.addComponentToList("navigation-tab", "md-navigation-tab");
 
 // Mark this resource as "loaded"
 document.documentElement.resourceLoaded(JAVASCRIPT);

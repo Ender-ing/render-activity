@@ -97,7 +97,7 @@ async function checkSourceActions(outputRootPath, manifestPath){
                         outputRootPath,
                         _p.join(outputRootPath, sub),
                         actionsObj[i],
-                        manifestPath
+                        source
                     );
                 }else{
                     error(`The source action type "${actionsObj[i]?.type}" is not supported!`);

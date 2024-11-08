@@ -5,7 +5,7 @@
 **/
 
 const { error, info } = require('./_console');
-const { getContent, _p, writeContent } = require('./_files');
+const { getContent, _p, writeContent, folderExists } = require('./_files');
 const { cloneGitHubRep, cloneGitHubRepURL } = require('./_github');
 
 // Make sure the secrets repository is cloned!

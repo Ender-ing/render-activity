@@ -52,7 +52,7 @@ gtag('js', new Date());
 gtag('config', GTAG);
 gtag('send', 'pageview');
 // Disable cookies
-gtag('config', GTAG, { 'storage': 'none' });
+gtag('config', GTAG, { 'storage': 'localStorage' });
 // Disable Google Ads Tracking
 gtag('set', 'allowAdFeatures', false);
 

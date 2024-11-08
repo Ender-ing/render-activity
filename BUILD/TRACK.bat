@@ -47,5 +47,13 @@ echo User Name:                 %USERNAME% >> build.txt
 echo ^(!) System info: >> build.txt
 %sysInfo% | findstr /i /c:"OS Name" /c:"OS Version" /c:"System Manufacturer" /c:"System Model" /c:"System Type" /c:"Processor(s)" /c:"BIOS Version / Date" /c:"Total Physical Memory"  >> build.txt
 
+:: Iterate through each folder in the directory
+for /D %%f in (*) do (
+    echo Handling %%f
+
+    :: create a track.txt file in all root directories`
+    echo %randomHash% > %%f\track.txt
+)
+
 :: Return to the original directory
 popd

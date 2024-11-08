@@ -103,6 +103,27 @@ async function fileExists(path){
     }
 }
 
+// Check if a folder path is correct
+async function folderExists(path){
+    try {
+        const normalizedPath = pathM.normalize(path); // Normalize path
+        await fs.promises.access(normalizedPath, fs.constants.F_OK | fs.constants.R_OK); // Check file existence
+        return true;
+    } catch (err) {
+        return false;
+    }
+}
+
+// Rename the name of a folder
+async function renameFolder(oldPath, newPath) {
+    try {
+        await fs.promises.rename(oldPath, newPath);
+        return true;
+    } catch (err) {
+        return false;
+    }
+}
+
 // Get the latest modification time of all files within a directory
 // Returns a timestamp
 async function latestDirFileMod(path) {
@@ -157,6 +178,8 @@ module.exports = {
     copyFile,
     deleteFile,
     fileExists,
+    folderExists,
+    renameFolder,
     getJSON,
     _getJSON,
     deleteEmptyFolders

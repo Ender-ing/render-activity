@@ -121,7 +121,6 @@ async function folderExists(path){
 
 // Rename the name of a folder
 async function renameFolder(oldPath, newPath){
-    console.log("PATHS:", oldPath, newPath);
     try{
         await fs.promises.rename(oldPath, newPath);
         return true;

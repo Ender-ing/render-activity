@@ -69,7 +69,8 @@ x-layout > [slot=group] {
     margin-left: var(--group-margin);
 }
 [dir=rtl] x-layout > [slot=group] {
-    margin-right: var(--group-margin);
+    margin-left: var(--group-margin);
+    /* Something is wrong here... */
 }
 
 [dir=ltr] x-layout > :not([slot=group]) + [slot=group],
@@ -334,6 +335,7 @@ x-layout > [slot=nav-rail] {
     color: var(--md-sys-color-on-background);
     height: fit-content;
     margin: var(--safe-area) 0px;
+    padding: var(--pane-border-radius);
     min-height: 40px;
 }
 .x-layout-float * {

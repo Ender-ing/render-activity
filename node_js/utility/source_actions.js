@@ -4,9 +4,9 @@
  * 
 **/
 
-// node source_actions.js <global_output_path> <source_path>
+// node source_actions.js <global_output_path> <source_path> <is_before>
 
-const { arg1, arg2 } = require('./_args');
+const { arg1, arg2, arg3 } = require('./_args');
 const { error, action } = require('./_console');
 const { getJSON, _p } = require('./_files');
 const { setupSecretRepURL, duplicateAndInsertSecrets } = require('./_secrets');
@@ -17,7 +17,7 @@ const secretsAllowlist = [".redacted.php"];
 
 // Supported source action types
 const srcActions = {
-    "add-github-dependency": async function (root, dir, obj, manifest) {
+    "before:add-github-dependency": async function (root, dir, obj, manifest) {
         // Get repository info
         const userName = (obj?.github?.userName || defaultGithubUser);
         const projectName = obj?.github?.projectName;
@@ -29,7 +29,7 @@ const srcActions = {
             error(`'github' value is invalid! (${dir})`);
         }
     },
-    "strict-file-secret-insert": async function (root, dir, obj, manifest) {
+    "after:strict-file-secret-insert": async function (root, dir, obj, manifest) {
         action(`Filling in secrets into '${obj.to}' (based on'${obj.from}')`);
         // Check if the source file is in the allowlist!
         if(isInSecretsAllowlist(obj.from)){
@@ -84,7 +84,7 @@ function processActionPath(root, dir, path){
 }
 
 // Check each subdomain's actions
-async function checkSourceActions(outputRootPath, manifestPath){
+async function checkSourceActions(outputRootPath, manifestPath, isBefore){
 
     // Get roots.manifest.json
     let source;
@@ -97,6 +97,10 @@ async function checkSourceActions(outputRootPath, manifestPath){
 
     for(let sub in source){
         const subObj = source[sub];
+        if((sub.startsWith("before:") && !isBefore) || (sub.startsWith("after:") && isBefore)){
+            // Skip this action!
+            continue;
+        }
         if(Array.isArray(subObj?.sourceActions)){
             const actionsObj = subObj?.sourceActions;
             for(let i = 0; i < actionsObj.length; i++){

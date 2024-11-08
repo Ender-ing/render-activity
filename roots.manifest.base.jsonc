@@ -41,7 +41,7 @@
             // contains all items/subdomains!
             {
                 // Add a GitHub dependency need to work with this!
-                "type": "add-github-dependency",
+                "type": "before:add-github-dependency",
                 // GitHub info
                 "github": {
                     "userName": "Ender-ing",
@@ -55,8 +55,8 @@
             {
                 // Replace values within your code!
                 // (this is done to insert sensitive information!)
-                "type": "strict-file-secret-insert",
-                // Source file (the file you want to edit)
+                "type": "after:strict-file-secret-insert",
+                // Source file (the file you want base your final output on)
                 "from": "%%/PATH/TO/the.redacted.file",
                 // Destination of the file's new sensitive version
                 "to": "%%/PATH/TO/the.secret.file"

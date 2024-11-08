@@ -19,7 +19,7 @@ if %errorlevel% NEQ 0 ( set errorTrigger="level" && goto local_bat_error )
 pushd %OUTPUT_PATH%
 
 :: Check all directory actions (roots.manifest.json & gen.version.txt files will be updated!)
-CMD "Running Backup" /C "node %BUILD_PATH%\node_js\utility\source_actions.js %OUTPUT_PATH% %BUILD_PATH%\roots.manifest.json"
+CMD "Running Backup" /C "node %BUILD_PATH%\node_js\utility\source_actions.js %OUTPUT_PATH% %BUILD_PATH%\roots.manifest.json 0"
 
 :: Move files and delete .secrets folder
 xcopy /E /I "%OUTPUT_PATH%\.secrets\*" "%OUTPUT_PATH%" 

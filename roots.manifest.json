@@ -55,7 +55,7 @@
         },
         "sourceActions": [
             {
-                "type": "add-github-dependency",
+                "type": "before:add-github-dependency",
                 "github": {
                     "projectName": "wre-docs"
                 },
@@ -129,7 +129,7 @@
         },
         "sourceActions": [
             {
-                "type": "strict-file-secret-insert",
+                "type": "after:strict-file-secret-insert",
                 "from": "%%/web/server/email/VARS/ENV.email.redacted.php",
                 "to": "%%/web/server/email/VARS/ENV.email.secret.php"
             }

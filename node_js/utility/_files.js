@@ -57,7 +57,12 @@ async function _getJSON(path){
 
 // Overwrite file content
 async function writeContent(path, content){
-    return await fs.writeFileSync(path, content);
+    try{
+        await fs.writeFileSync(path, content);
+        return true;
+    }catch(e){
+        return false;
+    }
 }
 
 // Write a file (when you are not sure if the directory already exists)

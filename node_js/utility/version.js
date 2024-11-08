@@ -7,7 +7,7 @@
 // node version.js <input_path> <input_key> <source_path> <gloal_increase> <should_auto_increase>
 
 const { arg1, arg2, arg3, arg4, arg5 } = require('./_args');
-const { log, warn, error, info, action } = require('./_console');
+const { warn, error, info, action } = require('./_console');
 const { getContent, writeContent, getJSON, _p, readDirCon } = require('./_files');
 const crypto = require('crypto');
 

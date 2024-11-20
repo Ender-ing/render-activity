@@ -109,7 +109,7 @@
         "auto": true
     },
     "public_html": {
-        "hash": "66ff7be3eae0686365a813ab65b1287ef0147a8806a2f57180fe024afca73452",
+        "hash": "52fbe2a624af1721f8c27f0a7b038088a9270d6fe5f69e2f3a62603a7faf8b52",
         "ignore": [],
         "github": {
             "projectName": "wrr-www"
@@ -117,7 +117,7 @@
         "version": {
             "major": 0,
             "minor": 1,
-            "patch": 1
+            "patch": 2
         },
         "auto": true
     },

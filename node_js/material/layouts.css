@@ -31,6 +31,7 @@ x-layout {
     --pane-border-radius: 26px;
     --rail-space: calc(80px + var(--safe-area));
     --bar-space: calc(80px + var(--safe-area));
+    --content-members-margin: 8px;
     /* default is rail */
     width: calc(100vw - 2 * var(--safe-area) - var(--rail-space));
 }
@@ -390,4 +391,12 @@ is breaking JS stylesheet styles detection) */
     *::-webkit-scrollbar {
         width: 0px;
     }
+}
+
+/* Manage the <x-content> element */
+.x-content[margin*=vertical] > * {
+    margin: var(--content-members-margin) 0px;
+}
+.x-content[margin*=horizontal] > * {
+    margin: 0px var(--content-members-margin);
 }

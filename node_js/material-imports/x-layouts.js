@@ -152,5 +152,21 @@ window.addComponentToList("x-layout", "x-layout");
 window.addComponentToList("x-float", "div", "x-layout-float");
 window.addComponentToList("x-pane", "div", "x-layout-pane");
 
+/**
+ * 
+ * @Element <x-content>
+ * 
+ * @Use Used to contain content that is meant to be separated visually!
+ *  (used within <x-float> or <x-pane> elements)
+ * 
+ * @Example
+ *      <x-content view="vertical horizontal">
+ *          ...
+ *          <!--- this will apply vertical and horizontal margins to the children of the <x-content> element! --->
+ *      </x-content>
+ * 
+**/
+window.addComponentToList("x-content", "div", "x-content");
+
 // Mark this resource as "loaded"
 document.documentElement.resourceLoaded(JAVASCRIPT);

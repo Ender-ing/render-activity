@@ -69,6 +69,19 @@
         },
         "auto": true
     },
+    "frankie": {
+        "hash": "627ffcff4ce0342469533a820e338378b4e30788a91156f8bf47f72340a99c1c",
+        "ignore": [],
+        "github": {
+            "projectName": "wrr-frankie"
+        },
+        "version": {
+            "major": 0,
+            "minor": 0,
+            "patch": 1
+        },
+        "auto": true
+    },
     "links": {
         "hash": "f9f128082176dcd7322a0868ccbac7e83b2aba733a04aed1e1d44eadba8d8683",
         "ignore": [],

@@ -160,7 +160,7 @@ window.addComponentToList("x-pane", "div", "x-layout-pane");
  *  (used within <x-float> or <x-pane> elements)
  * 
  * @Example
- *      <x-content view="vertical horizontal">
+ *      <x-content margin="vertical horizontal">
  *          ...
  *          <!--- this will apply vertical and horizontal margins to the children of the <x-content> element! --->
  *      </x-content>

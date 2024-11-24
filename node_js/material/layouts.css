@@ -394,6 +394,9 @@ is breaking JS stylesheet styles detection) */
 }
 
 /* Manage the <x-content> element */
+.x-content {
+    margin: 16px 0px;
+}
 .x-content[margin*=vertical] > * {
     margin: var(--content-members-margin) 0px;
 }

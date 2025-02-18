@@ -31,6 +31,8 @@ popd
 
 echo [44;45m INSTALLING LOCAL NODEJS DEPENDENCIES... [0m
 
+:: For some reason these packages can't be called unless they are installed globally
 CMD "Running Backup" /C "npm install -g terser@latest"
+CMD "Running Backup" /C "npm install -g clean-css-cli"
 
 echo [101;93m NODEJS DEPENDENCIES INSTALLED! [0m

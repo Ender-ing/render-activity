@@ -1,7 +1,7 @@
 @echo off
 :: This file is meant to execute JSON after: source build actions
 
-echo [44;45m Cleaning up OUTPUT root files... [0m
+echo [44;45m Executing source actions... (post) [0m
 
 :: Exit
 goto local_bat_file

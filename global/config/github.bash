@@ -23,14 +23,17 @@ elif [ "$1" == "release" ]; then
         echo "Missing a valid repository name!"
         exit 1
     fi
-    # Get release ID
-    release_id=$(curl -L \
+    # Get release JSON info
+    release=$(curl -L \
         -H "Accept: application/vnd.github+json" \
         -H "X-GitHub-Api-Version: 2022-11-28" \
         -H "Authorization: Bearer $GITHUB_TOKEN" \
-        https://api.github.com/repos/Ender-ing/$repo/releases | \
+        https://api.github.com/repos/Ender-ing/$repo/releases)
+    # Get release ID
+    release_id=$(echo "$release" | \
             sed -n '/"assets_url"/,/"draft": true/p' | \
             grep '"id":' | \
+            tail -n 2 | \
             head -n 1 | \
             sed -E 's/.*"id": ([0-9]+).*/\1/')
     # Check if the release ID is valid!

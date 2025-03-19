@@ -10,5 +10,6 @@ fi
 
 # Add a custom alias
 alias endering='~/endering.bash'
+alias github='~/github.bash'
 
 # User specific environment and startup programs

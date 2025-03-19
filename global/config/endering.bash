@@ -1,8 +1,9 @@
 #!/bin/bash
 # Web server "endering" command contents!
 
-# Command
-cmd=~/endering.bash
+# Commands
+cmd_server=~/endering.bash
+cmd_github=~/github.bash
 
 # Get Cloudflare secrets
 CLOUDFLARE_TOKEN=$(grep CLOUDFLARE-TOKEN ~/secrets.env | cut -d '=' -f2-)
@@ -31,8 +32,7 @@ function cloudflare_response() {
 if [ "$1" == "help" ]; then
     # Show valid commands
     echo "(*) => commands that are not exposed to the external terminal (terminal.ender.ing) are marked with an asterisk!"
-    echo -e "\n"
-    printf "\t%-18s %s\n" "help" "View commands list"
+    printf "\t%-18s %s\n" "help" "View server commands list"
     echo -e "\n (GitHub)"
     printf "\t%-18s %s\n" "get" "Pull all 'host' GitHub Repository updates"
     printf "\t%-18s %s\n" "commit" "Commit local changes to 'host' GitHub Repository (USE CAREFULLY!)"
@@ -47,7 +47,7 @@ if [ "$1" == "help" ]; then
     printf "\t%-18s %s\n" "*clean-records" "Clean up record files (Only use when sure!)"
     printf "\t%-18s %s\n" "fix-perms" "Fix files permissions"
     echo -e "\n Quick commands:"
-    printf "\t%-18s %s\n" "web" "(get & cache)"
+    printf "\t%-18s %s\n" "full" "(get & cache)"
     echo -e "\n"
     echo "(Do not spam these commands!)"
 elif [ "$1" == "get" ]; then
@@ -57,9 +57,9 @@ elif [ "$1" == "get" ]; then
     git pull & pid=$!  # Store the process ID of the git pull command
     wait $pid
     # Fix command permissions (keep this here, to prevent access lockout!)
-    chmod +x $cmd
+    chmod +x $cmd_server
     # Fix all permissions
-    $cmd fix-perms
+    $cmd_server fix-perms
 elif [ "$1" == "commit" ]; then
     # Fix file ending
     git config --global core.autocrlf input
@@ -100,7 +100,7 @@ elif [ "$1" == "block" ]; then
     # Check response
     cloudflare_response "$r" "Global access block was successful!"
     # Clear cache
-    $cmd cache
+    $cmd_server cache
 elif [ "$1" == "unblock" ]; then
     # Block all cloudflare access (ender.ing)
     r=$(curl -X PUT "https://api.cloudflare.com/client/v4/zones/$CLOUDFLARE_ZONE/rulesets/$CLOUDFLARE_RULESET" \
@@ -120,7 +120,7 @@ elif [ "$1" == "unblock" ]; then
     # Check response
     cloudflare_response "$r" "Global access unblock was successful!"
     # Clear cache
-    $cmd cache
+    $cmd_server cache
 elif [ "$1" == "clean" ]; then
     # Delete log files
     # Note: never delete *.custom_record files using this command
@@ -138,15 +138,17 @@ elif [ "$1" == "clean-records" ]; then
     echo "Deleting record logs..."
     find ~/. -name "*.custom_record" -type f -delete
 elif [ "$1" == "fix-perms" ]; then
-    # Fix files permissions
-    echo "Fixing $cmd..."
-    chmod +x $cmd
+    # Fix files' permissions
+    echo "Fixing $cmd_server..."
+    chmod +x $cmd_server
+    echo "Fixing $cmd_github..."
+    chmod +x $cmd_github
     echo "Fixing ~/.htpasswd..."
     chmod 644 ~/.htpasswd
 elif [ "$1" == "web" ]; then
     # Update files and purge cache
-    $cmd get
-    $cmd cache
+    $cmd_server get
+    $cmd_server cache
 else
     echo "Invalid command! Use the command '(endering) help' to see valid commands."
 fi

@@ -168,7 +168,7 @@
         "auto": true
     },
     "terminal": {
-        "hash": "eb335ab1a5aa86550bc73c237117decb2937a62cd9aa43320cc880c8f549ade6",
+        "hash": "76b08d97ce4a0eb837afbe7310657ad33bc6146c8fb04e30812ed143fd1851b2",
         "ignore": [],
         "github": {
             "projectName": "wrr-terminal"

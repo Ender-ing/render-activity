@@ -145,6 +145,9 @@ elif [ "$1" == "fix-perms" ]; then
     chmod +x $cmd_github
     echo "Fixing ~/.htpasswd..."
     chmod 644 ~/.htpasswd
+    echo "Fixing loaded commands..."
+    chmod +x ~/.bash_profile
+    source ~/.bash_profile
 elif [ "$1" == "web" ]; then
     # Update files and purge cache
     $cmd_server get

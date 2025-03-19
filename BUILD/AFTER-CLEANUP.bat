@@ -49,7 +49,7 @@ for /D %%f in (*) do (
 
     :: Copy command files
     copy /Y %BUILD_PATH%\global\config\.bash_profile %OUTPUT_PATH%\.bash_profile > NUL 2>&1
-    copy /Y %BUILD_PATH%\global\config\endering.bash %OUTPUT_PATH%\endering.bash > NUL 2>&1
+    copy /Y %BUILD_PATH%\global\config\*.bash %OUTPUT_PATH%\ > NUL 2>&1
 )
 
 :: Remove cache for deleted files

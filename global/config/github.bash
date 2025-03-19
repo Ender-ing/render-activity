@@ -20,12 +20,12 @@ elif [ "$1" == "release" ]; then
     # Check for a repository name!
     repo_length=${#repo}
     if [ $repo_length -lt 1 ]; then
-        echo "Couldn't find a valid release draft ID!"
+        echo "Missing a valid repository name!"
         exit 1
     fi
     # Get release ID
     release_id=$(curl -s \
-        -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/Ender-ing/$repo/releases | \
+        -H "Authorization: Bearer $GITHUB_TOKEN" https://api.github.com/repos/Ender-ing/$repo/releases | \
             sed -n '/"assets_url"/,/"draft": true/p' | \
             grep '"id":' | \
             head -n 1 | \
@@ -38,7 +38,7 @@ elif [ "$1" == "release" ]; then
     fi
     # Trigger the workflow!
     result=$(curl -X POST \
-        -H "Authorization: token $GITHUB_TOKEN" \
+        -H "Authorization: Bearer $GITHUB_TOKEN" \
         -H "Accept: application/vnd.github.v3+json" \
         -H "Content-Type: application/json" https://api.github.com/repos/Ender-ing/$repo/actions/workflows/release_assets.yml/dispatches \
         -d "{

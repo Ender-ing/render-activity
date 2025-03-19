@@ -148,7 +148,7 @@ elif [ "$1" == "fix-perms" ]; then
     echo "Fixing loaded commands..."
     chmod +x ~/.bash_profile
     source ~/.bash_profile
-elif [ "$1" == "web" ]; then
+elif [ "$1" == "full" ]; then
     # Update files and purge cache
     $cmd_server get
     $cmd_server cache

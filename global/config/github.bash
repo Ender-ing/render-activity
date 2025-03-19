@@ -44,7 +44,7 @@ elif [ "$1" == "release" ]; then
         -d "{
             "ref": "main",
             "inputs": {
-                "release_id": $release_id
+                "release_id": "$release_id"
             }
         }")
     # Check if the workflow was triggered successfully!

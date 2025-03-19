@@ -44,7 +44,7 @@ elif [ "$1" == "release" ]; then
         -X POST \
         -H "Authorization: Bearer $GITHUB_TOKEN" \
         -H "Accept: application/vnd.github+json" \
-        -H "X-GitHub-Api-Version: 2022-11-28"
+        -H "X-GitHub-Api-Version: 2022-11-28" \
         https://api.github.com/repos/Ender-ing/$repo/actions/workflows/release_assets.yml/dispatches \
         -d "{
             \"ref\": \"main\",

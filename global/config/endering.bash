@@ -26,6 +26,7 @@ function cloudflare_response() {
         error_message=$(echo "$response" | grep -o '"message":".*"' | sed 's/"message"://;s/"//g')
         echo "$response"
         echo "Request failed! Error: $error_message"
+        exit 1
     fi
 }
 
@@ -154,6 +155,7 @@ elif [ "$1" == "full" ]; then
     $cmd_server cache
 else
     echo "Invalid command! Use the command '(endering) help' to see valid commands."
+    exit 1
 fi
 
 

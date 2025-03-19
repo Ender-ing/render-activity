@@ -24,8 +24,11 @@ elif [ "$1" == "release" ]; then
         exit 1
     fi
     # Get release ID
-    release_id=$(curl -s \
-        -H "Authorization: Bearer $GITHUB_TOKEN" https://api.github.com/repos/Ender-ing/$repo/releases | \
+    release_id=$(curl -L \
+        -H "Accept: application/vnd.github+json" \
+        -H "X-GitHub-Api-Version: 2022-11-28" \
+        -H "Authorization: Bearer $GITHUB_TOKEN" \
+        https://api.github.com/repos/Ender-ing/$repo/releases | \
             sed -n '/"assets_url"/,/"draft": true/p' | \
             grep '"id":' | \
             head -n 1 | \
@@ -37,18 +40,20 @@ elif [ "$1" == "release" ]; then
         exit 1
     fi
     # Trigger the workflow!
-    result=$(curl -X POST \
+    result=$(curl -L \
+        -X POST \
         -H "Authorization: Bearer $GITHUB_TOKEN" \
-        -H "Accept: application/vnd.github.v3+json" \
-        -H "Content-Type: application/json" https://api.github.com/repos/Ender-ing/$repo/actions/workflows/release_assets.yml/dispatches \
+        -H "Accept: application/vnd.github+json" \
+        -H "X-GitHub-Api-Version: 2022-11-28"
+        https://api.github.com/repos/Ender-ing/$repo/actions/workflows/release_assets.yml/dispatches \
         -d "{
-            "ref": "main",
-            "inputs": {
-                "release_id": "$release_id"
+            \"ref\": \"main\",
+            \"inputs\": {
+                \"release_id\": \"$release_id\"
             }
         }")
     # Check if the workflow was triggered successfully!
-    good_status=$(echo $result | grep '"status": "20[0-2]"')
+    good_status=$(echo $result | grep '"status": "20[0-4]"')
     good_status_length=${#good_status}
     if [ $good_status_length -lt 15 ]; then
         echo $result

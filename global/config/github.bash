@@ -55,7 +55,7 @@ elif [ "$1" == "release" ]; then
     # Check if the workflow was triggered successfully!
     good_status=$(echo $result | grep '"status": "20[0-4]"')
     good_status_length=${#good_status}
-    if [ $good_status_length -lt 15 ]; then
+    if [ $good_status_length -lt 1 ]; then
         echo $result
         echo "Couldn't trigger the GitHub release workflow!"
         exit 1

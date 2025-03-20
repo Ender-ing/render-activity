@@ -14,57 +14,59 @@ if [ "$1" == "help" ]; then
     echo -e "\n"
     echo "(Do not spam these commands!)"
 elif [ "$1" == "release" ]; then
-    # If you want to support the use of this command, you must create a "release_assets.yml" workflow to the repository!
-    # Said workflow should take in the numerical ID value of the release!
-    repo=$2
-    # Check for a repository name!
-    repo_length=${#repo}
-    if [ $repo_length -lt 1 ]; then
-        echo "Missing a valid repository name!"
-        exit 1
-    fi
-    # Get release JSON info
-    release=$(curl -L \
-        -H "Accept: application/vnd.github+json" \
-        -H "X-GitHub-Api-Version: 2022-11-28" \
-        -H "Authorization: Bearer $GITHUB_TOKEN" \
-        https://api.github.com/repos/Ender-ing/$repo/releases | echo)
-    # Get release ID
-    release_id=$(echo "$release" | \
-            sed -n '/"assets_url"/,/"draft": true/p' | \
-            grep '"id":' | \
-            tail -n 2 | \
-            head -n 1 | \
-            sed -E 's/.*"id": ([0-9]+).*/\1/')
-    # Check if the release ID is valid!
-    release_id_length=${#release_id}
-    if [ $release_id_length -lt 8 ]; then
-        echo "Couldn't find a valid release draft ID!"
-        exit 1
-    fi
-    # Trigger the workflow!
-    result=$(curl -L \
-        -X POST \
-        -H "Authorization: Bearer $GITHUB_TOKEN" \
-        -H "Accept: application/vnd.github+json" \
-        -H "X-GitHub-Api-Version: 2022-11-28" \
-        https://api.github.com/repos/Ender-ing/$repo/actions/workflows/release_assets.yml/dispatches \
-        -d "{
-            \"ref\": \"main\",
-            \"inputs\": {
-                \"release_id\": \"$release_id\"
-            }
-        }" | echo)
-    # Check if the workflow was triggered successfully!
-    good_status=$(echo "$result" | grep '"status": "20[0-4]"')
-    good_status_length=${#good_status}
-    if [ $good_status_length -gt 1 ]; then
-        echo "Success! Please wait for the GitHub workflow to finish running before publishing your release!"
-    else
-        echo "$result"
-        echo "Couldn't trigger the GitHub release workflow properly!"
-        exit 1
-    fi
+#    # If you want to support the use of this command, you must create a "release_assets.yml" workflow to the repository!
+#    # Said workflow should take in the numerical ID value of the release!
+#    repo=$2
+#    # Check for a repository name!
+#    repo_length=${#repo}
+#    if [ $repo_length -lt 1 ]; then
+#        echo "Missing a valid repository name!"
+#        exit 1
+#    fi
+#    # Get release JSON info
+#    release=$(curl -L \
+#        -H "Accept: application/vnd.github+json" \
+#        -H "X-GitHub-Api-Version: 2022-11-28" \
+#        -H "Authorization: Bearer $GITHUB_TOKEN" \
+#        https://api.github.com/repos/Ender-ing/$repo/releases | echo)
+#    # Get release ID
+#    release_id=$(echo "$release" | \
+#            sed -n '/"assets_url"/,/"draft": true/p' | \
+#            grep '"id":' | \
+#            tail -n 2 | \
+#            head -n 1 | \
+#            sed -E 's/.*"id": ([0-9]+).*/\1/')
+#    # Check if the release ID is valid!
+#    release_id_length=${#release_id}
+#    if [ $release_id_length -lt 8 ]; then
+#        echo "Couldn't find a valid release draft ID!"
+#        exit 1
+#    fi
+#    # Trigger the workflow!
+#    result=$(curl -L \
+#        -X POST \
+#        -H "Authorization: Bearer $GITHUB_TOKEN" \
+#        -H "Accept: application/vnd.github+json" \
+#        -H "X-GitHub-Api-Version: 2022-11-28" \
+#        https://api.github.com/repos/Ender-ing/$repo/actions/workflows/release_assets.yml/dispatches \
+#        -d "{
+#            \"ref\": \"main\",
+#            \"inputs\": {
+#                \"release_id\": \"$release_id\"
+#            }
+#        }" | echo)
+#    # Check if the workflow was triggered successfully!
+#    good_status=$(echo "$result" | grep '"status": "20[0-4]"')
+#    good_status_length=${#good_status}
+#    if [ $good_status_length -gt 1 ]; then
+#        echo "Success! Please wait for the GitHub workflow to finish running before publishing your release!"
+#    else
+#        echo "$result"
+#        echo "Couldn't trigger the GitHub release workflow properly!"
+#        exit 1
+#    fi
+    echo "COMMAND NOT READY!"
+    exit 1
 else
     echo "Invalid command! Use the command '(github) help' to see valid commands."
     exit 1

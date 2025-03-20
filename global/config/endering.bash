@@ -79,7 +79,7 @@ elif [ "$1" == "cache" ]; then
     r=$(curl -X POST "https://api.cloudflare.com/client/v4/zones/$CLOUDFLARE_ZONE/purge_cache" \
      -H "Authorization: Bearer $CLOUDFLARE_TOKEN" \
      -H "Content-Type: application/json" \
-     -d '{"purge_everything":true}')
+     -d '{"purge_everything":true}' | echo)
     # Check response
     cloudflare_response "$r" "Cache cleared successfully!"
 elif [ "$1" == "block" ]; then
@@ -97,7 +97,7 @@ elif [ "$1" == "block" ]; then
                     "enabled": true
                 }
             ]
-        }')
+        }' | echo)
     # Check response
     cloudflare_response "$r" "Global access block was successful!"
     # Clear cache
@@ -117,7 +117,7 @@ elif [ "$1" == "unblock" ]; then
                     "enabled": false
                 }
             ]
-        }')
+        }' | echo)
     # Check response
     cloudflare_response "$r" "Global access unblock was successful!"
     # Clear cache

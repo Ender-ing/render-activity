@@ -28,7 +28,7 @@ elif [ "$1" == "release" ]; then
         -H "Accept: application/vnd.github+json" \
         -H "X-GitHub-Api-Version: 2022-11-28" \
         -H "Authorization: Bearer $GITHUB_TOKEN" \
-        https://api.github.com/repos/Ender-ing/$repo/releases)
+        https://api.github.com/repos/Ender-ing/$repo/releases | echo)
     # Get release ID
     release_id=$(echo "$release" | \
             sed -n '/"assets_url"/,/"draft": true/p' | \
@@ -54,7 +54,7 @@ elif [ "$1" == "release" ]; then
             \"inputs\": {
                 \"release_id\": \"$release_id\"
             }
-        }")
+        }" | echo)
     # Check if the workflow was triggered successfully!
     good_status=$(echo "$result" | grep '"status": "20[0-4]"')
     good_status_length=${#good_status}

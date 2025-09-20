@@ -18,14 +18,11 @@ function cloudflare_response() {
     if [[ -z "$status_code" ]]; then
         $status_code=$(echo "$response" | grep -o '"success":[a-z]*' | awk -F ':' '{print $2}')
     fi
-    local error_message=""
 
     if [[ "$status_code" == "true" || "$status_code" == " true" ]]; then
         echo "$2"
     else
-        error_message=$(echo "$response" | grep -o '"message":".*"' | sed 's/"message"://;s/"//g')
-        echo "$response"
-        echo "Request failed! Error: $error_message"
+        echo -e "Request failed!\nDetails:\n$response"
         exit 1
     fi
 }
@@ -40,6 +37,7 @@ if [ "$1" == "help" ]; then
     printf "\t%-18s %s\n" "rollback" "Rollback local commits (USE CAREFULLY!)"
     printf "\t%-18s %s\n" "discard" "Discard local commits and changes (USE CAREFULLY!)"
     echo -e "\n (CloudFlare - ender.ing)"
+    printf "\t%-18s %s\n" "test" "Check cloudflare API connection"
     printf "\t%-18s %s\n" "cache" "Purge all CloudFlare cache"
     printf "\t%-18s %s\n" "block" "Block all requests"
     printf "\t%-18s %s\n" "unblock" "Undo block action"
@@ -74,6 +72,11 @@ elif [ "$1" == "rollback" ]; then
 elif [ "$1" == "discard" ]; then
     # Rollback local commits (discarding local changes)
     git reset --hard HEAD~1
+elif [ "$1" == "test" ]; then
+    # Check cloudflare API connection
+    r=$(curl "https://api.cloudflare.com/client/v4/accounts/553c2cace6bddaa6ec80148fe5335bb1/tokens/verify" \
+     -H "Authorization: Bearer $CLOUDFLARE_TOKEN" | echo)
+    echo $r;
 elif [ "$1" == "cache" ]; then
     # Purge all cloudflare cache (ender.ing)
     r=$(curl -X POST "https://api.cloudflare.com/client/v4/zones/$CLOUDFLARE_ZONE/purge_cache" \

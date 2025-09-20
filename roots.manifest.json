@@ -57,7 +57,7 @@
         "auto": true
     },
     "public_html": {
-        "hash": "d1aff6119931499e360f44688cfa465c3717b754d39fa3c856be9539a7ccb37d",
+        "hash": "b6c8b753d0a7d2fe8dc8c96ba31c8f4b74387cbff416ce9f7650a4cf6154ad76",
         "ignore": [],
         "github": {
             "projectName": "wrr-www"

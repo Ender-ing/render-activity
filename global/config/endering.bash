@@ -75,14 +75,14 @@ elif [ "$1" == "discard" ]; then
 elif [ "$1" == "test" ]; then
     # Check cloudflare API connection
     r=$(curl "https://api.cloudflare.com/client/v4/accounts/553c2cace6bddaa6ec80148fe5335bb1/tokens/verify" \
-     -H "Authorization: Bearer $CLOUDFLARE_TOKEN" | echo)
+     -H "Authorization: Bearer $CLOUDFLARE_TOKEN")
     echo $r;
 elif [ "$1" == "cache" ]; then
     # Purge all cloudflare cache (ender.ing)
     r=$(curl -X POST "https://api.cloudflare.com/client/v4/zones/$CLOUDFLARE_ZONE/purge_cache" \
      -H "Authorization: Bearer $CLOUDFLARE_TOKEN" \
      -H "Content-Type: application/json" \
-     -d '{"purge_everything":true}' | echo)
+     -d '{"purge_everything":true}')
     # Check response
     cloudflare_response "$r" "Cache cleared successfully!"
 elif [ "$1" == "block" ]; then
@@ -100,7 +100,7 @@ elif [ "$1" == "block" ]; then
                     "enabled": true
                 }
             ]
-        }' | echo)
+        }')
     # Check response
     cloudflare_response "$r" "Global access block was successful!"
     # Clear cache
@@ -120,7 +120,7 @@ elif [ "$1" == "unblock" ]; then
                     "enabled": false
                 }
             ]
-        }' | echo)
+        }')
     # Check response
     cloudflare_response "$r" "Global access unblock was successful!"
     # Clear cache

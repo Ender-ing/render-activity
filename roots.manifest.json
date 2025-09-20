@@ -21,32 +21,6 @@
         },
         "auto": true
     },
-    "account": {
-        "hash": "fae9e9c57c2f8fc309623fc66921ab291fe456b61b0f7aa45447a808b69cf758",
-        "ignore": [],
-        "github": {
-            "projectName": "wrr-account"
-        },
-        "version": {
-            "major": 0,
-            "minor": 2,
-            "patch": 0
-        },
-        "auto": true
-    },
-    "authority": {
-        "hash": "4740f2dde5d016c1dc9a27558d9b42faa85a1061e3e3d3cbd21b5764405d68bf",
-        "ignore": [],
-        "github": {
-            "projectName": "wrr-authority"
-        },
-        "version": {
-            "major": 0,
-            "minor": 2,
-            "patch": 0
-        },
-        "auto": true
-    },
     "docs": {
         "hash": "44c275e29653a288a15a5badcde3cd56dd9946fd0fd94ff34687f081c62c60df",
         "ignore": [],
@@ -69,50 +43,11 @@
         },
         "auto": true
     },
-    "frankie": {
-        "hash": "627ffcff4ce0342469533a820e338378b4e30788a91156f8bf47f72340a99c1c",
-        "ignore": [],
-        "github": {
-            "projectName": "wrr-frankie"
-        },
-        "version": {
-            "major": 0,
-            "minor": 1,
-            "patch": 0
-        },
-        "auto": true
-    },
-    "links": {
-        "hash": "f9f128082176dcd7322a0868ccbac7e83b2aba733a04aed1e1d44eadba8d8683",
-        "ignore": [],
-        "github": {
-            "projectName": "wrr-links"
-        },
-        "version": {
-            "major": 0,
-            "minor": 2,
-            "patch": 0
-        },
-        "auto": true
-    },
     "mta-sts": {
         "hash": "00409030b72e36e64281735d2ddde2ea88b4ec6f72bcf6de5be674e75c17fd46",
         "ignore": [],
         "github": {
             "projectName": "wrr-mta-sts"
-        },
-        "version": {
-            "major": 0,
-            "minor": 2,
-            "patch": 0
-        },
-        "auto": true
-    },
-    "omni": {
-        "hash": "6e9de74051dc2e5648ef9ea922803da8c2d097bd2c784f2afd4cfb7d566c133e",
-        "ignore": [],
-        "github": {
-            "projectName": "wrr-omni"
         },
         "version": {
             "major": 0,
@@ -147,19 +82,6 @@
                 "to": "%%/web/server/email/VARS/ENV.email.secret.php"
             }
         ],
-        "version": {
-            "major": 0,
-            "minor": 2,
-            "patch": 0
-        },
-        "auto": true
-    },
-    "sites": {
-        "hash": "7532974a779450f5396d6ebaa76ef708d3ef27d268cc9109752738973d7b86d4",
-        "ignore": [],
-        "github": {
-            "projectName": "wrr-sites"
-        },
         "version": {
             "major": 0,
             "minor": 2,

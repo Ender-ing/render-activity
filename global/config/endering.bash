@@ -74,12 +74,12 @@ elif [ "$1" == "discard" ]; then
     git reset --hard HEAD~1
 elif [ "$1" == "test" ]; then
     # Check cloudflare API connection
-    r=$(curl "https://api.cloudflare.com/client/v4/accounts/553c2cace6bddaa6ec80148fe5335bb1/tokens/verify" \
+    r=$(curl -s "https://api.cloudflare.com/client/v4/accounts/553c2cace6bddaa6ec80148fe5335bb1/tokens/verify" \
      -H "Authorization: Bearer $CLOUDFLARE_TOKEN")
     echo $r;
 elif [ "$1" == "cache" ]; then
     # Purge all cloudflare cache (ender.ing)
-    r=$(curl -X POST "https://api.cloudflare.com/client/v4/zones/$CLOUDFLARE_ZONE/purge_cache" \
+    r=$(curl -s -X POST "https://api.cloudflare.com/client/v4/zones/$CLOUDFLARE_ZONE/purge_cache" \
      -H "Authorization: Bearer $CLOUDFLARE_TOKEN" \
      -H "Content-Type: application/json" \
      -d '{"purge_everything":true}')
@@ -87,7 +87,7 @@ elif [ "$1" == "cache" ]; then
     cloudflare_response "$r" "Cache cleared successfully!"
 elif [ "$1" == "block" ]; then
     # Block all cloudflare access (ender.ing)
-    r=$(curl -X PUT "https://api.cloudflare.com/client/v4/zones/$CLOUDFLARE_ZONE/rulesets/$CLOUDFLARE_RULESET" \
+    r=$(curl -s -X PUT "https://api.cloudflare.com/client/v4/zones/$CLOUDFLARE_ZONE/rulesets/$CLOUDFLARE_RULESET" \
      -H "Authorization: Bearer $CLOUDFLARE_TOKEN" \
      -H "Content-Type: application/json" \
      -d '{
@@ -107,7 +107,7 @@ elif [ "$1" == "block" ]; then
     $cmd_server cache
 elif [ "$1" == "unblock" ]; then
     # Block all cloudflare access (ender.ing)
-    r=$(curl -X PUT "https://api.cloudflare.com/client/v4/zones/$CLOUDFLARE_ZONE/rulesets/$CLOUDFLARE_RULESET" \
+    r=$(curl -s -X PUT "https://api.cloudflare.com/client/v4/zones/$CLOUDFLARE_ZONE/rulesets/$CLOUDFLARE_RULESET" \
      -H "Authorization: Bearer $CLOUDFLARE_TOKEN" \
      -H "Content-Type: application/json" \
      -d '{

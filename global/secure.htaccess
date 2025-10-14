@@ -167,7 +167,7 @@ RewriteRule \.(mp4|mov|webm|avi|flv|wmv|mp3|wav|ogg|jpg|jpeg|png|gif|pdf|doc|doc
     otp-credentials=(), \
     payment=(), \
     microphone=(), \
-    picture-in-picture=(), \
+    picture-in-picture=(self src \"https://resources.ender.ing\"), \
     midi=(), \
     bluetooth=(), \
     display-capture=(), \

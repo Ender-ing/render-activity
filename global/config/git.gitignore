@@ -48,3 +48,6 @@ pki-validation
 **_log
 **.custom_log
 **.custom_record
+
+# Ignore Natsu's stuff
+natsu
